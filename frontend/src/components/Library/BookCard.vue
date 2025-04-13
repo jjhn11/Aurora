@@ -5,7 +5,7 @@
 </style>
 <template>
     <div class="book-card">
-      <RouterLink to="/library/book" class="book-link">
+      <RouterLink :to="`/library/book/${id}`" class="book-link">
         <div class="book-cover">
             <img :src="coverImage" :alt="title" class="book-image" />
         </div>
@@ -50,25 +50,31 @@
 }
 </style>
 
-  <script>
-  export default {
-    name: 'BookCard',
-    props: {
-      coverImage: {
-        type: String,
-        required: true,
-        default: 'https://t4.ftcdn.net/jpg/01/15/20/75/360_F_115207580_US2etunH78I7iMYHOoNVvxQTCIdoPdRj.jpg'
-      },
-      title: {
-        type: String,
-        required: true,
-        default: 'Título desconocido'
-      },
-      description: {
-        type: String,
-        required: false,
-        default: ''
-      }
-    }
+ <script setup>
+defineProps({
+  id: {
+    type: String,
+    required: true
+  },
+  coverImage: {
+    type: String,
+    required: true,
+    default: 'https://t4.ftcdn.net/jpg/01/15/20/75/360_F_115207580_US2etunH78I7iMYHOoNVvxQTCIdoPdRj.jpg'
+  },
+  title: {
+    type: String,
+    required: true,
+    default: 'Título desconocido'
+  },
+  description: {
+    type: String,
+    required: false,
+    default: ''
+  },
+  author: {
+    type: String,
+    required: false,
+    default: ''
   }
-  </script>
+});
+</script>

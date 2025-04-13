@@ -1,106 +1,127 @@
-<script>
-    import BookCard from './BookCard.vue';
-    export default {
-    components: { BookCard },
-    data() {
-        return {
-        activeSlide: 0,
-        totalSlides: 3 // <-- cambia este número si tienes más slides
-        };
-    },
-    mounted() {
-        const carousel = document.querySelector('#carrusel2');
-        carousel.addEventListener('slid.bs.carousel', (e) => {
-        this.activeSlide = e.to;
-        });
-    }
-    }
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useStore } from 'vuex';
+import BookCard from './BookCard.vue';
+
+// Setup reactive state
+const activeSlide = ref(0);
+const totalSlides = ref(3);
+const store = useStore();
+
+// Get popular books from store
+const books = store.state.books?.popularBooks;
+
+// Setup carousel event handling
+onMounted(() => {
+  const carousel = document.querySelector('#carrusel2');
+  if (carousel) {
+    carousel.addEventListener('slid.bs.carousel', (e) => {
+      activeSlide.value = e.to;
+    });
+  }
+});
 </script>
+
 <template>
-    <div class="contenedor-carrusel container-fluid d-flex justify-content-center">
-        <button class="btn btn-link carousel-control-prev-bottom" type="button" data-bs-target="#carrusel2" data-bs-slide="prev">
-            <i class="bi bi-chevron-left fs-4"></i>
-        </button>
-        <div id="carrusel2" class="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <BookCard
-                               cover-image="src\assets\img\library\LibroBigData.png"
-                               title="Big data: La Revolución de los Datos Masivos"
-                               description="Computación"/>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                                <BookCard
-                                cover-image="src\assets\img\library\LibroFisicoquimica.png"
-                                title="Fisicoquimica"
-                                description="Fisicoquimica"/>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <BookCard
-                                cover-image="src\assets\img\library\LibroMarxismo.jpg"
-                                title="Ciencias Sociales y Marxismo"
-                                description="Ciencias sociales"/>
-                        </div>
+  <div class="contenedor-carrusel container-fluid d-flex justify-content-center">
+    <button class="btn btn-link carousel-control-prev-bottom" type="button" data-bs-target="#carrusel2" data-bs-slide="prev">
+      <i class="bi bi-chevron-left fs-4"></i>
+    </button>
+    <div id="carrusel2" class="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <BookCard
+                            :id="books[0].ISBN"
+                            :cover-image="books[0].coverImage"
+                            :title="books[0].Title"
+                            :description="books[0].category"
+                        />
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <BookCard
+                            :id="books[1].ISBN"
+                            :cover-image="books[1].coverImage"
+                            :title="books[1].Title"
+                            :description="books[1].category"
+                        />
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <BookCard
+                            :id="books[2].ISBN"
+                            :cover-image="books[2].coverImage"
+                            :title="books[2].Title"
+                            :description="books[2].category"
+                        />
                     </div>
                 </div>
-                <div class="carousel-item">
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <BookCard
-                               cover-image="src\assets\img\library\LibroPsicologia.jpg"
-                               title="Psicología social"
-                               description="Psicología"/>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <BookCard
-                               cover-image="src\assets\img\library\LibroBigData.png"
-                               title="Big data: La Revolución de los Datos Masivos"
-                               description="Computación"/>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <BookCard
-                               cover-image="src\assets\img\library\LibroBigData.png"
-                               title="Big data: La Revolución de los Datos Masivos"
-                               description="Computación"/>
-                        </div>
+            </div>
+            <div class="carousel-item">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <BookCard
+                            :id="books[3].ISBN"
+                            :cover-image="books[3].coverImage"
+                            :title="books[3].Title"
+                            :description="books[3].category"
+                        />
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <BookCard
+                            :id="books[4].ISBN"
+                            :cover-image="books[4].coverImage"
+                            :title="books[4].Title"
+                            :description="books[4].category"
+                        />
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <BookCard
+                            :id="books[5].ISBN"
+                            :cover-image="books[5].coverImage"
+                            :title="books[5].Title"
+                            :description="books[5].category"
+                        />
                     </div>
                 </div>
-                <div class="carousel-item">
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <BookCard
-                               cover-image="src\assets\img\library\LibroBigData.png"
-                               title="Big data: La Revolución de los Datos Masivos"
-                               description="Computación"/>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <BookCard
-                               cover-image="src\assets\img\library\LibroBigData.png"
-                               title="Big data: La Revolución de los Datos Masivos"
-                               description="Computación"/>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <BookCard
-                               cover-image="src\assets\img\library\LibroBigData.png"
-                               title="Big data: La Revolución de los Datos Masivos"
-                               description="Computación"/>
-                        </div>
+            </div>
+            <div class="carousel-item">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <BookCard
+                            :id="books[6].ISBN"
+                            :cover-image="books[6].coverImage"
+                            :title="books[6].Title"
+                            :description="books[6].category"
+                        />
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <BookCard
+                            :id="books[7].ISBN"
+                            :cover-image="books[7].coverImage"
+                            :title="books[7].Title"
+                            :description="books[7].category"
+                        />
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <BookCard
+                            :id="books[8].ISBN"
+                            :cover-image="books[8].coverImage"
+                            :title="books[8].Title"
+                            :description="books[8].category"
+                        />
                     </div>
                 </div>
             </div>
         </div>
-        <button class="btn btn-link carousel-control-next-bottom" type="button" data-bs-target="#carrusel2" data-bs-slide="next">
-            <i class="bi bi-chevron-right fs-4"></i>
-        </button>
     </div>
-    <div class="custom-slider-bar">
-        <div class="custom-slider-thumb" :style="{ left: `${(activeSlide / (totalSlides - 1)) * 100}%` }"></div>
-    </div>
-
-
-
+    <button class="btn btn-link carousel-control-next-bottom" type="button" data-bs-target="#carrusel2" data-bs-slide="next">
+      <i class="bi bi-chevron-right fs-4"></i>
+    </button>
+  </div>
+  <div class="custom-slider-bar">
+    <div class="custom-slider-thumb" :style="{ left: `${(activeSlide / (totalSlides - 1)) * 100}%` }"></div>
+  </div>
 </template>
 
 <style scoped>
@@ -127,28 +148,28 @@
 }
 
 .contenedor-carrusel {
-    width: 83%;
+  width: 83%;
 }
 
 .carousel {
-    position: relative;
-    padding-bottom: 30px;
+  position: relative;
+  padding-bottom: 30px;
 }
+
 .carousel-item {
-    margin: 0 auto;
-    padding: 20px 10px;
+  margin: 0 auto;
+  padding: 20px 10px;
 }
 
 .carousel-item .row {
-    flex-wrap: nowrap;
-    max-width: 1600px;
-    justify-content: center;
-    margin: 15 auto;
+  flex-wrap: nowrap;
+  max-width: 1600px;
+  justify-content: center;
+  margin: 15px auto;
 }
 
 .carousel-control-prev,
 .carousel-control-next {
-    display: none;
+  display: none;
 }
-
 </style>

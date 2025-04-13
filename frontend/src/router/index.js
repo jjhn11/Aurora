@@ -36,9 +36,10 @@ const routes = [
     component: ProfileView,
   },
   {
-    path: '/library/book',
+    path: '/library/book/:id',
     name: 'library-book',
     component: BookView,
+    props: true,
   }
 ]
 
