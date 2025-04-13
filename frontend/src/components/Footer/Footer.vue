@@ -1,6 +1,7 @@
 <template>
   <footer class="footer">
-    <img v-if="isHomePage" src="@/assets/img/footer/tec-map.png" alt="Mapa del TecNM" class="img-fluid">
+    <!-- <img v-if="isHomePage" src="@/assets/img/footer/tec-map.png" alt="Mapa del TecNM" class="img-fluid"> -->
+    <FooterMap v-if="isHomePage"/>
     <div class="footer__main">
       <div class="footer__container">
         <div class="footer__row">
@@ -18,6 +19,7 @@
 <script setup>
 import { computed} from "vue";
 import { useRoute } from "vue-router";
+import FooterMap from "./FooterMap.vue";
 import FooterLogo from "./FooterLogo.vue";
 import FooterNavigation from "./FooterNavigation.vue";
 import FooterContact from "./FooterContact.vue";
