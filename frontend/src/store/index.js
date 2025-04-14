@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
-import booksModule from './booksModule'
+import booksModule from './modules/books'
+import userModule from './modules/user'
 
 const travel = (path) => {
   const url = new URL(axios.defaults.baseURL + path);
@@ -60,5 +61,6 @@ export default createStore({
   },
   modules: {
     books: booksModule,
+    user: userModule,
   }
 })
