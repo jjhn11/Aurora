@@ -1,15 +1,82 @@
 const express = require('express');
 const cors = require('cors');
+const passport = require('passport');
+const session = require('express-session');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const mysql = require('mysql2/promise');
+const open = (...args) => import('open').then(m => m.default(...args));
+
 require('dotenv').config();
 
 // Create express app
 const app = express();
+
 const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: process.env.GOOGLE_CALLBACK_URL
+}, (accessToken, refreshToken, profile, done) => {
+  const email = profile.emails[0].value;
+  const domain = email.split('@')[1];
+  if (domain === process.env.ALLOWED_DOMAIN) {
+    return done(null, profile);
+  } else {
+    return done(null, false, { message: 'Dominio no permitido' });
+  }
+}));
+
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+passport.deserializeUser((obj, done) => {
+  done(null, obj);
+});
+
+app.get('/auth/google',
+    passport.authenticate('google', {
+      scope: ['profile', 'email'],
+      prompt: 'select_account'  
+    })
+  );
+
+  app.get('/auth/failure', (req, res) => {
+    res.status(403).json({ error: 'Acceso denegado. Dominio no permitido.' });
+  });
+  
+  app.get(
+    '/auth/google/callback',
+    passport.authenticate('google', { failureRedirect: '/auth/failure' }),
+    (req, res) => {
+      const user = req.user;
+      const filteredUser = {
+        name: user.displayName,
+        email: user.emails[0].value,
+        id: user.id 
+      };
+      res.json(filteredUser);
+    }
+  );
+  
+
+  app.get('/', (req, res) => {
+    res.redirect('/auth/google');
+  });
+  
 
 // Database connection pool
 const pool = mysql.createPool({
@@ -124,14 +191,21 @@ app.delete('/api/tasks/:id', async (req, res) => {
   }
 });
 
+
 // Start server after ensuring database connection
 async function startServer() {
   console.log('Starting server initialization...');
-  
-  // Start Express listener first, but don't announce ready until DB is connected
-  const server = app.listen(PORT, () => {
+
+  const server = app.listen(PORT, '0.0.0.0', async () => {
     console.log(`Server process running on port ${PORT}, waiting for database...`);
+    if (process.env.NODE_ENV !== 'production') {
+      await open(`http://localhost:${PORT}`);
+    }
   });
+  
+
+//Si activas la base de datos, puedes hacer el retry aquí como antes
+
   
   // Try to connect to database
   const connected = await connectWithRetry();
@@ -145,6 +219,8 @@ async function startServer() {
   
   console.log(`Server fully initialized and ready for connections on port ${PORT}`);
 }
+
+
 
 // Initialize the server with better error handling
 console.log('Initializing application...');
