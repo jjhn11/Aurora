@@ -5,6 +5,7 @@ import CommunityView from '@/views/CommunityView.vue'
 import ProfileView from '@/views/User/ProfileView.vue'
 import LibraryView from '@/views/Library/LibraryView.vue'
 import BookView from '@/views/Library/BookView.vue'
+import FavoritesView from '@/views/User/FavoritesView.vue'
 
 const routes = [
   {
@@ -30,15 +31,24 @@ const routes = [
     name: 'community',
     component: CommunityView,
   },
+
   {
     path: '/user/profile',
     name: 'profile',
     component: ProfileView,
   },
+
   {
-    path: '/library/book',
+    path: '/user/favorites',
+    name: 'favorites',
+    component: FavoritesView,
+  },
+
+  {
+    path: '/library/book/:id',
     name: 'library-book',
     component: BookView,
+    props: true,
   }
 ]
 

@@ -577,14 +577,14 @@
               <div class="row">
 
                 <div class="col-9 mb-2 ps-5 ms-5">
-                  <button class="button-container btn" type="button">
+                  <RouterLink to="/user/favorites" class="button-container btn" type="button">
 
                     <i class="button-ac-icon fa-solid fa-heart"></i>
                     <span class="button-ac-text">
                       FAVORITOS
                     </span>
 
-                  </button>
+                  </RouterLink>
                 </div>
 
               </div>
