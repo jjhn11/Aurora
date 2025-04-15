@@ -5,8 +5,16 @@ const session = require('express-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const mysql = require('mysql2/promise');
 const open = (...args) => import('open').then(m => m.default(...args));
-
 require('dotenv').config();
+
+
+const checkAuth = (req, res, next) => {
+  if (req.isAuthenticated()) {
+      return next();
+  } 
+  return res.redirect('/auth/google');
+}
+
 
 // Create express app
 const app = express();
@@ -73,9 +81,28 @@ app.get('/auth/google',
   );
   
 
-  app.get('/', (req, res) => {
-    res.redirect('/auth/google');
+  app.get('/', checkAuth, (req, res) => {
+    res.json({ message: 'Tas loggeado tilin' });
   });
+
+  app.get('/auth/google/logout', (req, res) => {
+    // 1. Passport limpia su autenticación
+    req.logout((err) => {
+        if (err) return next(err);
+        
+        // 2. express-session limpia su sesión
+        req.session.destroy((err) => {
+            if (err) return next(err);
+            
+            // 3. Tú limpias lo que enviaste al cliente
+            res.clearCookie('connect.sid');
+            
+            console.log(`User ${req.user?.email} completely logged out. Must see "undefined".`);
+            res.redirect('/');
+        });
+    });
+});
+
   
 
 // Database connection pool
