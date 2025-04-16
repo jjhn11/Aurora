@@ -62,6 +62,10 @@
   export default {
     name: 'Card',
     props: {
+      id: {
+        type: String,
+        required: true
+      },
       image: {
         type: String,
         required: true,
