@@ -103,6 +103,33 @@ app.get('/auth/google',
     });
 });
 
+
+// Verificacion de status de sesion.
+
+ 
+app.get('/auth/status', (req, res) => { 
+  
+  // Verifica si el usuario está autenticado
+  
+  if (req.isAuthenticated() && req.user) { 
+    const user = { 
+      email: req.user.emails[0].value,
+      name: req.user.displayName,
+      photo: req.user.photos?.[0]?.value || null,
+      createdAt: req.user._json?.created_at || new Date().toISOString() 
+    };
+    return res.json({ 
+      isAuthenticated: true,
+      user
+    });
+  }
+
+  return res.json({
+    isAuthenticated: false,
+    user: null
+  });
+});
+
   
 
 // Database connection pool
