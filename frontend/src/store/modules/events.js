@@ -1,12 +1,12 @@
 import eventImage1 from '@/assets/img/events/cultural-event-1.jpg';
 import eventImage2 from '@/assets/img/events/cultural-event-2.jpg';
-import eventImage3 from '@/assets/img/events/cultural-event-3.jpg';
+import eventImage3 from '@/assets/img/events/cultural-event-2.jpg';
 import eventImage4 from '@/assets/img/events/sports-event-1.jpg';
 import eventImage5 from '@/assets/img/events/sports-event-2.jpg';
-import eventImage6 from '@/assets/img/events/sports-event-3.jpg';
+import eventImage6 from '@/assets/img/events/sports-event-2.jpg';
 import eventImage7 from '@/assets/img/events/school-event-1.jpg';
-import eventImage8 from '@/assets/img/events/school-event-2.jpg';
-import eventImage9 from '@/assets/img/events/school-event-3.jpg';
+import eventImage8 from '@/assets/img/events/school-event-1.jpg';
+import eventImage9 from '@/assets/img/events/school-event-1.jpg';
 
 export default {
   namespaced: true,
@@ -14,146 +14,78 @@ export default {
     events: [
       {
         id: 1,
-        title: "Book Discussion",
+        title: "Conversatorio del Libro",
         date: "2025-04-15",
-        time: "17:00",
-        location: "Biblioteca Central",
-        description: "Pachuca invites the entire TECNM Community and the general public to follow the book discussion on 'How Man Became a Giant'.",
-        longDescription: "Join us for an engaging discussion about the fascinating book 'How Man Became a Giant'. This event will explore the key themes, characters, and philosophical questions raised by the author. Our panel of experts will guide the conversation and invite audience participation. Light refreshments will be served after the discussion.",
+        description: "Pachuca invita a toda la Comunidad TECNM y al público en general a seguir el conversatorio del libro 'Cómo el Hombre llegó a ser Gigante'.",
         image: eventImage1,
-        category: "Cultural",
-        organizer: "Department of Cultural Affairs",
-        capacity: 120,
-        registrationRequired: true,
-        registrationLink: "https://example.com/register/event1",
-        status: "Upcoming"
+        category: "Cultural"
       },
       {
         id: 2,
-        title: "National Meeting",
+        title: "Encuentro Nacional",
         date: "2025-04-11",
-        time: "09:00",
-        location: "Auditorio Principal",
-        description: "An event aimed at strengthening innovation and research work in the dairy sector through knowledge exchange.",
-        longDescription: "The National Meeting for Dairy Innovation brings together researchers, industry professionals, and students to share the latest advancements in dairy science and technology. The event will feature keynote speakers, panel discussions, and networking opportunities. This is a unique opportunity to learn about cutting-edge research and establish valuable connections in the dairy sector.",
+        description: "Con el objetivo de fortalecer los trabajos de innovación e investigación, en el sector lechero, mediante el intercambio de saberes.",
         image: eventImage2,
-        category: "Cultural",
-        organizer: "Faculty of Agricultural Sciences",
-        capacity: 250,
-        registrationRequired: true,
-        registrationLink: "https://example.com/register/event2",
-        status: "Upcoming"
+        category: "Cultural"
       },
       {
         id: 3,
-        title: "INE Visit",
+        title: "Visita por parte del INE",
         date: "2025-04-15",
-        time: "11:30",
-        location: "Sala de Conferencias A",
-        description: "We welcomed Lic. Efraín Morales de la Cruz, Executive Vocal of District Board 01 of the INE in Baja California, and Lic. Nancy Robledo Torres.",
-        longDescription: "The Instituto Nacional Electoral (INE) representatives will provide an informative session about the electoral process, voter registration, and the importance of civic participation. Students will have the opportunity to ask questions and engage in a dialogue about democracy and electoral systems in Mexico. This event is part of our commitment to promoting civic education and active citizenship.",
+        description: "Recibimos al Lic. Efraín Morales de la Cruz, Vocal Ejecutivo de la 01 Junta Distrital del INE en Baja California, y a la Lic. Nancy Robledo Torres.",
         image: eventImage3,
-        category: "Cultural",
-        organizer: "Department of Social Sciences",
-        capacity: 80,
-        registrationRequired: false,
-        status: "Upcoming"
+        category: "Cultural"
       },
       {
         id: 4,
-        title: "Volleyball Team Participation",
+        title: "Participación Equipo Voleibol",
         date: "2025-03-15",
-        time: "14:00",
-        location: "Gimnasio Universitario",
-        description: "Last Saturday, March 15, our women's volleyball team proudly represented the Instituto Tecnológico de Mexicali.",
-        longDescription: "Our women's volleyball team competed in the regional championship, facing teams from various universities across the state. The tournament showcased incredible talent and sportsmanship from all participants. Come support our team and witness the culmination of months of training and dedication. The event will feature matches throughout the day, with the finals scheduled for the evening.",
+        description: "El pasado sábado 15 de marzo, nuestro equipo de voleibol femenil representó con orgullo al Instituto Tecnológico de Mexicali.",
         image: eventImage4,
-        category: "Sports",
-        organizer: "Sports Department",
-        capacity: 300,
-        registrationRequired: false,
-        status: "Past"
+        category: "Deportivo"
       },
       {
         id: 5,
-        title: "ITM Anniversary Run",
+        title: "Carrera de Aniversario ITM",
         date: "2025-04-15",
-        time: "07:00",
-        location: "Campus Principal",
-        description: "Students, faculty, and runners participated yesterday in the 31st edition of the Anniversary Run of the Instituto Tecnológico de Mexicali.",
-        longDescription: "Join us for the 31st Annual Anniversary Run of the Instituto Tecnológico de Mexicali! This traditional 5K run celebrates our institution's founding and brings together students, faculty, alumni, and the wider community. Participants will receive a commemorative t-shirt, and prizes will be awarded to the top finishers in various categories. Registration is open to all ages and fitness levels.",
+        description: "Estudiantes, docentes y corredores participaron ayer en la edición 31 de la carrera de Aniversario del Instituto Tecnológico de Mexicali.",
         image: eventImage5,
-        category: "Sports",
-        organizer: "Anniversary Committee & Sports Department",
-        capacity: 500,
-        registrationRequired: true,
-        registrationLink: "https://example.com/register/event5",
-        status: "Upcoming"
+        category: "Deportivo"
       },
       {
         id: 6,
-        title: "Softball Team Tryouts",
+        title: "Equipo de Softball",
         date: "2025-04-15",
-        time: "15:30",
-        location: "Campo Deportivo Sur",
-        description: "Good afternoon, Búfalos. We invite you to join the softball team for those interested.",
-        longDescription: "The Instituto Tecnológico de Mexicali softball team is looking for new talent! If you're interested in joining our championship team, come to the tryouts at the South Sports Field. All skill levels are welcome, and our experienced coaches will evaluate your abilities in batting, fielding, throwing, and base running. This is a great opportunity to represent our institution in regional and national competitions while developing your athletic skills.",
+        description: "Buenas tardes Búfalos, los invitamos a unirse al equipo de softball, por quien esté interesado.",
         image: eventImage6,
-        category: "Sports",
-        organizer: "Sports Department",
-        capacity: 50,
-        registrationRequired: true,
-        registrationLink: "https://example.com/register/event6",
-        status: "Upcoming"
+        category: "Deportivo"
       },
       {
         id: 7,
-        title: "Logical Dialectics Conference",
+        title: "Conferencia 'Lógica Dialéctica'",
         date: "2025-04-15",
-        time: "10:00",
-        location: "Auditorio Magna",
-        description: "We extend an invitation to the 'Logical Dialectics' Conference, which will be given by the Director General of the National Technological Institute of Mexico, Ramón Jiménez López.",
-        longDescription: "Don't miss this exceptional opportunity to attend the 'Logical Dialectics' Conference presented by Ramón Jiménez López, Director General of the National Technological Institute of Mexico. The conference will explore the principles of logical reasoning, critical thinking, and their applications in scientific research and technological innovation. This event is essential for students and faculty interested in the philosophical foundations of scientific thought.",
+        description: "Extendemos una invitación a la Conferencia 'Lógica Dialéctica', que impartirá el Dir. General del Tecnológico Nacional de México, Ramón Jiménez López.",
         image: eventImage7,
-        category: "School",
-        organizer: "Office of the Director",
-        capacity: 400,
-        registrationRequired: true,
-        registrationLink: "https://example.com/register/event7",
-        status: "Upcoming"
+        category: "Escolar"
       },
       {
         id: 8,
-        title: "Job Fair",
+        title: "FERIA DEL EMPLEO",
         date: "2025-05-13",
-        time: "09:00",
-        location: "Centro de Convenciones",
-        description: "May 13, 2025: Entrepreneurs, the student community, alumni, teachers, and the public are invited to participate.",
-        longDescription: "The annual Job Fair brings together employers from various industries looking to recruit talented students and graduates. This event provides an excellent opportunity to explore career options, submit resumes, participate in on-site interviews, and network with industry professionals. Companies will have booths where they'll share information about job openings, internships, and professional development programs. Don't forget to bring multiple copies of your resume!",
+        description: "13 DE MAYO 2025: Se invita a empresarios, comunidad estudiantil, egresados, maestros y público en general a participar.",
         image: eventImage8,
-        category: "School",
-        organizer: "Career Services Center",
-        capacity: 1000,
-        registrationRequired: false,
-        status: "Upcoming"
+        category: "Escolar"
       },
       {
         id: 9,
-        title: "Professional Residency Talk",
+        title: "Plática Residencia Profesional",
         date: "2025-04-15",
-        time: "12:00",
-        location: "Sala de Usos Múltiples",
-        description: "Elizabeth Mora delivered an engaging talk aimed at students who are expected to graduate between December 2025 and June 2026.",
-        longDescription: "Professional residency is a crucial step in your academic journey, providing real-world experience in your field of study. In this informative session, Elizabeth Mora will explain the process for securing a residency position, share tips for making the most of this opportunity, and answer common questions about the experience. This talk is especially important for students planning to graduate between December 2025 and June 2026, as you'll need to complete your residency before graduation.",
+        description: "Elizabeth Mora, impartió una valiosa plática, dirigida a los y las estudiantes que potencialmente egresarán entre diciembre de 2025 y junio de 2026.",
         image: eventImage9,
-        category: "School",
-        organizer: "Academic Affairs Office",
-        capacity: 150,
-        registrationRequired: false,
-        status: "Upcoming"
+        category: "Escolar"
       }
     ],
-    eventCategories: ["All", "Cultural", "Sports", "School"],
+    eventCategories: ["Todos", "Cultural", "Deportivo", "Escolar"],
     loading: {
       allEvents: false,
       eventDetails: false,
@@ -164,7 +96,7 @@ export default {
       eventDetails: null,
       categoryEvents: null
     },
-    currentCategory: "All"
+    currentCategory: "Todos"
   },
 
   getters: {
@@ -186,7 +118,7 @@ export default {
     
     // Get events by category
     getEventsByCategory: (state) => (category) => {
-      if (category === "All") {
+      if (category === "Todos") {
         return state.events;
       }
       return state.events.filter(event => event.category === category);
@@ -293,9 +225,9 @@ export default {
             commit('SET_LOADING', { type: 'eventDetails', value: false });
             resolve(event);
           } else {
-            commit('SET_ERROR', { type: 'eventDetails', value: 'Event not found' });
+            commit('SET_ERROR', { type: 'eventDetails', value: 'Evento no encontrado' });
             commit('SET_LOADING', { type: 'eventDetails', value: false });
-            reject(new Error('Event not found'));
+            reject(new Error('Evento no encontrado'));
           }
         }, 500);
       });
@@ -325,9 +257,8 @@ export default {
         setTimeout(() => {
           // Generate a new ID (in a real app, the backend would do this)
           const newEvent = {
-            id: Date.now(), // Use timestamp as a simple ID
-            ...eventData,
-            status: 'Upcoming'
+            id: Math.max(...this.state.events.map(e => e.id)) + 1,
+            ...eventData
           };
           
           commit('ADD_EVENT', newEvent);
