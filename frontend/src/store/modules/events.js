@@ -1,12 +1,12 @@
 import eventImage1 from '@/assets/img/events/cultural-event-1.jpg';
 import eventImage2 from '@/assets/img/events/cultural-event-2.jpg';
-import eventImage3 from '@/assets/img/events/cultural-event-3.jpg';
+import eventImage3 from '@/assets/img/events/cultural-event-2.jpg';
 import eventImage4 from '@/assets/img/events/sports-event-1.jpg';
 import eventImage5 from '@/assets/img/events/sports-event-2.jpg';
-import eventImage6 from '@/assets/img/events/sports-event-3.jpg';
+import eventImage6 from '@/assets/img/events/sports-event-2.jpg';
 import eventImage7 from '@/assets/img/events/school-event-1.jpg';
-import eventImage8 from '@/assets/img/events/school-event-2.jpg';
-import eventImage9 from '@/assets/img/events/school-event-3.jpg';
+import eventImage8 from '@/assets/img/events/school-event-1.jpg';
+import eventImage9 from '@/assets/img/events/school-event-1.jpg';
 
 export default {
   namespaced: true,

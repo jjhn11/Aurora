@@ -1,27 +1,27 @@
-<script>
-    import Card from './Card.vue';
-    export default {
-    components: { Card },
-    props: {
-        showSlider: {
-        type: Boolean,
-        default: false // visible nono
-        }
-    },
-    data() {
-        return {
-        activeSlide: 0,
-        totalSlides: 3 // <-- cambia este número si tienes más slides
-        };
-    },
-    mounted() {
-        const carousel = document.querySelector('#carrusel2');
-        carousel.addEventListener('slid.bs.carousel', (e) => {
-        this.activeSlide = e.to;
-        });
-    }
-    }
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useStore } from 'vuex';
+import Card from './Card.vue';
+
+// Setup reactive state
+const activeSlide = ref(0);
+const totalSlides = ref(3);
+const store = useStore();
+
+// Get popular books from store
+const events = store.state.events?.events;
+
+// Setup carousel events handling
+onMounted(() => {
+  const carousel = document.querySelector('#carrusel2');
+  if (carousel) {
+    carousel.addeventsListener('slid.bs.carousel', (e) => {
+      activeSlide.value = e.to;
+    });
+  }
+});
 </script>
+
 <template>
     <div class="contenedor-carrusel container-fluid d-flex justify-content-center">
         <button class="btn btn-link carousel-control-prev-bottom" type="button" data-bs-target="#carrusel2" data-bs-slide="prev">
@@ -33,43 +33,27 @@
                     <div class="row justify-content-center">
                         <div class="col-12 col-sm-6 col-md-4">
                             <Card
-                               image="src\assets\img\events\img3.png"
-                               title="Honores a la bandera"
-                               description="Estudiantes, docentes y personal administrativo del TecNM campus Mexicali, rindieron los Honores a la Bandera Nacional."/>
+                               :id="events[3].id"
+                               :image="events[3].image"
+                               :title="events[3].title"
+                               :description="events[3].description"
+                               />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4">
                                 <Card
-                                image="src\assets\img\events\img2.png"
-                                title="Titulación Ing. Sistemas"
-                                description="Los alumnos de la carrera Ing. Sistemas Computacionales se graduaron con titulo."/>
+                                :id="events[4].id"
+                                :image="events[4].image"
+                                :title="events[4].title"
+                                :description="events[4].description"
+                               />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4">
                             <Card
-                                image="src\assets\img\events\img2.png"
-                                title="Creación de un NODESS"
-                                description="Se acordaron diversos proyectos en favor del cooperativismo para apoyar emprendimientos."/>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               image="src\assets\img\events\img2.png"
-                               title="Creación de un NODESS"
-                               description="Se acordaron diversos proyectos en favor del cooperativismo para apoyar emprendimientos."/>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               image="src\assets\img\events\img2.png"
-                               title="Creación de un NODESS"
-                               description="Se acordaron diversos proyectos en favor del cooperativismo para apoyar emprendimientos."/>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               image="src\assets\img\events\img2.png"
-                               title="Creación de un NODESS"
-                               description="Se acordaron diversos proyectos en favor del cooperativismo para apoyar emprendimientos."/>
+                            :id="events[5].id"
+                               :image="events[5].image"
+                               :title="events[5].title"
+                               :description="events[5].description"
+                               />
                         </div>
                     </div>
                 </div>
@@ -77,21 +61,55 @@
                     <div class="row justify-content-center">
                         <div class="col-12 col-sm-6 col-md-4">
                             <Card
-                               image="src\assets\img\events\img2.png"
-                               title="Creación de un NODESS"
-                               description="Se acordaron diversos proyectos en favor del cooperativismo para apoyar emprendimientos."/>
+                               :id="events[3].id"
+                               :image="events[3].image"
+                               :title="events[3].title"
+                               :description="events[3].description"
+                               />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4">
                             <Card
-                               image="src\assets\img\events\img2.png"
-                               title="Creación de un NODESS"
-                               description="Se acordaron diversos proyectos en favor del cooperativismo para apoyar emprendimientos."/>
+                               :id="events[4].id"
+                               :image="events[4].image"
+                               :title="events[4].title"
+                               :description="events[4].description"
+                               />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4">
                             <Card
-                               image="src\assets\img\events\img2.png"
-                               title="Creación de un NODESS"
-                               description="Se acordaron diversos proyectos en favor del cooperativismo para apoyar emprendimientos."/>
+                               :id="events[5].id"
+                               :image="events[5].image"
+                               :title="events[5].title"
+                               :description="events[5].description"
+                               />
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-sm-6 col-md-4">
+                            <Card
+                               :id="events[3].id"
+                               :image="events[3].image"
+                               :title="events[3].title"
+                               :description="events[3].description"
+                               />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4">
+                            <Card
+                               :id="events[4].id"
+                               :image="events[4].image"
+                               :title="events[4].title"
+                               :description="events[4].description"
+                               />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4">
+                            <Card
+                               :id="events[5].id"
+                               :image="events[5].image"
+                               :title="events[5].title"
+                               :description="events[5].description"
+                               />
                         </div>
                     </div>
                 </div>
@@ -102,7 +120,7 @@
         </button>
     </div>
     <div class="custom-slider-bar" v-if="showSlider">
-        <div class="custom-slider-thumb" :style="{ left: `${(activeSlide / (totalSlides - 1)) * 100}%` }"></div>
+        <div class="custom-slider-thumb" :style="{ left: `${(activeSlide / (totalSlides - 4)) * 100}%` }"></div>
     </div>
 
 
