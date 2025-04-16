@@ -35,7 +35,9 @@ export default createStore({
           isAuthenticated: response.data.isAuthenticated,
           user: response.data.user || null
         });
+        
         return response.data.isAuthenticated;
+
       } catch(error) {
         console.error('Error checking auth status: ', error);
         commit('setAuthState', { isAuthenticated: false, user: null });
@@ -53,8 +55,9 @@ export default createStore({
     // Logout
     async logout({ commit }) {
       try {
-        await axios.get('/auth/logout');
-        commit('setAuthState', { isAuthenticated: false, user: null });
+        const res = await axios.get('/auth/logout', { withCredentials: true });
+        if (res.status == 200)
+          commit('setAuthState', { isAuthenticated: false, user: null });
       } catch (error) {
         console.error('Error logging out: ', error);
       }

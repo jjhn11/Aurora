@@ -1,7 +1,9 @@
 <script setup>
   // [Imports]
   import { RouterLink, useRoute } from 'vue-router';
-  import { ref, onMounted, onUnmounted } from 'vue'
+  import { ref, onMounted, onUnmounted, computed, watch } from 'vue';
+  import { useStore } from 'vuex';
+  const store = useStore();
   
   // [Imagenes]
   import logo from '../assets/img/navbar/LogoAurora.png';
@@ -55,10 +57,19 @@
 
       // ## Datos reactivos para el menú de usuario ##
 
+        // Add computed properties for auth state and user
+        const isAuthenticated = computed(() => store.state.isAuthenticated);
+        const user = computed(() => store.state.user);
+
+        watch(() => store.state.isAuthenticated, (newValue) => {
+          currentView.value = newValue ? 'MainMenuAc' : 'MainMenu';
+          viewStack.value = [currentView.value];
+        });
+
+        // Reactive data for the user menu
         const showMenu = ref(false) // Estado del menú de usuario
         const currentView = ref('MainMenu') // Vista actual del menú
         const viewStack = ref(['MainMenu']) // Pila de vistas para la navegación
-        const isAuthenticated = ref(false)
 
       // ## Funciones para manejar la navegación del menú ##
 
@@ -82,7 +93,12 @@
         };
 
         // Registrar y eliminar el evento global de clic
-        onMounted(() => {
+        onMounted(async () => {
+          await store.dispatch('checkAuth');
+
+          currentView.value = store.state.isAuthenticated ? 'MainMenuAc' : 'MainMenu';
+          viewStack.value = [currentView.value];
+
           document.addEventListener('click', handleClickOutside);
         });
 
@@ -111,14 +127,16 @@
         }
 
         // Agrega estas nuevas funciones para manejar el inicio y cierre de sesión
-        const handleLogin = () => {
-          isAuthenticated.value = true
+        const handleLogin = async () => {
+          await store.dispatch('loginWithGoogle');
+          // isAuthenticated.value = true
           currentView.value = 'MainMenuAc'
           viewStack.value = ['MainMenuAc'] // Resetea la pila de vistas
         }
 
         const handleLogout = () => {
-          isAuthenticated.value = false
+          store.dispatch('logout');
+          // isAuthenticated.value = false
           currentView.value = 'MainMenu'
           viewStack.value = ['MainMenu'] // Resetea la pila de vistas
         }
@@ -359,12 +377,13 @@
                                                       }, currentView === 'MainMenuAc' ? 'ac-size' : 'nac-size'" 
     @click.stop>
 
-      <raw>
+      <div>
 
         <div class="container-fluid p-1 justify-content-center d-flex flex-column align-items-center">
           
           <!-- ######################### Ventana Principal Sin Cuenta ######################### -->
 
+          <!-- <div v-if="!isAuthenticated"> -->
           <div v-if="currentView === 'MainMenu'">
 
             <!-- ------------------------------------------- -->
@@ -456,6 +475,7 @@
 
           <!-- ######################### Ventana Principal Con Cuenta ######################### -->
 
+          <!-- <div v-if="isAuthenticated"> -->
           <div v-if="currentView === 'MainMenuAc'">
 
             <!-- ------------------------------------------- -->
@@ -465,13 +485,13 @@
               <div class="row">
 
                 <div class="col-5 mb-3 d-flex justify-content-center align-items-center">
-                  <img :src="ZEN">
+                  <img :src="user.photo || ZEN">
                 </div>
 
                 <div class="col-7 mb-3 ps-1 d-flex justify-content-center align-items-center">
-                  <raw>
+                  <div>
                     <label class="form-ac-label">
-                      SOTELO JIMENEZ ZENY GABRIELA
+                      {{ user.name }}
                     </label>
                     <label class="form-ac-sublabel" id="est">
                       ESTATUS
@@ -479,7 +499,7 @@
                     <label class="form-ac-sublabel" id="act">
                       ACTIVO
                     </label>
-                  </raw>
+                  </div>
                 </div>
 
               </div>
@@ -854,7 +874,7 @@
           </button>
         </div>
 
-      </raw>
+      </div>
     </form>
 
   </div>
