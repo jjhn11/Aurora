@@ -1,7 +1,9 @@
 <script setup>
   // [Imports]
   import { RouterLink, useRoute } from 'vue-router';
-  import { ref, onMounted, onUnmounted } from 'vue'
+  import { ref, onMounted, onUnmounted, computed } from 'vue';
+  import { useStore } from 'vuex';
+  const store = useStore();
   
   // [Imagenes]
   import logo from '../assets/img/navbar/LogoAurora.png';
@@ -58,7 +60,10 @@
         const showMenu = ref(false) // Estado del menú de usuario
         const currentView = ref('MainMenu') // Vista actual del menú
         const viewStack = ref(['MainMenu']) // Pila de vistas para la navegación
-        const isAuthenticated = ref(false)
+
+        // Add computed properties for auth state and user
+        const isAuthenticated = computed(() => store.state.isAuthenticated);
+        const user = computed(() => store.state.user);
 
       // ## Funciones para manejar la navegación del menú ##
 
@@ -82,7 +87,8 @@
         };
 
         // Registrar y eliminar el evento global de clic
-        onMounted(() => {
+        onMounted(async () => {
+          await store.dispatch('checkAuth');
           document.addEventListener('click', handleClickOutside);
         });
 
@@ -111,7 +117,9 @@
         }
 
         // Agrega estas nuevas funciones para manejar el inicio y cierre de sesión
-        const handleLogin = () => {
+        const handleLogin = async () => {
+          // await store.dispatch('loginWithGoogle');
+          // await store.dispatch('checkAuth');
           isAuthenticated.value = true
           currentView.value = 'MainMenuAc'
           viewStack.value = ['MainMenuAc'] // Resetea la pila de vistas

@@ -1,5 +1,5 @@
-import { createStore } from 'vuex'
-import axios from 'axios'
+import { createStore } from 'vuex';
+import axios from 'axios';
 
 const travel = (path) => {
   const url = new URL(axios.defaults.baseURL + path);
@@ -24,20 +24,26 @@ export default createStore({
   actions: {
     // Check if user is authenticated
     async checkAuth({ commit }) {
-      try {
-        const response = await axios.get('/auth/status',
-          { withCredentials: true } // Include credentials in the request
-        );
-        commit('setAuthState', {
-          isAuthenticated: response.data.isAuthenticated,
-          user: response.data.user || null
-        });
-        return response.data.isAuthenticated;
-      } catch(error) {
-        console.error('Error checking auth status: ', error);
-        commit('setAuthState', { isAuthenticated: false, user: null });
-        return false;
-      }
+
+      // testing
+      const testUser = { id: 1000, name: "esotilin", email: "esotilin@itmexicali.edu.mx"}
+      commit('setAuthState', { isAuthenticated: true, user: testUser });
+      return true;
+
+      // try {
+      //   const response = await axios.get('/auth/status',
+      //     { withCredentials: true } // Include credentials in the request
+      //   );
+      //   commit('setAuthState', {
+      //     isAuthenticated: response.data.isAuthenticated,
+      //     user: response.data.user || null
+      //   });
+      //   return response.data.isAuthenticated;
+      // } catch(error) {
+      //   console.error('Error checking auth status: ', error);
+      //   commit('setAuthState', { isAuthenticated: false, user: null });
+      //   return false;
+      // }
     },
 
     // Login with Google OAuth

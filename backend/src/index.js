@@ -4,6 +4,7 @@ const passport = require('passport');
 const session = require('express-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const mysql = require('mysql2/promise');
+const cookies = require('cookie-parser');
 const open = (...args) => import('open').then(m => m.default(...args));
 require('dotenv').config();
 
@@ -24,11 +25,18 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(cookies());
 
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret: process.env.SESSION_SECRET || 'your_session_secret',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: false,
+  cookie: {
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 24 * 60 * 60 * 1000,
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    httpOnly: true
+  }
 }));
 
 app.use(passport.initialize());
@@ -55,7 +63,15 @@ passport.deserializeUser((obj, done) => {
   done(null, obj);
 });
 
-app.get('/auth/google',
+app.get('/auth/google', 
+  (req, res, next) => {
+    const returnTo = req.query.returnTo || '/';
+    res.cookie('returnTo', returnTo, {
+      httpOnly: true
+    });
+    console.log('ReturnTo from query:', returnTo); // Debugging
+    next();
+  },
     passport.authenticate('google', {
       scope: ['profile', 'email'],
       prompt: 'select_account'  
@@ -76,7 +92,10 @@ app.get('/auth/google',
         email: user.emails[0].value,
         id: user.id 
       };
-      res.json(filteredUser);
+      // res.json(filteredUser);
+      const returnTo = req.cookies.returnTo || '/';
+      res.clearCookie('returnTo');
+      res.redirect(returnTo);
     }
   );
   
@@ -85,7 +104,7 @@ app.get('/auth/google',
     res.json({ message: 'Tas loggeado tilin' });
   });
 
-  app.get('/auth/google/logout', (req, res) => {
+  app.get('/auth/logout', (req, res) => {
     // 1. Passport limpia su autenticación
     req.logout((err) => {
         if (err) return next(err);
