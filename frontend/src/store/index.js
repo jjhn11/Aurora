@@ -65,7 +65,7 @@ export default createStore({
   },
   modules: {
     books: booksModule,
-    user: userModule,
+    userData: userModule,
     events: eventsModule,
   }
 })
