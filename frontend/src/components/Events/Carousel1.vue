@@ -15,7 +15,7 @@ const events = store.state.events?.events;
 onMounted(() => {
   const carousel = document.querySelector('#carrusel1');
   if (carousel) {
-    carousel.addeventsListener('slid.bs.carousel', (e) => {
+    carousel.addEventListener('slid.bs.carousel', (e) => {
       activeSlide.value = e.to;
     });
   }
