@@ -22,6 +22,9 @@ services:
       - DB_NAME=mydb
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
+    env_file:
+      - /backend/src/.env
+
     volumes:
       - ./backend:/app
       - /app/node_modules
