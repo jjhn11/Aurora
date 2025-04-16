@@ -23,7 +23,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173', // URL de tu frontend
+  credentials: true // Importante para las cookies
+}));
 app.use(express.json());
 app.use(cookies());
 
@@ -115,9 +118,9 @@ app.get('/auth/google',
             
             // 3. Tú limpias lo que enviaste al cliente
             res.clearCookie('connect.sid');
+            res.status(200).json({ success: true, message: 'Logged out successfully' });
             
             console.log(`User ${req.user?.email} completely logged out. Must see "undefined".`);
-            res.redirect('/');
         });
     });
 });

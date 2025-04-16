@@ -24,26 +24,22 @@ export default createStore({
   actions: {
     // Check if user is authenticated
     async checkAuth({ commit }) {
+      try {
+        const response = await axios.get('/auth/status',
+          { withCredentials: true } // Include credentials in the request
+        );
+        commit('setAuthState', {
+          isAuthenticated: response.data.isAuthenticated,
+          user: response.data.user || null
+        });
+        
+        return response.data.isAuthenticated;
 
-      // testing
-      const testUser = { id: 1000, name: "esotilin", email: "esotilin@itmexicali.edu.mx"}
-      commit('setAuthState', { isAuthenticated: true, user: testUser });
-      return true;
-
-      // try {
-      //   const response = await axios.get('/auth/status',
-      //     { withCredentials: true } // Include credentials in the request
-      //   );
-      //   commit('setAuthState', {
-      //     isAuthenticated: response.data.isAuthenticated,
-      //     user: response.data.user || null
-      //   });
-      //   return response.data.isAuthenticated;
-      // } catch(error) {
-      //   console.error('Error checking auth status: ', error);
-      //   commit('setAuthState', { isAuthenticated: false, user: null });
-      //   return false;
-      // }
+      } catch(error) {
+        console.error('Error checking auth status: ', error);
+        commit('setAuthState', { isAuthenticated: false, user: null });
+        return false;
+      }
     },
 
     // Login with Google OAuth
@@ -56,8 +52,9 @@ export default createStore({
     // Logout
     async logout({ commit }) {
       try {
-        await axios.get('/auth/logout');
-        commit('setAuthState', { isAuthenticated: false, user: null });
+        const res = await axios.get('/auth/logout', { withCredentials: true });
+        if (res.status == 200)
+          commit('setAuthState', { isAuthenticated: false, user: null });
       } catch (error) {
         console.error('Error logging out: ', error);
       }

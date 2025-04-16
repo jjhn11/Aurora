@@ -118,15 +118,15 @@
 
         // Agrega estas nuevas funciones para manejar el inicio y cierre de sesión
         const handleLogin = async () => {
-          // await store.dispatch('loginWithGoogle');
-          // await store.dispatch('checkAuth');
-          isAuthenticated.value = true
+          await store.dispatch('loginWithGoogle');
+          // isAuthenticated.value = true
           currentView.value = 'MainMenuAc'
           viewStack.value = ['MainMenuAc'] // Resetea la pila de vistas
         }
 
         const handleLogout = () => {
-          isAuthenticated.value = false
+          store.dispatch('logout');
+          // isAuthenticated.value = false
           currentView.value = 'MainMenu'
           viewStack.value = ['MainMenu'] // Resetea la pila de vistas
         }
@@ -373,7 +373,7 @@
           
           <!-- ######################### Ventana Principal Sin Cuenta ######################### -->
 
-          <div v-if="currentView === 'MainMenu'">
+          <div v-if="!isAuthenticated"><!--v-if="currentView === 'MainMenu'"-->
 
             <!-- ------------------------------------------- -->
             
@@ -464,7 +464,7 @@
 
           <!-- ######################### Ventana Principal Con Cuenta ######################### -->
 
-          <div v-if="currentView === 'MainMenuAc'">
+          <div v-if="isAuthenticated"><!--v-if="currentView === 'MainMenuAc'"-->
 
             <!-- ------------------------------------------- -->
             
@@ -473,13 +473,13 @@
               <div class="row">
 
                 <div class="col-5 mb-3 d-flex justify-content-center align-items-center">
-                  <img :src="ZEN">
+                  <img :src="user.photo || ZEN">
                 </div>
 
                 <div class="col-7 mb-3 ps-1 d-flex justify-content-center align-items-center">
                   <raw>
                     <label class="form-ac-label">
-                      SOTELO JIMENEZ ZENY GABRIELA
+                      {{ user.name }}
                     </label>
                     <label class="form-ac-sublabel" id="est">
                       ESTATUS
