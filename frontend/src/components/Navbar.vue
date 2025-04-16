@@ -1,7 +1,7 @@
 <script setup>
   // [Imports]
   import { RouterLink, useRoute } from 'vue-router';
-  import { ref, onMounted, onUnmounted, computed } from 'vue';
+  import { ref, onMounted, onUnmounted, computed, watch } from 'vue';
   import { useStore } from 'vuex';
   const store = useStore();
   
@@ -57,13 +57,19 @@
 
       // ## Datos reactivos para el menú de usuario ##
 
-        const showMenu = ref(false) // Estado del menú de usuario
-        const currentView = ref('MainMenu') // Vista actual del menú
-        const viewStack = ref(['MainMenu']) // Pila de vistas para la navegación
-
         // Add computed properties for auth state and user
         const isAuthenticated = computed(() => store.state.isAuthenticated);
         const user = computed(() => store.state.user);
+
+        watch(() => store.state.isAuthenticated, (newValue) => {
+          currentView.value = newValue ? 'MainMenuAc' : 'MainMenu';
+          viewStack.value = [currentView.value];
+        });
+
+        // Reactive data for the user menu
+        const showMenu = ref(false) // Estado del menú de usuario
+        const currentView = ref('MainMenu') // Vista actual del menú
+        const viewStack = ref(['MainMenu']) // Pila de vistas para la navegación
 
       // ## Funciones para manejar la navegación del menú ##
 
@@ -89,6 +95,10 @@
         // Registrar y eliminar el evento global de clic
         onMounted(async () => {
           await store.dispatch('checkAuth');
+
+          currentView.value = store.state.isAuthenticated ? 'MainMenuAc' : 'MainMenu';
+          viewStack.value = [currentView.value];
+
           document.addEventListener('click', handleClickOutside);
         });
 
@@ -367,13 +377,14 @@
                                                       }, currentView === 'MainMenuAc' ? 'ac-size' : 'nac-size'" 
     @click.stop>
 
-      <raw>
+      <div>
 
         <div class="container-fluid p-1 justify-content-center d-flex flex-column align-items-center">
           
           <!-- ######################### Ventana Principal Sin Cuenta ######################### -->
 
-          <div v-if="!isAuthenticated"><!--v-if="currentView === 'MainMenu'"-->
+          <!-- <div v-if="!isAuthenticated"> -->
+          <div v-if="currentView === 'MainMenu'">
 
             <!-- ------------------------------------------- -->
             
@@ -464,7 +475,8 @@
 
           <!-- ######################### Ventana Principal Con Cuenta ######################### -->
 
-          <div v-if="isAuthenticated"><!--v-if="currentView === 'MainMenuAc'"-->
+          <!-- <div v-if="isAuthenticated"> -->
+          <div v-if="currentView === 'MainMenuAc'">
 
             <!-- ------------------------------------------- -->
             
@@ -477,7 +489,7 @@
                 </div>
 
                 <div class="col-7 mb-3 ps-1 d-flex justify-content-center align-items-center">
-                  <raw>
+                  <div>
                     <label class="form-ac-label">
                       {{ user.name }}
                     </label>
@@ -487,7 +499,7 @@
                     <label class="form-ac-sublabel" id="act">
                       ACTIVO
                     </label>
-                  </raw>
+                  </div>
                 </div>
 
               </div>
@@ -862,7 +874,7 @@
           </button>
         </div>
 
-      </raw>
+      </div>
     </form>
 
   </div>
