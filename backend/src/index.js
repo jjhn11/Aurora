@@ -34,9 +34,12 @@ app.use(session({
   secret: process.env.SESSION_SECRET || 'your_session_secret',
   resave: false,
   saveUninitialized: false,
+  rolling: true,
   cookie: {
     secure: process.env.NODE_ENV === 'production',
-    maxAge: 24 * 60 * 60 * 1000,
+    maxAge: 1 * 60 * 1000, // 1 minuto
+    // maxAge: 24 * 60 * 60 * 1000, // 24 horas
+    // maxAge: 1 * 60 * 60 * 1000, // 1 hora
     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
     httpOnly: true
   }
