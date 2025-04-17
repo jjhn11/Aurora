@@ -231,7 +231,7 @@
                     BIBLIOTECA
                   </RouterLink>
 
-                  <ul v-if="!isActiveLink('/library')" class="dropdown-menu">
+                  <ul class="dropdown-menu">
                     <div class="container-fluid d-flex justify-content-center align-items-center">
                       <div class="row w-100 justify-content-center px-0">
 
@@ -273,7 +273,7 @@
                     EVENTOS
                   </RouterLink>
                   
-                  <ul v-if="!isActiveLink('/events')" class="dropdown-menu">
+                  <ul class="dropdown-menu">
                     <div class="container-fluid d-flex justify-content-center align-items-center">
                       <div class="row w-100 justify-content-center px-0">
 
@@ -315,7 +315,7 @@
                     COMUNIDAD
                   </RouterLink>
 
-                  <ul v-if="!isActiveLink('/community')" class="dropdown-menu">
+                  <ul class="dropdown-menu">
                     <div class="container-fluid d-flex justify-content-center align-items-center">
                       <div class="row w-110 justify-content-center px-0">
 
