@@ -19,7 +19,7 @@
             >
           </li>
           <li>
-            <RouterLink to="/community" class="footer-nav__link footer-nav__link--comunidad"
+            <RouterLink to="" class="footer-nav__link footer-nav__link--comunidad"
               >COMUNIDAD</RouterLink
             >
           </li>

@@ -269,7 +269,7 @@
                 </li>
 
                 <li class="nav-item dropdown position-static pe-5 mt-4 ms-5 me-4" id="droph">
-                  <RouterLink to="/events" class="nav-link" role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/events') }">
+                  <RouterLink to="/events" class="nav-link" role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/events') || isActiveLink('/events/cultural') || isActiveLink('/events/sports') || isActiveLink('/events/school') }">
                     EVENTOS
                   </RouterLink>
                   
@@ -279,7 +279,7 @@
 
                         <div class="col-12 col-md-4 py-2">
 
-                          <li><RouterLink to="/events" class="dropdown-item" id="dbut">
+                          <li><RouterLink to="/events/cultural" class="dropdown-item" id="dbut">
                             <img :src="E1C" class="mt-3" id="dim3">
                             <span class="my-3">CULTURALES</span>
                           </RouterLink></li>
@@ -288,7 +288,7 @@
 
                         <div class="col-12 col-md-4 py-2">
 
-                          <li><RouterLink to="/events" class="dropdown-item" id="dbut">
+                          <li><RouterLink to="/events/sports" class="dropdown-item" id="dbut">
                             <img :src="E2D" class="mt-3" id="dim3">
                             <span class="my-3">DEPORTIVOS</span>
                           </RouterLink></li>
@@ -297,7 +297,7 @@
 
                         <div class="col-12 col-md-4 py-2">
 
-                          <li><RouterLink to="/events" class="dropdown-item" id="dbut">
+                          <li><RouterLink to="/events/school" class="dropdown-item" id="dbut">
                             <img :src="E3E" class="mt-3" id="dim3">
                             <span class="my-3">ESCOLARES</span>
                           </RouterLink></li>
@@ -311,7 +311,7 @@
                 </li>
 
                 <li class="nav-item dropdown position-static mt-4 ms-5 me-2" id="droph">
-                  <RouterLink to="/community" class="nav-link" role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/community') }">
+                  <RouterLink to="" class="nav-link" role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/community/cultural') || isActiveLink('/community/gaming') || isActiveLink('/community/sports') || isActiveLink('/community/recreational')}">
                     COMUNIDAD
                   </RouterLink>
 
@@ -321,7 +321,7 @@
 
                         <div class="col-12 col-md-3 py-2 px-1">
 
-                          <li><RouterLink to="/community" class="dropdown-item" id="dbut">
+                          <li><RouterLink to="/community/recreational" class="dropdown-item" id="dbut">
                             <img :src="C1R" class="mt-4" id="dim4">
                             <span class="my-3">RECREATIVAS</span>
                           </RouterLink></li>
@@ -330,7 +330,7 @@
 
                         <div class="col-12 col-md-3 py-2 px-1">
 
-                          <li><RouterLink to="/community" class="dropdown-item" id="dbut">
+                          <li><RouterLink to="/community/sports" class="dropdown-item" id="dbut">
                             <img :src="C2D" class="mt-4" id="dim4">
                             <span class="my-3">DEPORTES</span>
                           </RouterLink></li>
@@ -339,7 +339,7 @@
 
                         <div class="col-12 col-md-3 py-2 px-1">
 
-                          <li><RouterLink to="/community" class="dropdown-item" id="dbut">
+                          <li><RouterLink to="/community/cultural" class="dropdown-item" id="dbut">
                             <img :src="C3C" class="mt-4" id="dim4">
                             <span class="my-3">CULTURAL</span>
                           </RouterLink></li>
@@ -348,7 +348,7 @@
 
                         <div class="col-12 col-md-3 py-2 px-1">
 
-                          <li><RouterLink to="/community" class="dropdown-item" id="dbut">
+                          <li><RouterLink to="/community/gaming" class="dropdown-item" id="dbut">
                             <img :src="C4V" class="mt-4" id="dim4">
                             <span class="my-3">VIDEOJUEGOS</span>
                           </RouterLink></li>

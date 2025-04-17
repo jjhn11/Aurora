@@ -1,7 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
-import EventsView from '@/views/EventsView.vue'
-import CommunityView from '@/views/CommunityView.vue'
+import EventsView from '@/views/Events/EventsView.vue'
+import CulturalEventsView from '@/views/Events/CulturalEventsView.vue'
+import SportsEventsView from '@/views/Events/SportsEventsView.vue'
+import SchoolEventsView from '@/views/Events/SchoolEventsView.vue'
+import CommunityCulturalView from '@/views/Community/CommunityCulturalView.vue'
+import CommunitySportsView from '@/views/Community/CommunitySportsView.vue'
+import CommunityGamingView from '@/views/Community/CommunityGamingView.vue'
+import CommunityRecreationalView from '@/views/Community/CommunityRecreationalView.vue'
 import ProfileView from '@/views/User/ProfileView.vue'
 import LibraryView from '@/views/Library/LibraryView.vue'
 import BookView from '@/views/Library/BookView.vue'
@@ -25,11 +31,41 @@ const routes = [
     name: 'events',
     component: EventsView,
   },
+  {
+    path: '/events/cultural',
+    name: 'cultural-events',
+    component: CulturalEventsView,
+  },
+  {
+    path: '/events/sports',
+    name: 'sports-events',
+    component: SportsEventsView,
+  },
+  {
+    path: '/events/school',
+    name: 'school-events',
+    component: SchoolEventsView,
+  },
 
   {
-    path: '/community',
-    name: 'community',
-    component: CommunityView,
+    path: '/community/cultural',
+    name: 'community-cultural',
+    component: CommunityCulturalView,
+  },
+  {
+    path: '/community/sports',
+    name: 'community-sports',
+    component: CommunitySportsView,
+  },
+  {
+    path: '/community/gaming',
+    name: 'community-gaming',
+    component: CommunityGamingView,
+  },
+  {
+    path: '/community/recreational',
+    name: 'community-recreational',
+    component: CommunityRecreationalView,
   },
 
   {
