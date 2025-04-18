@@ -311,7 +311,7 @@
                 </li>
 
                 <li class="nav-item dropdown position-static mt-4 ms-5 me-2" id="droph">
-                  <RouterLink to="" class="nav-link" role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/community/cultural') || isActiveLink('/community/gaming') || isActiveLink('/community/sports') || isActiveLink('/community/recreational')}">
+                  <RouterLink class="nav-link" role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/community/cultural') || isActiveLink('/community/gaming') || isActiveLink('/community/sports') || isActiveLink('/community/recreational')}">
                     COMUNIDAD
                   </RouterLink>
 
