@@ -1,5 +1,29 @@
 <script setup>
 
+    import { ref } from 'vue';
+    import CreateEventForm from '@/components/community/CreateEventForm.vue';
+
+    const showForm = ref(false);
+
+    const recreationalActivities = [
+        'BANDA DE GUERRA',
+        'ESCOLTA',
+        'LECTURAS',
+        'AJEDREZ',
+        'TUTORIAS'
+    ];
+
+    const recreationalLocations = [
+        'BIBLIOTECA PLANTA ALTA',
+        'BIBLIOTECA PLANTA BAJA',
+        'CUBICULO DE ESTUDIO 1',
+        'CUBICULO DE ESTUDIO 2',
+        'CUBICULO DE ESTUDIO 3',
+        'CUBICULO DE ESTUDIO 4',
+        'BIBLIOTECA SALA CIRCULOS DE LECTURA',
+        'CANCHA EXTRAESCOLARES'
+    ];
+
 </script>
 
 <template>
@@ -18,12 +42,19 @@
 
     <div class="container-fluid justify-content-center">
         <div class="cre-cont col-12 d-flex justify-content-end text-center mt-4 pe-4">
-            <button class="cre-button btn btn-primary mt-3" type="button">
+            <button class="cre-button btn btn-primary mt-3" type="button" @click="showForm = true">
                 <i class="cre-icon fa-solid fa-circle-plus"></i>
                 <span> CREAR EVENTO</span>
             </button>
         </div>
     </div>
+
+    <CreateEventForm 
+        v-if="showForm" 
+        v-model="showForm"
+        :activities="recreationalActivities"
+        :locations="recreationalLocations"
+    />
 
     <!-- ### Aviso de "Ningun Evento" ### -->
 
