@@ -3,6 +3,7 @@ import HeroVideo from '@/components/Events/HeroVideo.vue';
 import Carousel1 from '@/components/Events/Carousel1.vue';
 import Carousel2 from '@/components/Events/Carousel2.vue';
 import Carousel3 from '@/components/Events/Carousel3.vue';
+import Calendar from '@/components/Events/Calendar/Calendar.vue';
 </script>
 
 <template>
@@ -24,6 +25,12 @@ import Carousel3 from '@/components/Events/Carousel3.vue';
     <h1 class="title">DEPORTIVOS</h1>
     <!--Carrusel-->
     <Carousel3 />
+    <br><br>
+</div>
+<div class="container">
+    <h1 class="title">CALENDARIO</h1>
+    <!--Carrusel-->
+    <Calendar />
     <br><br>
 </div>
 </template>
