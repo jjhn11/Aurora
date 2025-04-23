@@ -1,4 +1,7 @@
 const mysql = require('mysql2/promise');
+const { Sequelize } = require('sequelize');
+
+
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST || 'db',
@@ -10,4 +13,9 @@ const pool = mysql.createPool({
   queueLimit: 0
 });
 
-module.exports = pool;
+const sequelize = new Sequelize(process.env.DB_NAME || 'mydb', process.env.DB_USER || 'root', process.env.DB_PASSWORD || 'rootpassword', {
+  host: process.env.DB_HOST || 'db',
+  dialect: 'mysql', 
+});
+
+module.exports = { pool, sequelize };

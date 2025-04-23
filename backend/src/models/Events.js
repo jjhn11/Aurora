@@ -1,7 +1,7 @@
 const { DataTypes, Sequelize } = require('sequelize');
-const sequelize = require('../config/db');
-const EventCategory = require('./EventCategories'); // Importar el modelo EventCategory
-const EventType = require('./EventTypes'); // Importar el modelo EventType
+const { sequelize } = require('../config/db');
+const EventCategory = require('./EventCategories'); 
+const EventType = require('./EventTypes'); 
 
 const Event = sequelize.define('Event', {
   Id_event: {
@@ -24,7 +24,7 @@ const Event = sequelize.define('Event', {
     allowNull: false,
     field: 'Id_Event_Category',
     references: {
-      model: 'EventCategory', // Nombre de la tabla referenciada
+      model: 'EventCategory', 
       key: 'Id_category'
     }
   },
@@ -33,7 +33,7 @@ const Event = sequelize.define('Event', {
     allowNull: true,
     field: 'Id_Event_type',
     references: {
-      model: 'EventType', // Nombre de la tabla referenciada
+      model: 'EventType', 
       key: 'Id_type'
     }
   },

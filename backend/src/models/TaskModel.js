@@ -1,6 +1,14 @@
 const pool = require('../config/db');
 
-const getAllTasks = () => pool.query('SELECT * FROM tasks');
+const getAllTasks = async () => {
+  try {
+    const [rows] = await pool.query('SELECT * FROM tasks');
+    return rows;
+  } catch (error) {
+    console.error('Error fetching tasks:', error);
+    throw error;
+  }
+};
 
 const getTaskById = (id) =>
   pool.query('SELECT * FROM tasks WHERE id = ?', [id]);

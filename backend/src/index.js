@@ -3,12 +3,14 @@ const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 const passport = require('./config/passport');
 const open = (...args) => import('open').then(m => m.default(...args));
 const authRoutes = require('./routes/auth');
 const taskRoutes = require('./routes/task');
 const checkAuth = require('./middlewares/checkAuth');
-const pool = require('./config/db');
+const { pool } = require('./config/db');
+const { sequelize } = require('./config/db');
 const communityRoutes = require('./routes/community');
 
 const app = express();
@@ -23,7 +25,7 @@ app.use(cookieParser());
 app.use(session({
   secret: process.env.SESSION_SECRET || 'your_session_secret',
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: false, 
   rolling: true,
   cookie: {
     secure: process.env.NODE_ENV === 'production',
@@ -35,6 +37,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 // Routes
 app.use('/auth', authRoutes);
@@ -49,15 +52,32 @@ app.get('/', checkAuth, (req, res) => {
   res.json({ message: 'Tas loggeado tilin' });
 });
 
-// DB init
+// DB init  **************CONSULTAS MANUALES*************
+// async function connectWithRetry(maxAttempts = 10, delay = 5000) {
+//   let attempts = 0;
+//   while (attempts < maxAttempts) {
+//     try {
+//       const conn = await pool.getConnection();
+//       const [rows] = await conn.query('SELECT NOW() as now');
+//       console.log('Database connected:', rows[0].now);
+//       conn.release();
+//       return true;
+//     } catch (err) {
+//       attempts++;
+//       console.log(`Attempt ${attempts} failed:`, err.message);
+//       await new Promise(r => setTimeout(r, delay));
+//     }
+//   }
+//   return false;
+// }
+
+// DB init with Sequelize
 async function connectWithRetry(maxAttempts = 10, delay = 5000) {
   let attempts = 0;
   while (attempts < maxAttempts) {
     try {
-      const conn = await pool.getConnection();
-      const [rows] = await conn.query('SELECT NOW() as now');
-      console.log('Database connected:', rows[0].now);
-      conn.release();
+      await sequelize.authenticate();
+      console.log(' Database connected successfully with Sequelize.');
       return true;
     } catch (err) {
       attempts++;
