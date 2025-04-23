@@ -1,10 +1,10 @@
 -- NOTAS: 
 -- Todos los nombres de tablas estan escritos con el formato "Users_"
--- primaer aletra mayuscula, nombre en plural y terminan con un _ (gion bajo)
+-- primera letra mayuscula, nombre en plural y terminan con un _ (guion bajo)
 
 -- Todas los campos estan escritos mediante el formato siguiente "Id_Users/Name"
--- Para las llaves primarias: Señanalda con un "Id" al inicio sedguido de guion bajo "_" y despues el nombre del campo.
--- Para campos nomrmales: Primar letra del nombre en mayuscula y si se reguire otra palabra separarla por guion bajo "_" y en  minusculas.
+-- Para las llaves primarias: Señalada con un "Id" al inicio sedguido de guion bajo "_" y despues el nombre del campo.
+-- Para campos normales: Primer letra del nombre en mayuscula y si se reguire otra palabra separarla por guion bajo "_" y en  minusculas.
 
 
 
