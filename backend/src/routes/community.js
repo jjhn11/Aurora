@@ -1,50 +1,60 @@
 const express = require('express');
-const router = express.Router();
-const Community = require('../models/Community'); 
+const router = express.Router(); 
+const CommunityActivities = require('../models/CommunityActivities');
 
 
 // GET
-router.get('/communities', async (req, res) => {
+router.get('/community-activities', async (req, res) => {
     try {
-      const { category } = req.query; // Leer el parámetro opcional ?category=<id>
+      const { type } = req.query; // Leer el parámetro opcional ?category=<id>
       let query = {};
   
-      if (category) {
-        query.Id_category = category; // Filtrar por categoría si se proporciona
+      if (type) {
+        query.Id_type = type; // Filtrar por categoría si se proporciona
       }
   
-      const communities = await Community.findAll({ where: query }); // Buscar comunidades
-      res.status(200).json(communities); // Responder con las comunidades encontradas
+      const activities = await CommunityActivities.findAll({ where: query }); // Buscar comunidades
+      res.status(200).json(activities); // Responder con las comunidades encontradas
     } catch (error) {
       res.status(500).json({
-        error: 'Error al obtener las comunidades',
+        error: 'Error al obtener las actividades de comunidades',
         details: error.message
       });
     }
   });
   
-  module.exports = router;
-  
 
 // POST: Crear una nueva comunidad
-router.post('/communities', async (req, res) => {
+router.post('/community-activities', async (req, res) => {
     try {
       const {
-        name,
-        description,
-        id_category
+        Title,
+        Description,
+        Id_type,
+        Location,
+        Start_time,
+        End_time,
+        Event_date,
+        Status,
+        Organizer_id
       } = req.body;
-  
-      const savedCommunity = await Community.create({
-        name,
-        description,
-        id_category
+      
+      const savedActivity = await CommunityActivities.create({
+        Title,
+        Description,
+        Id_type,
+        Location,
+        Start_time,
+        End_time,
+        Event_date,
+        Status,
+        Organizer_id
       });
   
-      res.status(201).json(savedCommunity);
+      res.status(201).json(savedActivity);
     } catch (error) {
       res.status(500).json({
-        error: 'Error al crear la comunidad',
+        error: 'Error al crear la actividad de la comunidad',
         details: error.message
       });
     }
