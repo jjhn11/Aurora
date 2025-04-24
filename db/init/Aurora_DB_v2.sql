@@ -163,5 +163,5 @@ CREATE TABLE Communities (
     id INT PRIMARY KEY AUTO_INCREMENT,
     comunity_name VARCHAR(100) NOT NULL,
     description TEXT,
-    id_category INT,
+    id_category INT
 );
