@@ -13,6 +13,8 @@ const { pool } = require('./config/db');
 const { sequelize } = require('./config/db');
 const communityRoutes = require('./routes/community');
 
+const { isProfane } = require('./middlewares/checkProfane.js');	
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -50,6 +52,11 @@ app.get('/api/health', (req, res) => res.json({ status: 'ok', service: 'backend'
 // Home (protegido)
 app.get('/', checkAuth, (req, res) => {
   res.json({ message: 'Tas loggeado tilin' });
+});
+
+app.post('/test/profanity', isProfane(['texto1', 'texto2', 'texto3']), (req, res) => {
+  console.log(req.body);
+  res.json({ message: 'No hay profanidad' });
 });
 
 // DB init  **************CONSULTAS MANUALES*************
