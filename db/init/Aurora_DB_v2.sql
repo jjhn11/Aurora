@@ -158,10 +158,3 @@ CREATE TABLE Community_activity_attendance_ (
     FOREIGN KEY (Id_activity) REFERENCES Community_activities_(Id_activity),
     UNIQUE (Id_user, Id_activity)
 );
-
-CREATE TABLE Communities (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    comunity_name VARCHAR(100) NOT NULL,
-    description TEXT,
-    id_category INT,
-);
