@@ -60,4 +60,11 @@ const CommunityActivity = sequelize.define('CommunityActivity', {
   timestamps: false
 });
 
+const CommunityActivityType = require('./CommunityActivityTypes');
+
+CommunityActivity.belongsTo(CommunityActivityType, {
+  foreignKey: 'Id_type',
+  targetKey: 'Id_type'
+});
+
 module.exports = CommunityActivity;
