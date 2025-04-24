@@ -126,6 +126,11 @@
             image: I5AZ,
             bgColor: 'rgba(245, 91, 75, 1)'
         },
+        {
+            title: 'CARTAS ',
+            image: I4TS,
+            bgColor: 'rgba(18, 238, 166, 1)'
+        },
     ];
 
 </script>
@@ -156,7 +161,6 @@
     </div>
 
     <CreateEventForm 
-        v-if="showForm" 
         v-model="showForm"
         :activities="recreationalActivities"
         :locations="recreationalLocations"
