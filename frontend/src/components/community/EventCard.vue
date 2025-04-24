@@ -86,9 +86,9 @@ export default {
             }
             if (this.isAttending) {
                 return {
-                    backgroundColor: '#FBE326',
-                    borderColor: '#FBE326',
-                    color: 'rgba(0, 14, 50, 1)'
+                    backgroundColor: '#0047FF',
+                    borderColor: '#0047FF',
+                    color: 'rgba(255, 255, 255, 1)'
                 }
             }
             if (this.isHovering) {
@@ -111,7 +111,7 @@ export default {
             }
             */
             if (this.isAttending) {
-                return 'ASISTIENDO'
+                return 'ASISTIRE'
             }
             /*
             if (this.isHovering) {

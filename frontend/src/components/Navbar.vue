@@ -321,7 +321,7 @@
 
                         <div class="col-12 col-md-3 py-2 px-1">
 
-                          <li><RouterLink to="/community/recreational" class="dropdown-item" id="dbut">
+                          <li><RouterLink to="/community/recreational" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/community/recreational')}">
                             <img :src="C1R" class="mt-4" id="dim4">
                             <span class="my-3">RECREATIVAS</span>
                           </RouterLink></li>
@@ -330,7 +330,7 @@
 
                         <div class="col-12 col-md-3 py-2 px-1">
 
-                          <li><RouterLink to="/community/sports" class="dropdown-item" id="dbut">
+                          <li><RouterLink to="/community/sports" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/community/sports')}">
                             <img :src="C2D" class="mt-4" id="dim4">
                             <span class="my-3">DEPORTES</span>
                           </RouterLink></li>
@@ -339,7 +339,7 @@
 
                         <div class="col-12 col-md-3 py-2 px-1">
 
-                          <li><RouterLink to="/community/cultural" class="dropdown-item" id="dbut">
+                          <li><RouterLink to="/community/cultural" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/community/cultural')}">
                             <img :src="C3C" class="mt-4" id="dim4">
                             <span class="my-3">CULTURAL</span>
                           </RouterLink></li>
@@ -348,7 +348,7 @@
 
                         <div class="col-12 col-md-3 py-2 px-1">
 
-                          <li><RouterLink to="/community/gaming" class="dropdown-item" id="dbut">
+                          <li><RouterLink to="/community/gaming" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/community/gaming')}">
                             <img :src="C4V" class="mt-4" id="dim4">
                             <span class="my-3">VIDEOJUEGOS</span>
                           </RouterLink></li>
@@ -955,6 +955,11 @@
     }
 
     &:hover {
+      background-color: #000E32;
+      color: white;
+    }
+
+    &.active {
       background-color: #000E32;
       color: white;
     }

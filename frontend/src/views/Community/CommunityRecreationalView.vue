@@ -4,11 +4,18 @@
     import CreateEventForm from '@/components/community/CreateEventForm.vue';
     import EventCard from '@/components/community/EventCard.vue';
 
-    import I1LA from '@/assets/img/community/icons/recreational/ICONO LECTURA.png'
-    import I2BA from '@/assets/img/community/icons/recreational/ICONO BANDA.png'
-    import I3EA from '@/assets/img/community/icons/recreational/ICONO ESCOLTA.png'
-    import I4TS from '@/assets/img/community/icons/recreational/ICONO TUTORIAS.png'
-    import I5AZ from '@/assets/img/community/icons/recreational/ICONO AJEDREZ.png'
+    // ( I = ICONO,  R = RECREATIONAL,  1 = NUM ICONO,  LA = LETRA INICIAL Y FINAL DE "LECTURA" ) = IR1LA
+    import LECTURA from '@/assets/img/community/icons/recreational/ICONO LECTURA.png';
+    import BANDA from '@/assets/img/community/icons/recreational/ICONO BANDA.png';
+    import ESCOLTA from '@/assets/img/community/icons/recreational/ICONO ESCOLTA.png';
+    import TUTORIAS from '@/assets/img/community/icons/recreational/ICONO TUTORIAS.png';
+    import AJEDREZ from '@/assets/img/community/icons/recreational/ICONO AJEDREZ.png';
+    import RALLYS from '@/assets/img/community/icons/recreational/ICONO RALLYS.png';
+    import FREESTYLE from '@/assets/img/community/icons/recreational/ICONO FREESTYLE.png';
+    import JUEGOM from '@/assets/img/community/icons/recreational/ICONO JUEGOS DE MESA.png';
+    import BAZAR from '@/assets/img/community/icons/recreational/ICONO BAZAR.png';
+    import CONCURSO from '@/assets/img/community/icons/recreational/ICONO CONCURSO.png';
+
 
     const showForm = ref(false);
 
@@ -36,16 +43,24 @@
         'ESCOLTA',
         'LECTURAS',
         'AJEDREZ',
+        'RALLYS',
+        'BATALLAS DE FREESTYLE / RAP',
+        'JUEGOS DE MESA',
+        'BAZAR',
+        'CONCURSO',
         'TUTORIAS'
     ];
 
     const recreationalLocations = [
         'BIBLIOTECA PLANTA ALTA',
         'BIBLIOTECA PLANTA BAJA',
-        'CUBICULO DE ESTUDIO 1',
-        'CUBICULO DE ESTUDIO 2',
-        'CUBICULO DE ESTUDIO 3',
-        'CUBICULO DE ESTUDIO 4',
+        'PLAZA C-BUFALO',
+        'PLAZA BICENTENARIO',
+        'AUDIOVISUAL EDIFICIO U PLANTA ALTA',
+        'AUDIOVISUAL EDIFICIO U PLANTA BAJA',
+        'AUDIOVISUAL EDIFICIO D',
+        'CUBICULO DE ESTUDIO',
+        'ZONA LIBRE',
         'BIBLIOTECA SALA CIRCULOS DE LECTURA',
         'CANCHA EXTRAESCOLARES'
     ];
@@ -53,83 +68,53 @@
     const recreationalIcons = [
         {
             title: 'LECTURA',
-            image: I1LA,
+            image: LECTURA,
             bgColor: 'rgba(248, 237, 156, 1)'
         },
         {
             title: 'BANDA DE GUERRA',
-            image: I2BA,
+            image: BANDA,
             bgColor: 'rgba(197, 237, 232, 1)'
         },
         {
             title: 'ESCOLTA',
-            image: I3EA,
+            image: ESCOLTA,
             bgColor: 'rgba(255, 175, 146, 1)'
         },
         {
             title: 'TUTORÍAS',
-            image: I4TS,
+            image: TUTORIAS,
             bgColor: 'rgba(189, 238, 166, 1)'
         },
         {
             title: 'AJEDREZ',
-            image: I5AZ,
+            image: AJEDREZ,
             bgColor: 'rgba(245, 91, 75, 1)'
         },
         {
-            title: 'LECTURA',
-            image: I1LA,
-            bgColor: 'rgba(248, 237, 156, 1)'
+            title: 'RALLYS',
+            image: RALLYS,
+            bgColor: 'rgba(109, 206, 255, 1)'
         },
         {
-            title: 'BANDA DE GUERRA',
-            image: I2BA,
-            bgColor: 'rgba(197, 237, 232, 1)'
+            title: 'FREESTYLE / RAP',
+            image: FREESTYLE,
+            bgColor: 'rgba(97, 255, 210, 1)'
         },
         {
-            title: 'ESCOLTA',
-            image: I3EA,
-            bgColor: 'rgba(255, 175, 146, 1)'
+            title: 'JUEGOS DE MESA',
+            image: JUEGOM,
+            bgColor: 'rgba(89, 44, 132, 1)'
         },
         {
-            title: 'TUTORÍAS',
-            image: I4TS,
-            bgColor: 'rgba(189, 238, 166, 1)'
+            title: 'BAZAR',
+            image: BAZAR,
+            bgColor: 'rgba(187, 209, 209, 1)'
         },
         {
-            title: 'AJEDREZ',
-            image: I5AZ,
-            bgColor: 'rgba(245, 91, 75, 1)'
-        },
-        {
-            title: 'LECTURA',
-            image: I1LA,
-            bgColor: 'rgba(248, 237, 156, 1)'
-        },
-        {
-            title: 'BANDA DE GUERRA',
-            image: I2BA,
-            bgColor: 'rgba(197, 237, 232, 1)'
-        },
-        {
-            title: 'ESCOLTA',
-            image: I3EA,
-            bgColor: 'rgba(255, 175, 146, 1)'
-        },
-        {
-            title: 'TUTORÍAS',
-            image: I4TS,
-            bgColor: 'rgba(189, 238, 166, 1)'
-        },
-        {
-            title: 'AJEDREZ',
-            image: I5AZ,
-            bgColor: 'rgba(245, 91, 75, 1)'
-        },
-        {
-            title: 'CARTAS ',
-            image: I4TS,
-            bgColor: 'rgba(18, 238, 166, 1)'
+            title: 'CONCURSO',
+            image: CONCURSO,
+            bgColor: 'rgba(255, 167, 80, 1)'
         },
     ];
 

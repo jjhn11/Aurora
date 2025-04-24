@@ -1,11 +1,103 @@
 <script setup>
 
+    import { ref } from 'vue';
+    import CreateEventForm from '@/components/community/CreateEventForm.vue';
+    import EventCard from '@/components/community/EventCard.vue';
+
+    import PIANO from '@/assets/img/community/icons/cultural/ICONO PIANO.png'
+    import INTER from '@/assets/img/community/icons/cultural/ICONO INTERNACIONALES.png'
+    import DANZA from '@/assets/img/community/icons/cultural/ICONO DANZA.png'
+    import MUSICA from '@/assets/img/community/icons/cultural/ICONO MUSICA.png'
+    import DEBATE from '@/assets/img/community/icons/cultural/ICONO DEBATE.png'
+    import ARTES from '@/assets/img/community/icons/cultural/ICONO ARTES PLASTICAS.png'
+
+    const showForm = ref(false);
+
+    const events = ref([]); // Array para almacenar los eventos
+
+    // Función para manejar la creación de eventos
+    const handleEventCreated = (eventData) => {
+        events.value.push({
+            title: eventData.eventName,
+            description: eventData.description,
+            organizer: "Usuario Actual",
+            startTime: eventData.startTime,
+            endTime: eventData.endTime,
+            location: eventData.location,
+            category: eventData.activityType,
+            imageSrc: eventData.selectedIcon.image,
+            backgroundColor: eventData.selectedIcon.bgColor,
+            date: eventData.date
+        });
+        showForm.value = false;
+    };
+
+    const recreationalActivities = [
+        'DANZA',
+        'CELEBRACIONES INTERNACIONALES',
+        'MUSICA',
+        'ARTES PLASTICAS',
+        'PIANO',
+        'DEBATE'
+    ];
+
+    const recreationalLocations = [
+        'AULA EXTRAESCOLARES',
+        'JARDIN EFICIO U',
+        'BIBLIOTECA PLANTA ALTA',
+        'BIBLIOTECA PLANTA BAJA',
+        'PLAZA C-BUFALO',
+        'PLAZA BICENTENARIO',
+        'AUDIOVISUAL EDIFICIO U PLANTA ALTA',
+        'AUDIOVISUAL EDIFICIO U PLANTA BAJA',
+        'AUDIOVISUAL EDIFICIO D',
+        'CUBICULO DE ESTUDIO',
+        'ZONA LIBRE',
+        'BIBLIOTECA SALA CIRCULOS DE LECTURA',
+        'CANCHA EXTRAESCOLARES'
+    ];
+
+    const recreationalIcons = [
+        {
+            title: 'PIANO',
+            image: PIANO,
+            bgColor: 'rgba(255, 196, 156, 1)'
+        },
+        {
+            title: 'INTERNACIONAL',
+            image: INTER,
+            bgColor: 'rgba(239, 230, 224, 1)'
+        },
+        {
+            title: 'DANZA',
+            image: DANZA,
+            bgColor: 'rgba(150, 199, 135, 1)'
+        },
+        {
+            title: 'MUSICA',
+            image: MUSICA,
+            bgColor: 'rgba(124, 147, 207, 1)'
+        },
+        {
+            title: 'DEBATE',
+            image: DEBATE,
+            bgColor: 'rgba(255, 150, 190, 1)'
+        },
+        {
+            title: 'ARTES PLASTICAS',
+            image: ARTES,
+            bgColor: 'rgba(193, 15, 2, 1)'
+        },
+    ];
+
 </script>
+
+
 
 <template>
 
     <!-- ### Hero ### -->
-
+    
     <div>
         <section class="hero-container">
             <div class="hero-overlay">
@@ -14,23 +106,50 @@
         </section>
     </div>
 
-    <!-- ### Boton Crear Evento ### -->
-
+    <!-- ### Botón Crear Evento ### -->
+    
     <div class="container-fluid justify-content-center">
         <div class="cre-cont col-12 d-flex justify-content-end text-center mt-4 pe-4">
-            <button class="cre-button btn btn-primary mt-3" type="button">
+            <button class="cre-button btn btn-primary mt-3" type="button" @click="showForm = true">
                 <i class="cre-icon fa-solid fa-circle-plus"></i>
                 <span> CREAR EVENTO</span>
             </button>
         </div>
     </div>
 
-    <!-- ### Aviso de "Ningun Evento" ### -->
+    <CreateEventForm 
+        v-model="showForm"
+        :activities="recreationalActivities"
+        :locations="recreationalLocations"
+        :icons="recreationalIcons"
+        @event-created="handleEventCreated"
+    />
 
-    <div class="container-fluid justify-content-center">
+    <!-- Lista de Eventos -->
+    
+    <div v-if="events.length > 0" class="events-container">
+        <EventCard 
+            v-for="(event, index) in events" 
+            :key="index"
+            :title="event.title"
+            :description="event.description"
+            :organizer="event.organizer"
+            :startTime="event.startTime"
+            :endTime="event.endTime"
+            :location="event.location"
+            :category="event.category"
+            :imageSrc="event.imageSrc"
+            :backgroundColor="event.backgroundColor"
+            :date="event.date"
+        />
+    </div>
+
+    <!-- ### Aviso de "Ningún Evento" ### -->
+    
+    <div v-else class="container-fluid justify-content-center">
         <div class="avit-cont col-12 text-center my-5">
-            <p class="avit-text">No hay ningun evento de la comunidad, por favor regrese en un momento.</p>
-            <RouterLink to="/" class="avit-button btn btn-primary mt-3 ">
+            <p class="avit-text">No hay ningún evento de la comunidad, por favor regrese en un momento.</p>
+            <RouterLink to="/" class="avit-button btn btn-primary mt-3">
                 <span>Regresar a Inicio</span>
             </RouterLink>
         </div>
@@ -205,6 +324,15 @@
             
         }
 
+    }
+
+        /* Agregar estilos para el contenedor de eventos */
+    .events-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        align-items: center;
     }
 
 </style>
