@@ -1,11 +1,116 @@
 <script setup>
 
+    import { ref } from 'vue';
+    import CreateEventForm from '@/components/community/CreateEventForm.vue';
+    import EventCard from '@/components/community/EventCard.vue';
+
+    import VOLLEY from '@/assets/img/community/icons/sports/ICONO VOLLEYBALL.png'
+    import BEIS from '@/assets/img/community/icons/sports/ICONO BEISBOL.png'
+    import ATLET from '@/assets/img/community/icons/sports/ICONO ATLETISMO.png'
+    import FUTB from '@/assets/img/community/icons/sports/ICONO FUTBOL.png'
+    import BASKET from '@/assets/img/community/icons/sports/ICONO BASQUETBOL.png'
+    import SOFT from '@/assets/img/community/icons/sports/ICONO SOFTBOL.png'
+    import PORRA from '@/assets/img/community/icons/sports/ICONO PORRA.png'
+    import BOX from '@/assets/img/community/icons/sports/ICONO BOX.png'
+
+    const showForm = ref(false);
+
+    const events = ref([]); // Array para almacenar los eventos
+
+    // Función para manejar la creación de eventos
+    const handleEventCreated = (eventData) => {
+        events.value.push({
+            title: eventData.eventName,
+            description: eventData.description,
+            organizer: "Usuario Actual",
+            startTime: eventData.startTime,
+            endTime: eventData.endTime,
+            location: eventData.location,
+            category: eventData.activityType,
+            imageSrc: eventData.selectedIcon.image,
+            backgroundColor: eventData.selectedIcon.bgColor,
+            date: eventData.date
+        });
+        showForm.value = false;
+    };
+
+    const recreationalActivities = [
+        'VOLLEYBALL SALA',
+        'VOLLEYBALL PLAYA',
+        'SOFTBOL',
+        'BEISBOL',
+        'BASQUETBOL',
+        'ATLETISMO',
+        'PORRA',
+        'BOX',
+        'SOCCER / FUTBOL'
+    ];
+
+    const recreationalLocations = [
+        'CANCHA VOLLEYBALL SALA TRASERA 1',
+        'CANCHA VOLLEYBALL SALA TRASERA 2',
+        'CANCHA VOLLEYBALL PLAYA',
+        'CAMPO SOFTBOL',
+        'CAMPO BEISBOL 1',
+        'CAMPO BEISBOL 2',
+        'CANCHA BASQUETBOL CENTRAL',
+        'CANCHA BASQUETBOL TRASERA',
+        'CANCHA SOCCER / FUTBOL 1',
+        'CANCHA SOCCER / FUTBOL 2',
+        'CANCHA SOCCER / FUTBOL 3'
+    ];
+
+    const recreationalIcons = [
+        {
+            title: 'VOLLEYBALL',
+            image: VOLLEY,
+            bgColor: 'rgba(255, 226, 0, 1)'
+        },
+        {
+            title: 'BASEBALL',
+            image: BEIS,
+            bgColor: 'rgba(168, 56, 59, 1)'
+        },
+        {
+            title: 'ATLETISMO',
+            image: ATLET,
+            bgColor: 'rgba(107, 183, 83, 1)'
+        },
+        {
+            title: 'FUTBALL',
+            image: FUTB,
+            bgColor: 'rgba(92, 119, 186, 1)'
+        },
+        {
+            title: 'BASKETBALL',
+            image: BASKET,
+            bgColor: 'rgba(240, 138, 57, 1)'
+        },
+        {
+            title: 'SOFTBALL',
+            image: SOFT,
+            bgColor: 'rgba(193, 15, 2, 1)'
+        },
+        {
+            title: 'PORRA',
+            image: PORRA,
+            bgColor: 'rgba(255, 177, 229, 1)'
+        },
+        {
+            title: 'BOX',
+            image: BOX,
+            bgColor: 'rgba(135, 213, 204, 1)'
+        },
+    ];
+
 </script>
+
+
 
 <template>
 
     <!-- ### Hero ### -->
-
+    
     <div>
         <section class="hero-container">
             <div class="hero-overlay">
@@ -14,23 +119,50 @@
         </section>
     </div>
 
-    <!-- ### Boton Crear Evento ### -->
-
+    <!-- ### Botón Crear Evento ### -->
+    
     <div class="container-fluid justify-content-center">
         <div class="cre-cont col-12 d-flex justify-content-end text-center mt-4 pe-4">
-            <button class="cre-button btn btn-primary mt-3" type="button">
+            <button class="cre-button btn btn-primary mt-3" type="button" @click="showForm = true">
                 <i class="cre-icon fa-solid fa-circle-plus"></i>
                 <span> CREAR EVENTO</span>
             </button>
         </div>
     </div>
 
-    <!-- ### Aviso de "Ningun Evento" ### -->
+    <CreateEventForm 
+        v-model="showForm"
+        :activities="recreationalActivities"
+        :locations="recreationalLocations"
+        :icons="recreationalIcons"
+        @event-created="handleEventCreated"
+    />
 
-    <div class="container-fluid justify-content-center">
+    <!-- Lista de Eventos -->
+    
+    <div v-if="events.length > 0" class="events-container">
+        <EventCard 
+            v-for="(event, index) in events" 
+            :key="index"
+            :title="event.title"
+            :description="event.description"
+            :organizer="event.organizer"
+            :startTime="event.startTime"
+            :endTime="event.endTime"
+            :location="event.location"
+            :category="event.category"
+            :imageSrc="event.imageSrc"
+            :backgroundColor="event.backgroundColor"
+            :date="event.date"
+        />
+    </div>
+
+    <!-- ### Aviso de "Ningún Evento" ### -->
+    
+    <div v-else class="container-fluid justify-content-center">
         <div class="avit-cont col-12 text-center my-5">
-            <p class="avit-text">No hay ningun evento de la comunidad, por favor regrese en un momento.</p>
-            <RouterLink to="/" class="avit-button btn btn-primary mt-3 ">
+            <p class="avit-text">No hay ningún evento de la comunidad, por favor regrese en un momento.</p>
+            <RouterLink to="/" class="avit-button btn btn-primary mt-3">
                 <span>Regresar a Inicio</span>
             </RouterLink>
         </div>
@@ -205,6 +337,15 @@
             
         }
 
+    }
+
+        /* Agregar estilos para el contenedor de eventos */
+    .events-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        align-items: center;
     }
 
 </style>

@@ -3,6 +3,10 @@
     import { ref, defineEmits, defineProps } from 'vue';
 
     const props = defineProps({
+        modelValue: {
+            type: Boolean,
+            required: true
+        },
         activities: {
             type: Array,
             required: true
@@ -10,10 +14,14 @@
         locations: {
             type: Array,
             required: true
+        },
+        icons: {
+            type: Array,
+            required: true
         }
     });
 
-    const emit = defineEmits(['update:modelValue']);
+    const emit = defineEmits(['update:modelValue', 'event-created']);
 
     const eventName = ref('');
     const description = ref('');
@@ -21,6 +29,7 @@
     const startTime = ref('');
     const endTime = ref('');
     const location = ref('');
+    const eventDate = ref(''); // Nueva ref para la fecha
 
     const formSubmitted = ref(false);
     const isShaking = ref(false); // Nuevo ref para controlar la animación
@@ -35,8 +44,34 @@
             }, 500); // Duración de la animación
             return;
         }
+        
         // Si llegamos aquí, todo está validado
         console.log("Form submitted");
+
+        // Emitir el evento con todos los datos
+        emit('event-created', {
+            eventName: eventName.value,
+            description: description.value,
+            activityType: activityType.value,
+            startTime: startTime.value,
+            endTime: endTime.value,
+            location: location.value,
+            selectedIcon: selectedIcon.value,
+            date: eventDate.value // Incluir la fecha
+        });
+        
+        // Limpiar el formulario
+        eventName.value = '';
+        description.value = '';
+        activityType.value = '';
+        startTime.value = '';
+        endTime.value = '';
+        location.value = '';
+        eventDate.value = '';
+        selectedIcon.value = null;
+        formSubmitted.value = false; // Reiniciar el estado de validación
+        isShaking.value = false;     // Reiniciar la animación
+        
         emit('update:modelValue', false);
     };
 
@@ -59,10 +94,25 @@
     };
 
     const closeForm = () => {
+        formSubmitted.value = false; // Reiniciar el estado de validación
+
+        eventName.value = '';
+        description.value = '';
+        activityType.value = '';
+        startTime.value = '';
+        endTime.value = '';
+        location.value = '';
+        eventDate.value = '';
+        selectedIcon.value = null;
+        formSubmitted.value = false; // Reiniciar el estado de validación
+        isShaking.value = false;     // Reiniciar la animación
+
         emit('update:modelValue', false);
     };
 
 </script>
+
+  
 
 <template>
 
@@ -70,7 +120,7 @@
 
     <Transition name="fade">
 
-        <div class="form-overlay" @click.self="closeForm">
+        <div v-if="modelValue" class="form-overlay" @click.self="closeForm">
 
             <form class="create-event-form" @submit.prevent="handleSubmit">
 
@@ -91,7 +141,16 @@
 
                 <section class="form-content">
                     <label class="form-label">Nombre del evento:</label>
-                    <input v-model="eventName" type="text" class="form-input" required>
+                    <div class="input-container">
+                        <input 
+                            v-model="eventName" 
+                            type="text" 
+                            class="form-input" 
+                            required
+                            maxlength="60"
+                        >
+                        <span class="char-count">{{ eventName.length }}/60</span>
+                    </div>
             
                     <div class="form-grid">
 
@@ -100,7 +159,16 @@
                             <div class="description-section">
 
                                 <label class="form-label">Descripción del evento:</label>
-                                <textarea v-model="description" class="form-textarea" required @focus="resetIconError"></textarea>
+                                <div class="input-container">
+                                    <textarea 
+                                        v-model="description" 
+                                        class="form-textarea" 
+                                        required 
+                                        @focus="resetIconError"
+                                        maxlength="600"
+                                    ></textarea>
+                                    <span class="char-count">{{ description.length }}/600</span>
+                                </div>
                 
                                 <label class="form-label">Tipo de actividad:</label>
                                 <select v-model="activityType" class="form-input" required @focus="resetIconError">
@@ -123,6 +191,16 @@
                         <section class="form-column">
 
                             <div class="time-section">
+
+                                <label class="form-label">Fecha del evento:</label>
+                                <input 
+                                    v-model="eventDate"
+                                    type="date"
+                                    class="time-input"
+                                    required
+                                    :min="new Date().toISOString().split('T')[0]"
+                                    @focus="resetIconError"
+                                >
 
                                 <div class="time-grid">
 
@@ -165,7 +243,7 @@
                                         Elige Icono de Evento
                                     </span>
                                     <img v-else 
-                                        :src="selectedIcon.imageUrl" 
+                                        :src="selectedIcon.image" 
                                         :alt="selectedIcon.title"
                                         class="selected-icon-image">
                                 </div>
@@ -189,7 +267,7 @@
         </div>
     </Transition>
 
-
+  
 
     <!-- Sub-Menu de Iconos -->
 
@@ -201,79 +279,25 @@
                 
                 <header class="menu-header">
                     <h2 class="menu-title">SELECCIONAR ICONO</h2>
-                    <button type="button" class="close-button mt-4" @click="showIconMenu = false">
+                    <button type="button" class="close-button mb-2" @click="showIconMenu = false">
                         <i class="fas fa-times"></i>
                     </button>
                 </header>
 
-                <div class="recreational-activities">
-                    <!-- Reemplazar todo el contenido actual del recreational-activities con: -->
-                    
-                    <div class="activity-card"
-                        @click="selectIcon({
-                            title: 'LECTURAS',
-                            imageUrl: 'https://cdn.builder.io/api/v1/image/assets/TEMP/f9f6be2a94c6a95207d669e4148c4429c60f2e8a?placeholderIfAbsent=true&apiKey=31e7b46c22c443bc84c06a4f4720155e',
-                            bgColor: 'rgba(248, 237, 156, 1)'
-                        })"
+                <div class="icon-view">
+                    <div v-for="icon in icons" 
+                        :key="icon.title"
+                        class="activity-card"
+                        @click="selectIcon(icon)"
                     >
-                        <h2 class="activity-title title-top-right-radius">LECTURAS</h2>
-                        <div class="image-container" style="background-color: rgba(248, 237, 156, 1)">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f9f6be2a94c6a95207d669e4148c4429c60f2e8a?placeholderIfAbsent=true&apiKey=31e7b46c22c443bc84c06a4f4720155e" alt="" class="activity-image" />
+                        <h2 class="activity-title">
+                            {{ icon.title }}
+                        </h2>
+                        <div class="image-container" :style="{ backgroundColor: icon.bgColor }">
+                            <img :src="icon.image" :alt="icon.title" class="activity-image" />
+                            <div class="image-border"></div>
                         </div>
                     </div>
-
-                    <div class="activity-card"
-                        @click="selectIcon({
-                            title: 'BANDA DE GUERRA',
-                            imageUrl: 'https://cdn.builder.io/api/v1/image/assets/TEMP/07a5ccfe03a04ceeb404db097d82b8424d860004?placeholderIfAbsent=true&apiKey=31e7b46c22c443bc84c06a4f4720155e',
-                            bgColor: 'rgba(197, 237, 232, 1)'
-                        })"
-                    >
-                        <h2 class="activity-title">BANDA DE GUERRA</h2>
-                        <div class="image-container" style="background-color: rgba(197, 237, 232, 1)">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/07a5ccfe03a04ceeb404db097d82b8424d860004?placeholderIfAbsent=true&apiKey=31e7b46c22c443bc84c06a4f4720155e" alt="" class="activity-image" />
-                        </div>
-                    </div>
-
-                    <div class="activity-card"
-                        @click="selectIcon({
-                            title: 'ESCOLTA',
-                            imageUrl: 'https://cdn.builder.io/api/v1/image/assets/TEMP/774c27c98dfedd6f867a4a8e1949a738de5ecf7a?placeholderIfAbsent=true&apiKey=31e7b46c22c443bc84c06a4f4720155e',
-                            bgColor: 'rgba(255, 175, 146, 1)'
-                        })"
-                    >
-                        <h2 class="activity-title">ESCOLTA</h2>
-                        <div class="image-container" style="background-color: rgba(255, 175, 146, 1)">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/774c27c98dfedd6f867a4a8e1949a738de5ecf7a?placeholderIfAbsent=true&apiKey=31e7b46c22c443bc84c06a4f4720155e" alt="" class="activity-image" />
-                        </div>
-                    </div>
-
-                    <div class="activity-card"
-                        @click="selectIcon({
-                            title: 'TUTORÍAS',
-                            imageUrl: 'https://cdn.builder.io/api/v1/image/assets/TEMP/8a1ab2524cdc5c949f14638039420ea27f533247?placeholderIfAbsent=true&apiKey=31e7b46c22c443bc84c06a4f4720155e',
-                            bgColor: 'rgba(189, 238, 166, 1)'
-                        })"
-                    >
-                        <h2 class="activity-title title-bottom-radius">TUTORÍAS</h2>
-                        <div class="image-container" style="background-color: rgba(189, 238, 166, 1)">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/8a1ab2524cdc5c949f14638039420ea27f533247?placeholderIfAbsent=true&apiKey=31e7b46c22c443bc84c06a4f4720155e" alt="" class="activity-image" />
-                        </div>
-                    </div>
-
-                    <div class="activity-card"
-                        @click="selectIcon({
-                            title: 'AJEDREZ',
-                            imageUrl: 'https://cdn.builder.io/api/v1/image/assets/TEMP/f26dff28f7f1dc38613dc3763d2864c0aa701c1c?placeholderIfAbsent=true&apiKey=31e7b46c22c443bc84c06a4f4720155e',
-                            bgColor: 'rgba(245, 91, 75, 1)'
-                        })"
-                    >
-                        <h2 class="activity-title title-bottom-radius">AJEDREZ</h2>
-                        <div class="image-container" style="background-color: rgba(245, 91, 75, 1)">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f26dff28f7f1dc38613dc3763d2864c0aa701c1c?placeholderIfAbsent=true&apiKey=31e7b46c22c443bc84c06a4f4720155e" alt="" class="activity-image" />
-                        </div>
-                    </div>
-                    
                 </div>
 
             </div>
@@ -284,7 +308,7 @@
 
 </template>
 
-
+  
 
 <style scoped>
 
@@ -314,6 +338,9 @@
     }
 
     .form-textarea {
+        font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
+        font-size: 16px;
+        color: rgba(0, 14, 50, 1);
         border-radius: 10px;
         border: 1px solid rgba(126, 131, 130, 1);
         height: 200px;
@@ -322,6 +349,8 @@
         width: 100%;
         padding: 10px;
         resize: vertical; /* Solo permite redimensionar verticalmente */
+        transition: all 0.3s ease;
+        padding-bottom: 25px; /* Space for character count */
     }
 
     .create-event-form {
@@ -354,7 +383,7 @@
             sans-serif;
         font-size: 22px;
         color: rgba(0, 14, 50, 1);
-        font-weight: 600;
+        font-weight: 700;
         text-align: center;
         flex-wrap: wrap;
         justify-content: space-between;
@@ -368,8 +397,10 @@
     }
 
     .form-title {
+        font-size: 38px;
         align-self: end;
-        margin-top: 20px;
+        margin-top: 10px;
+        font-weight: 700;
     }
 
     @media (max-width: 991px) {
@@ -378,15 +409,6 @@
             padding: 12px;
             font-size: 20px;
         }
-    }
-
-    .header-icon {
-        aspect-ratio: 1;
-        object-fit: contain;
-        object-position: center;
-        width: 20px;
-        align-self: start;
-        flex-shrink: 0;
     }
 
     .close-button {
@@ -428,7 +450,7 @@
         width: 100%;
         height: 40px;
         padding: 10px;
-        
+        padding-right: 50px; /* Space for character count */
 
         font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
         font-size: 16px;
@@ -502,39 +524,6 @@
         }
     }
 
-    .form-textarea {
-        border-radius: 10px;
-        border: 1px solid rgba(126, 131, 130, 1);
-        height: 200px;
-        width: 100%;
-        padding: 10px;
-    }
-
-    .dropdown-select {
-        border-radius: 0 0 10px 10px;
-        background-color: white;
-        border: 1px solid rgba(126, 131, 130, 1);
-        display: flex;
-        padding: 6px 8px;
-        align-items: center;
-        justify-content: space-between;
-        color: rgba(126, 131, 130, 1);
-        font-family:
-            "Josefin Sans",
-            -apple-system,
-            Roboto,
-            Helvetica,
-            sans-serif;
-        font-size: 20px;
-        font-weight: 600;
-    }
-
-    .dropdown-icon {
-        aspect-ratio: 1;
-        object-fit: contain;
-        width: 20px;
-    }
-
     .time-grid {
         display: flex;
         gap: 20px;
@@ -557,30 +546,15 @@
     }
 
     .time-input {
+        font-size: 16px;
+        font-weight: 600;
+        color: rgba(0, 14, 50, 1);
         border-radius: 10px;
         border: 1px solid rgba(126, 131, 130, 1);
         height: 54px;
         width: 100%;
         padding: 10px;
-    }
-
-    .location-select {
-        border-radius: 10px 10px 0 0;
-        background-color: white;
-        border: 1px solid rgba(126, 131, 130, 1);
-        display: flex;
-        padding: 17px 21px 17px 10px;
-        align-items: center;
-        justify-content: space-between;
-        font-family:
-            "Josefin Sans",
-            -apple-system,
-            Roboto,
-            Helvetica,
-            sans-serif;
-        font-size: 20px;
-        color: rgba(126, 131, 130, 1);
-        font-weight: 600;
+        transition: all 0.3s ease;
     }
 
     .submit-button {
@@ -590,7 +564,7 @@
 
         border-radius: 20px;
         background-color: rgba(0, 71, 255, 1);
-        margin-top: 39px;
+        margin-top: 25px;
         width: 100%;
         max-width: 1270px;
         padding: 20px;
@@ -649,69 +623,99 @@
         box-shadow: 0 0 8px rgba(0, 71, 255, 0.3);
     }
 
+    .input-container {
+        position: relative;
+        width: 100%;
+    }
 
-
+    .char-count {
+        position: absolute;
+        bottom: 5px;
+        right: 10px;
+        font-size: 12px;
+        color: rgba(0, 14, 50, 0.6);
+        font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
+    }
 
     /* ### Sub-Menu de Iconos ### */
 
-    .recreational-activities {
-        background-color: rgba(255, 255, 255, 1);
-        display: flex;
-        padding: 23px 16px;
-        align-items: stretch;
-        gap: 26px;
-        overflow: hidden;
+    .icon-view {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        padding: 24px;
+        max-width: 1200px;
+        margin: 0 auto;
+        overflow-y: auto; /* Añadido */
+        max-height: calc(90vh - 89px); /* Añadido - altura del viewport menos altura del header */
     }
 
     .activity-card {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .activity-card:hover {
+        transform: scale(1.05);
+
+        .image-border{
+            opacity: 1;
+        }
     }
 
     .activity-title {
-        align-self: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: #000E32;
+        color: white;
         padding: 10px;
-        gap: 10px;
-        font-family: Nunito Sans, -apple-system, Roboto, Helvetica, sans-serif;
-        font-size: 15px;
-        color: rgba(0, 14, 50, 1);
+        margin: 0;
+        font-family: 'Josefin Sans';
+        font-size: 16px;
         font-weight: 700;
-        white-space: nowrap;
+        text-align: center;
+        z-index: 1;
+        border-radius: 30px 30px 0px 0px;
     }
 
     .image-container {
-        border-color: rgba(126, 131, 130, 1);
-        border-style: solid;
-        border-width: 1px;
-        border-radius: 50%;
+        width: 100%;
+        height: 100%;
         display: flex;
-        margin-top: 5px;
-        padding: 30px;
-        flex-direction: column;
-        align-items: center;
         justify-content: center;
-        aspect-ratio: 1;
+        align-items: center;
+        padding: 40px 20px 20px 20px;
+        border-radius: 30px;
+    }
+
+    .image-border {
+        opacity: 0;
+        position: absolute;
+        border: 1px solid #000E32;
+        border-radius: 50%;
+        width:75%;
+        height: 75%;
+        object-fit: contain;
+        margin: 13px auto 0;
+
+        background: none;
+        transition: all 0.3s ease;
     }
 
     .activity-image {
-        aspect-ratio: 1;
+        padding-top: 10px;
+        max-width: 80%;
+        max-height: 80%;
         object-fit: contain;
-        object-position: center;
-        width: 152px;
-        border-radius: 200px;
-    }
-
-    .title-top-right-radius {
-        border-radius: 0 10px 0 0;
-    }
-    
-    .title-bottom-radius {
-        border-radius: 0 0 10px 10px;
     }
 
     @media (max-width: 991px) {
-        .recreational-activities {
+        .icon-view {
             flex-direction: column;
             align-items: center;
         }
@@ -724,17 +728,19 @@
             padding: 20px;
         }
     }
+    
 
     .icon-select-container {
         position: relative;
         width: fit-content;
         margin: 32px auto 0;
         /* Agregar padding-bottom para dejar espacio para el mensaje de error */
-        padding-bottom: 20px;
-        padding-left: 20px;
-        padding-right: 20px;
+        padding: 0px 20px 5px 20px;
+        margin: 16px auto 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
-
 
     .icon-select {
         position: relative;
@@ -765,7 +771,7 @@
     .error-feedback {
 
         position: absolute;
-        bottom: 0;
+        bottom: -15px;
         left: 50%;
         transform: translateX(-50%);
         color: red;
@@ -790,21 +796,9 @@
 
     @keyframes shake {
         0%, 100% { transform: translateX(0); }
-        25% { transform: translateX(-10px); }
-        75% { transform: translateX(10px); }
+        25% { transform: translateX(-15px); }
+        75% { transform: translateX(15px); }
     }
-
-    /* Asegurarse que el contenedor tenga suficiente espacio para el mensaje de error */
-    .icon-select-container {
-        position: relative;
-        width: fit-content;
-        margin: 16px auto 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    /* ...rest of existing styles... */
 
     .icon-select:hover {
         border-color: rgba(0, 71, 255, 0.5);
@@ -817,6 +811,7 @@
         font-size: 16px;
         text-align: center;
         padding: 20px;
+        height: 80px;
     }
 
     .selected-icon-image {
@@ -841,25 +836,38 @@
     .icon-menu-container {
         background-color: white;
         border-radius: 20px;
-        padding: 24px;
         max-width: 90%;
         max-height: 90vh;
-        overflow-y: auto;
         box-shadow: 0px 4px 100px rgba(0, 0, 0, 0.5);
+        position: relative; /* Añadido */
+        padding: 0; /* Modificado */
+        overflow: hidden; /* Cambiado de overflow-y: auto */
     }
 
     .menu-header {
+        position: sticky; /* Cambiado de position: fixed */
+        top: 0;
+        left: 0;
+        right: 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 20px;
+        padding-top: 24px;
+        padding-bottom: 20px;
+        padding-left: 24px;
+        padding-right: 24px;
+        background-color: white; /* Añadido */
+        z-index: 2; /* Añadido */
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Añadido */
     }
 
     .menu-title {
         font-family: "Crimson Text", -apple-system, Roboto, Helvetica, sans-serif;
-        font-size: 22px;
+        font-size: 38px;
         color: rgba(0, 14, 50, 1);
-        font-weight: 600;
+        font-weight: 700;
+        margin: 0; /* Añadido */
     }
+
 
 </style>
