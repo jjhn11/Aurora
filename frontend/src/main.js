@@ -16,4 +16,4 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 // Icons
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-createApp(App).use(axios).use(store).use(router).mount('#app')
+createApp(App).use(store).use(router).mount('#app')

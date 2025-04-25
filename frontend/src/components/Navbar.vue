@@ -14,6 +14,10 @@
   import E1C from '../assets/img/navbar/E1 CULTURALES.png';
   import E2D from '../assets/img/navbar/E2 DEPORTIVOS.png';
   import E3E from '../assets/img/navbar/E3 ESCOLARES.png';
+  import C1R from '../assets/img/navbar/C1 RECREATIVAS.png'
+  import C2D from '../assets/img/navbar/C2 DEPORTES.png'
+  import C3C from '../assets/img/navbar/C3 CULTURAL.png'
+  import C4V from '../assets/img/navbar/C4 VIDEOJUEGOS.png'
   import DDMV from '../assets/img/navbar/DDM VACIO.png';
 
   import INV from '../assets/img/navbar/INVITADO.png';
@@ -225,38 +229,35 @@
                 <li class="nav-item dropdown position-static pe-5 mt-4 ms-5 me-4" id="droph">
                   <RouterLink to="/library" class="nav-link" role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/library') }">
                     BIBLIOTECA
-                    <div data-bs-toggle="dropdown" aria-expanded="false">
-
-                    </div>
                   </RouterLink>
 
-                  <ul v-if="!isActiveLink('/library')" class="dropdown-menu">
+                  <ul class="dropdown-menu">
                     <div class="container-fluid d-flex justify-content-center align-items-center">
                       <div class="row w-100 justify-content-center px-0">
 
-                        <div class="col-12 col-md-4 py-4">
+                        <div class="col-12 col-md-4 py-2">
 
-                          <li><RouterLink to="/library" class="dropdown-item" id="dropimg">
-                            <img :src="B1N" width="300" height="175" id="log">
-                            <span class="mt-3">NOVEDADES</span>
+                          <li><RouterLink to="/library" class="dropdown-item" id="dbut">
+                            <img :src="B1N" class="mt-3" id="dim3">
+                            <span class="my-3">NOVEDADES</span>
                           </RouterLink></li>
 
                         </div>
 
-                        <div class="col-12 col-md-4 py-4">
+                        <div class="col-12 col-md-4 py-2">
 
-                          <li><RouterLink to="/library" class="dropdown-item" id="dropimg">
-                            <img :src="B2R" width="300" height="175" id="log">
-                            <span class="mt-3">RESEÑAS</span>
+                          <li><RouterLink to="/library" class="dropdown-item" id="dbut">
+                            <img :src="B2R" class="mt-3" id="dim3">
+                            <span class="my-3">RESEÑAS</span>
                           </RouterLink></li>
 
                         </div>
 
-                        <div class="col-12 col-md-4 py-4">
+                        <div class="col-12 col-md-4 py-2">
 
-                          <li><RouterLink to="/library" class="dropdown-item" id="dropimg">
-                            <img :src="B3C" width="300" height="175" id="log">
-                            <span class="mt-3">CATALOGO</span>
+                          <li><RouterLink to="/library" class="dropdown-item" id="dbut">
+                            <img :src="B3C" class="mt-3" id="dim3">
+                            <span class="my-3">CATALOGO</span>
                           </RouterLink></li>
 
                         </div>
@@ -268,37 +269,37 @@
                 </li>
 
                 <li class="nav-item dropdown position-static pe-5 mt-4 ms-5 me-4" id="droph">
-                  <RouterLink to="/events" class="nav-link" role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/events') }">
+                  <RouterLink to="/events" class="nav-link" role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/events') || isActiveLink('/events/cultural') || isActiveLink('/events/sports') || isActiveLink('/events/school') }">
                     EVENTOS
                   </RouterLink>
                   
-                  <ul v-if="!isActiveLink('/events')" class="dropdown-menu">
+                  <ul class="dropdown-menu">
                     <div class="container-fluid d-flex justify-content-center align-items-center">
                       <div class="row w-100 justify-content-center px-0">
 
-                        <div class="col-12 col-md-4 py-4">
+                        <div class="col-12 col-md-4 py-2">
 
-                          <li><RouterLink to="/events" class="dropdown-item" id="dropimg">
-                            <img :src="E1C" width="300" height="175" id="log">
-                            <span class="mt-3">CULTURALES</span>
+                          <li><RouterLink to="/events/cultural" class="dropdown-item" id="dbut">
+                            <img :src="E1C" class="mt-3" id="dim3">
+                            <span class="my-3">CULTURALES</span>
                           </RouterLink></li>
 
                         </div>
 
-                        <div class="col-12 col-md-4 py-4">
+                        <div class="col-12 col-md-4 py-2">
 
-                          <li><RouterLink to="/events" class="dropdown-item" id="dropimg">
-                            <img :src="E2D" width="300" height="175" id="log">
-                            <span class="mt-3">DEPORTIVOS</span>
+                          <li><RouterLink to="/events/sports" class="dropdown-item" id="dbut">
+                            <img :src="E2D" class="mt-3" id="dim3">
+                            <span class="my-3">DEPORTIVOS</span>
                           </RouterLink></li>
 
                         </div>
 
-                        <div class="col-12 col-md-4 py-4">
+                        <div class="col-12 col-md-4 py-2">
 
-                          <li><RouterLink to="/events" class="dropdown-item" id="dropimg">
-                            <img :src="E3E" width="300" height="175" id="log">
-                            <span class="mt-3">ESCOLARES</span>
+                          <li><RouterLink to="/events/school" class="dropdown-item" id="dbut">
+                            <img :src="E3E" class="mt-3" id="dim3">
+                            <span class="my-3">ESCOLARES</span>
                           </RouterLink></li>
 
                         </div>
@@ -310,37 +311,46 @@
                 </li>
 
                 <li class="nav-item dropdown position-static mt-4 ms-5 me-2" id="droph">
-                  <RouterLink to="/community" class="nav-link" role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/community') }">
+                  <RouterLink class="nav-link" role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/community/cultural') || isActiveLink('/community/gaming') || isActiveLink('/community/sports') || isActiveLink('/community/recreational')}">
                     COMUNIDAD
                   </RouterLink>
 
-                  <ul v-if="!isActiveLink('/community')" class="dropdown-menu">
+                  <ul class="dropdown-menu">
                     <div class="container-fluid d-flex justify-content-center align-items-center">
-                      <div class="row w-100 justify-content-center px-0">
+                      <div class="row w-110 justify-content-center px-0">
 
-                        <div class="col-12 col-md-4 py-4">
+                        <div class="col-12 col-md-3 py-2 px-1">
 
-                          <li><RouterLink to="/community" class="dropdown-item" id="dropimg">
-                            <img :src="DDMV" width="300" height="175" id="log">
-                            <span class="mt-3">TABLEROS DE COMUNICACION</span>
+                          <li><RouterLink to="/community/recreational" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/community/recreational')}">
+                            <img :src="C1R" class="mt-4" id="dim4">
+                            <span class="my-3">RECREATIVAS</span>
                           </RouterLink></li>
 
                         </div>
 
-                        <div class="col-12 col-md-4 py-4">
+                        <div class="col-12 col-md-3 py-2 px-1">
 
-                          <li><RouterLink to="/community" class="dropdown-item" id="dropimg">
-                            <img :src="DDMV" width="300" height="175" id="log">
-                            <span class="mt-3">TABLEROS DE COMUNICACION</span>
+                          <li><RouterLink to="/community/sports" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/community/sports')}">
+                            <img :src="C2D" class="mt-4" id="dim4">
+                            <span class="my-3">DEPORTES</span>
                           </RouterLink></li>
 
                         </div>
 
-                        <div class="col-12 col-md-4 py-4">
+                        <div class="col-12 col-md-3 py-2 px-1">
 
-                          <li><RouterLink to="/community" class="dropdown-item" id="dropimg">
-                            <img :src="DDMV" width="300" height="175" id="log">
-                            <span class="mt-3">TABLEROS DE COMUNICACION</span>
+                          <li><RouterLink to="/community/cultural" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/community/cultural')}">
+                            <img :src="C3C" class="mt-4" id="dim4">
+                            <span class="my-3">CULTURAL</span>
+                          </RouterLink></li>
+
+                        </div>
+
+                        <div class="col-12 col-md-3 py-2 px-1">
+
+                          <li><RouterLink to="/community/gaming" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/community/gaming')}">
+                            <img :src="C4V" class="mt-4" id="dim4">
+                            <span class="my-3">VIDEOJUEGOS</span>
                           </RouterLink></li>
 
                         </div>
@@ -880,3 +890,81 @@
   </div>
 
 </template>
+
+<style scoped>
+
+@media (min-width: 992px) {
+
+  #droph.dropdown {
+
+    
+    &::before {
+      content: '';
+      opacity: 0;
+
+      display: flex;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      right: auto !important;
+      min-width: 200px; /* Ancho mínimo */
+      justify-content: center;
+      align-items: center;
+
+      font-size: 30px;
+      position: absolute;
+      top: 162.5px;
+      height: 291px;
+      width: 75%;
+      z-index: 999; 
+      pointer-events: none;
+      background-color: blue;
+
+      transition: opacity 0.3s ease; 
+    }
+
+    &:hover::before {
+      pointer-events: auto; 
+      opacity: 0;
+    }
+
+  }
+
+  #dbut.dropdown-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+
+    height: 245px;
+    border-radius: 30px;
+
+    img {
+      box-shadow: 0rem 0.35rem 0.75rem rgba(0, 0, 0, 0.4);
+      border-radius: 30px;
+    }
+
+    img#dim3 {
+      width: 300px;
+      height: 175px;
+    }
+
+    img#dim4{
+      width: 250px;
+      height: 175px;
+    }
+
+    &:hover {
+      background-color: #000E32;
+      color: white;
+    }
+
+    &.active {
+      background-color: #000E32;
+      color: white;
+    }
+  }
+
+}
+
+</style>
