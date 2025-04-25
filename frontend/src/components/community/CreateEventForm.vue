@@ -174,7 +174,7 @@
                                 <select v-model="activityType" class="form-input" required @focus="resetIconError">
 
                                     <option value="" disabled selected class="placeholder-option">
-                                        SELECCIONAR UNA ACTIVIDAD
+                                        Selecciona una Actividad
                                     </option>
 
                                     <option v-for="activity in activities" :key="activity" :value="activity">
@@ -220,7 +220,7 @@
                                 <select v-model="location" class="form-input" required @focus="resetIconError">
 
                                     <option value="" disabled selected class="placeholder-option">
-                                        SELECCIONAR UNA UBICACION
+                                        Selecciona una Ubicación
                                     </option>
 
                                     <option v-for="loc in locations" :key="loc" :value="loc">

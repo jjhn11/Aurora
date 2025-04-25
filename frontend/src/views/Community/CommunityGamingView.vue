@@ -4,11 +4,17 @@
     import CreateEventForm from '@/components/community/CreateEventForm.vue';
     import EventCard from '@/components/community/EventCard.vue';
 
-    import I1LA from '@/assets/img/community/icons/recreational/ICONO LECTURA.png'
-    import I2BA from '@/assets/img/community/icons/recreational/ICONO BANDA.png'
-    import I3EA from '@/assets/img/community/icons/recreational/ICONO ESCOLTA.png'
-    import I4TS from '@/assets/img/community/icons/recreational/ICONO TUTORIAS.png'
-    import I5AZ from '@/assets/img/community/icons/recreational/ICONO AJEDREZ.png'
+    import ACCION from '@/assets/img/community/icons/videogames/ICONO ACCION.png'
+    import AVENTURA from '@/assets/img/community/icons/videogames/ICONO AVENTURA.png'
+    import ROL from '@/assets/img/community/icons/videogames/ICONO ROL.png'
+    import ESTRATEGIA from '@/assets/img/community/icons/videogames/ICONO ESTRATEGIA.png'
+    import SIMULACION from '@/assets/img/community/icons/videogames/ICONO SIMULACION.png'
+    import DEPORTE from '@/assets/img/community/icons/videogames/ICONO DEPORTE.png'
+    import CARRERA from '@/assets/img/community/icons/videogames/ICONO CARRERA.png'
+    import PUZZLE from '@/assets/img/community/icons/videogames/ICONO PUZZLE.png'
+    import TERROR from '@/assets/img/community/icons/videogames/ICONO TERROR.png'
+    import MUSICA from '@/assets/img/community/icons/videogames/ICONO MUSICA.png'
+    
 
     const showForm = ref(false);
 
@@ -32,113 +38,84 @@
     };
 
     const recreationalActivities = [
-        'SUPER MARIO BROS',
-        'MARIO PARTY',
-        'MARIO KART',
-        'SMASH BROS',
-        'OVERCOOKED',
-        'MINECRAFT',
-        'FIFA',
-        'MORTAL KOMBAT',
-        'STREET FIGHTER',
-        'R.E.P.O',
-        'ROBLOX',
+        'Acción',
+        'Aventura',
+        'Rol (RPG)',
+        'Estrategia',
+        'Simulación',
+        'Deportes',
+        'Carreras',
+        'Puzzle',
+        'Terror',
+        'Música y ritmo',
     ];
 
     const recreationalLocations = [
-        'BIBLIOTECA PLANTA ALTA',
-        'BIBLIOTECA PLANTA BAJA',
-        'PLAZA C-BUFALO',
-        'PLAZA BICENTENARIO',
-        'AUDIOVISUAL EDIFICIO U PLANTA ALTA',
-        'AUDIOVISUAL EDIFICIO U PLANTA BAJA',
-        'AUDIOVISUAL EDIFICIO D',
-        'CUBICULO DE ESTUDIO',
-        'ZONA LIBRE',
-        'BIBLIOTECA SALA CIRCULOS DE LECTURA',
-        'CANCHA EXTRAESCOLARES'
+        'Aula Extraescolares',
+        'Jardin Edificio U',
+        'Biblioteca Planta Alta',
+        'Biblioteca Planta Baja',
+        'Plaza C-Bufalo',
+        'Plaza Bicentenario',
+        'Audiovisual Edificio U Planta Alta',
+        'Audiovisual Edificio U Planta Baja',
+        'Audiovisual Edificio D',
+        'Cubiculo de Estudio',
+        'Zona Libre',
+        'Biblioteca Sala Circulos de Lectura',
+        'Cancha Extraescolares'
     ];
 
     const recreationalIcons = [
         {
-            title: 'LECTURA',
-            image: I1LA,
-            bgColor: 'rgba(248, 237, 156, 1)'
+            title: 'ACCION',
+            image: ACCION,
+            bgColor: 'rgba(225, 50, 50, 1)'
         },
         {
-            title: 'BANDA DE GUERRA',
-            image: I2BA,
-            bgColor: 'rgba(197, 237, 232, 1)'
+            title: 'AVENTURA',
+            image: AVENTURA,
+            bgColor: 'rgba(115, 225, 255, 1)'
         },
         {
-            title: 'ESCOLTA',
-            image: I3EA,
-            bgColor: 'rgba(255, 175, 146, 1)'
+            title: 'ROL (RPG)',
+            image: ROL,
+            bgColor: 'rgba(215, 155, 125, 1)'
         },
         {
-            title: 'TUTORÍAS',
-            image: I4TS,
-            bgColor: 'rgba(189, 238, 166, 1)'
+            title: 'ESTRATEGIA',
+            image: ESTRATEGIA,
+            bgColor: 'rgba(115, 255, 110, 1)'
         },
         {
-            title: 'AJEDREZ',
-            image: I5AZ,
-            bgColor: 'rgba(245, 91, 75, 1)'
+            title: 'SIMULACION',
+            image: SIMULACION,
+            bgColor: 'rgba(255, 100, 55, 1)'
         },
         {
-            title: 'LECTURA',
-            image: I1LA,
-            bgColor: 'rgba(248, 237, 156, 1)'
+            title: 'DEPORTES',
+            image: DEPORTE,
+            bgColor: 'rgba(210, 210, 210, 1)'
         },
         {
-            title: 'BANDA DE GUERRA',
-            image: I2BA,
-            bgColor: 'rgba(197, 237, 232, 1)'
+            title: 'CARRERAS',
+            image: CARRERA,
+            bgColor: 'rgba(255, 200, 50, 1)'
         },
         {
-            title: 'ESCOLTA',
-            image: I3EA,
-            bgColor: 'rgba(255, 175, 146, 1)'
+            title: 'PUZZLES',
+            image: PUZZLE,
+            bgColor: 'rgba(255, 115, 160, 1)'
         },
         {
-            title: 'TUTORÍAS',
-            image: I4TS,
-            bgColor: 'rgba(189, 238, 166, 1)'
+            title: 'TERROR',
+            image: TERROR,
+            bgColor: 'rgba(15, 15, 15, 1)'
         },
         {
-            title: 'AJEDREZ',
-            image: I5AZ,
-            bgColor: 'rgba(245, 91, 75, 1)'
-        },
-        {
-            title: 'LECTURA',
-            image: I1LA,
-            bgColor: 'rgba(248, 237, 156, 1)'
-        },
-        {
-            title: 'BANDA DE GUERRA',
-            image: I2BA,
-            bgColor: 'rgba(197, 237, 232, 1)'
-        },
-        {
-            title: 'ESCOLTA',
-            image: I3EA,
-            bgColor: 'rgba(255, 175, 146, 1)'
-        },
-        {
-            title: 'TUTORÍAS',
-            image: I4TS,
-            bgColor: 'rgba(189, 238, 166, 1)'
-        },
-        {
-            title: 'AJEDREZ',
-            image: I5AZ,
-            bgColor: 'rgba(245, 91, 75, 1)'
-        },
-        {
-            title: 'CARTAS',
-            image: I4TS,
-            bgColor: 'rgba(18, 238, 166, 1)'
+            title: 'MUSICA Y RITMO',
+            image: MUSICA,
+            bgColor: 'rgba(160, 120, 190, 1)'
         },
     ];
 

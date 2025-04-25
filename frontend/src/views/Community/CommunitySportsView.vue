@@ -35,29 +35,29 @@
     };
 
     const recreationalActivities = [
-        'VOLLEYBALL SALA',
-        'VOLLEYBALL PLAYA',
-        'SOFTBOL',
-        'BEISBOL',
-        'BASQUETBOL',
-        'ATLETISMO',
-        'PORRA',
-        'BOX',
-        'SOCCER / FUTBOL'
+        'Volleyball Sala',
+        'Volleyball Playa',
+        'Softball',
+        'Baseball',
+        'Basketball',
+        'Atletismo',
+        'Porra',
+        'Box',
+        'Football'
     ];
 
     const recreationalLocations = [
-        'CANCHA VOLLEYBALL SALA TRASERA 1',
-        'CANCHA VOLLEYBALL SALA TRASERA 2',
-        'CANCHA VOLLEYBALL PLAYA',
-        'CAMPO SOFTBOL',
-        'CAMPO BEISBOL 1',
-        'CAMPO BEISBOL 2',
-        'CANCHA BASQUETBOL CENTRAL',
-        'CANCHA BASQUETBOL TRASERA',
-        'CANCHA SOCCER / FUTBOL 1',
-        'CANCHA SOCCER / FUTBOL 2',
-        'CANCHA SOCCER / FUTBOL 3'
+        'Cancha Volleyball Sala Trasera 1',
+        'Cancha Volleyball Sala Trasera 2',
+        'Cancha Volleyball Playa',
+        'Campo Softball',
+        'Campo Baseball 1',
+        'Campo Baseball 2',
+        'Cancha Basketball Central',
+        'Cancha Basketball Trasera',
+        'Cancha Soccer / Football 1',
+        'Cancha Soccer / Football 2',
+        'Cancha Soccer / Football 3'
     ];
 
     const recreationalIcons = [

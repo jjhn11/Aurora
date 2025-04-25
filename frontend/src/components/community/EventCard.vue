@@ -372,7 +372,6 @@ export default {
         object-fit: contain;
         object-position: center;
         width: 152px;
-        border-radius: 200px;
     }
   
     .attendance-button {
