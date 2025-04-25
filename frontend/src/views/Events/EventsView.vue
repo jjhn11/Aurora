@@ -4,6 +4,7 @@ import Carousel1 from '@/components/Events/Carousel1.vue';
 import Carousel2 from '@/components/Events/Carousel2.vue';
 import Carousel3 from '@/components/Events/Carousel3.vue';
 import Calendar from '@/components/Events/Calendar/Calendar.vue';
+import EventsPages from '@/components/Events/EventsList.vue';
 </script>
 
 <template>
