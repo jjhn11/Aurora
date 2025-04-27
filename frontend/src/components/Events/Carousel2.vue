@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import Card from './Card.vue';
-
+import Modal from '../Modal.vue';
 // Setup reactive state
 const activeSlide = ref(0);
 const totalSlides = ref(3);
@@ -20,6 +20,19 @@ onMounted(() => {
     });
   }
 });
+// Modal
+const selectedEvent = ref(null);
+const isModalOpen = ref(false);
+
+const openModal = (event) => {
+  selectedEvent.value = event;
+  isModalOpen.value = true;
+};
+
+const closeModal = () => {
+  selectedEvent.value = null;
+  isModalOpen.value = false;
+};
 </script>
 
 <template>
@@ -37,6 +50,7 @@ onMounted(() => {
                                :image="events[3].image"
                                :title="events[3].title"
                                :description="events[3].description"
+                               @click="openModal(events[3])"
                                />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4">
@@ -45,6 +59,7 @@ onMounted(() => {
                                 :image="events[4].image"
                                 :title="events[4].title"
                                 :description="events[4].description"
+                                @click="openModal(events[4])"
                                />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4">
@@ -53,6 +68,7 @@ onMounted(() => {
                                :image="events[5].image"
                                :title="events[5].title"
                                :description="events[5].description"
+                               @click="openModal(events[5])"
                                />
                         </div>
                     </div>
@@ -65,6 +81,7 @@ onMounted(() => {
                                :image="events[3].image"
                                :title="events[3].title"
                                :description="events[3].description"
+                               @click="openModal(events[3])"
                                />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4">
@@ -73,6 +90,7 @@ onMounted(() => {
                                :image="events[4].image"
                                :title="events[4].title"
                                :description="events[4].description"
+                               @click="openModal(events[4])"
                                />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4">
@@ -81,6 +99,7 @@ onMounted(() => {
                                :image="events[5].image"
                                :title="events[5].title"
                                :description="events[5].description"
+                               @click="openModal(events[5])"
                                />
                         </div>
                     </div>
@@ -93,6 +112,7 @@ onMounted(() => {
                                :image="events[3].image"
                                :title="events[3].title"
                                :description="events[3].description"
+                               @click="openModal(events[3])"
                                />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4">
@@ -101,6 +121,7 @@ onMounted(() => {
                                :image="events[4].image"
                                :title="events[4].title"
                                :description="events[4].description"
+                               @click="openModal(events[4])"
                                />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4">
@@ -109,6 +130,7 @@ onMounted(() => {
                                :image="events[5].image"
                                :title="events[5].title"
                                :description="events[5].description"
+                               @click="openModal(events[5])"
                                />
                         </div>
                     </div>
@@ -123,7 +145,7 @@ onMounted(() => {
         <div class="custom-slider-thumb" :style="{ left: `${(activeSlide / (totalSlides - 4)) * 100}%` }"></div>
     </div>
 
-
+    <Modal :isOpen="isModalOpen" :event="selectedEvent" @close="closeModal" />
 
 </template>
 
