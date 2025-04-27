@@ -1,19 +1,18 @@
-require('dotenv').config();
-const express = require('express');
-const session = require('express-session');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const passport = require('./config/passport');
+import dotenv from 'dotenv'; dotenv.config();
+import express from 'express';
+import session from 'express-session';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import passport from './config/passport.js';
 const open = (...args) => import('open').then(m => m.default(...args));
-const authRoutes = require('./routes/auth');
-const taskRoutes = require('./routes/task');
-const checkAuth = require('./middlewares/checkAuth');
-const { pool } = require('./config/db');
-const { sequelize } = require('./config/db');
-const communityRoutes = require('./routes/community');
+import authRoutes from './routes/auth.js';
+import taskRoutes from './routes/task.js';
+import checkAuth from './middlewares/checkAuth.js';
+import { pool, sequelize } from './config/db.js';
+import communityRoutes from './routes/community.js';
 
-const { isProfane } = require('./middlewares/checkProfane.js');	
+import { isProfane } from './middlewares/checkProfane.js';	
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -94,6 +93,7 @@ async function connectWithRetry(maxAttempts = 10, delay = 5000) {
   }
   return false;
 }
+
 
 // Start server
 async function startServer() {

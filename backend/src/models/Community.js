@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize');
-const { sequelize } = require('../config/db');
+import { DataTypes, Sequelize } from 'sequelize';
+import { sequelize } from '../config/db.js'; 
 
 const Community = sequelize.define('Community', {
   id: {
@@ -28,4 +28,4 @@ const Community = sequelize.define('Community', {
   timestamps: false
 });
 
-module.exports = Community;
+export default Community;

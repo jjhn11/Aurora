@@ -1,7 +1,7 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router(); 
-const CommunityActivities = require('../models/CommunityActivities');
-const CommunityActivityType = require('../models/CommunityActivityTypes');
+import CommunityActivities from '../models/CommunityActivities.js';
+import CommunityActivityType from '../models/CommunityActivityTypes.js';
 
 // GET
 router.get('/community-activities', async (req, res) => {
@@ -97,4 +97,4 @@ router.get('/community-activity-types', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

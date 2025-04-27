@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize');
-const { sequelize } = require('../config/db');
+import { DataTypes, Sequelize } from 'sequelize';
+import { sequelize } from '../config/db.js'; 
 
 const CommunityActivity = sequelize.define('CommunityActivity', {
   Id_activity: {
@@ -60,11 +60,11 @@ const CommunityActivity = sequelize.define('CommunityActivity', {
   timestamps: false
 });
 
-const CommunityActivityType = require('./CommunityActivityTypes');
+import CommunityActivityType from './CommunityActivityTypes.js';
 
 CommunityActivity.belongsTo(CommunityActivityType, {
   foreignKey: 'Id_type',
   targetKey: 'Id_type'
 });
 
-module.exports = CommunityActivity;
+export default CommunityActivity;

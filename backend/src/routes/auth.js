@@ -1,6 +1,6 @@
-const express = require('express');
-const passport = require('passport');
-const checkAuth = require('../middlewares/checkAuth');
+import express from 'express';
+import passport from 'passport';
+import checkAuth from '../middlewares/checkAuth.js';
 
 const router = express.Router();
 
@@ -54,4 +54,4 @@ router.get('/status', (req, res) => {
   return res.json({ isAuthenticated: false, user: null });
 });
 
-module.exports = router;
+export default router;

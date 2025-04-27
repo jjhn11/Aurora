@@ -1,6 +1,6 @@
-const { DataTypes } = require('sequelize');
-const { sequelize } = require('../config/db');
-const CommunityCategory = require('./CommunityCategories');
+import { DataTypes, Sequelize } from 'sequelize';
+import { sequelize } from '../config/db.js'; 
+import CommunityCategory from './CommunityCategories.js';
 
 const CommunityActivityType = sequelize.define('CommunityActivityType', {
   Id_type: {
@@ -34,4 +34,4 @@ CommunityActivityType.belongsTo(CommunityCategory, {
   targetKey: 'Id_category'
 });
 
-module.exports = CommunityActivityType;
+export default CommunityActivityType;

@@ -1,4 +1,4 @@
-const pool = require('../config/db');
+import pool from '../config/db.js';
 
 const getAllTasks = async () => {
   try {
@@ -22,7 +22,7 @@ const updateTask = (id, name, description, completed) =>
 const deleteTask = (id) =>
   pool.query('DELETE FROM tasks WHERE id = ?', [id]);
 
-module.exports = {
+export {
   getAllTasks,
   getTaskById,
   createTask,

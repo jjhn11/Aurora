@@ -1,4 +1,4 @@
-const filter = require('../config/profanity.js');
+import filter from '../config/profanity.js';
 
 /** Middleware configurable para revisar profanidad en campos específicos
  * @param {string|string[]} fields - Campo o campos a revisar del req.body
@@ -52,6 +52,6 @@ const isProfane = (fields) => {
     };
 };
 
-module.exports = { 
+export { 
     isProfane 
 };

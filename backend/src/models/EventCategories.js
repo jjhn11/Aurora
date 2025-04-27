@@ -1,5 +1,5 @@
-const { DataTypes, Sequelize } = require('sequelize');
-const { sequelize } = require('../config/db');
+import { DataTypes, Sequelize } from 'sequelize';
+import { sequelize } from '../config/db.js'; 
 
 const EventCategory = sequelize.define('EventCategory', {
   Id_category: {
@@ -19,4 +19,4 @@ const EventCategory = sequelize.define('EventCategory', {
   timestamps: false
 });
 
-module.exports = EventCategory;
+export default EventCategory;

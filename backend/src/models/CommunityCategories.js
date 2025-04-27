@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize');
-const { sequelize } = require('../config/db');
+import { DataTypes, Sequelize } from 'sequelize';
+import { sequelize } from '../config/db.js'; 
 
 const CommunityCategory = sequelize.define('CommunityCategory', {
   Id_category: {
@@ -19,4 +19,4 @@ const CommunityCategory = sequelize.define('CommunityCategory', {
   timestamps: false
 });
 
-module.exports = CommunityCategory;
+export default CommunityCategory;

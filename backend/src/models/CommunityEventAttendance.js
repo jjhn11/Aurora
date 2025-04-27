@@ -1,5 +1,5 @@
-const { DataTypes, Sequelize } = require('sequelize');
-const { sequelize } = require('../config/db');
+import { DataTypes, Sequelize } from 'sequelize';
+import { sequelize } from '../config/db.js'; 
 
 const CommunityEventAttendance = sequelize.define('CommunityEventAttendance', {
   Id_attendance_co: {
@@ -17,4 +17,4 @@ const CommunityEventAttendance = sequelize.define('CommunityEventAttendance', {
   timestamps: false
 });
 
-module.exports = CommunityEventAttendance;
+export default CommunityEventAttendance;

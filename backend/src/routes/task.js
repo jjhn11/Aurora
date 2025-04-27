@@ -1,11 +1,11 @@
-const express = require('express');
-const {
+import express from 'express';
+import {
   getAllTasks,
   getTaskById,
   createTask,
   updateTask,
   deleteTask
-} = require('../models/TaskModel.js');
+} from '../models/TaskModel.js';
 
 const router = express.Router();
 
@@ -51,4 +51,4 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
