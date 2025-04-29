@@ -47,66 +47,76 @@ defineProps({
     
 </template>
 <style scoped>
-.freeman-regular {
-  font-family: "Freeman", sans-serif;
+.card {
+  background-color: #F3F4F5;
+  width: 100%;
+  height: 400px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.card-cover {
+  flex: 0 0 auto;
+}
+
+.card-image {
+  object-fit: cover;
+  object-position: center top;
+  width: 100%;
+  height: 220px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  margin-bottom: 5px;
+}
+
+.card-info {
+  flex: 1 1 auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+}
+
+.card-title {
+  font-family: 'Freeman', sans-serif;
   font-weight: 400;
-  font-style: normal;
+  text-transform: uppercase;
+  font-size: 23px;
+  color: #1a1a1a;
+  margin: 8px 0;
 }
-.card:hover {
-    transform: translateY(-5px);
+
+.card-description {
+  text-align: justify;
+  font-family: 'Inria Sans', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: #7e8382;
+  margin: 8px 0;
 }
+
+.card-footer {
+  flex: 0 0 auto; /* al fondoooo*/
+  background-color: #D9D9D9;
+  text-align: right;
+  padding: 14px;
+}
+
 .btn-read-more {
-    font-size: 14px;
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-    cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .btn-read-more:hover {
     text-decoration: underline;
-}
-.card {
-    background-color: #F3F4F5;
-    /* width: 436px; */
-    /*height: 400px; */
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-out;
-    flex: 0 0 auto;
-    margin: 0 auto;
-    padding: 0;
-}
-.card-image {
-    height: 191px;
-    width: 389px; 
-    object-position: center top;
-    object-fit: cover;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    margin-bottom: 5px;
-}
-.card-title {
-    text-align: center;
-    font-family:'Freeman';
-    font-weight:400;
-    line-height: 100%;
-    text-transform: uppercase;
-    font-size: 23px;
-    color: #1a1a1a;
-}
-
-.card-footer{
-    background-color: #D9D9D9;
-    text-align: right;
-    padding: 14px;
-}
-
-.card-description {
-    font-family: 'Inria sans';
-    font-weight: 400;
-    font-size: 15px;
-    color: #7e8382;
 }
 </style>

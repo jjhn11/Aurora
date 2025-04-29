@@ -35,7 +35,7 @@ const closeModal = () => {
 
 <template>
     <div class="contenedor-carrusel container-fluid d-flex justify-content-center">
-        <div id="carrusel1" class="carousel">
+      <div id="carrusel1" class="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <div class="row justify-content-center">
@@ -130,54 +130,68 @@ const closeModal = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="carousel-controls-bottom">
-                <button class="btn btn-link carousel-control-prev-bottom" type="button" data-bs-target="#carrusel1" data-bs-slide="prev">
-                    <i class="bi bi-chevron-left fs-4"></i>
-                </button>
-                
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carrusel1" data-bs-slide-to="0" class="active"></button>
-                    <button type="button" data-bs-target="#carrusel1" data-bs-slide-to="1"></button>
-                    <button type="button" data-bs-target="#carrusel1" data-bs-slide-to="2"></button>
-                </div>
-                
-                <button class="btn btn-link carousel-control-next-bottom" type="button" data-bs-target="#carrusel1" data-bs-slide="next">
-                    <i class="bi bi-chevron-right fs-4"></i>
-                </button>
-            </div>
         </div>
+  
+        <!-- Controles del carrusel -->
+        <div class="carousel-controls-bottom">
+          <button class="btn btn-link carousel-control-prev-bottom" type="button" data-bs-target="#carrusel1" data-bs-slide="prev">
+            <i class="bi bi-chevron-left fs-4"></i>
+          </button>
+  
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carrusel1" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#carrusel1" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#carrusel1" data-bs-slide-to="2"></button>
+          </div>
+  
+          <button class="btn btn-link carousel-control-next-bottom" type="button" data-bs-target="#carrusel1" data-bs-slide="next">
+            <i class="bi bi-chevron-right fs-4"></i>
+          </button>
+        </div>
+      </div>
     </div>
+  
     <Modal :isOpen="isModalOpen" :event="selectedEvent" @close="closeModal" />
-</template>
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Freeman&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
-
-.contenedor-carrusel {
-    width: 83%;
-}
-
-.carousel {
+  </template>
+  
+  <style scoped>
+  .contenedor-carrusel {
+    width: 90%;
+  }
+  
+  .carousel {
     position: relative;
     padding-bottom: 30px;
-}
-.carousel-item {
+  }
+  
+  .carousel-item {
     margin: 0 auto;
     padding: 20px 10px;
-}
-
-.carousel-item .row {
-    flex-wrap: nowrap;
+  }
+  
+  .carousel-item .row {
+    flex-wrap: wrap; /* ahora sí deja que se acomoden en pantallas chicas */
     max-width: 1600px;
     justify-content: center;
-    margin: 15 auto;
-}
-/* cards */
-
-/* controles inferiores */
-.carousel-controls-bottom {
+    margin: 0 auto;
+  }
+  
+  /* CardHome */
+  .card-home {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card-home img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  
+  /* Controles inferiores */
+  .carousel-controls-bottom {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -187,31 +201,31 @@ const closeModal = () => {
     align-items: center;
     gap: 20px;
     margin-top: 20px;
-}
-
-.carousel-control-prev-bottom,
-.carousel-control-next-bottom {
+  }
+  
+  .carousel-control-prev-bottom,
+  .carousel-control-next-bottom {
     color: #007bff;
     transition: all 0.3s ease;
     padding: 5px;
-}
-
-.carousel-control-prev-bottom:hover,
-.carousel-control-next-bottom:hover {
+  }
+  
+  .carousel-control-prev-bottom:hover,
+  .carousel-control-next-bottom:hover {
     color: #0056b3;
     transform: scale(1.2);
-}
-
-/* circulos */
-.carousel-indicators {
+  }
+  
+  /* Indicadores */
+  .carousel-indicators {
     position: relative;
     display: flex;
     gap: 5px;
     margin: 0;
     bottom: auto;
-}
-
-.carousel-indicators button {
+  }
+  
+  .carousel-indicators button {
     width: 12px !important;
     height: 12px !important;
     border-radius: 50%;
@@ -220,15 +234,17 @@ const closeModal = () => {
     opacity: 0.5;
     transition: all 0.3s ease;
     margin: 0 5px;
-}
-
-.carousel-indicators button.active {
+  }
+  
+  .carousel-indicators button.active {
     background-color: #007bff;
     opacity: 1;
     transform: scale(1.2);
-}
-.carousel-control-prev,
-.carousel-control-next {
+  }
+  
+  .carousel-control-prev,
+  .carousel-control-next {
     display: none;
-}
-</style>
+  }
+  </style>
+  
