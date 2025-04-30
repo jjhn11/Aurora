@@ -1,20 +1,21 @@
 import { DataTypes, Sequelize } from 'sequelize';
 import { sequelize } from '../config/db.js'; 
 
-const UserStatus = sequelize.define('UserStatus', {
-  Id_user_status: {
+const Occupation = sequelize.define('Occupation', {
+  Id_occupation: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    field: 'Id_user_status',
+    field: 'Id_occupation',
   },
-  User_status: {
+  Occupation: {
     type: DataTypes.STRING(20),
-    allowNull: false,
-    unique: true,
-    field: 'User_status',
+    allowNull: true,
+    field: 'Occupation',
   },
 }, {
-  tableName: 'User_status_',
+  tableName: 'Occupations_',
   timestamps: false,
 });
+
+export default Occupation;

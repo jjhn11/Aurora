@@ -6,17 +6,22 @@ const EventCategory = sequelize.define('EventCategory', {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    field: 'Id_category'
+    field: 'Id_category',
+  },
+  Type_event: {
+    type: DataTypes.STRING(40),
+    allowNull: true,
+    field: 'Type_event',
   },
   Event_name: {
     type: DataTypes.STRING(15),
     allowNull: false,
     unique: true,
-    field: 'Event_name'
-  }
+    field: 'Event_name',
+  },
 }, {
   tableName: 'Event_categories_',
-  timestamps: false
+  timestamps: false,
 });
 
 export default EventCategory;

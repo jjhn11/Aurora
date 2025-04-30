@@ -1,72 +1,45 @@
 import { DataTypes, Sequelize } from 'sequelize';
 import { sequelize } from '../config/db.js'; 
 import EventCategory from'./EventCategories.js'; 
-import EventType from './EventTypes.js'; 
+import EventType from './CalendarEvents.js'; 
 
 const Event = sequelize.define('Event', {
   Id_event: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    field: 'Id_event'
+    field: 'Id_event',
   },
   Title: {
     type: DataTypes.STRING(200),
     allowNull: false,
-    field: 'Title'
+    field: 'Title',
   },
   Description: {
     type: DataTypes.TEXT,
-    field: 'Description'
+    allowNull: true,
+    field: 'Description',
   },
-  Id_Event_Category: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    field: 'Id_Event_Category',
-    references: {
-      model: 'EventCategory', 
-      key: 'Id_category'
-    }
-  },
-  Id_Event_type: {
+  Id_category: {
     type: DataTypes.INTEGER,
     allowNull: true,
-    field: 'Id_Event_type',
-    references: {
-      model: 'EventType', 
-      key: 'Id_type'
-    }
+    field: 'Id_category',
   },
   Event_date: {
     type: DataTypes.DATE,
-    field: 'Event_date'
+    allowNull: true,
+    field: 'Event_date',
   },
-  Start_time: {
-    type: DataTypes.TIME,
-    field: 'Start_time'
-  },
-  End_time: {
-    type: DataTypes.TIME,
-    field: 'End_time'
-  },
-  Location: {
-    type: DataTypes.STRING(150),
-    field: 'Location'
-  }
 }, {
   tableName: 'Events_',
-  timestamps: false
+  timestamps: false,
 });
 
-// Definir las relaciones
-Event.belongsTo(EventCategory, {
-  foreignKey: 'Id_Event_Category',
-  targetKey: 'Id_category'
-});
-
-Event.belongsTo(EventType, {
-  foreignKey: 'Id_Event_type',
-  targetKey: 'Id_type'
-});
+Event.associate = (models) => {
+  Event.belongsTo(models.EventCategory, {
+    foreignKey: 'Id_category',
+    as: 'category',
+  });
+};
 
 export default Event;

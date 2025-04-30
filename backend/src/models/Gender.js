@@ -1,20 +1,20 @@
 import { DataTypes, Sequelize } from 'sequelize';
 import { sequelize } from '../config/db.js'; 
 
-const UserStatus = sequelize.define('UserStatus', {
-  Id_user_status: {
+const Gender = sequelize.define('Gender', {
+  Id_gender: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    field: 'Id_user_status',
+    field: 'Id_gender',
   },
-  User_status: {
+  Gender_name: {
     type: DataTypes.STRING(20),
-    allowNull: false,
-    unique: true,
-    field: 'User_status',
+    allowNull: true,
+    field: 'Gender_name',
   },
 }, {
-  tableName: 'User_status_',
+  tableName: 'Genders_',
   timestamps: false,
 });
+export default Career;

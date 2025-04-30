@@ -1,79 +1,67 @@
 import { DataTypes, Sequelize } from 'sequelize';
 import { sequelize } from '../config/db.js'; 
 
-// Definición del modelo User
 const User = sequelize.define('User', {
   Id_user: {
     type: DataTypes.STRING(8),
     primaryKey: true,
-    field: 'Id_user'
+    field: 'Id_user',
   },
-  Id_career: {
+  Id_occupation: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    field: 'Id_career',
-    references: {
-      model: 'Career', 
-      key: 'Id_career'
-    }
+    field: 'Id_Occupation',
   },
   Control_num: {
     type: DataTypes.STRING(11),
     unique: true,
-    field: 'Control_num'
+    allowNull: true,
+    field: 'Control_num',
   },
   Name_user: {
     type: DataTypes.STRING(50),
-    field: 'Name_user'
+    allowNull: true,
+    field: 'Name_user',
   },
   Last_name: {
     type: DataTypes.STRING(50),
-    field: 'Last_name'
+    allowNull: true,
+    field: 'Last_name',
   },
   Email: {
     type: DataTypes.STRING(64),
     unique: true,
-    field: 'Email'
+    allowNull: true,
+    field: 'Email',
   },
   Id_gender: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    field: 'Id_gender'
-  },
-  Password: {
-    type: DataTypes.STRING(18),
-    field: 'Password'
-  },
-  Id_country: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    field: 'Id_country',
-    references: {
-      model: 'Country',
-      key: 'Id_country'
-    }
+    field: 'Id_gender',
   },
   Id_user_status: {
     type: DataTypes.INTEGER,
     allowNull: false,
     field: 'Id_user_status',
-    references: {
-      model: 'UserStatus',
-      key: 'Id_user_status'
-    }
   },
-  Id_attendance_co: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-    field: 'Id_attendance_co',
-    references: {
-      model: 'CommunityEventAttendance',
-      key: 'Id_attendance_co'
-    }
-  }
 }, {
-  tableName: 'Users_', 
-  timestamps: false
+  tableName: 'Users_',
+  timestamps: false,
 });
+
+User.associate = (models) => {
+  User.belongsTo(models.Occupation, {
+    foreignKey: 'Id_occupation',
+    as: 'occupation',
+  });
+  User.belongsTo(models.Gender, {
+    foreignKey: 'Id_gender',
+    as: 'gender',
+  });
+  User.belongsTo(models.UserStatus, {
+    foreignKey: 'Id_user_status',
+    as: 'userStatus',
+  });
+};
 
 export default User;
