@@ -10,28 +10,14 @@ const CommunityActivityType = sequelize.define('CommunityActivityType', {
     field: 'Id_type'
   },
   Type_name: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(40),
     allowNull: false,
     field: 'Type_name'
   },
-  Id_category: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    field: 'Id_category',
-    references: {
-      model: 'Community_categories_',
-      key: 'Id_category'
-    }
-  }
+ 
 }, {
   tableName: 'Community_activity_types_',
   timestamps: false
-});
-
-// Define relationship
-CommunityActivityType.belongsTo(CommunityCategory, {
-  foreignKey: 'Id_category',
-  targetKey: 'Id_category'
 });
 
 export default CommunityActivityType;

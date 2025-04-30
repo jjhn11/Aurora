@@ -1,20 +1,18 @@
 import { DataTypes, Sequelize } from 'sequelize';
 import { sequelize } from '../config/db.js'; 
 
-const Country = sequelize.define('Country', {
-  Id_country: {
+const Community = sequelize.define('CommunityActivityLocation', {
+  Id_Location: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    field: 'Id_country'
   },
-  Country_name: {
+  Location_: {
     type: DataTypes.STRING(50),
-    field: 'Country_name'
-  }
+  },
 }, {
-  tableName: 'Countries_',
-  timestamps: false
+  tableName: 'Community_activity_location_',
+  timestamps: false,
 });
 
-export default Country;
+export default Community;

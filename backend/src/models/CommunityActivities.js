@@ -17,19 +17,14 @@ const CommunityActivity = sequelize.define('CommunityActivity', {
     type: DataTypes.TEXT,
     field: 'Description'
   },
-  Id_type: {
+  Id_category: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    field: 'Id_type',
-    references: {
-      model: 'Community_activity_types_',
-      key: 'Id_type'
-    }
   },
-  Location: {
-    type: DataTypes.STRING(150),
-    field: 'Location'
-  },
+  Id_Location: {
+    type: DataTypes.INTEGER,
+    allowNull: false,},
+
   Start_time: {
     type: DataTypes.TIME,
     field: 'Start_time'
@@ -42,11 +37,7 @@ const CommunityActivity = sequelize.define('CommunityActivity', {
     type: DataTypes.DATE,
     field: 'Event_date'
   },
-  Status: {
-    type: DataTypes.ENUM('Activo', 'Finalizado', 'Cancelado'),
-    defaultValue: 'Activo',
-    field: 'Status'
-  },
+  
   Organizer_id: {
     type: DataTypes.STRING(8),
     field: 'Organizer_id',
@@ -62,9 +53,16 @@ const CommunityActivity = sequelize.define('CommunityActivity', {
 
 import CommunityActivityType from './CommunityActivityTypes.js';
 
-CommunityActivity.belongsTo(CommunityActivityType, {
-  foreignKey: 'Id_type',
-  targetKey: 'Id_type'
+CommunityActivity.belongsTo(models.CommunityCategory, {
+  foreignKey: 'Id_category',
+  as: 'category',
 });
-
+CommunityActivity.belongsTo(models.User, {
+  foreignKey: 'Organizer_id',
+  as: 'organizer',
+});
+CommunityActivity.belongsTo(models.CommunityActivityLocation, {
+  foreignKey: 'Id_Location',
+  as: 'location',
+});
 export default CommunityActivity;
