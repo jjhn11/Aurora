@@ -100,7 +100,7 @@
         onMounted(async () => {
           await store.dispatch('checkAuth');
 
-          currentView.value = store.state.isAuthenticated ? 'MainMenuAc' : 'MainMenu';
+          currentView.value = store.state.isAuthenticated ? 'MainMenuAc' : 'MainMenu'; 
           viewStack.value = [currentView.value];
 
           document.addEventListener('click', handleClickOutside);
@@ -235,33 +235,24 @@
                     <div class="container-fluid d-flex justify-content-center align-items-center">
                       <div class="row w-100 justify-content-center px-0">
 
-                        <div class="col-12 col-md-4 py-2">
-
-                          <li><RouterLink to="/library" class="dropdown-item" id="dbut">
-                            <img :src="B1N" class="mt-3" id="dim3">
-                            <span class="my-3">NOVEDADES</span>
-                          </RouterLink></li>
-
-                        </div>
-
-                        <div class="col-12 col-md-4 py-2">
-
-                          <li><RouterLink to="/library" class="dropdown-item" id="dbut">
-                            <img :src="B2R" class="mt-3" id="dim3">
-                            <span class="my-3">RESEÑAS</span>
-                          </RouterLink></li>
-
-                        </div>
-
-                        <div class="col-12 col-md-4 py-2">
+                        <div class="col-12 col-md-5 py-2">
 
                           <li><RouterLink to="/library" class="dropdown-item" id="dbut">
                             <img :src="B3C" class="mt-3" id="dim3">
-                            <span class="my-3">CATALOGO</span>
+                            <span class="my-3">CATÁLOGO</span>
                           </RouterLink></li>
 
                         </div>
-                        
+
+                        <div class="col-12 col-md-5 py-2">
+
+                          <li><RouterLink to="/library" class="dropdown-item" id="dbut">
+                            <img :src="B2R" class="mt-3" id="dim3">
+                            <span class="my-3">CUBÍCULOS</span>
+                          </RouterLink></li>
+
+                        </div>
+
                       </div>
                     </div>
                   </ul>
@@ -384,14 +375,16 @@
     <form class="bg-white border" id="uform"  :class="{'form-shrunk': isNavbarShrunk,
                                                         'show': showMenu, 
                                                         'hide': !showMenu
-                                                      }, currentView === 'MainMenuAc' ? 'ac-size' : 'nac-size'" 
+                                                      }, 
+                                                      currentView === 'MainMenuAc' ? 'ac-size' : 'nac-size',
+                                                      currentView === 'AcProfile' ? 'acp-size' : 'nac-size'" 
     @click.stop>
 
       <div>
 
         <div class="container-fluid p-1 justify-content-center d-flex flex-column align-items-center">
           
-          <!-- ######################### Ventana Principal Sin Cuenta ######################### -->
+           <!-- ######################### Ventana Principal Sin Cuenta ######################### -->
 
           <!-- <div v-if="!isAuthenticated"> -->
           <div v-if="currentView === 'MainMenu'">
@@ -403,7 +396,7 @@
               <div class="row">
 
                 <div class="col-4 mb-3 pe-4 d-flex justify-content-center align-items-center">
-                  <img :src="INV">
+                  <img class="ac-img" :src="INV">
                 </div>
 
                 <div class="col-8 mb-3 ps-2 d-flex justify-content-center align-items-center">
@@ -422,7 +415,7 @@
 
               <div class="row">
 
-                <div class="col-12 mb-3 ps-4">
+                <div class="col-12 mb-3 ps-3">
                   <button @click="handleLogin" class="button-container btn" type="button">
 
                     <i class="button-icon fa-solid fa-circle-user"></i>
@@ -443,28 +436,7 @@
 
               <div class="row">
 
-                <div class="col-12 mb-3 ps-4">
-                  <RouterLink to="/"  class="button-container btn" type="button">
-
-                    <i class="button-icon fa-solid fa-address-card"></i>
-                    <span class="button-text">
-                      CREAR CUENTA
-                    </span>
-
-                  </RouterLink>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-
-            <div class="container">
-
-              <div class="row">
-
-                <div class="col-12 mb-3 ps-4">
+                <div class="col-12 mb-3 ps-3">
                   <button @click="navigateTo('ConfigMenu')" class="button-container btn" type="button">
 
                     <i class="button-icon fa-solid fa-gear"></i>
@@ -483,22 +455,22 @@
           
           </div>
 
-          <!-- ######################### Ventana Principal Con Cuenta ######################### -->
+           <!-- ######################### Ventana Principal Con Cuenta ######################### -->
 
           <!-- <div v-if="isAuthenticated"> -->
           <div v-if="currentView === 'MainMenuAc'">
 
             <!-- ------------------------------------------- -->
             
-            <div class="container mt-3">
+            <div class="container mt-1">
 
               <div class="row">
 
-                <div class="col-5 mb-3 d-flex justify-content-center align-items-center">
-                  <img :src="user.photo || ZEN">
+                <div class="col-4 mb-3 d-flex justify-content-end align-items-center">
+                  <img class="ac-img" :src="user.photo || INV">
                 </div>
 
-                <div class="col-7 mb-3 ps-1 d-flex justify-content-center align-items-center">
+                <div class="col-8 mb-3 ps-1 d-flex justify-content-start align-items-center">
                   <div>
                     <label class="form-ac-label">
                       {{ user.name }}
@@ -523,98 +495,14 @@
               <div class="row">
 
                 <div class="col-9 mb-2 ps-5 ms-5">
-                  <RouterLink to="/user/profile" class="button-container btn" type="button">
+                  <button @click="navigateTo('AcProfile')" class="button-container btn" type="button">
 
                     <i class="button-ac-icon fa-solid fa-user-gear"></i>
                     <span class="button-ac-text">
                       PERFIL
                     </span>
 
-                  </RouterLink>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-
-            <div class="container">
-
-              <div class="row">
-
-                <div class="col-9 mb-2 ps-5 ms-5">
-                  <button class="button-container btn" type="button">
-
-                    <i class="button-ac-icon fa-solid fa-hand-holding-hand"></i>
-                    <span class="button-ac-text">
-                      SERVICIOS
-                    </span>
-
                   </button>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-
-            <div class="container">
-
-              <div class="row">
-
-                <div class="col-9 mb-2 ps-5 ms-5">
-                  <button class="button-container btn" type="button">
-
-                    <i class="button-ac-icon fa-solid fa-clock-rotate-left"></i>
-                    <span class="button-ac-text">
-                      HISTORIAL
-                    </span>
-
-                  </button>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-
-            <div class="container">
-
-              <div class="row">
-
-                <div class="col-9 mb-2 ps-5 ms-5">
-                  <button class="button-container btn" type="button">
-
-                    <i class="button-ac-icon fa-solid fa-wallet"></i>
-                    <span class="button-ac-text">
-                      ADEUDOS
-                    </span>
-
-                  </button>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-
-            <div class="container">
-
-              <div class="row">
-
-                <div class="col-9 mb-2 ps-5 ms-5">
-                  <RouterLink to="/user/favorites" class="button-container btn" type="button">
-
-                    <i class="button-ac-icon fa-solid fa-heart"></i>
-                    <span class="button-ac-text">
-                      FAVORITOS
-                    </span>
-
-                  </RouterLink>
                 </div>
 
               </div>
@@ -648,7 +536,7 @@
 
               <div class="row">
 
-                <div class="col-12 mb-3 ps-5 ms-3">
+                <div class="col-12 ps-5 ms-3">
                   <button @click="handleLogout" class="btn btn-white" type="button" id="csbot">
                       CERRAR SESION
                   </button>
@@ -662,8 +550,159 @@
           
           </div>
 
+           <!-- ######################### Ventana Perfil ######################### -->
 
-          <!-- ######################### Ventana de Configuración ######################### -->
+          <!-- <div v-if="isAuthenticated"> -->
+          <div v-if="currentView === 'AcProfile'">
+
+            <!-- ------------------------------------------- -->
+            
+            <div class="container mt-4" id="CIM">
+
+              <div class="row">
+
+                <div class="col-12 mb-3 d-flex justify-content-center align-items-center">
+                  <img class="pf-img" :src="user.photo || INV">
+                </div>
+
+                <div class="col-12 mb-1 d-flex justify-content-center align-items-center">
+                  <div>
+                    <label class="form-pf-label">
+                      {{ user.name }}
+                    </label>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- ------------------------------------------- -->
+            
+            <div class="container mt-1">
+
+              <div class="row">
+
+                <div class="col-12 mb-2 ms-4">
+
+                  <label class="form-pf-sublabel" id="act">
+                    ESTATUS:
+                  </label>
+                  <label class="form-pf-sublabel">
+                    Activo
+                  </label>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- ------------------------------------------- -->
+
+            <div class="container">
+
+              <div class="row">
+
+                <div class="col-12 mb-2 ms-4">
+                  
+                  <label class="form-pf-sublabel" id="act">
+                    OCUPACIÓN:
+                  </label>
+                  <label class="form-pf-sublabel">
+                    Alumno <!--{{ user.role }}-->
+                  </label>
+                  
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- ------------------------------------------- -->
+
+            <div class="container">
+
+              <div class="row">
+
+                <div class="col-12 mb-2 ms-4">
+                  
+                  <label class="form-pf-sublabel" id="act">
+                    CORREO:
+                  </label>
+                  <label class="form-pf-sublabel">
+                    {{ user.email }}
+                  </label>
+                  
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- ------------------------------------------- -->
+
+            <div class="container">
+
+              <div class="row">
+
+                <div class="col-12 mb-2 ms-4">
+                  
+                  <label class="form-pf-sublabel" id="act">
+                    NUMERO DE CONTROL:
+                  </label>
+                  <label class="form-pf-sublabel">
+                    22490xxx <!--{{ user.id }}-->
+                  </label>
+                  
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- ------------------------------------------- -->
+
+            <div class="container">
+
+              <div class="row">
+
+                <div class="col-12 mb-2 ms-4">
+                  
+                  <label class="form-pf-sublabel" id="act">
+                    GENERO:
+                  </label>
+                  <label class="form-pf-sublabel">
+                    Masculino <!--{{ user.gender }}-->
+                  </label>
+                  
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- ------------------------------------------- -->
+
+            <div class="container">
+
+              <div class="row">
+
+                <div class="col-12 mb-3 ps-5 ms-2">
+                  <button @click="handleLogout" class="btn btn-white" type="button" id="csbot">
+                      CERRAR SESION
+                  </button>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- ------------------------------------------- -->
+          
+          </div>
+
+           <!-- ######################### Ventana de Configuración ######################### -->
           
           <div v-if="currentView === 'ConfigMenu'">
 
@@ -673,11 +712,11 @@
 
               <div class="row">
 
-                <div class="col-3 mb-3 d-flex justify-content-center align-items-center">
+                <div class="col-2 mb-3 ps-5 d-flex justify-content-center align-items-center">
                   <i class="form-menu-label fa-solid fa-gear" id="labi"></i>
                 </div>
 
-                <div class="col-8 mb-3 pe-4 d-flex justify-content-center align-items-center">
+                <div class="col-10 mb-3 d-flex justify-content-center align-items-center">
                   <label class="form-menu-label">
                     CONFIGURACION
                   </label>
@@ -693,7 +732,7 @@
 
               <div class="row">
 
-                <div class="col-11 mb-3 ps-5">
+                <div class="col-12 mb-3">
                   <button @click="navigateTo('PersonalizationMenu')" class="button-container btn" type="button">
 
                     <i class="button-icon bi bi-brush"></i>
@@ -714,7 +753,7 @@
 
               <div class="row">
 
-                <div class="col-11 mb-3 ps-5 pb-2">
+                <div class="col-12 pb-2 mb-3">
                   <button @click="navigateTo('LanguageMenu')" class="button-container btn" type="button">
 
                     <i class="button-icon fa-solid fa-language"></i>
@@ -733,7 +772,7 @@
 
           </div>
 
-          <!-- ######################### Ventana de Personalización ######################### -->
+           <!-- ######################### Ventana de Personalización ######################### -->
           
           <div v-if="currentView === 'PersonalizationMenu'">
 
@@ -743,11 +782,11 @@
 
               <div class="row">
 
-                <div class="col-2 mb-3 d-flex justify-content-center align-items-center">
+                <div class="col-2 ps-5 mb-3 d-flex justify-content-center align-items-center">
                   <i class="form-menu-label bi bi-brush" id="labi"></i>
                 </div>
 
-                <div class="col-10 mb-3 ps-3 pe-4 d-flex justify-content-center align-items-center">
+                <div class="col-10 mb-3 d-flex justify-content-center align-items-center">
                   <label class="form-menu-label">
                     PERSONALIZACION
                   </label>
@@ -763,7 +802,7 @@
 
               <div class="row">
 
-                <div class="col-11 mb-3 ps-5">
+                <div class="col-12 mb-3">
                   <button @click="toggleTheme" class="button-container btn" type="button">
 
                     <i class="button-icon" :class="darkTheme ? 'bi bi-moon' : 'bi bi-brightness-high'" id="theme"></i>
@@ -784,7 +823,7 @@
 
               <div class="row">
 
-                <div class="col-11 mb-3 ps-5 pb-2">
+                <div class="col-12 pb-2 mb-3">
                   <button @click="changeFontSize" class="button-container btn" type="button">
 
                     <i class="button-icon fa-solid fa-text-height"></i>
@@ -803,7 +842,7 @@
             
           </div>
 
-          <!-- ######################### Ventana de Idioma ######################### -->
+           <!-- ######################### Ventana de Idioma ######################### -->
           
           <div v-if="currentView === 'LanguageMenu'">
             
@@ -813,11 +852,11 @@
 
               <div class="row">
 
-                <div class="col-4 mb-3 d-flex justify-content-center align-items-center">
+                <div class="col-3 mb-3 ps-5 d-flex justify-content-center align-items-center">
                   <i class="form-menu-label fa-solid fa-language" id="labi"></i>
                 </div>
 
-                <div class="col-7 mb-3 ps-3 pe-4 d-flex justify-content-center align-items-center">
+                <div class="col-9 mb-3 d-flex justify-content-center align-items-center">
                   <label class="form-menu-label">
                     LENGUAJE
                   </label>
@@ -833,7 +872,7 @@
 
               <div class="row">
 
-                <div class="col-11 mb-3 ps-4 ms-1">
+                <div class="col-12 mb-3">
                   <button @click="changeLanguage('Español')"  class="button-container btn" type="button">
 
                     <i class="button-icon fi fi-mx"></i>
@@ -854,7 +893,7 @@
 
               <div class="row">
 
-                <div class="col-11 mb-3 ps-4 ms-1 pb-2">
+                <div class="col-12 pb-2 mb-3">
                   <button @click="changeLanguage('English')" class="button-container btn" type="button">
 
                     <i class="button-icon fa-solid fi fi-us"></i>
@@ -875,8 +914,8 @@
 
         </div>
 
-        <!-- ######################### Botón de regreso al menú principal ######################### -->
-        <!-- Este botón solo se muestra si no estamos en el menú principal -->
+         <!-- ######################### Botón de regreso al menú principal ######################### -->
+         <!-- Este botón solo se muestra si no estamos en el menú principal -->
 
         <div class="container-fluid">
           <button v-if="currentView !== 'MainMenu' && currentView !== 'MainMenuAc'" @click="goBack" class="btn btn-outline-danger" type="button" id="atbot">
@@ -893,78 +932,147 @@
 
 <style scoped>
 
-@media (min-width: 992px) {
+  /* ### Profile ### */
+  
+  #uform {
 
-  #droph.dropdown {
+    &.nac-size {
+      height: 300px;
+    }
 
-    
-    &::before {
-      content: '';
-      opacity: 0;
+    &.ac-size {
+      height: 300px;
+    }
+
+    &.acp-size {
+      height: 560px;
 
       display: flex;
-      left: 50% !important;
-      transform: translateX(-50%) !important;
-      right: auto !important;
-      min-width: 200px; /* Ancho mínimo */
+      flex-direction: row;
       justify-content: center;
-      align-items: center;
-
-      font-size: 30px;
-      position: absolute;
-      top: 162.5px;
-      height: 291px;
-      width: 75%;
-      z-index: 999; 
-      pointer-events: none;
-      background-color: blue;
-
-      transition: opacity 0.3s ease; 
+      align-items: start;
+      text-align:center;
     }
-
-    &:hover::before {
-      pointer-events: auto; 
-      opacity: 0;
-    }
-
   }
 
-  #dbut.dropdown-item {
+  .pf-img{
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    position: relative;
 
-    height: 245px;
-    border-radius: 30px;
+    width: 130px;
+    height: 130px;
+  }
 
-    img {
-      box-shadow: 0rem 0.35rem 0.75rem rgba(0, 0, 0, 0.4);
-      border-radius: 30px;
+  .form-pf-label {
+    word-wrap: break-word; /* Divide palabras largas si es necesario */
+    text-align: center; /* Centra el texto dentro del label */
+    line-height: 1.0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .form-pf-sublabel {
+    word-wrap: break-word; /* Divide palabras largas si es necesario */
+    text-align: left; /* Centra el texto dentro del label */
+    line-height: 1.25;
+
+    display: flex;
+    justify-content: left;
+    align-items: left;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    &#est {
+      color:grey;
     }
 
-    img#dim3 {
-      width: 300px;
-      height: 175px;
-    }
-
-    img#dim4{
-      width: 250px;
-      height: 175px;
-    }
-
-    &:hover {
-      background-color: #000E32;
-      color: white;
-    }
-
-    &.active {
-      background-color: #000E32;
-      color: white;
+    &#act {
+      color:#0047FF;
     }
   }
 
-}
+  /* ### Dropdown ### */
+
+  @media (min-width: 992px) {
+
+    #droph.dropdown {
+
+      border-radius: 60px;
+      
+      &::before {
+        content: '';
+        opacity: 0;
+
+        display: flex;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        right: auto !important;
+        min-width: 200px; /* Ancho mínimo */
+        justify-content: center;
+        align-items: center;
+
+        font-size: 30px;
+        position: absolute;
+        top: 162.5px;
+        height: 291px;
+        width: 75%;
+        z-index: 999; 
+        pointer-events: none;
+        background-color: blue;
+
+        transition: opacity 0.3s ease; 
+      }
+
+      &:hover::before {
+        pointer-events: auto; 
+        opacity: 0;
+      }
+
+    }
+
+    #dbut.dropdown-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      position: relative;
+
+      height: 245px;
+      border-radius: 30px;
+
+      img {
+        box-shadow: 0rem 0.35rem 0.75rem rgba(0, 0, 0, 0.4);
+        border-radius: 30px;
+      }
+
+      img#dim3 {
+        width: 300px;
+        height: 175px;
+      }
+
+      img#dim4{
+        width: 250px;
+        height: 175px;
+      }
+
+      &:hover {
+        background-color: #000E32;
+        color: white;
+      }
+
+      &.active {
+        background-color: #000E32;
+        color: white;
+      }
+    }
+
+  }
 
 </style>
