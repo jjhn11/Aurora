@@ -1,5 +1,7 @@
-import { DataTypes, Sequelize } from 'sequelize';
-import { sequelize } from '../config/db.js'; 
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../config/db.js';
+
+
 
 const CommunityActivity = sequelize.define('CommunityActivity', {
   Id_activity: {
@@ -51,8 +53,7 @@ const CommunityActivity = sequelize.define('CommunityActivity', {
   timestamps: false
 });
 
-import CommunityActivityType from './CommunityActivityTypes.js';
-
+CommunityActivity.associate = (models) => {
 CommunityActivity.belongsTo(models.CommunityCategory, {
   foreignKey: 'Id_category',
   as: 'category',
@@ -65,4 +66,5 @@ CommunityActivity.belongsTo(models.CommunityActivityLocation, {
   foreignKey: 'Id_Location',
   as: 'location',
 });
+};
 export default CommunityActivity;

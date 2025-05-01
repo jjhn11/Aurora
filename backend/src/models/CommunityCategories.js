@@ -1,5 +1,5 @@
-import { DataTypes, Sequelize } from 'sequelize';
-import { sequelize } from '../config/db.js'; 
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../config/db.js';
 
 const CommunityCategory = sequelize.define('CommunityCategory', {
   Id_category: {

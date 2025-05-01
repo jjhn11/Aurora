@@ -1,5 +1,5 @@
-import { DataTypes, Sequelize } from 'sequelize';
-import { sequelize } from '../config/db.js'; 
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../config/db.js';
 
 const UserStatus = sequelize.define('UserStatus', {
   Id_user_status: {
@@ -11,7 +11,7 @@ const UserStatus = sequelize.define('UserStatus', {
   User_status: {
     type: DataTypes.STRING(20),
     allowNull: false,
-    unique: true,
+    
     field: 'User_status',
   },
 }, {

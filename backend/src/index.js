@@ -1,18 +1,19 @@
-import dotenv from 'dotenv'; dotenv.config();
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import dotenv from 'dotenv';
 import express from 'express';
 import session from 'express-session';
-import cors from 'cors';
-import cookieParser from 'cookie-parser';
-import bodyParser from 'body-parser';
+import { executeSqlFile, sequelize } from './config/db.js';
 import passport from './config/passport.js';
-const open = (...args) => import('open').then(m => m.default(...args));
-import authRoutes from './routes/auth.js';
-import taskRoutes from './routes/task.js';
 import checkAuth from './middlewares/checkAuth.js';
-import { pool, sequelize } from './config/db.js';
+import authRoutes from './routes/auth.js';
 import communityRoutes from './routes/community.js';
+import taskRoutes from './routes/task.js';
 
-import { isProfane } from './middlewares/checkProfane.js';	
+dotenv.config();
+const open = (...args) => import('open').then(m => m.default(...args));
+
+import { isProfane } from './middlewares/checkProfane.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,6 +22,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
+
 
 
 app.use(session({
@@ -35,6 +37,8 @@ app.use(session({
     httpOnly: true
   }
 }));
+
+executeSqlFile('src/data/sample_data.sql');
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -84,6 +88,9 @@ async function connectWithRetry(maxAttempts = 10, delay = 5000) {
     try {
       await sequelize.authenticate();
       console.log(' Database connected successfully with Sequelize.');
+      await sequelize.sync({ force: false }); 
+      // await CommunityEventAttendance.sync(); // Por si no se sincroniza con la linea de arriba
+      console.log('Database synchronized successfully.');
       return true;
     } catch (err) {
       attempts++;
@@ -93,6 +100,7 @@ async function connectWithRetry(maxAttempts = 10, delay = 5000) {
   }
   return false;
 }
+
 
 
 // Start server
@@ -116,3 +124,5 @@ startServer().catch(err => {
   console.error('Startup error:', err);
   process.exit(1);
 });
+
+console.log('Modelo registrado: ', Object.keys(sequelize.models));
