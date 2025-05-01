@@ -53,16 +53,16 @@ const CommunityActivity = sequelize.define('CommunityActivity', {
 
 import CommunityActivityType from './CommunityActivityTypes.js';
 
-CommunityActivity.belongsTo(models.CommunityCategory, {
-  foreignKey: 'Id_category',
-  as: 'category',
-});
-CommunityActivity.belongsTo(models.User, {
-  foreignKey: 'Organizer_id',
-  as: 'organizer',
-});
-CommunityActivity.belongsTo(models.CommunityActivityLocation, {
-  foreignKey: 'Id_Location',
-  as: 'location',
-});
+// CommunityActivity.belongsTo(models.CommunityCategory, {
+//   foreignKey: 'Id_category',
+//   as: 'category',
+// });
+// CommunityActivity.belongsTo(models.User, {
+//   foreignKey: 'Organizer_id',
+//   as: 'organizer',
+// });
+// CommunityActivity.belongsTo(models.CommunityActivityLocation, {
+//   foreignKey: 'Id_Location',
+//   as: 'location',
+// });
 export default CommunityActivity;

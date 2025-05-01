@@ -11,6 +11,7 @@ import taskRoutes from './routes/task.js';
 import checkAuth from './middlewares/checkAuth.js';
 import { pool, sequelize } from './config/db.js';
 import communityRoutes from './routes/community.js';
+import mailRoutes from './routes/mail.js';
 
 import { isProfane } from './middlewares/checkProfane.js';	
 
@@ -30,9 +31,10 @@ app.use(session({
   rolling: true,
   cookie: {
     secure: process.env.NODE_ENV === 'production',
-    maxAge: 1 * 60 * 1000,
+    maxAge: 1 * 60 * 60 * 1000, // 1 hour
     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-    httpOnly: true
+    httpOnly: true,
+    // javaScriptEnabled: false
   }
 }));
 
@@ -44,6 +46,7 @@ app.use(passport.session());
 app.use('/auth', authRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use('/api', communityRoutes);
+app.use('/mail', mailRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => res.json({ status: 'ok', service: 'backend' }));
@@ -57,6 +60,7 @@ app.post('/test/profanity', isProfane(['texto1', 'texto2', 'texto3']), (req, res
   console.log(req.body);
   res.json({ message: 'No hay profanidad' });
 });
+
 
 // DB init  **************CONSULTAS MANUALES*************
 // async function connectWithRetry(maxAttempts = 10, delay = 5000) {

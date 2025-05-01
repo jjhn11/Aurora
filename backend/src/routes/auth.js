@@ -11,8 +11,13 @@ router.get('/google',
     next();
   },
   passport.authenticate('google', {
-    scope: ['profile', 'email'],
-    prompt: 'select_account'
+    scope: [
+      'profile', 
+      'email',
+      'https://mail.google.com/'  // Añadir scope para Gmail
+    ],
+    accessType: 'offline',
+    prompt: 'consent'
   })
 );
 
