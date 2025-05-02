@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import session from 'express-session';
-import { executeSqlFile, sequelize } from './config/db.js';
+import { sequelize } from './config/db.js';
 import passport from './config/passport.js';
 import checkAuth from './middlewares/checkAuth.js';
 import authRoutes from './routes/auth.js';
@@ -37,8 +37,6 @@ app.use(session({
     httpOnly: true
   }
 }));
-
-executeSqlFile('src/data/sample_data.sql');
 
 app.use(passport.initialize());
 app.use(passport.session());
