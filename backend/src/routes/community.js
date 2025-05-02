@@ -2,30 +2,36 @@ import express from 'express';
 import CommunityActivities from '../models/CommunityActivities.js';
 import CommunityActivityType from '../models/CommunityActivityTypes.js';
 import CommunityCategories from '../models/CommunityCategories.js';
+import CommunityActivityLocation from '../models/CommunityActivityLocation.js';
+import CommunityActivityAttendance from '../models/CommunityActivityAttendance.js';
 
 const router = express.Router(); 
 
-// GET
+// GET: Filter activities by category (through activity types)
 router.get('/community-activities', async (req, res) => {
     try {
-      const { category } = req.query;
-      let query = {};
-      let include = [];
+      const { categoryId } = req.query;
+      let where = {};
       
-      if (category) {
-        // If filtering by category, we need to include the type model and specify
-        // where condition for the category
-        include = [{
-          model: CommunityActivityType,
-          where: { Id_category: category },
-          required: true
-        }];
+      if (categoryId) {
+        // First, find all activity types that belong to this category
+        const activityTypes = await CommunityActivityType.findAll({
+          where: { Id_category: categoryId },
+          attributes: ['Id_type']
+        });
+        
+        // Extract the type IDs
+        const typeIds = activityTypes.map(type => type.Id_type);
+        
+        // Filter activities by these types
+        if (typeIds.length > 0) {
+          where.Id_type = typeIds;
+        }
       }
   
       const activities = await CommunityActivities.findAll({ 
-        where: query,
-        include: include,
-        order:[ ['id_category', 'DESC']]
+        where,
+        order: [['Event_date', 'DESC']] // Order by date, newest to oldest
       });
       
       res.status(200).json(activities);
@@ -37,14 +43,13 @@ router.get('/community-activities', async (req, res) => {
     }
 });
 
-
-// POST: Crear una nueva comunidad
+// POST: Create a new community activity
 router.post('/community-activities', async (req, res) => {
     try {
       const {
         Title,
         Description,
-        Id_category,
+        Id_type,
         Id_Location,
         Start_time,
         End_time,
@@ -52,19 +57,10 @@ router.post('/community-activities', async (req, res) => {
         Organizer_id
       } = req.body;
       
-        // Verificar si el usuario existe
-        const userExists = await User.findByPk(Organizer_id);
-        if (!userExists) {
-            return res.status(400).json({
-                error: 'Usuario organizador no encontrado',
-                details: `El usuario con ID ${Organizer_id} no existe`
-            });
-        }
-        
       const savedActivity = await CommunityActivities.create({
         Title,
         Description,
-        Id_category,
+        Id_type,
         Id_Location,
         Start_time,
         End_time,
@@ -79,10 +75,9 @@ router.post('/community-activities', async (req, res) => {
         details: error.message
       });
     }
-  });
-  
- 
-  // GET all categories
+});
+
+// GET: Get all community categories
 router.get('/community-categories', async (req, res) => {
   try {
     const categories = await CommunityCategories.findAll();
@@ -92,8 +87,7 @@ router.get('/community-categories', async (req, res) => {
   }
 });
 
-
-// GET activity types
+// GET: Get activity types with optional category filter
 router.get('/community-activity-types', async (req, res) => {
   const { categoryId } = req.query;
 
@@ -110,6 +104,48 @@ router.get('/community-activity-types', async (req, res) => {
   }
 });
 
+// GET: Get all activity locations
+router.get('/community-activity-locations', async (req, res) => {
+  try {
+    const locations = await CommunityActivityLocation.findAll();
+    res.status(200).json(locations);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
+// GET: Get attendance records with activity filter
+router.get('/community-activity-attendance', async (req, res) => {
+  try {
+    const { activityId } = req.query;
+    const where = {};
+    
+    if (activityId) {
+      where.Id_activity = activityId;
+    }
+    
+    const attendanceRecords = await CommunityActivityAttendance.findAll({ where });
+    res.status(200).json(attendanceRecords);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// POST: Register attendance for an activity
+router.post('/community-activity-attendance', async (req, res) => {
+  try {
+    const { Id_user, Id_activity, Confirmation } = req.body;
+    
+    const attendance = await CommunityActivityAttendance.create({
+      Id_user,
+      Id_activity,
+      Confirmation
+    });
+    
+    res.status(201).json(attendance);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 export default router;
