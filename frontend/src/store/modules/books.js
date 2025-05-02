@@ -17,6 +17,14 @@ export default {
           author: "Viktor Mayer-Schönberger"
         },
         {
+          id: "9788415832102",
+          ISBN: "9788415832102",
+          Title: "Big Data: La Revolución de los Datos Masivos",
+          coverImage: libroBigData,
+          category: "Computación",
+          author: "Viktor Mayer-Schönberger"
+        },
+        {
           id: "9788420674711",
           ISBN: "9788420674711",
           Title: "Breve Historia del Tiempo",
@@ -86,6 +94,250 @@ export default {
           id: "9788441532106",
           ISBN: "9788441532106",
           Title: "Clean Code: Manual de Desarrollo Ágil de Software",
+          coverImage: libroBigData,
+          category: "Computación",
+          author: "Robert C. Martin"
+        },
+        {
+          id: "9788434501621",
+          ISBN: "9788434501621",
+          Title: "Cosmos",
+          coverImage: libroBigData,
+          category: "Ciencias",
+          author: "Carl Sagan"
+        },
+        {
+          id: "9788499420047",
+          ISBN: "9788499420047",
+          Title: "Steve Jobs: La Biografía",
+          coverImage: libroBigData,
+          category: "Historia",
+          author: "Walter Isaacson"
+        },
+        {
+          id: "9786071128379",
+          ISBN: "9786071128379",
+          Title: "Outliers: Los Fuera de Serie",
+          coverImage: libroBigData,
+          category: "Ciencias Sociales",
+          author: "Malcolm Gladwell"
+        },
+        {
+          id: "9789584102881",
+          ISBN: "9789584102881",
+          Title: "Fundamentos de Programación",
+          coverImage: libroBigData,
+          category: "Computación",
+          author: "Luis Joyanes Aguilar"
+        },
+        {
+          id: "9788441532106",
+          ISBN: "9788441532106",
+          Title: "Clean Code: Manual de Desarrollo Ágil de Software",
+          coverImage: libroBigData,
+          category: "Computación",
+          author: "Robert C. Martin"
+        },
+        {
+          id: "9788434501621",
+          ISBN: "9788434501621",
+          Title: "Cosmos",
+          coverImage: libroBigData,
+          category: "Ciencias",
+          author: "Carl Sagan"
+        },
+        {
+          id: "9788499420047",
+          ISBN: "9788499420047",
+          Title: "Steve Jobs: La Biografía",
+          coverImage: libroBigData,
+          category: "Historia",
+          author: "Walter Isaacson"
+        },
+        {
+          id: "9786071128379",
+          ISBN: "9786071128379",
+          Title: "Outliers: Los Fuera de Serie",
+          coverImage: libroBigData,
+          category: "Ciencias Sociales",
+          author: "Malcolm Gladwell"
+        },
+        {
+          id: "9789584102881",
+          ISBN: "9789584102881",
+          Title: "Fundamentos de Programación",
+          coverImage: libroBigData,
+          category: "Computación",
+          author: "Luis Joyanes Aguilar"
+        },
+        {
+          id: "9788441532106",
+          ISBN: "9788441532106",
+          Title: "Clean Code: Manual de Desarrollo Ágil de Software",
+          coverImage: libroBigData,
+          category: "Computación",
+          author: "Robert C. Martin"
+        },
+        {
+          id: "9788434501621",
+          ISBN: "9788434501621",
+          Title: "Cosmos",
+          coverImage: libroBigData,
+          category: "Ciencias",
+          author: "Carl Sagan"
+        },
+        {
+          id: "9788499420047",
+          ISBN: "9788499420047",
+          Title: "Steve Jobs: La Biografía",
+          coverImage: libroBigData,
+          category: "Historia",
+          author: "Walter Isaacson"
+        },
+        {
+          id: "9786071128379",
+          ISBN: "9786071128379",
+          Title: "Outliers: Los Fuera de Serie",
+          coverImage: libroBigData,
+          category: "Ciencias Sociales",
+          author: "Malcolm Gladwell"
+        },
+        {
+          id: "9789584102881",
+          ISBN: "9789584102881",
+          Title: "Fundamentos de Programación",
+          coverImage: libroBigData,
+          category: "Computación",
+          author: "Luis Joyanes Aguilar"
+        }
+      ],
+      popularBooksMonth: [
+        {
+          id: "9788441532106",
+          ISBN: "9788441532106",
+          Title: "Clean: Manual de Desarrollo Ágil de Software",
+          coverImage: libroBigData,
+          category: "Computación",
+          author: "Robert C. Martin"
+        },
+        {
+          id: "9788434501621",
+          ISBN: "9788434501621",
+          Title: "Cosmos",
+          coverImage: libroBigData,
+          category: "Ciencias",
+          author: "Carl Sagan"
+        },
+        {
+          id: "9788499420047",
+          ISBN: "9788499420047",
+          Title: "Steve Jobs: La Biografía",
+          coverImage: libroBigData,
+          category: "Historia",
+          author: "Walter Isaacson"
+        },
+        {
+          id: "9786071128379",
+          ISBN: "9786071128379",
+          Title: "Outliers: Los Fuera de Serie",
+          coverImage: libroBigData,
+          category: "Ciencias Sociales",
+          author: "Malcolm Gladwell"
+        },
+        {
+          id: "9789584102881",
+          ISBN: "9789584102881",
+          Title: "Fundamentos de Programación",
+          coverImage: libroBigData,
+          category: "Computación",
+          author: "Luis Joyanes Aguilar"
+        },
+        {
+          id: "9788441532106",
+          ISBN: "9788441532106",
+          Title: "Clean Code: Manual de Desarrollo Ágil de Software",
+          coverImage: libroBigData,
+          category: "Computación",
+          author: "Robert C. Martin"
+        },
+        {
+          id: "9788434501621",
+          ISBN: "9788434501621",
+          Title: "Cosmos",
+          coverImage: libroBigData,
+          category: "Ciencias",
+          author: "Carl Sagan"
+        },
+        {
+          id: "9788499420047",
+          ISBN: "9788499420047",
+          Title: "Steve Jobs: La Biografía",
+          coverImage: libroBigData,
+          category: "Historia",
+          author: "Walter Isaacson"
+        },
+        {
+          id: "9786071128379",
+          ISBN: "9786071128379",
+          Title: "Outliers: Los Fuera de Serie",
+          coverImage: libroBigData,
+          category: "Ciencias Sociales",
+          author: "Malcolm Gladwell"
+        },
+        {
+          id: "9789584102881",
+          ISBN: "9789584102881",
+          Title: "Fundamentos de Programación",
+          coverImage: libroBigData,
+          category: "Computación",
+          author: "Luis Joyanes Aguilar"
+        },
+        {
+          id: "9788441532106",
+          ISBN: "9788441532106",
+          Title: "Clean Code: Manual de Desarrollo Ágil de Software",
+          coverImage: libroBigData,
+          category: "Computación",
+          author: "Robert C. Martin"
+        },
+        {
+          id: "9788434501621",
+          ISBN: "9788434501621",
+          Title: "Cosmos",
+          coverImage: libroBigData,
+          category: "Ciencias",
+          author: "Carl Sagan"
+        },
+        {
+          id: "9788499420047",
+          ISBN: "9788499420047",
+          Title: "Steve Jobs: La Biografía",
+          coverImage: libroBigData,
+          category: "Historia",
+          author: "Walter Isaacson"
+        },
+        {
+          id: "9786071128379",
+          ISBN: "9786071128379",
+          Title: "Outliers: Los Fuera de Serie",
+          coverImage: libroBigData,
+          category: "Ciencias Sociales",
+          author: "Malcolm Gladwell"
+        },
+        {
+          id: "9789584102881",
+          ISBN: "9789584102881",
+          Title: "Fundamentos de Programación",
+          coverImage: libroBigData,
+          category: "Computación",
+          author: "Luis Joyanes Aguilar"
+        }
+      ],
+      novels: [
+        {
+          id: "9788441532106",
+          ISBN: "9788441532106",
+          Title: "Clean: Manual de Desarrollo Ágil de Software",
           coverImage: libroBigData,
           category: "Computación",
           author: "Robert C. Martin"

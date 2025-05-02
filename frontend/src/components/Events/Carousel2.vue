@@ -40,7 +40,7 @@ const closeModal = () => {
         <button class="btn btn-link carousel-control-prev-bottom" type="button" data-bs-target="#carrusel2" data-bs-slide="prev">
             <i class="bi bi-chevron-left fs-4"></i>
         </button>
-        <div id="carrusel2" class="carousel">
+        <div id="carrusel2" class="carousel slide">
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <div class="row justify-content-center">
@@ -175,7 +175,9 @@ const closeModal = () => {
 .contenedor-carrusel {
     width: 83%;
 }
-
+.carousel-inner {
+  display: flex;
+}
 .carousel {
     position: relative;
     padding-bottom: 30px;

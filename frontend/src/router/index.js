@@ -12,7 +12,7 @@ import ProfileView from '@/views/User/ProfileView.vue'
 import LibraryView from '@/views/Library/LibraryView.vue'
 import BookView from '@/views/Library/BookView.vue'
 import FavoritesView from '@/views/User/FavoritesView.vue'
-import CatalogueView from '@/views/CatalogueView.vue'
+import CatalogueView from '@/views/Library/CatalogueView.vue'
 
 const routes = [
   {

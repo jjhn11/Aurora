@@ -5,7 +5,7 @@
           <img src="@/assets/img/home/CajasBiblioteca.png" class="custom-image"/>
         </div>
         <div class="col-auto">
-            <a href="https://example.com">
+            <a href="https://docs.google.com/forms/u/2/d/e/1FAIpQLSf5KSHsmp2u8pep-7FZx0f5uOMGqeAtx6JHXEyH-dpcGofPSQ/viewform">
                 <img src="@/assets/img/home/QRBiblioteca.png" class="custom-image"/>
             </a>
         </div>

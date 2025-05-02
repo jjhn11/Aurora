@@ -19,32 +19,37 @@
 </template>
 
 <style>
+.book-card a {
+  text-decoration: none;
+}
 .book-card{
+    width: 200px;
+    height: 411px;
     background-color: white;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 10px;
 }
 .book-cover{
     width: auto;
-    height: 492px;
+    height: 302px;
     object-fit: cover;
     margin-bottom: 15px;
 }
 .book-image{
     width: 100%;
     height: 100%;
-    border-radius: 10px;
+    border-radius: 7px;
 }
 .book-title {
+  color: #000E32;
     font-weight: 400;
     font-size: 16px;
-    width: 310px;
-    height: 61px;
-    font-family: "freeman";
+    width: 100%;
+    height: 30px;
+    font-family: "josefin sans";
     text-align: left;
 }    
 .book-description {
+  color: #575757;
     font-weight: 300;
     font-size: 12px;
     width: 103px;
