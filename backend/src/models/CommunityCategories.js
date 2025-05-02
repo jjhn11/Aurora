@@ -8,10 +8,7 @@ const CommunityCategory = sequelize.define('CommunityCategory', {
     autoIncrement: true,
     field: 'Id_category'
   },
-  Id_type: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
+
   Category_name: {
     type: DataTypes.STRING(20),
     allowNull: false,
@@ -22,10 +19,5 @@ const CommunityCategory = sequelize.define('CommunityCategory', {
   tableName: 'Community_categories_',
   timestamps: false
 });
-CommunityCategory.associate = (models) => {
-  CommunityCategory.belongsTo(models.CommunityActivityType, {
-    foreignKey: 'Id_type',
-    as: 'type',
-  });
-};
+
 export default CommunityCategory;

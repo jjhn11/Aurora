@@ -85,15 +85,15 @@ CREATE TABLE Calendar_Events_ (
 -- Tabla de categorías de comunidad RECREATIVAS, DEPORTES, CULTURAL Y VIDEOJUEGOS
 CREATE TABLE Community_categories_ (
     Id_category INT PRIMARY KEY AUTO_INCREMENT,
-    Id_type INT,
     Category_name VARCHAR(20) NOT NULL UNIQUE,
-	FOREIGN KEY (Id_type) REFERENCES Community_activity_types_ (Id_type)
 );
 
 -- Tabla de tipos de actividades de comunidad
 CREATE TABLE Community_activity_types_ (
     Id_type INT PRIMARY KEY AUTO_INCREMENT,
     Type_name VARCHAR(40) NOT NULL
+     Id_category INT NOT NULL,
+    FOREIGN KEY (Id_category) REFERENCES Community_categories_ (Id_category)
 );
 
 -- Tabla de actividades de comunidad
@@ -101,13 +101,13 @@ CREATE TABLE Community_activities_ (
     Id_activity INT PRIMARY KEY AUTO_INCREMENT,
     Title VARCHAR(150) NOT NULL,
     Description TEXT,
-    Id_category INT NOT NULL,
+    Id_type INT NOT NULL,
     Id_Location INT  NOT NULL,
     Start_time TIME,
     End_time TIME,
     Event_date DATE, -- comparar el timpo y eliminar el evento 
     Organizer_id VARCHAR(8),
-    FOREIGN KEY (Id_category) REFERENCES Community_categories_ (Id_category),
+    FOREIGN KEY (Id_type) REFERENCES Community_categories_ (Id_type),
     FOREIGN KEY (Organizer_id) REFERENCES Users_(Id_user),
     FOREIGN KEY (Id_Location) REFERENCES Community_activity_location_(Id_Location)
 );

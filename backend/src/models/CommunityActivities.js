@@ -19,9 +19,10 @@ const CommunityActivity = sequelize.define('CommunityActivity', {
     type: DataTypes.TEXT,
     field: 'Description'
   },
-  Id_category: {
+  Id_type: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    field: 'Id_type'
   },
   Id_Location: {
     type: DataTypes.INTEGER,
@@ -54,9 +55,9 @@ const CommunityActivity = sequelize.define('CommunityActivity', {
 });
 
 CommunityActivity.associate = (models) => {
-CommunityActivity.belongsTo(models.CommunityCategory, {
-  foreignKey: 'Id_category',
-  as: 'category',
+CommunityActivity.belongsTo(models.CommunityActivityTypes, {
+  foreignKey: 'Id_types',
+  as: 'Types',
 });
 CommunityActivity.belongsTo(models.User, {
   foreignKey: 'Organizer_id',
