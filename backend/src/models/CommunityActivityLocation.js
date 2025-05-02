@@ -1,7 +1,7 @@
 import { DataTypes, Sequelize } from 'sequelize';
 import { sequelize } from '../config/db.js'; 
 
-const Community = sequelize.define('CommunityActivityLocation', {
+const CommunityActivityLocation = sequelize.define('CommunityActivityLocation', {
   Id_Location: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -15,4 +15,4 @@ const Community = sequelize.define('CommunityActivityLocation', {
   timestamps: false,
 });
 
-export default Community;
+export default CommunityActivityLocation;
