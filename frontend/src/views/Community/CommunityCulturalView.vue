@@ -33,28 +33,28 @@
     };
 
     const recreationalActivities = [
-        'DANZA',
-        'CELEBRACIONES INTERNACIONALES',
-        'MUSICA',
-        'ARTES PLASTICAS',
-        'PIANO',
-        'DEBATE'
+        'Danza',
+        'Celebraciones Internacionales',
+        'Musica',
+        'Artes Plasticas',
+        'Piano',
+        'Debate'
     ];
 
     const recreationalLocations = [
-        'AULA EXTRAESCOLARES',
-        'JARDIN EFICIO U',
-        'BIBLIOTECA PLANTA ALTA',
-        'BIBLIOTECA PLANTA BAJA',
-        'PLAZA C-BUFALO',
-        'PLAZA BICENTENARIO',
-        'AUDIOVISUAL EDIFICIO U PLANTA ALTA',
-        'AUDIOVISUAL EDIFICIO U PLANTA BAJA',
-        'AUDIOVISUAL EDIFICIO D',
-        'CUBICULO DE ESTUDIO',
-        'ZONA LIBRE',
-        'BIBLIOTECA SALA CIRCULOS DE LECTURA',
-        'CANCHA EXTRAESCOLARES'
+        'Aula Extraescolares',
+        'Jardin Edificio U',
+        'Biblioteca Planta Alta',
+        'Biblioteca Planta Baja',
+        'Plaza C-Bufalo',
+        'Plaza Bicentenario',
+        'Audiovisual Edificio U Planta Alta',
+        'Audiovisual Edificio U Planta Baja',
+        'Audiovisual Edificio D',
+        'Cubiculo de Estudio',
+        'Zona Libre',
+        'Biblioteca Sala Circulos de Lectura',
+        'Cancha Extraescolares'
     ];
 
     const recreationalIcons = [

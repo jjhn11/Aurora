@@ -39,30 +39,32 @@
     };
 
     const recreationalActivities = [
-        'BANDA DE GUERRA',
-        'ESCOLTA',
-        'LECTURAS',
-        'AJEDREZ',
-        'RALLYS',
-        'BATALLAS DE FREESTYLE / RAP',
-        'JUEGOS DE MESA',
-        'BAZAR',
-        'CONCURSO',
-        'TUTORIAS'
+        'Banda de Guerra',
+        'Escolta',
+        'Lecturas',
+        'Ajedrez',
+        'Rallys',
+        'Batallas de Freestyle / Rap',
+        'Juegos de Mesa',
+        'Bazar',
+        'Concurso',
+        'Tutorias'
     ];
 
     const recreationalLocations = [
-        'BIBLIOTECA PLANTA ALTA',
-        'BIBLIOTECA PLANTA BAJA',
-        'PLAZA C-BUFALO',
-        'PLAZA BICENTENARIO',
-        'AUDIOVISUAL EDIFICIO U PLANTA ALTA',
-        'AUDIOVISUAL EDIFICIO U PLANTA BAJA',
-        'AUDIOVISUAL EDIFICIO D',
-        'CUBICULO DE ESTUDIO',
-        'ZONA LIBRE',
-        'BIBLIOTECA SALA CIRCULOS DE LECTURA',
-        'CANCHA EXTRAESCOLARES'
+        'Aula Extraescolares',
+        'Jardin Edificio U',
+        'Biblioteca Planta Alta',
+        'Biblioteca Planta Baja',
+        'Plaza C-Bufalo',
+        'Plaza Bicentenario',
+        'Audiovisual Edificio U Planta Alta',
+        'Audiovisual Edificio U Planta Baja',
+        'Audiovisual Edificio D',
+        'Cubiculo de Estudio',
+        'Zona Libre',
+        'Biblioteca Sala Circulos de Lectura',
+        'Cancha Extraescolares'
     ];
 
     const recreationalIcons = [

@@ -111,7 +111,7 @@ export default {
             }
             */
             if (this.isAttending) {
-                return 'ASISTIRE'
+                return 'ASISTIRÉ'
             }
             /*
             if (this.isHovering) {
@@ -177,6 +177,7 @@ export default {
                             @mouseenter="isHovering = true"
                             @mouseleave="isHovering = false"
                         >
+                            <i v-if="isAttending" class="fa-solid fa-check"></i>
                             {{ attendanceButtonText }}
                         </button>
                     </div>
@@ -372,14 +373,13 @@ export default {
         object-fit: contain;
         object-position: center;
         width: 152px;
-        border-radius: 200px;
     }
   
     .attendance-button {
         align-self: stretch;
         border-radius: 20px;
         border: 1px solid;
-        min-height: 51px;
+        min-height: 60px;
         padding: 16px 10px;
         font-family: Josefin Sans, -apple-system, Roboto, Helvetica, sans-serif;
         font-size: 20px;
@@ -439,7 +439,7 @@ export default {
         border-radius: 20px;
         background-color: rgba(0, 14, 50, 1);
         border: 1px solid rgba(126, 131, 130, 1);
-        min-height: 51px;
+        min-height: 60px;
         padding: 16px 10px;
         font-family: Josefin Sans, -apple-system, Roboto, Helvetica, sans-serif;
         font-size: 20px;
