@@ -221,7 +221,7 @@ onMounted(async () => {
             </div>
 
             <div class="collapse" id="bibliotecaMenu">
-              <RouterLink to="/library" class="nav-link sub-link">CATÁLOGO</RouterLink>
+              <RouterLink to="/library/catalogue" class="nav-link sub-link">CATÁLOGO</RouterLink>
               <RouterLink to="/library" class="nav-link sub-link">CUBÍCULOS</RouterLink>
             </div>
 
