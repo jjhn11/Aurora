@@ -255,7 +255,7 @@
 
                         <div class="col-12 col-md-4 py-2">
 
-                          <li><RouterLink to="/library" class="dropdown-item" id="dbut">
+                          <li><RouterLink to="/library/catalogue" class="dropdown-item" id="dbut">
                             <img :src="B3C" class="mt-3" id="dim3">
                             <span class="my-3">CATALOGO</span>
                           </RouterLink></li>

@@ -21,7 +21,6 @@
 .search-bar-container {
     text-align: center;
 }
-
 .search-bar-title {
     font-size: 1.6rem;
     font-weight: bold;
