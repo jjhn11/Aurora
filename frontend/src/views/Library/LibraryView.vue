@@ -16,18 +16,19 @@ import SearchBar from '@/components/SearchBar.vue';
     <div class="container">
         <h1 class="title">DESTACADO</h1>
         <h2 class="subtitle">Conozca el contenido más popular</h2>
-        <CarruselBiblioteca />
+        <CarruselBiblioteca bookCategory="popular" carouselId="carousel-popular" :showSlider="false"/>
     </div>
 
-    <br><br><br><br><br><br><br><br><br><br>
+    <br><br><br>
 
     <div class="container">
         <h1 class="title">NOVEDADES</h1>
         <h2 class="subtitle">Lo nuevo en Aurora</h2>
+        <CarruselBiblioteca bookSource="newBooks" carouselId="carousel-new" :showSlider="false"/>
     </div>
 
-    <br><br><br><br><br><br><br><br><br><br>
-
+    <br><br><br>
+<!--
     <div class="container">
         <h1 class="title">CATEGORÍAS</h1>
         <div class="categories row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-4 d-flex align-items-center justify-content-center">
@@ -87,10 +88,21 @@ import SearchBar from '@/components/SearchBar.vue';
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <br><br><br>
-
+    <div class="container">
+        <h1 class="title">DESTACADOS DEL MES</h1>
+        <h2 class="subtitle">Contenido recomendado del mes</h2>
+        <CarruselBiblioteca bookSource="popularBooksMonth" carouselId="carousel-month" :showSlider="false"/>
+    </div>
+    <br><br><br>
+    <div class="container">
+        <h1 class="title">AMANTES DE LOS LIBROS</h1>
+        <h2 class="subtitle">Novelas variadas, para todo tipo</h2>
+        <CarruselBiblioteca bookSource="novels" carouselId="carousel-novels" :showSlider="false"/>
+    </div>
+    <br><br><br>
     <div class="container text-center">
         <img src="@/assets/img/library/bufalito.png" class="img-bufalito" alt="Bufalo chiquito">
         <div class="text mt-3 mb-5">

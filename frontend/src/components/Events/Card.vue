@@ -37,6 +37,9 @@
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
 }
+.card {
+  cursor: pointer;
+}
 .card-title {
     margin-bottom: 5px;
     font-weight: 400;
@@ -59,6 +62,7 @@
 </style>
 
   <script>
+  
   export default {
     name: 'Card',
     props: {

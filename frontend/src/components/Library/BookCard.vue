@@ -1,4 +1,5 @@
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Freeman&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
@@ -17,36 +18,78 @@
     </div>
 </template>
 
-<style scoped>
+<style>
+.book-card a {
+  text-decoration: none;
+}
 .book-card{
+    width: 200px;
+    height: 411px;
     background-color: white;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 10px;
 }
 .book-cover{
-    width: 322px;
-    height: 492px;
+    width: auto;
+    height: 302px;
+    object-fit: cover;
+    margin-bottom: 15px;
 }
 .book-image{
     width: 100%;
-    border-radius: 10px;
+    height: 100%;
+    border-radius: 7px;
 }
 .book-title {
+  color: #000E32;
     font-weight: 400;
     font-size: 16px;
-    width: 310px;
-    height: 61px;
-    font-family: "freeman";
+    width: 100%;
+    height: 30px;
+    font-family: "josefin sans";
     text-align: left;
 }    
 .book-description {
+  color: #575757;
     font-weight: 300;
     font-size: 12px;
     width: 103px;
     height: 40px;
     font-family: "Nunito sans";
     text-align: left;
+}
+
+.custom-book-style .book-card{
+    height: 429px;
+    width: 226px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+.custom-book-style .book-cover{
+    width: 100%;
+    height: 302px;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+.custom-book-style .book-image{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+.custom-book-style .book-title {
+    font-weight: 400;
+    font-size: 16px;
+    width: auto;
+    font-family: "Josefin sans";
+    text-align: center;
+}    
+.custom-book-style .book-description {
+    font-weight: 300;
+    font-size: 12px;
+    width: auto;
+    font-family: "Nunito sans";
+    text-align: center;
 }
 </style>
 
