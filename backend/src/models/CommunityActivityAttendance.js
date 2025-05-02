@@ -38,7 +38,7 @@ const CommunityActivityAttendance = sequelize.define('CommunityActivityAttendanc
     field: 'Timestamp'
   },
 }, {
-  tableName: 'Community_event_attendance_',
+  tableName: 'Community_activity_attendance_',
   timestamps: false,
 });
 

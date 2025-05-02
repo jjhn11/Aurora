@@ -85,15 +85,22 @@ CREATE TABLE Calendar_Events_ (
 -- Tabla de categorías de comunidad RECREATIVAS, DEPORTES, CULTURAL Y VIDEOJUEGOS
 CREATE TABLE Community_categories_ (
     Id_category INT PRIMARY KEY AUTO_INCREMENT,
-    Category_name VARCHAR(20) NOT NULL UNIQUE,
+    Category_name VARCHAR(20) NOT NULL UNIQUE
 );
 
 -- Tabla de tipos de actividades de comunidad
 CREATE TABLE Community_activity_types_ (
     Id_type INT PRIMARY KEY AUTO_INCREMENT,
-    Type_name VARCHAR(40) NOT NULL
-     Id_category INT NOT NULL,
+    Type_name VARCHAR(40) NOT NULL,
+    Id_category INT NOT NULL,
     FOREIGN KEY (Id_category) REFERENCES Community_categories_ (Id_category)
+);
+
+-- Tabla de Locaciones de eventos de la comunidad 
+
+CREATE TABLE Community_activity_location_ (
+	Id_Location INT AUTO_INCREMENT PRIMARY KEY,
+    Location_ VARCHAR (50)
 );
 
 -- Tabla de actividades de comunidad
@@ -107,17 +114,9 @@ CREATE TABLE Community_activities_ (
     End_time TIME,
     Event_date DATE, -- comparar el timpo y eliminar el evento 
     Organizer_id VARCHAR(8),
-    FOREIGN KEY (Id_type) REFERENCES Community_categories_ (Id_type),
+    FOREIGN KEY (Id_type) REFERENCES Community_activity_types_ (Id_type),
     FOREIGN KEY (Organizer_id) REFERENCES Users_(Id_user),
     FOREIGN KEY (Id_Location) REFERENCES Community_activity_location_(Id_Location)
-);
-
--- Tabla de Locaciones de eventos de la comunidad 
-
-CREATE TABLE Community_activity_location_ (
-	Id_Location INT AUTO_INCREMENT PRIMARY KEY,
-    Location_ VARCHAR (50)
-    
 );
 
 -- Tabla de asistencia a actividades de comunidad
@@ -125,7 +124,7 @@ CREATE TABLE Community_activity_attendance_ (
     Id_attendance INT AUTO_INCREMENT PRIMARY KEY,
     Id_user VARCHAR(8) NOT NULL,
     Id_activity INT NOT NULL,
-    Confirmation INT NOT NULL DEFAULT "1", 
+    Confirmation INT NOT NULL DEFAULT 1, 
     Timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (Id_user) REFERENCES Users_(Id_user),
     FOREIGN KEY (Id_activity) REFERENCES Community_activities_(Id_activity),
