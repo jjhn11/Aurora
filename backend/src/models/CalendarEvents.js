@@ -1,6 +1,5 @@
-import { DataTypes, Sequelize } from 'sequelize';
-import { sequelize } from '../config/db.js'; 
-import EventCategory from './EventCategories.js'; 
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../config/db.js';
 
 const CalendarEvent = sequelize.define('CalendarEvent', {
   Id_calendar: {
@@ -45,5 +44,6 @@ CalendarEvent.associate = (models) => {
     as: 'event',
   });
 };
+
 
 export default CalendarEvent;
