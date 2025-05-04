@@ -107,10 +107,17 @@ router.get('/community-activity-types', async (req, res) => {
   }
 });
 
-// GET: Get all activity locations
+// GET: Get all activity locations with optional category filter
 router.get('/community-activity-locations', async (req, res) => {
   try {
-    const locations = await CommunityActivityLocation.findAll();
+    const { categoryId } = req.query;
+    const where = {};
+    
+    if (categoryId) {
+      where.Id_category = categoryId;
+    }
+    
+    const locations = await CommunityActivityLocation.findAll({ where });
     res.status(200).json(locations);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -138,17 +145,37 @@ router.get('/community-activity-attendance', async (req, res) => {
 
 // POST: Register attendance for an activity
 router.post('/community-activity-attendance', async (req, res) => {
+  const { Id_user, Id_activity, Confirmation } = req.body;
+
+  // Add validation
+  if (!Id_user || !Id_activity) {
+    return res.status(400).json({ error: 'Id_user y Id_activity son obligatorios' });
+  }
+
+  // Add unique constraint check
   try {
-    const { Id_user, Id_activity, Confirmation } = req.body;
+    // Check if attendance already exists
+    const existingAttendance = await CommunityActivityAttendance.findOne({
+      where: { Id_user, Id_activity }
+    });
     
+    if (existingAttendance) {
+      return res.status(400).json({ error: 'El usuario ya está registrado para esta actividad' });
+    }
+    
+    // Default Confirmation to 1 if not provided
     const attendance = await CommunityActivityAttendance.create({
       Id_user,
       Id_activity,
-      Confirmation
+      Confirmation: Confirmation || 1
     });
     
     res.status(201).json(attendance);
   } catch (error) {
+    // Better error handling for database constraints
+    if (error.name === 'SequelizeUniqueConstraintError') {
+      return res.status(400).json({ error: 'El usuario ya está registrado para esta actividad' });
+    }
     res.status(500).json({ error: error.message });
   }
 });
