@@ -18,4 +18,4 @@ async function loadSampleData() {
   }
 }
 
-loadSampleData();
+export { loadSampleData };

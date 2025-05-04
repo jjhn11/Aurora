@@ -1,126 +1,157 @@
 <script setup>
+import { ref, onMounted } from 'vue';
+import { useStore } from 'vuex';
+import CreateEventForm from '@/components/community/CreateEventForm.vue';
+import EventCard from '@/components/community/EventCard.vue';
 
-    import { ref } from 'vue';
-    import CreateEventForm from '@/components/community/CreateEventForm.vue';
-    import EventCard from '@/components/community/EventCard.vue';
+// ( I = ICONO,  R = RECREATIONAL,  1 = NUM ICONO,  LA = LETRA INICIAL Y FINAL DE "LECTURA" ) = IR1LA
+import LECTURA from '@/assets/img/community/icons/recreational/ICONO LECTURA.png';
+import BANDA from '@/assets/img/community/icons/recreational/ICONO BANDA.png';
+import ESCOLTA from '@/assets/img/community/icons/recreational/ICONO ESCOLTA.png';
+import TUTORIAS from '@/assets/img/community/icons/recreational/ICONO TUTORIAS.png';
+import AJEDREZ from '@/assets/img/community/icons/recreational/ICONO AJEDREZ.png';
+import RALLYS from '@/assets/img/community/icons/recreational/ICONO RALLYS.png';
+import FREESTYLE from '@/assets/img/community/icons/recreational/ICONO FREESTYLE.png';
+import JUEGOM from '@/assets/img/community/icons/recreational/ICONO JUEGOS DE MESA.png';
+import BAZAR from '@/assets/img/community/icons/recreational/ICONO BAZAR.png';
+import CONCURSO from '@/assets/img/community/icons/recreational/ICONO CONCURSO.png';
 
-    // ( I = ICONO,  R = RECREATIONAL,  1 = NUM ICONO,  LA = LETRA INICIAL Y FINAL DE "LECTURA" ) = IR1LA
-    import LECTURA from '@/assets/img/community/icons/recreational/ICONO LECTURA.png';
-    import BANDA from '@/assets/img/community/icons/recreational/ICONO BANDA.png';
-    import ESCOLTA from '@/assets/img/community/icons/recreational/ICONO ESCOLTA.png';
-    import TUTORIAS from '@/assets/img/community/icons/recreational/ICONO TUTORIAS.png';
-    import AJEDREZ from '@/assets/img/community/icons/recreational/ICONO AJEDREZ.png';
-    import RALLYS from '@/assets/img/community/icons/recreational/ICONO RALLYS.png';
-    import FREESTYLE from '@/assets/img/community/icons/recreational/ICONO FREESTYLE.png';
-    import JUEGOM from '@/assets/img/community/icons/recreational/ICONO JUEGOS DE MESA.png';
-    import BAZAR from '@/assets/img/community/icons/recreational/ICONO BAZAR.png';
-    import CONCURSO from '@/assets/img/community/icons/recreational/ICONO CONCURSO.png';
+const store = useStore();
+const showForm = ref(false);
+const events = ref([]);
+const isLoading = ref(false);
+const error = ref(null);
 
+// Cargar eventos desde el backend al montar el componente
+onMounted(async () => {
+    isLoading.value = true;
+    try {
+        // Obtener ID de la categoría "Recreativa" (en un sistema real deberías buscar este ID)
+        const recreationalCategoryId = 3; // ID simulado
+        
+        // Cargar eventos por categoría
+        const activities = await store.dispatch('community/fetchActivities', recreationalCategoryId);
+        
+        // Convertir las actividades del backend al formato que espera el componente EventCard
+        events.value = activities.map(activity => ({
+            activityId: activity.Id_activity,
+            title: activity.Title,
+            description: activity.Description,
+            organizer: activity.Organizer_id, // Idealmente convertir ID a nombre
+            startTime: activity.Start_time,
+            endTime: activity.End_time,
+            location: activity.Id_Location, // Idealmente convertir ID a nombre
+            category: "Recreativo", // Dependiendo del Id_type
+            imageSrc: "/assets/img/community/icons/recreational/ICONO_DEFAULT.png", // Placeholder
+            backgroundColor: "#6DCEff", // Color por defecto
+            date: activity.Event_date
+        }));
+    } catch (err) {
+        error.value = err.message || "Error al cargar eventos";
+        console.error("Error al cargar eventos:", err);
+    } finally {
+        isLoading.value = false;
+    }
+});
 
-    const showForm = ref(false);
-
-    const events = ref([]); // Array para almacenar los eventos
-
-    // Función para manejar la creación de eventos
-    const handleEventCreated = (eventData) => {
-        events.value.push({
-            title: eventData.eventName,
-            description: eventData.description,
-            organizer: "Usuario Actual",
-            startTime: eventData.startTime,
-            endTime: eventData.endTime,
-            location: eventData.location,
-            category: eventData.activityType,
-            imageSrc: eventData.selectedIcon.image,
-            backgroundColor: eventData.selectedIcon.bgColor,
-            date: eventData.date
-        });
+// Función para manejar la creación de eventos (usando el backend)
+const handleEventCreated = async (eventData) => {
+    try {
+        // Crear actividad usando la store
+        await store.dispatch('community/createEventFromForm', eventData);
+        
+        // Actualizar la lista de eventos
+        const recreationalCategoryId = 3; // ID simulado
+        await store.dispatch('community/fetchActivities', recreationalCategoryId);
+        
+        // Cerrar el formulario
         showForm.value = false;
-    };
+    } catch (err) {
+        console.error("Error al crear evento:", err);
+        // Aquí puedes mostrar un mensaje de error al usuario
+    }
+};
 
-    const recreationalActivities = [
-        'BANDA DE GUERRA',
-        'ESCOLTA',
-        'LECTURAS',
-        'AJEDREZ',
-        'RALLYS',
-        'BATALLAS DE FREESTYLE / RAP',
-        'JUEGOS DE MESA',
-        'BAZAR',
-        'CONCURSO',
-        'TUTORIAS'
-    ];
+const recreationalActivities = [
+    'BANDA DE GUERRA',
+    'ESCOLTA',
+    'LECTURAS',
+    'AJEDREZ',
+    'RALLYS',
+    'BATALLAS DE FREESTYLE / RAP',
+    'JUEGOS DE MESA',
+    'BAZAR',
+    'CONCURSO',
+    'TUTORIAS'
+];
 
-    const recreationalLocations = [
-        'BIBLIOTECA PLANTA ALTA',
-        'BIBLIOTECA PLANTA BAJA',
-        'PLAZA C-BUFALO',
-        'PLAZA BICENTENARIO',
-        'AUDIOVISUAL EDIFICIO U PLANTA ALTA',
-        'AUDIOVISUAL EDIFICIO U PLANTA BAJA',
-        'AUDIOVISUAL EDIFICIO D',
-        'CUBICULO DE ESTUDIO',
-        'ZONA LIBRE',
-        'BIBLIOTECA SALA CIRCULOS DE LECTURA',
-        'CANCHA EXTRAESCOLARES'
-    ];
+const recreationalLocations = [
+    'BIBLIOTECA PLANTA ALTA',
+    'BIBLIOTECA PLANTA BAJA',
+    'PLAZA C-BUFALO',
+    'PLAZA BICENTENARIO',
+    'AUDIOVISUAL EDIFICIO U PLANTA ALTA',
+    'AUDIOVISUAL EDIFICIO U PLANTA BAJA',
+    'AUDIOVISUAL EDIFICIO D',
+    'CUBICULO DE ESTUDIO',
+    'ZONA LIBRE',
+    'BIBLIOTECA SALA CIRCULOS DE LECTURA',
+    'CANCHA EXTRAESCOLARES'
+];
 
-    const recreationalIcons = [
-        {
-            title: 'LECTURA',
-            image: LECTURA,
-            bgColor: 'rgba(248, 237, 156, 1)'
-        },
-        {
-            title: 'BANDA DE GUERRA',
-            image: BANDA,
-            bgColor: 'rgba(197, 237, 232, 1)'
-        },
-        {
-            title: 'ESCOLTA',
-            image: ESCOLTA,
-            bgColor: 'rgba(255, 175, 146, 1)'
-        },
-        {
-            title: 'TUTORÍAS',
-            image: TUTORIAS,
-            bgColor: 'rgba(189, 238, 166, 1)'
-        },
-        {
-            title: 'AJEDREZ',
-            image: AJEDREZ,
-            bgColor: 'rgba(245, 91, 75, 1)'
-        },
-        {
-            title: 'RALLYS',
-            image: RALLYS,
-            bgColor: 'rgba(109, 206, 255, 1)'
-        },
-        {
-            title: 'FREESTYLE / RAP',
-            image: FREESTYLE,
-            bgColor: 'rgba(97, 255, 210, 1)'
-        },
-        {
-            title: 'JUEGOS DE MESA',
-            image: JUEGOM,
-            bgColor: 'rgba(89, 44, 132, 1)'
-        },
-        {
-            title: 'BAZAR',
-            image: BAZAR,
-            bgColor: 'rgba(187, 209, 209, 1)'
-        },
-        {
-            title: 'CONCURSO',
-            image: CONCURSO,
-            bgColor: 'rgba(255, 167, 80, 1)'
-        },
-    ];
-
+const recreationalIcons = [
+    {
+        title: 'LECTURA',
+        image: LECTURA,
+        bgColor: 'rgba(248, 237, 156, 1)'
+    },
+    {
+        title: 'BANDA DE GUERRA',
+        image: BANDA,
+        bgColor: 'rgba(197, 237, 232, 1)'
+    },
+    {
+        title: 'ESCOLTA',
+        image: ESCOLTA,
+        bgColor: 'rgba(255, 175, 146, 1)'
+    },
+    {
+        title: 'TUTORÍAS',
+        image: TUTORIAS,
+        bgColor: 'rgba(189, 238, 166, 1)'
+    },
+    {
+        title: 'AJEDREZ',
+        image: AJEDREZ,
+        bgColor: 'rgba(245, 91, 75, 1)'
+    },
+    {
+        title: 'RALLYS',
+        image: RALLYS,
+        bgColor: 'rgba(109, 206, 255, 1)'
+    },
+    {
+        title: 'FREESTYLE / RAP',
+        image: FREESTYLE,
+        bgColor: 'rgba(97, 255, 210, 1)'
+    },
+    {
+        title: 'JUEGOS DE MESA',
+        image: JUEGOM,
+        bgColor: 'rgba(89, 44, 132, 1)'
+    },
+    {
+        title: 'BAZAR',
+        image: BAZAR,
+        bgColor: 'rgba(187, 209, 209, 1)'
+    },
+    {
+        title: 'CONCURSO',
+        image: CONCURSO,
+        bgColor: 'rgba(255, 167, 80, 1)'
+    },
+];
 </script>
-
-
 
 <template>
 
@@ -150,15 +181,29 @@
         :activities="recreationalActivities"
         :locations="recreationalLocations"
         :icons="recreationalIcons"
+        :useBackendSubmit="true"
         @event-created="handleEventCreated"
     />
 
+    <!-- Estado de carga -->
+    <div v-if="isLoading" class="loading-container">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+    </div>
+    
+    <!-- Mostrar mensaje de error -->
+    <div v-else-if="error" class="error-container alert alert-danger">
+        {{ error }}
+    </div>
+
     <!-- Lista de Eventos -->
     
-    <div v-if="events.length > 0" class="events-container">
+    <div v-else-if="events.length > 0" class="events-container">
         <EventCard 
             v-for="(event, index) in events" 
             :key="index"
+            :activityId="event.activityId"
             :title="event.title"
             :description="event.description"
             :organizer="event.organizer"

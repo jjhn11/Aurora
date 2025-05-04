@@ -1,118 +1,139 @@
 <script setup>
+import { ref, defineEmits, defineProps, onMounted } from 'vue';
+import { useStore } from 'vuex';
 
-    import { ref, defineEmits, defineProps } from 'vue';
+const props = defineProps({
+    modelValue: {
+        type: Boolean,
+        required: true
+    },
+    activities: {
+        type: Array,
+        required: true
+    },
+    locations: {
+        type: Array,
+        required: true
+    },
+    icons: {
+        type: Array,
+        required: true
+    },
+    loadBackendData: {
+        type: Boolean,
+        default: false
+    },
+    useBackendSubmit: {
+        type: Boolean,
+        default: false
+    }
+});
 
-    const props = defineProps({
-        modelValue: {
-            type: Boolean,
-            required: true
-        },
-        activities: {
-            type: Array,
-            required: true
-        },
-        locations: {
-            type: Array,
-            required: true
-        },
-        icons: {
-            type: Array,
-            required: true
+const emit = defineEmits(['update:modelValue', 'event-created', 'event-created-success']);
+
+const store = useStore();
+
+const eventName = ref('');
+const description = ref('');
+const activityType = ref('');
+const startTime = ref('');
+const endTime = ref('');
+const location = ref('');
+const eventDate = ref('');
+const formSubmitted = ref(false);
+const isShaking = ref(false);
+const showIconMenu = ref(false);
+const selectedIcon = ref(null);
+
+onMounted(async () => {
+    try {
+        if (props.loadBackendData) {
+            await Promise.all([
+                store.dispatch('community/fetchActivityTypes'),
+                store.dispatch('community/fetchLocations')
+            ]);
         }
-    });
+    } catch (error) {
+        console.error("Error al cargar datos del backend:", error);
+    }
+});
 
-    const emit = defineEmits(['update:modelValue', 'event-created']);
-
-    const eventName = ref('');
-    const description = ref('');
-    const activityType = ref('');
-    const startTime = ref('');
-    const endTime = ref('');
-    const location = ref('');
-    const eventDate = ref(''); // Nueva ref para la fecha
-
-    const formSubmitted = ref(false);
-    const isShaking = ref(false); // Nuevo ref para controlar la animación
-
-    const handleSubmit = () => {
-        formSubmitted.value = true;
-        if (!selectedIcon.value) {
-            // Trigger animación
-            isShaking.value = true;
-            setTimeout(() => {
-                isShaking.value = false;
-            }, 500); // Duración de la animación
-            return;
+const handleSubmit = async () => {
+    formSubmitted.value = true;
+    
+    if (!selectedIcon.value) {
+        isShaking.value = true;
+        setTimeout(() => {
+            isShaking.value = false;
+        }, 500);
+        return;
+    }
+    
+    try {
+        if (props.useBackendSubmit) {
+            await store.dispatch('community/createEventFromForm', {
+                eventName: eventName.value,
+                description: description.value,
+                activityType: activityType.value,
+                startTime: startTime.value,
+                endTime: endTime.value,
+                location: location.value,
+                selectedIcon: selectedIcon.value,
+                date: eventDate.value
+            });
+            
+            emit('event-created-success');
+        } else {
+            emit('event-created', {
+                eventName: eventName.value,
+                description: description.value,
+                activityType: activityType.value,
+                startTime: startTime.value,
+                endTime: endTime.value,
+                location: location.value,
+                selectedIcon: selectedIcon.value,
+                date: eventDate.value
+            });
         }
         
-        // Si llegamos aquí, todo está validado
-        console.log("Form submitted");
-
-        // Emitir el evento con todos los datos
-        emit('event-created', {
-            eventName: eventName.value,
-            description: description.value,
-            activityType: activityType.value,
-            startTime: startTime.value,
-            endTime: endTime.value,
-            location: location.value,
-            selectedIcon: selectedIcon.value,
-            date: eventDate.value // Incluir la fecha
-        });
-        
-        // Limpiar el formulario
-        eventName.value = '';
-        description.value = '';
-        activityType.value = '';
-        startTime.value = '';
-        endTime.value = '';
-        location.value = '';
-        eventDate.value = '';
-        selectedIcon.value = null;
-        formSubmitted.value = false; // Reiniciar el estado de validación
-        isShaking.value = false;     // Reiniciar la animación
-        
+        resetForm();
         emit('update:modelValue', false);
-    };
+    } catch (error) {
+        console.error("Error al crear evento:", error);
+    }
+};
 
-    // Nueva función para restablecer el error
-    const resetIconError = () => {
-        formSubmitted.value = false;
-    };
-    // Menu de Iconos
+const resetForm = () => {
+    eventName.value = '';
+    description.value = '';
+    activityType.value = '';
+    startTime.value = '';
+    endTime.value = '';
+    location.value = '';
+    eventDate.value = '';
+    selectedIcon.value = null;
+    formSubmitted.value = false;
+    isShaking.value = false;
+};
 
-    const showIconMenu = ref(false);
-    const selectedIcon = ref(null);
+const resetIconError = () => {
+    formSubmitted.value = false;
+};
 
-    const openIconMenu = () => {
-        showIconMenu.value = true;
-    };
+const openIconMenu = () => {
+    showIconMenu.value = true;
+};
 
-    const selectIcon = (activity) => {
-        selectedIcon.value = activity;
-        showIconMenu.value = false;
-    };
+const selectIcon = (activity) => {
+    selectedIcon.value = activity;
+    showIconMenu.value = false;
+};
 
-    const closeForm = () => {
-        formSubmitted.value = false; // Reiniciar el estado de validación
-
-        eventName.value = '';
-        description.value = '';
-        activityType.value = '';
-        startTime.value = '';
-        endTime.value = '';
-        location.value = '';
-        eventDate.value = '';
-        selectedIcon.value = null;
-        formSubmitted.value = false; // Reiniciar el estado de validación
-        isShaking.value = false;     // Reiniciar la animación
-
-        emit('update:modelValue', false);
-    };
-
+const closeForm = () => {
+    resetForm();
+    emit('update:modelValue', false);
+};
 </script>
-
-  
 
 <template>
 
