@@ -97,7 +97,9 @@ CREATE TABLE Community_activity_types_ (
 
 CREATE TABLE Community_activity_location_ (
 	Id_Location INT AUTO_INCREMENT PRIMARY KEY,
-    Location_ VARCHAR (50)
+    Location_ VARCHAR (50),
+    Id_category INT NOT NULL,
+    FOREIGN KEY (Id_category) REFERENCES Community_categories_ (Id_category)
 );
 
 -- Tabla de actividades de comunidad

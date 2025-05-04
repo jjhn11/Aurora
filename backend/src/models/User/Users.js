@@ -1,5 +1,5 @@
 import { DataTypes, Sequelize } from 'sequelize';
-import { sequelize } from '../config/db.js'; 
+import { sequelize } from '../../config/db.js'; 
 
 const User = sequelize.define('User', {
   Id_user: {
@@ -11,6 +11,10 @@ const User = sequelize.define('User', {
     type: DataTypes.INTEGER,
     allowNull: false,
     field: 'Id_Occupation',
+    references: {
+      model: 'Occupations_',
+      key: 'Id_occupation'
+    }
   },
   Control_num: {
     type: DataTypes.STRING(11),
@@ -38,11 +42,19 @@ const User = sequelize.define('User', {
     type: DataTypes.INTEGER,
     allowNull: false,
     field: 'Id_gender',
+    references: {
+      model: 'Genders_',
+      key: 'Id_gender'
+    }
   },
   Id_user_status: {
     type: DataTypes.INTEGER,
     allowNull: false,
     field: 'Id_user_status',
+    references: {
+      model: 'User_status_',
+      key: 'Id_user_status'
+    }
   },
 }, {
   tableName: 'Users_',
@@ -51,7 +63,7 @@ const User = sequelize.define('User', {
 
 User.associate = (models) => {
   User.belongsTo(models.Occupation, {
-    foreignKey: 'Id_occupation',
+    foreignKey: 'Id_Occupation',
     as: 'occupation',
   });
   User.belongsTo(models.Gender, {
@@ -61,6 +73,14 @@ User.associate = (models) => {
   User.belongsTo(models.UserStatus, {
     foreignKey: 'Id_user_status',
     as: 'userStatus',
+  });
+  User.hasMany(models.CommunityActivity, {
+    foreignKey: 'Organizer_id',
+    as: 'organizedActivities'
+  });
+  User.hasMany(models.CommunityActivityAttendance, {
+    foreignKey: 'Id_user',
+    as: 'activityAttendances'
   });
 };
 

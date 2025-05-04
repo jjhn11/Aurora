@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../config/db.js';
+import { sequelize } from '../../config/db.js';
 
 const Event = sequelize.define('Event', {
   Id_event: {
@@ -41,6 +41,10 @@ const Event = sequelize.define('Event', {
     type: DataTypes.INTEGER,
     allowNull: false,
     field: 'Id_calendar',
+    references: {
+      model: 'Calendar_Events_',
+      key: 'Id_calendar'
+    }
   },
   Is_coming: {
     type: DataTypes.INTEGER,

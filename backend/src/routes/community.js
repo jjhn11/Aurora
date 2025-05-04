@@ -1,12 +1,12 @@
 import express from 'express';
-import CalendarEvent from '../models/CalendarEvents.js';
-import CommunityActivities from '../models/CommunityActivities.js';
-import CommunityActivityAttendance from '../models/CommunityActivityAttendance.js';
-import CommunityActivityLocation from '../models/CommunityActivityLocation.js';
-import CommunityActivityType from '../models/CommunityActivityTypes.js';
-import CommunityCategories from '../models/CommunityCategories.js';
-import EventCategory from '../models/EventCategories.js';
-import Event from '../models/Events.js';
+import CalendarEvent from '../models/Events/CalendarEvents.js';
+import CommunityActivities from '../models/Community/CommunityActivities.js';
+import CommunityActivityAttendance from '../models/Community/CommunityActivityAttendance.js';
+import CommunityActivityLocation from '../models/Community/CommunityActivityLocation.js';
+import CommunityActivityType from '../models/Community/CommunityActivityTypes.js';
+import CommunityCategories from '../models/Community/CommunityCategories.js';
+import EventCategory from '../models/Events/EventCategories.js';
+import Event from '../models/Events/Events.js';
 
 const router = express.Router(); 
 

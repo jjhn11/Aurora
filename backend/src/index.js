@@ -8,7 +8,6 @@ import passport from './config/passport.js';
 import checkAuth from './middlewares/checkAuth.js';
 import authRoutes from './routes/auth.js';
 import communityRoutes from './routes/community.js';
-import taskRoutes from './routes/task.js';
 
 dotenv.config();
 const open = (...args) => import('open').then(m => m.default(...args));
@@ -44,7 +43,6 @@ app.use(passport.session());
 
 // Routes
 app.use('/auth', authRoutes);
-app.use('/api/tasks', taskRoutes);
 app.use('/api', communityRoutes);
 
 // Health check

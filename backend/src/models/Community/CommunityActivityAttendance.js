@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../config/db.js';
+import { sequelize } from '../../config/db.js';
 
 const CommunityActivityAttendance = sequelize.define('CommunityActivityAttendance', {
   Id_attendance: {
@@ -40,6 +40,12 @@ const CommunityActivityAttendance = sequelize.define('CommunityActivityAttendanc
 }, {
   tableName: 'Community_activity_attendance_',
   timestamps: false,
+  indexes: [
+    {
+      unique: true,
+      fields: ['Id_user', 'Id_activity']
+    }
+  ]
 });
 
 CommunityActivityAttendance.associate = (models) => {
@@ -52,7 +58,5 @@ CommunityActivityAttendance.associate = (models) => {
     as: 'activity',
   });
 };
-
-console.log('CommunityActivityAttendance model registered:', CommunityActivityAttendance === sequelize.models.CommunityActivityAttendance);
 
 export default CommunityActivityAttendance;

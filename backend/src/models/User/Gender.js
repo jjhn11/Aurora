@@ -1,5 +1,5 @@
 import { DataTypes, Sequelize } from 'sequelize';
-import { sequelize } from '../config/db.js'; 
+import { sequelize } from '../../config/db.js'; 
 
 const Gender = sequelize.define('Gender', {
   Id_gender: {
@@ -17,4 +17,12 @@ const Gender = sequelize.define('Gender', {
   tableName: 'Genders_',
   timestamps: false,
 });
-export default Career;
+
+Gender.associate = (models) => {
+  Gender.hasMany(models.User, {
+    foreignKey: 'Id_gender',
+    as: 'users'
+  });
+};
+
+export default Gender;

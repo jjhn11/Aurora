@@ -37,8 +37,13 @@ INSERT INTO Community_activity_types_ (Type_name, Id_category) VALUES
 ('Grupo de Estudio', 4),
 ('Ayuda Comunitaria', 5);
 
-INSERT INTO Community_activity_location_ (Location_) VALUES
-('Sala de Juntas A'), ('Galería Central'), ('Cancha de Baloncesto'), ('Aula 102'), ('Playa Municipal');
+-- FIXED: Added Id_category which is required per model/schema
+INSERT INTO Community_activity_location_ (Location_, Id_category) VALUES
+('Sala de Juntas A', 1), 
+('Galería Central', 2), 
+('Cancha de Baloncesto', 3), 
+('Aula 102', 4), 
+('Playa Municipal', 5);
 
 -- First insert Calendar_Events_ data (Events_ depends on this)
 INSERT INTO Calendar_Events_ (Start_date, End_date) VALUES 
