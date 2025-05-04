@@ -7,6 +7,7 @@
       <li v-for="(event, i) in events" :key="i">- {{ event }}</li>
     </ul>
 
+    <div class="event-markers" v-if="events.length">
       <div 
         v-for="(event, i) in events" 
         :key="i" 
