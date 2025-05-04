@@ -8,30 +8,15 @@ const CalendarEvent = sequelize.define('CalendarEvent', {
     autoIncrement: true,
     field: 'Id_calendar',
   },
-  Event_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    field: 'Event_id',
-  },
-  Calendar_date: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    field: 'Calendar_date',
-  },
   Start_date: {
     type: DataTypes.DATE,
-    allowNull: true,
+    allowNull: false,
     field: 'Start_date',
   },
   End_date: {
     type: DataTypes.DATE,
-    allowNull: true,
+    allowNull: false,
     field: 'End_date',
-  },
-  Notes: {
-    type: DataTypes.TEXT,
-    allowNull: true,
-    field: 'Notes',
   },
 }, {
   tableName: 'Calendar_Events_',
@@ -39,9 +24,9 @@ const CalendarEvent = sequelize.define('CalendarEvent', {
 });
 
 CalendarEvent.associate = (models) => {
-  CalendarEvent.belongsTo(models.Event, {
-    foreignKey: 'Event_id',
-    as: 'event',
+  CalendarEvent.hasMany(models.Event, {
+    foreignKey: 'Id_calendar',
+    as: 'events'
   });
 };
 

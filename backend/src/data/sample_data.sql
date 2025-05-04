@@ -40,22 +40,27 @@ INSERT INTO Community_activity_types_ (Type_name, Id_category) VALUES
 INSERT INTO Community_activity_location_ (Location_) VALUES
 ('Sala de Juntas A'), ('Galería Central'), ('Cancha de Baloncesto'), ('Aula 102'), ('Playa Municipal');
 
--- Now we can insert events and community activities
-INSERT INTO Events_ (Title, Description, Id_category, Event_date) VALUES 
-('Conferencia de IA', 'Exploraremos los avances más recientes en IA', 1, '2023-10-15'),
-('Taller de Desarrollo Web', 'Aprende a crear sitios web modernos', 1, '2023-10-20'),
-('Concierto de Bandas', 'Presentación de las mejores bandas', 2, '2023-11-05'),
-('Torneo de Fútbol', 'Competencia deportiva entre carreras', 3, '2023-11-10'),
-('Networking Tecnológico', 'Conecta con empresas del sector', 4, '2023-11-15');
+-- First insert Calendar_Events_ data (Events_ depends on this)
+INSERT INTO Calendar_Events_ (Start_date, End_date) VALUES 
+('2025-01-01', '2025-07-31');
 
+-- Now insert Events_ data with reference to Calendar_Events_
+INSERT INTO Events_ (Title, Description, Image_url, Id_category, Event_date, Id_calendar, Is_coming) VALUES 
+('Conferencia de IA', 'Exploraremos los avances más recientes en IA', '/images/events/conf-ia.jpg', 1, '2025-01-15', 1, 1),
+('Taller de Desarrollo Web', 'Aprende a crear sitios web modernos', '/images/events/web-dev.jpg', 1, '2025-01-20', 1, 1),
+('Concierto de Bandas', 'Presentación de las mejores bandas', '/images/events/concert.jpg', 2, '2025-02-05', 1, 1),
+('Torneo de Fútbol', 'Competencia deportiva entre carreras', '/images/events/football.jpg', 3, '2025-03-10', 1, 1),
+('Networking Tecnológico', 'Conecta con empresas del sector', '/images/events/networking.jpg', 4, '2025-03-15', 1, 1);
+
+-- Community activities
 INSERT INTO Community_activities_ (Title, Description, Id_type, Id_Location, Start_time, End_time, Event_date, Organizer_id) VALUES 
-('Desarrollo de App Móvil', 'Proyecto colaborativo para estudiantes', 1, 1, '14:00:00', '17:00:00', '2023-10-25', 'USER001'),
-('Exposición de Fotografía', 'Muestra del trabajo fotográfico', 2, 2, '10:00:00', '18:00:00', '2023-11-01', 'USER002'),
-('Entrenamiento de Baloncesto', 'Sesión de práctica para el equipo', 3, 3, '16:00:00', '18:00:00', '2023-10-18', 'USER003'),
-('Grupo de Estudio de Matemáticas', 'Sesiones para reforzar conocimientos', 4, 4, '13:00:00', '15:00:00', '2023-10-17', 'USER004'),
-('Limpieza de Playa', 'Actividad de voluntariado local', 5, 5, '08:00:00', '12:00:00', '2023-11-12', 'USER005');
+('Desarrollo de App Móvil', 'Proyecto colaborativo para estudiantes', 1, 1, '14:00:00', '17:00:00', '2025-01-25', 'USER001'),
+('Exposición de Fotografía', 'Muestra del trabajo fotográfico', 2, 2, '10:00:00', '18:00:00', '2025-02-01', 'USER002'),
+('Entrenamiento de Baloncesto', 'Sesión de práctica para el equipo', 3, 3, '16:00:00', '18:00:00', '2025-01-18', 'USER003'),
+('Grupo de Estudio de Matemáticas', 'Sesiones para reforzar conocimientos', 4, 4, '13:00:00', '15:00:00', '2025-01-17', 'USER004'),
+('Limpieza de Playa', 'Actividad de voluntariado local', 5, 5, '08:00:00', '12:00:00', '2025-02-12', 'USER005');
 
--- Finally, add attendance records
+-- Community activity attendance
 INSERT INTO Community_activity_attendance_ (Id_user, Id_activity, Confirmation) VALUES 
 ('USER001', 1, 1),
 ('USER002', 1, 1),
@@ -65,10 +70,3 @@ INSERT INTO Community_activity_attendance_ (Id_user, Id_activity, Confirmation) 
 ('USER001', 5, 1),
 ('USER002', 3, 1),
 ('USER003', 4, 1);
-
-INSERT INTO Calendar_Events_ (Event_id, Calendar_date, Start_date, End_date, Notes) VALUES 
-(1, '2023-10-15', '2023-10-15', '2023-10-15', 'Confirmar asistencia del ponente'),
-(2, '2023-10-20', '2023-10-20', '2023-10-20', 'Preparar materiales con anticipación'),
-(3, '2023-11-05', '2023-11-05', '2023-11-05', 'Revisar equipo de sonido'),
-(4, '2023-11-10', '2023-11-10', '2023-11-10', 'Organizar equipos y árbitros'),
-(5, '2023-11-15', '2023-11-15', '2023-11-15', 'Confirmar participación de empresas');

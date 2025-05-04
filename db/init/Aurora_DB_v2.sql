@@ -58,29 +58,26 @@ CREATE TABLE Event_categories_ (
 );
 
 
+-- Tabla de calendario de eventos
+CREATE TABLE Calendar_Events_ (
+    Id_calendar INT PRIMARY KEY AUTO_INCREMENT,
+    Start_date DATE NOT NULL,
+    End_date DATE NOT NULL
+);
+
 -- Tabla de eventos
 CREATE TABLE Events_ (
     Id_event INT PRIMARY KEY AUTO_INCREMENT,
     Title VARCHAR(200) NOT NULL,
     Description TEXT,
+    Image_url VARCHAR(2083),
     Id_category INT ,
     Event_date DATE,
-    FOREIGN KEY (Id_category) REFERENCES Event_categories_(Id_category)
+    Id_calendar INT NOT NULL,
+    Is_coming INT NOT NULL DEFAULT 1, -- 1 = Si, 0 = No
+    FOREIGN KEY (Id_category) REFERENCES Event_categories_(Id_category),
+    FOREIGN KEY (Id_calendar) REFERENCES Calendar_Events_ (Id_calendar)
 );
-
--- Tabla de calendario de eventos
-CREATE TABLE Calendar_Events_ (
-    Id_calendar INT PRIMARY KEY AUTO_INCREMENT,
-    Event_id INT NOT NULL,
-    Calendar_date DATE NOT NULL,
-    Start_date DATE,
-    End_date DATE,
-    Notes TEXT,
-    FOREIGN KEY (Event_id) REFERENCES Events_(Id_event)
-);
-
-
-
 
 -- Tabla de categorías de comunidad RECREATIVAS, DEPORTES, CULTURAL Y VIDEOJUEGOS
 CREATE TABLE Community_categories_ (
