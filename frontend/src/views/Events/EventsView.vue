@@ -5,10 +5,13 @@ import Carousel2 from '@/components/Events/Carousel2.vue';
 import Carousel3 from '@/components/Events/Carousel3.vue';
 import Calendar from '@/components/Events/Calendar/Calendar.vue';
 import EventsPages from '@/components/Events/EventsList.vue';
+
+const bannerImage = new URL('@/assets/img/events/Banner.png', import.meta.url).href;
 </script>
 
 <template>
-<HeroVideo />
+<HeroVideo :img="bannerImage" title="EVENTOS" />
+
 <br><br>
 <div class="container">
     <h1 class="title">CULTURALES</h1>
@@ -31,7 +34,7 @@ import EventsPages from '@/components/Events/EventsList.vue';
 <div class="container">
     <h1 class="title">CALENDARIO</h1>
     <!--Carrusel-->
-    <Calendar />
+    <Calendar nombre="events"/>
     <br><br>
 </div>
 </template>

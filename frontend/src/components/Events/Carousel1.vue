@@ -39,14 +39,15 @@ const closeModal = () => {
 
 <template>
     <div class="contenedor-carrusel container-fluid d-flex justify-content-center">
-        <button class="btn btn-link carousel-control-prev-bottom" type="button" data-bs-target="#carrusel1" data-bs-slide="prev">
+        <!-- Botones laterales (visibles en pantallas grandes) -->
+        <button class="btn btn-link carousel-control-prev-bottom d-none d-md-block" type="button" data-bs-target="#carrusel1" data-bs-slide="prev">
             <i class="bi bi-chevron-left fs-4"></i>
         </button>
         <div id="carrusel1" class="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <div class="row justify-content-center">
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-4">
                             <Card
                                :id="events[0].id"
                                :image="events[0].image"
@@ -55,7 +56,7 @@ const closeModal = () => {
                                @click="openModal(events[0])"
                                />
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-4">
                                 <Card
                                 :id="events[1].id"
                                 :image="events[1].image"
@@ -64,7 +65,7 @@ const closeModal = () => {
                                 @click="openModal(events[1])"
                                />
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-4">
                             <Card
                             :id="events[2].id"
                                :image="events[2].image"
@@ -77,7 +78,7 @@ const closeModal = () => {
                 </div>
                 <div class="carousel-item">
                     <div class="row justify-content-center">
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-4">
                             <Card
                                :id="events[0].id"
                                :image="events[0].image"
@@ -86,7 +87,7 @@ const closeModal = () => {
                                @click="openModal(events[0])"
                                />
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-4">
                             <Card
                                :id="events[1].id"
                                :image="events[1].image"
@@ -95,7 +96,7 @@ const closeModal = () => {
                                @click="openModal(events[1])"
                                />
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-4">
                             <Card
                                :id="events[2].id"
                                :image="events[2].image"
@@ -108,7 +109,7 @@ const closeModal = () => {
                 </div>
                 <div class="carousel-item">
                     <div class="row justify-content-center">
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-4">
                             <Card
                                :id="events[0].id"
                                :image="events[0].image"
@@ -117,7 +118,7 @@ const closeModal = () => {
                                @click="openModal(events[0])"
                                />
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-4">
                             <Card
                                :id="events[1].id"
                                :image="events[1].image"
@@ -126,7 +127,7 @@ const closeModal = () => {
                                @click="openModal(events[1])"
                                />
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-4">
                             <Card
                                :id="events[2].id"
                                :image="events[2].image"
@@ -139,19 +140,32 @@ const closeModal = () => {
                 </div>
             </div>
         </div>
-        <button class="btn btn-link carousel-control-next-bottom" type="button" data-bs-target="#carrusel1" data-bs-slide="next">
+        <button class="btn btn-link carousel-control-next-bottom d-none d-md-block" type="button" data-bs-target="#carrusel1" data-bs-slide="next">
             <i class="bi bi-chevron-right fs-4"></i>
         </button>
     </div>
+    
+    <!-- Botones inferiores (solo visibles en móviles) -->
+    <div class="text-center mobile-controls">
+        <button class="btn btn-outline-primary mx-2" type="button" data-bs-target="#carrusel1" data-bs-slide="prev">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+        <button class="btn btn-outline-primary mx-2" type="button" data-bs-target="#carrusel1" data-bs-slide="next"><i class="bi bi-chevron-right"></i>
+        </button>
+    </div>
+    
     <div class="custom-slider-bar" v-if="showSlider">
         <div class="custom-slider-thumb" :style="{ left: `${(activeSlide / (totalSlides - 1)) * 100}%` }"></div>
     </div>
 
     <Modal :isOpen="isModalOpen" :event="selectedEvent" @close="closeModal" />
-
 </template>
 
 <style scoped>
+.mobile-controls button {
+  min-width: 10px;
+}
+
 .custom-slider-bar {
   position: relative;
   height: 6px;
@@ -180,8 +194,9 @@ const closeModal = () => {
 
 .carousel {
     position: relative;
-    padding-bottom: 30px;
+    padding-bottom: 10px;
 }
+
 .carousel-item {
     margin: 0 auto;
     padding: 20px 10px;
@@ -199,4 +214,24 @@ const closeModal = () => {
     display: none;
 }
 
+/* Estilos para los botones en móvil */
+@media (max-width: 776px) {
+    .carousel-control-prev-bottom,
+    .carousel-control-next-bottom {
+        display: none !important;
+    }
+    
+    .mobile-controls {
+        display: block !important;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Ocultar controles móviles en pantallas grandes */
+@media (min-width: 776px) {
+    .mobile-controls {
+        display: none !important;
+    }
+}
 </style>

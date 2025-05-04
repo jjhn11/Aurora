@@ -45,7 +45,7 @@ const closeModal = () => {
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <div class="row justify-content-center">
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-4">
                             <Card
                                :id="events[6].id"
                                :image="events[6].image"
@@ -54,7 +54,7 @@ const closeModal = () => {
                                @click="openModal(events[6])"
                                />
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-4">
                                 <Card
                                 :id="events[7].id"
                                 :image="events[7].image"
@@ -63,7 +63,7 @@ const closeModal = () => {
                                 @click="openModal(events[7])"
                                />
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-4">
                             <Card
                             :id="events[8].id"
                                :image="events[8].image"
@@ -76,7 +76,7 @@ const closeModal = () => {
                 </div>
                 <div class="carousel-item">
                     <div class="row justify-content-center">
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-4">
                             <Card
                                :id="events[6].id"
                                :image="events[6].image"
@@ -85,7 +85,7 @@ const closeModal = () => {
                                @click="openModal(events[6])"
                                />
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-4">
                             <Card
                                :id="events[7].id"
                                :image="events[7].image"
@@ -94,7 +94,7 @@ const closeModal = () => {
                                @click="openModal(events[7])"
                                />
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-4">
                             <Card
                                :id="events[8].id"
                                :image="events[8].image"
@@ -107,7 +107,7 @@ const closeModal = () => {
                 </div>
                 <div class="carousel-item">
                     <div class="row justify-content-center">
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-4">
                             <Card
                                :id="events[6].id"
                                :image="events[6].image"
@@ -116,7 +116,7 @@ const closeModal = () => {
                                @click="openModal(events[6])"
                                />
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-4">
                             <Card
                                :id="events[7].id"
                                :image="events[7].image"
@@ -125,7 +125,7 @@ const closeModal = () => {
                                @click="openModal(events[7])"
                                />
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-4">
                             <Card
                                :id="events[8].id"
                                :image="events[8].image"

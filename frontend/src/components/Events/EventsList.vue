@@ -61,18 +61,19 @@ const closeModal = () => {
     <div class="container py-4">
       <div class="row">
         <div
-          class="col-12 col-md-6 col-lg-4 mb-4"
-          v-for="event in paginatedFilteredEvents"
-          :key="event.id"
-        >
-          <Card
-            :title="event.title"
-            :date="event.date"
-            :description="event.description"
-            :image="event.image"
-            @click="openModal(event)"
-          />
-        </div>
+  class="event-column mb-4"
+  v-for="event in paginatedFilteredEvents"
+  :key="event.id"
+>
+  <Card
+    :title="event.title"
+    :date="event.date"
+    :description="event.description"
+    :image="event.image"
+    @click="openModal(event)"
+  />
+</div>
+
       </div>
 
   
@@ -176,5 +177,25 @@ const closeModal = () => {
   font-size: 1.5rem;
   cursor: pointer;
 }
+.event-column {
+  width: 100%;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+}
 
+.event-column {
+  width: 33.3333%;
+  padding: 0 0.5rem;
+}
+
+@media (max-width: 776px) {
+  .event-column {
+    width: 33.3333%;
+    padding: 0 3.5%;
+  }
+}
 </style>

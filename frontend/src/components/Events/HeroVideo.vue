@@ -2,34 +2,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 </style>
 <template>
-    <div>
-      <section class="hero-container">
-        <!-- Always show the GIF as fallback -->
-        <img 
-          src="@/assets/img/events/Banner.png" 
-          alt="Hero animation" 
-          class="hero-background"
-        >
-        
-        <!-- Simple video implementation 
-        <video 
-          autoplay 
-          muted 
-          loop 
-          playsinline
-          class="hero-video"
-        >
-          <source src="../assets/img/herovideo.mp4" type="video/mp4">
-        </video>-->
-  
-        <!-- Overlay Content -->
-        <div class="hero-overlay">
-          <span class="hero-title">EVENTOS</span>
-         <!-- <img src="@/assets/img/events/Banner.png" alt="Hero title" class="hero-title">-->
-        </div>
-      </section>
+  <section class="hero-container">
+    <img :src="img" alt="Hero image" class="hero-background">
+    <div class="hero-overlay">
+      <span class="hero-title">{{ title }}</span>
     </div>
-  </template>
+  </section>
+</template>
+
+<script setup>
+const props = defineProps({
+  img: String,
+  title: String
+});
+</script>
+
 <style scoped>
 /* Hero Container */
 .hero-container {
@@ -99,4 +86,29 @@
   height: 198px;
   max-width: 80%; 
 }  
+@media (max-width: 1076px) {
+  .hero-title {
+  font-family: 'Playfair Display';
+  font-weight: 700;
+  font-size: 50px;
+  color: white;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.05em;
+  margin: 0;
+  transform: translateY(30%);
+  width: 440px;
+  height: 101px;
+  max-width: 80%; 
+}  
+.hero-container {
+  position: relative;
+  width: 100%;
+  height: 182px;
+  overflow: hidden;
+  display: flex;
+  background-color: white;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;     /* Centra verticalmente */
+}
+}
 </style>
