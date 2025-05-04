@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../config/db.js';
+import { sequelize } from '../../config/db.js';
 
 const CommunityCategory = sequelize.define('CommunityCategory', {
   Id_category: {
@@ -19,5 +19,17 @@ const CommunityCategory = sequelize.define('CommunityCategory', {
   tableName: 'Community_categories_',
   timestamps: false
 });
+
+CommunityCategory.associate = (models) => {
+  CommunityCategory.hasMany(models.CommunityActivityType, {
+    foreignKey: 'Id_category',
+    as: 'activityTypes'
+  });
+  
+  CommunityCategory.hasMany(models.CommunityActivityLocation, {
+    foreignKey: 'Id_category',
+    as: 'locations'
+  });
+};
 
 export default CommunityCategory;

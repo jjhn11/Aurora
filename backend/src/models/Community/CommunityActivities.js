@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../config/db.js';
+import { sequelize } from '../../config/db.js';
 
 
 
@@ -22,12 +22,21 @@ const CommunityActivity = sequelize.define('CommunityActivity', {
   Id_type: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    field: 'Id_type'
+    field: 'Id_type',
+    references: {
+      model: 'Community_activity_types_',
+      key: 'Id_type'
+    }
   },
   Id_Location: {
     type: DataTypes.INTEGER,
-    allowNull: false,},
-
+    allowNull: false,
+    field: 'Id_Location',
+    references: {
+      model: 'Community_activity_location_',
+      key: 'Id_Location'
+    }
+  },
   Start_time: {
     type: DataTypes.TIME,
     field: 'Start_time'
@@ -55,17 +64,21 @@ const CommunityActivity = sequelize.define('CommunityActivity', {
 });
 
 CommunityActivity.associate = (models) => {
-CommunityActivity.belongsTo(models.CommunityActivityTypes, {
-  foreignKey: 'Id_types',
-  as: 'Types',
-});
-CommunityActivity.belongsTo(models.User, {
-  foreignKey: 'Organizer_id',
-  as: 'organizer',
-});
-CommunityActivity.belongsTo(models.CommunityActivityLocation, {
-  foreignKey: 'Id_Location',
-  as: 'location',
-});
+  CommunityActivity.belongsTo(models.CommunityActivityType, {
+    foreignKey: 'Id_type',
+    as: 'type',
+  });
+  CommunityActivity.belongsTo(models.User, {
+    foreignKey: 'Organizer_id',
+    as: 'organizer',
+  });
+  CommunityActivity.belongsTo(models.CommunityActivityLocation, {
+    foreignKey: 'Id_Location',
+    as: 'location',
+  });
+  CommunityActivity.hasMany(models.CommunityActivityAttendance, {
+    foreignKey: 'Id_activity',
+    as: 'attendances'
+  });
 };
 export default CommunityActivity;

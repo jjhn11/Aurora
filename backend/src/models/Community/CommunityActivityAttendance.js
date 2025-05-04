@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../config/db.js';
+import { sequelize } from '../../config/db.js';
 
-const CommunityEventAttendance = sequelize.define('CommunityEventAttendance', {
+const CommunityActivityAttendance = sequelize.define('CommunityActivityAttendance', {
   Id_attendance: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -38,21 +38,25 @@ const CommunityEventAttendance = sequelize.define('CommunityEventAttendance', {
     field: 'Timestamp'
   },
 }, {
-  tableName: 'Community_event_attendance_',
+  tableName: 'Community_activity_attendance_',
   timestamps: false,
+  indexes: [
+    {
+      unique: true,
+      fields: ['Id_user', 'Id_activity']
+    }
+  ]
 });
 
-CommunityEventAttendance.associate = (models) => {
-  CommunityEventAttendance.belongsTo(models.User, {
+CommunityActivityAttendance.associate = (models) => {
+  CommunityActivityAttendance.belongsTo(models.User, {
     foreignKey: 'Id_user',
     as: 'user',
   });
-  CommunityEventAttendance.belongsTo(models.CommunityActivity, {
+  CommunityActivityAttendance.belongsTo(models.CommunityActivity, {
     foreignKey: 'Id_activity',
     as: 'activity',
   });
 };
 
-console.log('CommunityEventAttendance model registered:', CommunityEventAttendance === sequelize.models.CommunityEventAttendance);
-
-export default CommunityEventAttendance;
+export default CommunityActivityAttendance;
