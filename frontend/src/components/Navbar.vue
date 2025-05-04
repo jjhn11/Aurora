@@ -63,7 +63,19 @@
 
         // Add computed properties for auth state and user
         const isAuthenticated = computed(() => store.state.isAuthenticated);
-        const user = computed(() => store.state.user);
+        const user = computed(() => {
+          // Obtener datos combinados del usuario (Google + datos de la BD)
+          const profile = store.state.user || {}; // Datos de Google
+          const userData = store.state.user?.userData || {}; // Datos extendidos de la BD
+          
+          return {
+            name: profile.name || userData.Name_user || 'Usuario',
+            email: profile.email || userData.Email || '',
+            photo: profile.photo || null,
+            id: profile.id || userData.Id_user,
+            status: profile.status || userData.Id_user_status
+          };
+        });
 
         watch(() => store.state.isAuthenticated, (newValue) => {
           currentView.value = newValue ? 'MainMenuAc' : 'MainMenu';
@@ -98,12 +110,18 @@
 
         // Registrar y eliminar el evento global de clic
         onMounted(async () => {
-          await store.dispatch('checkAuth');
-
-          currentView.value = store.state.isAuthenticated ? 'MainMenuAc' : 'MainMenu';
-          viewStack.value = [currentView.value];
-
-          document.addEventListener('click', handleClickOutside);
+          try {
+            // Comprobar estado de autenticación 
+            await store.dispatch('checkAuth');
+            
+            // Establecer la vista correcta según estado de autenticación
+            currentView.value = store.state.isAuthenticated ? 'MainMenuAc' : 'MainMenu';
+            viewStack.value = [currentView.value];
+            
+            document.addEventListener('click', handleClickOutside);
+          } catch (error) {
+            console.error('Error al inicializar Navbar:', error);
+          }
         });
 
         onUnmounted(() => {

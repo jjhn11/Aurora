@@ -18,7 +18,7 @@ export const pool = mysql.createPool({
 export const sequelize = new Sequelize(process.env.DB_NAME || 'mydb', process.env.DB_USER || 'root', process.env.DB_PASSWORD || 'rootpassword', {
   host: process.env.DB_HOST || 'db',
   dialect: 'mysql', 
-  logging: true, // Set to true to see SQL queries in the console
+  logging: false, // Set to true to see SQL queries in the console
 });
 
 export async function executeSqlFile(filePath) {

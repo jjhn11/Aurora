@@ -8,6 +8,9 @@ import passport from './config/passport.js';
 import checkAuth from './middlewares/checkAuth.js';
 import authRoutes from './routes/auth.js';
 import communityRoutes from './routes/community.js';
+import eventsRoutes from './routes/events.js';
+import userRoutes from './routes/user.js';
+import { loadSampleData } from './scripts/loadSampleData.js';
 
 dotenv.config();
 const open = (...args) => import('open').then(m => m.default(...args));
@@ -31,7 +34,7 @@ app.use(session({
   rolling: true,
   cookie: {
     secure: process.env.NODE_ENV === 'production',
-    maxAge: 1 * 60 * 1000,
+    maxAge: 1 * 60 * 60 * 1000,
     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
     httpOnly: true
   }
@@ -43,7 +46,9 @@ app.use(passport.session());
 
 // Routes
 app.use('/auth', authRoutes);
-app.use('/api', communityRoutes);
+app.use('/community', communityRoutes);
+app.use('/events', eventsRoutes);
+app.use('/user', userRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => res.json({ status: 'ok', service: 'backend' }));
@@ -101,24 +106,26 @@ async function connectWithRetry(maxAttempts = 10, delay = 5000) {
 
 // Start server
 async function startServer() {
-  const server = app.listen(PORT, '0.0.0.0', async () => {
-    console.log(`Server running on port ${PORT}`);
-    if (process.env.NODE_ENV !== 'production') {
-      await open(`http://localhost:${PORT}`);
-    }
-  });
-
   const connected = await connectWithRetry();
   if (!connected) {
     console.error('DB connection failed. Exiting.');
     server.close();
     process.exit(1);
   }
+  
+  const server = app.listen(PORT, '0.0.0.0', async () => {
+    console.log(`Server running on port ${PORT}`);
+    if (process.env.NODE_ENV !== 'production') {
+      await open(`http://localhost:${PORT}`);
+    }
+  });
 }
 
 startServer().catch(err => {
   console.error('Startup error:', err);
   process.exit(1);
 });
+
+// await loadSampleData();
 
 console.log('Modelo registrado: ', Object.keys(sequelize.models));
