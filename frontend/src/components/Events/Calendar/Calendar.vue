@@ -43,14 +43,15 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex';
 import CalendarCell from './CalendarCell.vue';
 
 export default {
   components: { CalendarCell },
   data() {
     return {
-      currentMonth: 0,
-      currentYear: 2025,
+      currentMonth: new Date().getMonth(),
+      currentYear: new Date().getFullYear(),
       weekDays: [
         'Lunes',
         'Martes',
@@ -59,25 +60,45 @@ export default {
         'Viernes',
         'Sábado',
         'Domingo'
-      ],
-      events: {
-        '2025-01-06': ['INICIO DE LABORES', 'PAGO CURSO C BÚFALO'],
-        '2025-01-07': ['FIN PAGO CURSO C BÚFALO'],
-        '2025-01-08': ['INICIO SOLICITUD DE EXENCIÓN DE PAGO'],
-        '2025-01-10': ['FIN SOLICITUD DE EXENCIÓN DE PAGO', 'HOLA EJEMPLO FECHA'],
-        '2025-01-12': ['FIN SOLICITUD DE EXENCIÓN DE PAGO'],
-        '2025-02-01': ['FIN SOLICITUD DE EXENCIÓN DE PAGO'],
-        '2025-04-12': ['si'],
-        //Agregar eventos... 'YYYY-MM-DD': ['Tezto'],
-      }
+      ]
     };
   },
   computed: {
+    ...mapState({
+      storeEvents: state => state.events.events
+    }),
+    
+    // Formatear eventos para el calendario
+    eventsByDate() {
+      // Crear un objeto donde las claves son fechas en formato YYYY-MM-DD y los valores son arrays de títulos de eventos
+      const eventsByDate = {};
+      
+      if (this.storeEvents && this.storeEvents.length) {
+        this.storeEvents.forEach(event => {
+          // Aquí está el problema principal: Event_date en lugar de date
+          if (event.Event_date) {
+            // Convertir la fecha a formato YYYY-MM-DD
+            const eventDate = new Date(event.Event_date);
+            const dateStr = eventDate.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+            
+            if (!eventsByDate[dateStr]) {
+              eventsByDate[dateStr] = [];
+            }
+            // Aquí también: Title en lugar de title
+            eventsByDate[dateStr].push(event.Title || 'Sin título');
+          }
+        });
+      }
+      
+      return eventsByDate;
+    },
+    
     monthName() {
       return new Date(this.currentYear, this.currentMonth).toLocaleString('es-ES', {
         month: 'long'
       });
     },
+    
     calendarGrid() {
       const firstDay = new Date(this.currentYear, this.currentMonth, 1);
       const startDay = (firstDay.getDay() + 6) % 7;
@@ -97,13 +118,21 @@ export default {
       for (let i = startDay - 1; i >= 0; i--) {
         const dateNum = daysInPrevMonth - i;
         const dateStr = `${prevYear}-${String(prevMonth + 1).padStart(2, '0')}-${String(dateNum).padStart(2, '0')}`;
-        week.push({ date: dateNum, events: this.events[dateStr] || [], isOtherMonth: true });
+        week.push({ 
+          date: dateNum, 
+          events: this.eventsByDate[dateStr] || [], 
+          isOtherMonth: true 
+        });
       }
 
       // Días del mes actual
       for (let day = 1; day <= daysInMonth; day++) {
         const dateStr = `${this.currentYear}-${String(this.currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-        week.push({ date: day, events: this.events[dateStr] || [], isOtherMonth: false });
+        week.push({ 
+          date: day, 
+          events: this.eventsByDate[dateStr] || [], 
+          isOtherMonth: false 
+        });
 
         if (week.length === 7) {
           grid.push(week);
@@ -115,7 +144,11 @@ export default {
       let nextDay = 1;
       while (week.length < 7) {
         const dateStr = `${nextYear}-${String(nextMonth + 1).padStart(2, '0')}-${String(nextDay).padStart(2, '0')}`;
-        week.push({ date: nextDay, events: this.events[dateStr] || [], isOtherMonth: true });
+        week.push({ 
+          date: nextDay, 
+          events: this.eventsByDate[dateStr] || [], 
+          isOtherMonth: true 
+        });
         nextDay++;
       }
       grid.push(week);
@@ -125,7 +158,11 @@ export default {
         const emptyWeek = [];
         for (let i = 0; i < 7; i++) {
           const dateStr = `${nextYear}-${String(nextMonth + 1).padStart(2, '0')}-${String(nextDay).padStart(2, '0')}`;
-          emptyWeek.push({ date: nextDay, events: this.events[dateStr] || [], isOtherMonth: true });
+          emptyWeek.push({ 
+            date: nextDay, 
+            events: this.eventsByDate[dateStr] || [], 
+            isOtherMonth: true 
+          });
           nextDay++;
         }
         grid.push(emptyWeek);
@@ -151,6 +188,12 @@ export default {
         this.currentMonth--;
       }
     }
+  },
+  async created() {
+    // Cargar eventos usando loadInitialData para asegurar que todos los datos necesarios se carguen
+    await this.$store.dispatch('events/loadInitialData');
+    // Añadir este log para verificar que se cargaron datos
+    console.log("Eventos cargados:", this.$store.state.events.events);
   }
 };
 </script>

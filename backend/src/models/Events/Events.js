@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../../config/db.js';
-import {EventCategory} from './EventCategories.js';
-import {CalendarEvent} from './CalendarEvents.js';
+import EventCategory from './EventCategories.js';
+import CalendarEvents from './CalendarEvents.js';
 
 const Event = sequelize.define('Event', {
   Id_event: {

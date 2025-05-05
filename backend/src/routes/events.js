@@ -13,12 +13,6 @@ router.route('/')
         const { categoryId, iscoming } = req.query;
         const today = new Date('2025-05-04');
 
-        // Definir asociaciones manualmente
-        Event.belongsTo(EventCategory, {
-            foreignKey: 'Id_category',
-            as: 'category'
-        }); 
-
         // Encontrar el calendario actual
         const currentCalendar = await CalendarEvent.findOne({
             where: {
@@ -30,7 +24,7 @@ router.route('/')
         if (!currentCalendar) {
             // Log para debugging
             const allCalendars = await CalendarEvent.findAll();
-            console.log('Calendarios disponibles:', allCalendars);
+            // console.log('Calendarios disponibles:', allCalendars);
             
             return res.status(404).json({
                 error: 'No hay un calendario activo',
@@ -50,7 +44,7 @@ router.route('/')
         if (iscoming !== undefined) {
             where.Is_coming = parseInt(iscoming);
         }
-        console.log('Eso tilin');
+        
         // Obtener eventos con sus relaciones
         const events = await Event.findAll({
             where,
@@ -63,7 +57,7 @@ router.route('/')
             ],
             order: [['Event_date', 'ASC']]
         });
-        console.log('Eso tilin 2');
+        
         res.status(200).json(events);
 
     } catch (error) {
@@ -98,12 +92,13 @@ router.route('/')
         Description, 
         Image_url 
       } = req.body;
-  
+
       // Validar campos obligatorios
       if (!Title || !Id_category || !Event_date) {
         return res.status(400).json({ 
           error: 'Campos obligatorios faltantes',
-          details: 'Title, Id_category y Event_date son obligatorios' 
+          details: 'Title, Id_category y Event_date son obligatorios',
+          parameters: req.body
         });
       }
 

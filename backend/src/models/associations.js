@@ -1,17 +1,19 @@
 // Importación de los modelos
-const CalendarEvents = require('./CalendarEvents.js');
-const EventCategories = require('./EventCategories.js');
-const Event = require('./Events.js');
-const CommunityActivities = require('./CommunityActivities.js');
-const CommunityCategories = require('./CommunityCategories.js');
-const CommunityActivityTypes = require('./CommunityActivityTypes.js');
-const CommunityActivityLocation = require('./CommunityActivityLocation.js');
-const CommunityActivityAttendance = require('./CommunityActivityAttendance.js');
-const Users = require('./Users.js');
-const UserStatus = require('./UserStatus.js');
-const Occupations = require('./User/Occupations.js');
-const Gender = require('./User/Gender.js');
+import CalendarEvents from './Events/CalendarEvents.js';
+import EventCategories from './Events/EventCategories.js';
+import Event from './Events/Events.js';
+import CommunityActivities from './Community/CommunityActivities.js';
+import CommunityCategories from './Community/CommunityCategories.js';
+import CommunityActivityTypes from './Community/CommunityActivityTypes.js';
+import CommunityActivityLocation from './Community/CommunityActivityLocation.js';
+import CommunityActivityAttendance from './Community/CommunityActivityAttendance.js';
+import Users from './User/Users.js';
+import UserStatus from './User/UserStatus.js';
+import Occupations from './User/Occupations.js';
+import Gender from './User/Gender.js';
 
+const runAssociations = () => {
+  
 // Asociaciones de eventos
 Event.belongsTo(EventCategories, {
   foreignKey: 'Id_category',
@@ -136,3 +138,7 @@ CommunityCategories.hasMany(CommunityActivityLocation, {
   foreignKey: 'Id_category',
   as: 'locations',
 });
+
+}
+
+export { runAssociations };

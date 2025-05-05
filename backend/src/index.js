@@ -10,6 +10,8 @@ import authRoutes from './routes/auth.js';
 import communityRoutes from './routes/community.js';
 import eventsRoutes from './routes/events.js';
 import userRoutes from './routes/user.js';
+import { runAssociations } from './models/associations.js'
+import { loadSampleData } from './scripts/loadSampleData.js'
 
 dotenv.config();
 const open = (...args) => import('open').then(m => m.default(...args));
@@ -89,6 +91,7 @@ async function connectWithRetry(maxAttempts = 10, delay = 5000) {
       await sequelize.authenticate();
       console.log(' Database connected successfully with Sequelize.');
       await sequelize.sync({ force: false }); 
+      runAssociations();
       // await CommunityEventAttendance.sync(); // Por si no se sincroniza con la linea de arriba
       console.log('Database synchronized successfully.');
       return true;

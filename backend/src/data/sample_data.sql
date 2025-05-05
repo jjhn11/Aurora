@@ -16,12 +16,13 @@ INSERT INTO Users_ (Id_user, Id_Occupation, Control_num, Name_user, Last_name, E
 ('USER002', 2, '19210002', 'María', 'López Sánchez', 'maria.lopez@itmexicali.edu.mx', 2, 1),
 ('USER003', 1, '19210003', 'Carlos', 'Ramírez Vega', 'carlos.ramirez@itmexicali.edu.mx', 1, 1),
 ('USER004', 3, '19210004', 'Ana', 'Martínez Cruz', 'ana.martinez@itmexicali.edu.mx', 2, 1),
-('USER005', 1, '19210005', 'Roberto', 'González Torres', 'roberto.gonzalez@itmexicali.edu.mx', 1, 1);
+('USER005', 1, '19210005', 'Roberto', 'González Torres', 'roberto.gonzalez@itmexicali.edu.mx', 1, 1),
+('USER006', 3, '22490390', 'JHOSTIN', 'PACO VELAZQUEZ', 'a22490390@itmexicali.edu.mx', 1, 1);
 
 -- Event categories before events
 INSERT INTO Event_categories_ (Type_event, Event_name) VALUES 
-('Conferencia', 'Académico'), 
 ('Exposición', 'Cultural'), 
+('Conferencia', 'Escolar'), 
 ('Competencia', 'Deportivo'), 
 ('Reunión', 'Social'), 
 ('Hackathon', 'Tecnológico');
