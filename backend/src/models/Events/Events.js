@@ -58,10 +58,10 @@ const Event = sequelize.define('Event', {
 });
 
 Event.associate = (models) => {
-  Event.belongsTo(models.EventCategory, {
-    foreignKey: 'Id_category',
-    as: 'category',
-  });
+  // Event.belongsTo(models.EventCategory, {
+  //   foreignKey: 'Id_category',
+  //   as: 'category',
+  // });
   
   Event.belongsTo(models.CalendarEvent, {
     foreignKey: 'Id_calendar',

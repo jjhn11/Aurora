@@ -10,7 +10,6 @@ import authRoutes from './routes/auth.js';
 import communityRoutes from './routes/community.js';
 import eventsRoutes from './routes/events.js';
 import userRoutes from './routes/user.js';
-import { loadSampleData } from './scripts/loadSampleData.js';
 
 dotenv.config();
 const open = (...args) => import('open').then(m => m.default(...args));
