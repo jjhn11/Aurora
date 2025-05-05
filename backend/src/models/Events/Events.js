@@ -1,5 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../../config/db.js';
+import {EventCategory} from './EventCategories.js';
+import {CalendarEvent} from './CalendarEvents.js';
 
 const Event = sequelize.define('Event', {
   Id_event: {
@@ -58,10 +60,10 @@ const Event = sequelize.define('Event', {
 });
 
 Event.associate = (models) => {
-  // Event.belongsTo(models.EventCategory, {
-  //   foreignKey: 'Id_category',
-  //   as: 'category',
-  // });
+   Event.belongsTo(models.EventCategory, {
+     foreignKey: 'Id_category',
+     as: 'category',
+   });
   
   Event.belongsTo(models.CalendarEvent, {
     foreignKey: 'Id_calendar',

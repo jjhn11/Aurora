@@ -1,6 +1,7 @@
 import { DataTypes, Sequelize } from 'sequelize';
 import { sequelize } from '../../config/db.js'; 
 
+
 const EventCategory = sequelize.define('EventCategory', {
   Id_category: {
     type: DataTypes.INTEGER,
