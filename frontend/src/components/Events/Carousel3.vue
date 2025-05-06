@@ -44,96 +44,42 @@ const closeModal = () => {
         <div id="carrusel3" class="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <div class="row justify-content-center">
-                        <div class="col-4">
-                            <Card
-                               :id="events[6].id"
-                               :image="events[6].image"
-                               :title="events[6].title"
-                               :description="events[6].description"
-                               @click="openModal(events[6])"
-                               />
-                        </div>
-                        <div class="col-4">
-                                <Card
-                                :id="events[7].id"
-                                :image="events[7].image"
-                                :title="events[7].title"
-                                :description="events[7].description"
-                                @click="openModal(events[7])"
-                               />
-                        </div>
-                        <div class="col-4">
-                            <Card
-                            :id="events[8].id"
-                               :image="events[8].image"
-                               :title="events[8].title"
-                               :description="events[8].description"
-                               @click="openModal(events[8])"
-                               />
-                        </div>
+                    <div class="slide-row">
+                        <Card
+                        v-for="(event, index) in events.slice(6, 9)"
+                        :key="event.id"
+                        :id="event.id"
+                        :image="event.image"
+                        :title="event.title"
+                        :description="event.description"
+                        @click="openModal(event)"
+                        />
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <div class="row justify-content-center">
-                        <div class="col-4">
-                            <Card
-                               :id="events[6].id"
-                               :image="events[6].image"
-                               :title="events[6].title"
-                               :description="events[6].description"
-                               @click="openModal(events[6])"
-                               />
-                        </div>
-                        <div class="col-4">
-                            <Card
-                               :id="events[7].id"
-                               :image="events[7].image"
-                               :title="events[7].title"
-                               :description="events[7].description"
-                               @click="openModal(events[7])"
-                               />
-                        </div>
-                        <div class="col-4">
-                            <Card
-                               :id="events[8].id"
-                               :image="events[8].image"
-                               :title="events[8].title"
-                               :description="events[8].description"
-                               @click="openModal(events[8])"
-                               />
-                        </div>
+                    <div class="slide-row">
+                        <Card
+                        v-for="(event, index) in events.slice(6, 9)"
+                        :key="event.id"
+                        :id="event.id"
+                        :image="event.image"
+                        :title="event.title"
+                        :description="event.description"
+                        @click="openModal(event)"
+                        />
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <div class="row justify-content-center">
-                        <div class="col-4">
-                            <Card
-                               :id="events[6].id"
-                               :image="events[6].image"
-                               :title="events[6].title"
-                               :description="events[6].description"
-                               @click="openModal(events[6])"
-                               />
-                        </div>
-                        <div class="col-4">
-                            <Card
-                               :id="events[7].id"
-                               :image="events[7].image"
-                               :title="events[7].title"
-                               :description="events[7].description"
-                               @click="openModal(events[7])"
-                               />
-                        </div>
-                        <div class="col-4">
-                            <Card
-                               :id="events[8].id"
-                               :image="events[8].image"
-                               :title="events[8].title"
-                               :description="events[8].description"
-                               @click="openModal(events[8])"
-                               />
-                        </div>
+                    <div class="slide-row">
+                        <Card
+                        v-for="(event, index) in events.slice(6, 9)"
+                        :key="event.id"
+                        :id="event.id"
+                        :image="event.image"
+                        :title="event.title"
+                        :description="event.description"
+                        @click="openModal(event)"
+                        />
                     </div>
                 </div>
             </div>
@@ -142,15 +88,48 @@ const closeModal = () => {
             <i class="bi bi-chevron-right fs-4"></i>
         </button>
     </div>
+    <!-- Botones inferiores (solo visibles en móviles) -->
+    <div class="text-center mobile-controls">
+        <button class="btn btn-outline-primary mx-2" type="button" data-bs-target="#carrusel3" data-bs-slide="prev">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+        <button class="btn btn-outline-primary mx-2" type="button" data-bs-target="#carrusel3" data-bs-slide="next"><i class="bi bi-chevron-right"></i>
+        </button>
+    </div>
+    
     <div class="custom-slider-bar" v-if="showSlider">
         <div class="custom-slider-thumb" :style="{ left: `${(activeSlide / (totalSlides - 1)) * 100}%` }"></div>
     </div>
 
     <Modal :isOpen="isModalOpen" :event="selectedEvent" @close="closeModal" />
-
 </template>
 
 <style scoped>
+.slide-row {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 15px;
+}
+
+.slide-row > * {
+  flex: 1 1 30%;
+  max-width: 30%;
+}
+body {
+  overflow-x: hidden;
+}
+
+.contenedor-carrusel {
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.mobile-controls button {
+  min-width: 10px;
+}
+
 .custom-slider-bar {
   position: relative;
   height: 6px;
@@ -173,14 +152,11 @@ const closeModal = () => {
   transform: translateX(-50%);
 }
 
-.contenedor-carrusel {
-    width: 83%;
-}
-
 .carousel {
     position: relative;
-    padding-bottom: 30px;
+    padding-bottom: 10px;
 }
+
 .carousel-item {
     margin: 0 auto;
     padding: 20px 10px;
@@ -198,4 +174,24 @@ const closeModal = () => {
     display: none;
 }
 
+/* Estilos para los botones en móvil */
+@media (max-width: 776px) {
+    .carousel-control-prev-bottom,
+    .carousel-control-next-bottom {
+        display: none !important;
+    }
+    
+    .mobile-controls {
+        display: block !important;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Ocultar controles móviles en pantallas grandes */
+@media (min-width: 776px) {
+    .mobile-controls {
+        display: none !important;
+    }
+}
 </style>

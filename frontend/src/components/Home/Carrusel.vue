@@ -10,14 +10,35 @@ const store = useStore();
 const events = store.state.events?.events;
 
 // Setup carousel events handling
+let scrollPos = 0;
+
 onMounted(() => {
   const carousel = document.querySelector('#carrusel1');
-  if (carousel) {
-    carousel.addEventListener('slid.bs.carousel', (e) => {
-      activeSlide.value = e.to;
+  if (!carousel) return;
+
+  let scrollPos = window.scrollY;
+
+  carousel.addEventListener('slide.bs.carousel', () => {
+    scrollPos = window.scrollY;
+
+    // Previene que cualquier botón o contenido reciba foco y cause scroll
+    requestAnimationFrame(() => {
+      if (document.activeElement && document.activeElement !== document.body) {
+        document.activeElement.blur();
+      }
     });
-  }
+
+    document.body.style.overflow = 'hidden';
+  });
+
+  carousel.addEventListener('slid.bs.carousel', () => {
+    window.scrollTo({ top: scrollPos, behavior: 'instant' });
+    document.body.style.overflow = '';
+  });
 });
+
+
+
 // Modal 
 const isModalOpen = ref(false);
 const selectedEvent = ref({});
@@ -155,6 +176,11 @@ const closeModal = () => {
   </template>
   
   <style scoped>
+  .carousel-inner {
+    height: 100%;
+    min-height: 500px; /* ajusta según el contenido mínimo del slide */
+  }
+
   .contenedor-carrusel {
     width: 90%;
   }

@@ -123,19 +123,11 @@ const closeModal = () => {
   width: 20%; /* Se hizo para mostrar 5 libros por fila */
   padding: 0 10px;
 }
-
 @media (max-width: 1002px) {
   .book-column {
     width: 50%; /* 2 en pantallas medianas */
   }
 }
-
-@media (max-width: 600px) {
-  .book-column {
-    width: 100%; /*1 1 1 1 */ 
-  }
-}
-
 .pagination {
   display: flex;
   justify-content: center;

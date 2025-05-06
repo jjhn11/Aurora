@@ -48,20 +48,21 @@
 <style scoped>
 .card{
     background-color: #F8F7F7;
-    width: 418px;
-    height: 424px;
+    width: 100%;
+    height: auto;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 0px;
 }
 .card-cover{
-    width: 418px;
-    height: 235px;
+    width: 100%;
+    height: 50%;
     margin-bottom: 15px;
 }
 .card-image{
     width: 100%;
-    height: 220px;
+    height: 100%;
+    object-fit: cover;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
 }
@@ -72,7 +73,7 @@
     margin-bottom: 5px;
     font-weight: 400;
     font-size: 26px;
-    width: 402px;
+    width: 100%;
     height: 40px;
     font-family: "freeman";
     text-align:center;
@@ -81,17 +82,22 @@
     font-weight: 400;
     font-size: 18px;
     padding-left: 10px;
-    width: 396px;
+    width: 100%;
     height: 124px;
     color: #0047FF;
     text-align: justify;
     font-family: "Nunito sans";
 }
-@media (max-width: 1076px) {
+@media (max-width: 1524px) {
+  .card-description{
+    font-size: 17px;
+  }
+}
+@media (max-width: 1023px) {
   .card{
     background-color: #F8F7F7;
-    width: 130px;
-    height: 130px;
+    width: 100%;
+    height: auto;
     border-color: #0047FF;
     border-radius: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -99,27 +105,31 @@
     margin-bottom: 8px;
   }
   .card-cover{
-    width: 130px;
-    height: 80px;
-    margin-bottom: 8px;
+    width: 100%;
+    min-height: 60%;
+    margin-bottom: 6px;
   }
   .card-image{
-      width: 128px;
-      height: 80px;
+      width: 100%;
+      height: 100%;
       border-top-right-radius: 20px;
       border-top-left-radius: 20px;
   }
   .card-title {
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     font-weight: 700;
     font-size: 14px;
-    width: 130px;
-    height: 10px;
+    height: auto;
     font-family: "freeman";
     text-align: center;
   } 
   .card-description {
     display: none;
+  }
+}
+@media (max-width: 476px) {
+  .card-title{
+    font-size:10px;
   }
 }
 </style>

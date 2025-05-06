@@ -23,14 +23,14 @@
   text-decoration: none;
 }
 .book-card{
-    width: 200px;
-    height: 411px;
+    width: 100%;
+    height: 60%;
     background-color: white;
     border-radius: 12px;
 }
 .book-cover{
     width: auto;
-    height: 302px;
+    height: 100%;
     object-fit: cover;
     margin-bottom: 15px;
 }
@@ -57,10 +57,10 @@
     font-family: "Nunito sans";
     text-align: left;
 }
-
+/*BookList cards (catalogo) */
 .custom-book-style .book-card{
-    height: 429px;
-    width: 226px;
+    height: 95%;
+    width: 95%;
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -68,7 +68,7 @@
 }
 .custom-book-style .book-cover{
     width: 100%;
-    height: 302px;
+    height: 80%;
     object-fit: cover;
     margin-bottom: 15px;
 }
@@ -90,6 +90,69 @@
     width: auto;
     font-family: "Nunito sans";
     text-align: center;
+}
+@media (max-width:1400px) {
+  .custom-book-style .book-cover{
+      width: 100%;
+      height: 70%;
+      object-fit: cover;
+  }
+  .custom-book-style .book-title {
+      height: 120%;
+  }    
+}
+@media (max-width: 768px) {
+  .custom-book-style .book-card{
+    height: 100%;
+    width: 95%;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+  .custom-book-style .book-cover{
+      width: 100%;
+      height: 70%;
+      object-fit: cover;
+  }
+  .custom-book-style .book-image{
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+  }
+  .custom-book-style .book-title {
+      font-weight: 400;
+      font-size: 12px;
+      height: 100%;
+      width: auto;
+      font-family: "Josefin sans";
+      text-align: center;
+  }    
+  .custom-book-style .book-description {
+      font-weight: 300;
+      font-size: 12px;
+      height: 100%;
+      width: auto;
+      font-family: "Nunito sans";
+      text-align: center;
+  }
+  .book-title {
+    color: #000E32;
+      font-weight: 400;
+      font-size: 16px;
+      width: 100%;
+      height: auto;
+      font-family: "josefin sans";
+      text-align: center;
+  }    
+  .book-description {
+    color: #575757;
+      font-weight: 300;
+      font-size: 12px;
+      width: 100%;
+      font-family: "Nunito sans";
+      text-align: center;
+  }
 }
 </style>
 

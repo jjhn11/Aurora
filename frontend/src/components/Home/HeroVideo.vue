@@ -64,7 +64,7 @@
   top: 0;
   left: -10%;
   width: 130%;
-  height: 113%;
+  height: 95%;
   object-fit: cover;
   object-position: 100% 95%;
 }
@@ -92,25 +92,12 @@
 /* SVG Curve */
 .hero-curve {
   position: absolute;
-  bottom: 0;
+  bottom: -1%;
   left: 0;
-  width: 100%;
+  width: 101%;
   height: auto;
   z-index: 4;
 }
-
-/* .hero-title {
-  font-family: 'Cinzel Decorative';
-  font-weight: 700;
-  font-size: 5rem;
-  color: white;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-  margin: 0 auto;
-  transform: translateY(30%);
-  letter-spacing: 0.05em;
-}
-*/
-
 
 .hero-title {
   width: 75%;
@@ -118,6 +105,26 @@
   margin: 0 auto;
   transform: translate(20%, 130%); 
 } 
+@media (max-width: 1076px) {
+  .hero-container {
+    height: 60vh;
+  }
 
+  .hero-title {
+    width: 75%;
+    transform: translateY(30%);
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-container {
+    height: 45vh;
+  }
+
+  .hero-title {
+    width: 85%;
+    transform: translateY(20%);
+  }
+}
 
 </style>

@@ -22,41 +22,38 @@ defineProps({
 });
 </script>
 
-
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Freeman&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 </style>
 <template>
-    <div class="card">
-      <!--<RouterLink to="/library/book" class="book-link"> -->
-        <div class="card-cover">
-            <img :src="image" :alt="title" class="card-image" />
-        </div>
-        <div class="card-info">
-            <h3 class="card-title">{{ title }}</h3>
-            <p class="card-description">{{ description }}</p>
-            
-        </div>
-        <div class="card-footer">
-            <a class="btn-read-more" @click="$emit('openModal')">Leer más...</a>
-        </div>
-     <!-- </RouterLink> -->
+  <div class="card">
+    <div class="card-cover">
+      <img :src="image" :alt="title" class="card-image" />
     </div>
-    
+    <div class="card-info">
+      <h3 class="card-title">{{ title }}</h3>
+      <p class="card-description">{{ description }}</p>
+    </div>
+    <div class="card-footer">
+      <a class="btn-read-more" @click="$emit('openModal')">Leer más...</a>
+    </div>
+  </div>
 </template>
+
 <style scoped>
 .card {
   background-color: #F3F4F5;
   width: 100%;
-  height: 400px;
+  min-height: 450px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  margin-bottom: 5%;
 }
 
 .card-cover {
@@ -102,7 +99,7 @@ defineProps({
 }
 
 .card-footer {
-  flex: 0 0 auto; /* al fondoooo*/
+  margin-top: auto;
   background-color: #D9D9D9;
   text-align: right;
   padding: 14px;
@@ -117,6 +114,51 @@ defineProps({
 }
 
 .btn-read-more:hover {
-    text-decoration: underline;
+  text-decoration: underline;
+}
+
+/* Responsivo para mmedianas */
+@media (max-width: 1176px) {
+  .card {
+    min-height: 450px;
+  }
+
+  .card-image {
+    height: 180px;
+  }
+
+  .card-title {
+    font-size: 18px;
+  }
+
+  .card-description {
+    font-size: 14px;
+  }
+
+  .btn-read-more {
+    font-size: 13px;
+  }
+}
+/* Responsivo para celulares */
+@media (max-width: 776px) {
+  .card {
+    min-height: 300px;
+  }
+
+  .card-image {
+    height: 180px;
+  }
+
+  .card-title {
+    font-size: 18px;
+  }
+
+  .card-description {
+    font-size: 14px;
+  }
+
+  .btn-read-more {
+    font-size: 13px;
+  }
 }
 </style>

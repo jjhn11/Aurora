@@ -185,11 +185,13 @@ const closeModal = () => {
   flex-wrap: wrap;
   margin-left: -0.5rem;
   margin-right: -0.5rem;
+  align-items: stretch;
 }
 
 .event-column {
   width: 33.3333%;
   padding: 0 0.5rem;
+  display: flex;
 }
 
 @media (max-width: 776px) {

@@ -94,6 +94,7 @@
     }
   
     .footer-logo__header {
+      width: 10%;
       white-space: initial;
     }
   

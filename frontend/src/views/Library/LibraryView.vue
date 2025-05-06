@@ -9,100 +9,27 @@ import SearchBar from '@/components/SearchBar.vue';
 
     <br><br><br><br>
 
-    <SearchBar />
-
-    <br><br><br><br>
-
     <div class="container">
-        <h1 class="title">DESTACADO</h1>
+        <h1 class="title">INDUSTRIAL</h1>
         <h2 class="subtitle">Conozca el contenido más popular</h2>
         <CarruselBiblioteca bookCategory="popular" carouselId="carousel-popular" :showSlider="false"/>
     </div>
-
-    <br><br><br>
-
     <div class="container">
-        <h1 class="title">NOVEDADES</h1>
+        <h1 class="title">SISTEMAS COMPUTACIONALES</h1>
         <h2 class="subtitle">Lo nuevo en Aurora</h2>
         <CarruselBiblioteca bookSource="newBooks" carouselId="carousel-new" :showSlider="false"/>
     </div>
 
-    <br><br><br>
-<!--
     <div class="container">
-        <h1 class="title">CATEGORÍAS</h1>
-        <div class="categories row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-4 d-flex align-items-center justify-content-center">
-            <div class="col text-center">
-                <div class="category-item">
-                    <h2 class="category">Ciencias</h2>
-                </div>
-            </div>
-            <div class="col text-center">
-                <div class="category-item">
-                    <h2 class="category">Geografía</h2>
-                </div>
-            </div>
-            <div class="col text-center">
-                <div class="category-item">
-                    <h2 class="category">Tecnología</h2>
-                </div>
-            </div>
-            <div class="col text-center">
-                <div class="category-item">
-                    <h2 class="category">Consulta</h2>
-                </div>
-            </div>
-            <div class="col text-center">
-                <div class="category-item">
-                    <h2 class="category">Folklore</h2>
-                </div>
-            </div>
-            <div class="col text-center">
-                <div class="category-item">
-                    <h2 class="category">Derecho</h2>
-                </div>
-            </div>
-            <div class="col text-center">
-                <div class="category-item">
-                    <h2 class="category">Ciencias Políticas</h2>
-                </div>
-            </div>
-            <div class="col text-center">
-                <div class="category-item">
-                    <h2 class="category">Filosofía</h2>
-                </div>
-            </div>
-            <div class="col text-center">
-                <div class="category-item">
-                    <h2 class="category">Historia</h2>
-                </div>
-            </div>
-            <div class="col text-center">
-                <div class="category-item">
-                    <h2 class="category">Religión</h2>
-                </div>
-            </div>
-            <div class="col text-center">
-                <div class="category-item">
-                    <h2 class="category">Ciencias Sociales</h2>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
-    <br><br><br>
-    <div class="container">
-        <h1 class="title">DESTACADOS DEL MES</h1>
+        <h1 class="title">ADMINISTRACION</h1>
         <h2 class="subtitle">Contenido recomendado del mes</h2>
         <CarruselBiblioteca bookSource="popularBooksMonth" carouselId="carousel-month" :showSlider="false"/>
     </div>
-    <br><br><br>
     <div class="container">
         <h1 class="title">AMANTES DE LOS LIBROS</h1>
         <h2 class="subtitle">Novelas variadas, para todo tipo</h2>
         <CarruselBiblioteca bookSource="novels" carouselId="carousel-novels" :showSlider="false"/>
     </div>
-    <br><br><br>
     <div class="container text-center">
         <img src="@/assets/img/library/bufalito.png" class="img-bufalito" alt="Bufalo chiquito">
         <div class="text mt-3 mb-5">
@@ -120,7 +47,6 @@ import SearchBar from '@/components/SearchBar.vue';
     </div>
 
     <br><br><br><br><br><br><br>
-    <br><br>
 </template>
 
 <style scoped>
@@ -128,7 +54,7 @@ import SearchBar from '@/components/SearchBar.vue';
 
 .title {
     font-family: Crimson Text;
-    color: #021E68;
+    color: #000E32;
     font-weight: 700;
     font-size: 37.5px;
     line-height: 100%;
@@ -186,5 +112,22 @@ import SearchBar from '@/components/SearchBar.vue';
 .btn-access:hover {
     background-color: #FBE326;
     color: #000E32;
+}
+@media (max-width: 768px) {
+    .title {
+        font-size: 28px;
+    }
+    .subtitle {
+        display: hidden;
+        font-size: 0px;
+        margin: 0 0 0 0;
+    }
+    .img-bufalito{
+        width: 156px;
+        height: 104px;
+    }
+    .text {
+        font-size: 20px;
+    }
 }
 </style>

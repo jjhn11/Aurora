@@ -31,18 +31,32 @@ const books = computed(() => {
 });
 
 
+const itemsPerSlide = ref(5);
+
 onMounted(() => {
+  const updateItemsPerSlide = () => {
+    if (window.innerWidth <= 768) {
+      itemsPerSlide.value = 2;
+    } else if(window.innerWidth >= 768 && window.innerWidth <= 1068){
+      itemsPerSlide.value = 3;
+    }else{
+      itemsPerSlide.value = 5;
+    }
+  };
+
+  updateItemsPerSlide();
+  window.addEventListener('resize', updateItemsPerSlide);
+
   const carousel = document.querySelector(`#${props.carouselId}`);
   if (carousel) {
     carousel.addEventListener('slid.bs.carousel', (e) => {
       activeSlide.value = e.to;
     });
   }
+
 });
-
-
 const chunkedBooks = computed(() => {
-  const size = 5;
+  const size = itemsPerSlide.value;
   const chunks = [];
   for (let i = 0; i < books.value.length; i += size) {
     chunks.push(books.value.slice(i, i + size));
@@ -56,11 +70,11 @@ const chunkedBooks = computed(() => {
 
 <template>
   <div class="contenedor-carrusel container-fluid d-flex justify-content-center">
-    <button class="custom-btn-l btn btn-link carousel-control-prev-bottom" type="button" :data-bs-target="`#${carouselId}`" data-bs-slide="prev">
+    <button class="custom-btn-l d-flex btn btn-link carousel-control-prev-bottom" type="button" :data-bs-target="`#${carouselId}`" data-bs-slide="prev">
       <i class="bi bi-chevron-left fs-4"></i>
     </button>
     
-    <div :id="carouselId" class="carousel slide">
+    <div :id="carouselId" class="carousel">
       <div class="carousel-inner">
         <div v-for="(group, index) in chunkedBooks" :key="index" class="carousel-item" :class="index === 0 ? 'active' : ''">
           <div class="row justify-content-center">
@@ -77,7 +91,7 @@ const chunkedBooks = computed(() => {
       </div>
     </div>
 
-    <button class="custom-btn-r btn btn-link carousel-control-next-bottom" type="button" :data-bs-target="`#${carouselId}`" data-bs-slide="next">
+    <button class="d-flex custom-btn-r btn btn-link carousel-control-next-bottom" type="button" :data-bs-target="`#${carouselId}`" data-bs-slide="next">
       <i class="bi bi-chevron-right fs-4"></i>
     </button>
   </div>
@@ -92,7 +106,7 @@ const chunkedBooks = computed(() => {
 .custom-btn-l,
 .custom-btn-r {
   position: absolute;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
   background-color: rgba(255, 255, 255, 0.8);
   border: none;
@@ -102,14 +116,14 @@ const chunkedBooks = computed(() => {
 }
 
 .custom-btn-l {
-  left: 10px;
+  left: -3%;
 }
 
 .custom-btn-r {
-  right: 1%;
+  right: -3%;
 }
 .custom-col {
-  width: 15%;
+  width: 20%;
   padding: 0 10px;
 }
 .custom-slider-bar {
@@ -136,15 +150,17 @@ const chunkedBooks = computed(() => {
 
 .contenedor-carrusel {
   position: relative;
-  width: 1306px;
-  height: 391px;
+  width: 100%;
+  max-width: 1300px;
+  height: auto;
+  margin-bottom: 30px;
+  padding: 0 20px;
 }
+
 .carousel {
   position: relative;
 }
-.carousel-inner {
-  display: flex;
-}
+
 .carousel-item {
   margin: 0 auto;
   padding: 20px 10px;
@@ -152,14 +168,39 @@ const chunkedBooks = computed(() => {
 
 .carousel-item .row {
   flex-wrap: nowrap;
-  width: 1500px;
+  width: 100%;
   justify-content: center;
   margin: 15px auto;
 }
 
+
 .carousel-control-prev,
 .carousel-control-next {
   display: none;
+}
+@media (max-width: 1068px) {
+  .custom-col{
+    width: 33%;
+  }
+}
+@media (max-width: 768px) {
+  .contenedor-carrusel {
+    width: 100% !important;
+    height: auto;
+    padding: 0px;
+    margin-bottom: 5px;
+  }
+
+  .custom-col {
+    width: 45% !important;
+    margin: 0 5px;
+  }
+
+  .carousel-item .row {
+    flex-wrap: nowrap;
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 </style>

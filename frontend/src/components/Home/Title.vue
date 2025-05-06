@@ -33,4 +33,9 @@
     border-bottom: 3.75px solid #0047FF;
     padding: 25px 0 10px 0;
 }
+@media (max-width:776px) {
+    .title {
+        font-size: 45px;
+    }
+}
 </style>

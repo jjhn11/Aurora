@@ -11,9 +11,9 @@
                 class="search-input"
             />
         </div>
-        <div class="advanced-search">
+        <!--<div class="advanced-search">
             <a href="#" class="advanced-search-link">[Búsqueda avanzada]</a>
-        </div>
+        </div>-->
     </div>
 </template>
 
@@ -42,12 +42,12 @@
     border: 1px solid #ccc;
     border-radius: 0.5rem;
     font-size: 1.1rem;
-    padding-left: 4%; /* Add space for the button */
+    padding-left: 6%; /* Add space for the button */
 }
 
 .search-button {
     position: absolute; /* Position the button inside the input */
-    left: 15.5%; /* Adjust based on the input width */
+    left: 15%; /* Adjust based on the input width */
     background-color: transparent;
     color: #3366cc;
     border: none;

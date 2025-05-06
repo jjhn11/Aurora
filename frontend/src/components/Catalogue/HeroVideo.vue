@@ -87,7 +87,7 @@
 .hero-title {
   font-family: 'Crimson text';
   font-weight: 700;
-  font-size: 5rem;
+  font-size: 90px;
   color: white;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
   letter-spacing: 0.05em;
@@ -98,4 +98,20 @@
   max-width: 80%; 
   text-align: left;
 }  
+@media (max-width:776px) {
+  .hero-container {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+  display: flex;
+}
+  .hero-title {
+  font-size: 3rem;
+  transform: translateY(30%);
+  width: 100%;
+  height: 198px;
+  max-width: 80%; 
+}  
+}
 </style>

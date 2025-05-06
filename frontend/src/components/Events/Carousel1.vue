@@ -38,7 +38,7 @@ const closeModal = () => {
 </script>
 
 <template>
-    <div class="contenedor-carrusel container-fluid d-flex justify-content-center">
+    <div class="contenedor-carrusel container-fluid d-flex justify-content-center px-0">
         <!-- Botones laterales (visibles en pantallas grandes) -->
         <button class="btn btn-link carousel-control-prev-bottom d-none d-md-block" type="button" data-bs-target="#carrusel1" data-bs-slide="prev">
             <i class="bi bi-chevron-left fs-4"></i>
@@ -46,96 +46,42 @@ const closeModal = () => {
         <div id="carrusel1" class="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <div class="row justify-content-center">
-                        <div class="col-4">
-                            <Card
-                               :id="events[0].id"
-                               :image="events[0].image"
-                               :title="events[0].title"
-                               :description="events[0].description"
-                               @click="openModal(events[0])"
-                               />
-                        </div>
-                        <div class="col-4">
-                                <Card
-                                :id="events[1].id"
-                                :image="events[1].image"
-                                :title="events[1].title"
-                                :description="events[1].description"
-                                @click="openModal(events[1])"
-                               />
-                        </div>
-                        <div class="col-4">
-                            <Card
-                            :id="events[2].id"
-                               :image="events[2].image"
-                               :title="events[2].title"
-                               :description="events[2].description"
-                               @click="openModal(events[2])"
-                               />
-                        </div>
+                    <div class="slide-row">
+                        <Card
+                        v-for="(event, index) in events.slice(0, 3)"
+                        :key="event.id"
+                        :id="event.id"
+                        :image="event.image"
+                        :title="event.title"
+                        :description="event.description"
+                        @click="openModal(event)"
+                        />
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <div class="row justify-content-center">
-                        <div class="col-4">
-                            <Card
-                               :id="events[0].id"
-                               :image="events[0].image"
-                               :title="events[0].title"
-                               :description="events[0].description"
-                               @click="openModal(events[0])"
-                               />
-                        </div>
-                        <div class="col-4">
-                            <Card
-                               :id="events[1].id"
-                               :image="events[1].image"
-                               :title="events[1].title"
-                               :description="events[1].description"
-                               @click="openModal(events[1])"
-                               />
-                        </div>
-                        <div class="col-4">
-                            <Card
-                               :id="events[2].id"
-                               :image="events[2].image"
-                               :title="events[2].title"
-                               :description="events[2].description"
-                               @click="openModal(events[2])"
-                               />
-                        </div>
+                    <div class="slide-row">
+                        <Card
+                        v-for="(event, index) in events.slice(0, 3)"
+                        :key="event.id"
+                        :id="event.id"
+                        :image="event.image"
+                        :title="event.title"
+                        :description="event.description"
+                        @click="openModal(event)"
+                        />
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <div class="row justify-content-center">
-                        <div class="col-4">
-                            <Card
-                               :id="events[0].id"
-                               :image="events[0].image"
-                               :title="events[0].title"
-                               :description="events[0].description"
-                               @click="openModal(events[0])"
-                               />
-                        </div>
-                        <div class="col-4">
-                            <Card
-                               :id="events[1].id"
-                               :image="events[1].image"
-                               :title="events[1].title"
-                               :description="events[1].description"
-                               @click="openModal(events[1])"
-                               />
-                        </div>
-                        <div class="col-4">
-                            <Card
-                               :id="events[2].id"
-                               :image="events[2].image"
-                               :title="events[2].title"
-                               :description="events[2].description"
-                               @click="openModal(events[2])"
-                               />
-                        </div>
+                    <div class="slide-row">
+                        <Card
+                        v-for="(event, index) in events.slice(0, 3)"
+                        :key="event.id"
+                        :id="event.id"
+                        :image="event.image"
+                        :title="event.title"
+                        :description="event.description"
+                        @click="openModal(event)"
+                        />
                     </div>
                 </div>
             </div>
@@ -162,6 +108,22 @@ const closeModal = () => {
 </template>
 
 <style scoped>
+.slide-row {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 15px;
+}
+
+.slide-row > * {
+  flex: 1 1 30%;
+  max-width: 30%;
+}
+body {
+  overflow-x: hidden;
+}
+
+
 .mobile-controls button {
   min-width: 10px;
 }
@@ -189,24 +151,20 @@ const closeModal = () => {
 }
 
 .contenedor-carrusel {
-    width: 83%;
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 .carousel {
     position: relative;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
 }
 
 .carousel-item {
     margin: 0 auto;
     padding: 20px 10px;
-}
-
-.carousel-item .row {
-    flex-wrap: nowrap;
-    max-width: 1600px;
-    justify-content: center;
-    margin: 15 auto;
 }
 
 .carousel-control-prev,
@@ -216,6 +174,13 @@ const closeModal = () => {
 
 /* Estilos para los botones en móvil */
 @media (max-width: 776px) {
+  .carousel {
+    position: relative;
+}
+
+.carousel-item {
+    margin: 0 auto;
+}
     .carousel-control-prev-bottom,
     .carousel-control-next-bottom {
         display: none !important;

@@ -143,14 +143,14 @@ data() {
 <template>
   <div class="container py-4">
     <!-- Encabezado con flechas y mes -->
-    <div class="d-flex align-items-center mb-3">
+    <div class="d-flex align-items-center">
       <button class="nav-arrow me-3" @click="prevMonth">&lt;</button>
       <h3 class="calendar-month m-0">{{ monthName }} {{ currentYear }}</h3>
       <button class="nav-arrow ms-3" @click="nextMonth">&gt;</button>
     </div>
 
     <!-- Días de la semana -->
-    <div class="row fw-bold text-primary mb-2 text-uppercase day-headers">
+    <div class="custom-row row fw-bold text-primary mb-2 text-uppercase day-headers">
       <div class="col" v-for="day in weekDays" :key="day">{{ day }}</div>
     </div>
     <div class="calendar-grid-wrapper position-relative">
@@ -205,6 +205,10 @@ data() {
 
 
 <style scoped>
+.custom-row >*{
+  flex: 1 1 14%;
+  max-width: 14%;
+}
 .calendar-grid-wrapper {
   position: relative;
 }
@@ -269,6 +273,11 @@ data() {
   box-sizing: border-box;
   text-align: left;
 }
+@media (max-width: 988px) {
+  .day-headers .col{
+    font-size: 12px;
+  }
+}
 @media (max-width: 876px) {
   .calendar-cell {
     border: 1px solid #ddd;
@@ -315,5 +324,9 @@ data() {
   grid-template-columns: repeat(3, 1fr); /* 3 columnas */
   gap: 10px 20px; /* espacio entre filas y columnas */
 }
-
+@media (max-width: 476px) {
+  .day-headers .col{
+    font-size: 7px;
+  }
+}
 </style>
