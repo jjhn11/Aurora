@@ -8,8 +8,8 @@
       <button class="close-button" @click="close">✖</button>
       <img :src="event.image" alt="Event Image" class="modal-image" v-if="event.image" />
       <div class="modal-body">
-        <h2>{{ event.title }}</h2>
-        <p>{{ event.description }}</p>
+        <h2>{{ event.Title }}</h2>
+        <p>{{ event.Description }}</p>
       </div>
     </div>
   </div>

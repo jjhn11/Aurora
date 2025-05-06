@@ -57,7 +57,7 @@ const closeModal = () => {
 <template>
     <div class="contenedor-carrusel container-fluid d-flex justify-content-center">
       <div id="carrusel1" class="carousel">
-            <div class="carousel-inner">
+            <div class="carousel-inner" v-if="events && events.length >= 3">
                 <div class="carousel-item active">
                     <div class="row justify-content-center">
                         <div class="col-md-4">

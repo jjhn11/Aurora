@@ -14,7 +14,6 @@ const travel = (path) => {
 export default createStore({
   state: {
     isAuthenticated: false,
-    user: null,
     showingShareModal: false,
   },
   

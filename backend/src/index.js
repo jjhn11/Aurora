@@ -12,6 +12,7 @@ import eventsRoutes from './routes/events.js';
 import userRoutes from './routes/user.js';
 import { runAssociations } from './models/associations.js'
 import { loadSampleData } from './scripts/loadSampleData.js'
+import { cleanupData } from './scripts/cleanupData.js';
 
 dotenv.config();
 const open = (...args) => import('open').then(m => m.default(...args));

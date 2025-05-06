@@ -23,9 +23,7 @@ INSERT INTO Users_ (Id_user, Id_Occupation, Control_num, Name_user, Last_name, E
 INSERT INTO Event_categories_ (Type_event, Event_name) VALUES 
 ('Exposición', 'Cultural'), 
 ('Conferencia', 'Escolar'), 
-('Competencia', 'Deportivo'), 
-('Reunión', 'Social'), 
-('Hackathon', 'Tecnológico');
+('Competencia', 'Deportivo');
 
 -- Community tables
 INSERT INTO Community_categories_ (Category_name) VALUES 
@@ -50,13 +48,41 @@ INSERT INTO Community_activity_location_ (Location_, Id_category) VALUES
 INSERT INTO Calendar_Events_ (Start_date, End_date) VALUES 
 ('2025-01-01', '2025-07-31');
 
--- Now insert Events_ data with reference to Calendar_Events_
+
 INSERT INTO Events_ (Title, Description, Image_url, Id_category, Event_date, Id_calendar, Is_coming) VALUES 
-('Conferencia de IA', 'Exploraremos los avances más recientes en IA', '/images/events/conf-ia.jpg', 1, '2025-01-15', 1, 1),
-('Taller de Desarrollo Web', 'Aprende a crear sitios web modernos', '/images/events/web-dev.jpg', 1, '2025-01-20', 1, 1),
-('Concierto de Bandas', 'Presentación de las mejores bandas', '/images/events/concert.jpg', 2, '2025-02-05', 1, 1),
-('Torneo de Fútbol', 'Competencia deportiva entre carreras', '/images/events/football.jpg', 3, '2025-03-10', 1, 1),
-('Networking Tecnológico', 'Conecta con empresas del sector', '/images/events/networking.jpg', 4, '2025-03-15', 1, 1);
+-- cultural
+('Festival de Arte Digital', 'Exhibición de arte digital y multimedia', '/images/events/digital-art.jpg', 1, '2025-04-15', 1, 1),
+('Exposición Fotográfica', 'Muestra de fotografía contemporánea', '/images/events/photo-expo.jpg', 1, '2025-05-20', 1, 1),
+('Concierto Sinfónico', 'Presentación de la orquesta estudiantil', '/images/events/symphony.jpg', 1, '2025-06-10', 1, 1),
+('Festival de Danza', 'Presentaciones de diversos géneros de danza', '/images/events/dance.jpg', 1, '2025-07-05', 1, 1),
+('Teatro Universitario', 'Obra de teatro contemporáneo', '/images/events/theater.jpg', 1, '2025-08-15', 1, 1),
+('Noche de Poesía', 'Recital de poesía y música acústica', '/images/events/poetry.jpg', 1, '2025-09-20', 1, 1),
+('Festival de Cortometrajes', 'Muestra de cortometrajes estudiantiles', '/images/events/short-films.jpg', 1, '2025-10-10', 1, 1),
+('Exposición de Pinturas', 'Muestra de artistas emergentes', '/images/events/painting.jpg', 1, '2025-11-15', 1, 1),
+('Festival Cultural', 'Celebración multicultural', '/images/events/cultural-fest.jpg', 1, '2025-12-01', 1, 1),
+('Concierto de Jazz', 'Noche de jazz y blues', '/images/events/jazz.jpg', 1, '2025-12-15', 1, 1),
+-- escolar
+('Conferencia de Robótica', 'Avances en robótica e IA', '/images/events/robotics.jpg', 2, '2025-04-20', 1, 1),
+('Seminario de Investigación', 'Presentación de proyectos de investigación', '/images/events/research.jpg', 2, '2025-05-15', 1, 1),
+('Taller de Programación', 'Introducción a Python y Machine Learning', '/images/events/coding.jpg', 2, '2025-06-05', 1, 1),
+('Feria de Ciencias', 'Exhibición de proyectos científicos', '/images/events/science-fair.jpg', 2, '2025-07-10', 1, 1),
+('Congreso de Ingeniería', 'Tendencias en ingeniería moderna', '/images/events/engineering.jpg', 2, '2025-08-20', 1, 1),
+('Workshop de Innovación', 'Metodologías ágiles y design thinking', '/images/events/innovation.jpg', 2, '2025-09-15', 1, 1),
+('Simposio Académico', 'Encuentro de investigadores', '/images/events/symposium.jpg', 2, '2025-10-05', 1, 1),
+('Conferencia de Sostenibilidad', 'Tecnologías verdes y medio ambiente', '/images/events/sustainability.jpg', 2, '2025-11-10', 1, 1),
+('Hackathon Educativo', 'Desarrollo de soluciones educativas', '/images/events/edu-hackathon.jpg', 2, '2025-12-05', 1, 1),
+('Feria de Proyectos', 'Exhibición de proyectos finales', '/images/events/projects-fair.jpg', 2, '2025-12-10', 1, 1),
+-- Deportivo 
+('Torneo de Básquetbol', 'Competencia interuniversitaria', '/images/events/basketball.jpg', 3, '2025-04-25', 1, 1),
+('Carrera Atlética', '5K y 10K universitario', '/images/events/running.jpg', 3, '2025-05-10', 1, 1),
+('Torneo de Voleibol', 'Liga interna de voleibol', '/images/events/volleyball.jpg', 3, '2025-06-15', 1, 1),
+('Competencia de Natación', 'Encuentro de natación', '/images/events/swimming.jpg', 3, '2025-07-20', 1, 1),
+('Torneo de Ajedrez', 'Competencia de ajedrez', '/images/events/chess.jpg', 3, '2025-08-25', 1, 1),
+('Copa de Fútbol Sala', 'Torneo interno de futsal', '/images/events/futsal.jpg', 3, '2025-09-10', 1, 1),
+('Competencia de Atletismo', 'Encuentro atlético universitario', '/images/events/athletics.jpg', 3, '2025-10-15', 1, 1),
+('Torneo de Tenis', 'Competencia individual y dobles', '/images/events/tennis.jpg', 3, '2025-11-20', 1, 1),
+('Olimpiadas Universitarias', 'Competencias multideportivas', '/images/events/olympics.jpg', 3, '2025-12-01', 1, 1),
+('Torneo de E-Sports', 'Competencia de deportes electrónicos', '/images/events/esports.jpg', 3, '2025-12-15', 1, 1);
 
 -- Community activities
 INSERT INTO Community_activities_ (Title, Description, Id_type, Id_Location, Start_time, End_time, Event_date, Organizer_id) VALUES 

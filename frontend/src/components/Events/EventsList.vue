@@ -112,21 +112,20 @@ const closeModal = () => {
     <div v-else class="container py-4">
       <div class="row">
         <div
-  class="event-column mb-4"
-  v-for="event in paginatedFilteredEvents"
-  :key="event.id"
->
-  <Card
-    :title="event.title"
-    :date="event.date"
-    :description="event.description"
-    :image="event.image"
-    @click="openModal(event)"
-  />
-</div>
-
+          class="event-column mb-4"
+          v-for="event in paginatedFilteredEvents"
+          :key="event.id"
+        >
+          <Card
+            :title="event.title"
+            :date="event.date"
+            :description="event.description"
+            :image="event.image"
+            @click="openModal(event)"
+          />
+        </div>
       </div>
-      
+
       <!-- Paginación -->
       <nav aria-label="Page navigation" v-if="totalPages > 1">
         <ul class="pagination justify-content-center mt-4">
@@ -151,7 +150,9 @@ const closeModal = () => {
         </ul>
       </nav>
     </div>
-  <Modal :isOpen="isModalOpen" :event="selectedEvent" @close="closeModal" />
+  </div>
+    
+  <Modal :isOpen="isModalOpen" :event="selectedEvent" @close="closeModal"></Modal>
 </template>
   
 

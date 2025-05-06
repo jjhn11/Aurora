@@ -7,7 +7,7 @@ import Modal from '../Modal.vue';
 // Setup reactive state
 const activeSlide = ref(0);
 const totalSlides = ref(3);
-const showSlider = ref(true);
+const showSlider = ref(false);
 const store = useStore();
 
 // Categoría Deportiva (ID=2)
@@ -35,7 +35,7 @@ onMounted(() => {
   }
 });
 // Modal
-const selectedEvent = ref(null);
+const selectedEvent = ref({});
 const isModalOpen = ref(false);
 
 const openModal = (event) => {
@@ -44,7 +44,7 @@ const openModal = (event) => {
 };
 
 const closeModal = () => {
-  selectedEvent.value = null;
+  selectedEvent.value = {};
   isModalOpen.value = false;
 };
 </script>
@@ -55,43 +55,43 @@ const closeModal = () => {
             <i class="bi bi-chevron-left fs-4"></i>
         </button>
         <div id="carrusel3" class="carousel">
-            <div class="carousel-inner" v-if="sportsEvents.length >= 1">
+            <div class="carousel-inner" v-if="sportsEvents.length >= 9">
                 <div class="carousel-item active">
                     <div class="slide-row">
                         <Card
-                        v-for="(event, index) in events.slice(6, 9)"
-                        :key="event.id"
-                        :id="event.id"
-                        :image="event.image"
-                        :title="event.title"
-                        :description="event.description"
-                        @click="openModal(event)"
+                          v-for="(event, index) in sportsEvents.slice(0, 3)"
+                          :key="event.Id_event"
+                          :id="event.Id_event"
+                          :image="'/src/assets/img/events/sports-event-2.jpg'"
+                          :title="event.Title"
+                          :description="event.Description"
+                          @click="openModal(event)"
                         />
                     </div>
                 </div>
                 <div class="carousel-item">
                     <div class="slide-row">
                         <Card
-                        v-for="(event, index) in events.slice(6, 9)"
-                        :key="event.id"
-                        :id="event.id"
-                        :image="event.image"
-                        :title="event.title"
-                        :description="event.description"
-                        @click="openModal(event)"
+                          v-for="(event, index) in sportsEvents.slice(3, 6)"
+                          :key="event.Id_event"
+                          :id="event.Id_event"
+                          :image="'/src/assets/img/events/sports-event-2.jpg'"
+                          :title="event.Title"
+                          :description="event.Description"
+                          @click="openModal(event)"
                         />
                     </div>
                 </div>
                 <div class="carousel-item">
                     <div class="slide-row">
                         <Card
-                        v-for="(event, index) in events.slice(6, 9)"
-                        :key="event.id"
-                        :id="event.id"
-                        :image="event.image"
-                        :title="event.title"
-                        :description="event.description"
-                        @click="openModal(event)"
+                          v-for="(event, index) in sportsEvents.slice(6, 9)"
+                          :key="event.Id_event"
+                          :id="event.Id_event"
+                          :image="'/src/assets/img/events/sports-event-2.jpg'"
+                          :title="event.Title"
+                          :description="event.Description"
+                          @click="openModal(event)"
                         />
                     </div>
                 </div>
