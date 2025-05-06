@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import Card from './Card.vue';
-
+import Modal from '../Modal.vue';
 // Setup reactive state
 const activeSlide = ref(0);
 const totalSlides = ref(3);
@@ -20,6 +20,19 @@ onMounted(() => {
     });
   }
 });
+// Modal
+const selectedEvent = ref(null);
+const isModalOpen = ref(false);
+
+const openModal = (event) => {
+  selectedEvent.value = event;
+  isModalOpen.value = true;
+};
+
+const closeModal = () => {
+  selectedEvent.value = null;
+  isModalOpen.value = false;
+};
 </script>
 
 <template>
@@ -30,87 +43,42 @@ onMounted(() => {
         <div id="carrusel2" class="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               :id="events[3].id"
-                               :image="events[3].image"
-                               :title="events[3].title"
-                               :description="events[3].description"
-                               />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                                <Card
-                                :id="events[4].id"
-                                :image="events[4].image"
-                                :title="events[4].title"
-                                :description="events[4].description"
-                               />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                            :id="events[5].id"
-                               :image="events[5].image"
-                               :title="events[5].title"
-                               :description="events[5].description"
-                               />
-                        </div>
+                    <div class="slide-row">
+                        <Card
+                        v-for="(event, index) in events.slice(3, 6)"
+                        :key="event.id"
+                        :id="event.id"
+                        :image="event.image"
+                        :title="event.title"
+                        :description="event.description"
+                        @click="openModal(event)"
+                        />
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               :id="events[3].id"
-                               :image="events[3].image"
-                               :title="events[3].title"
-                               :description="events[3].description"
-                               />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               :id="events[4].id"
-                               :image="events[4].image"
-                               :title="events[4].title"
-                               :description="events[4].description"
-                               />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               :id="events[5].id"
-                               :image="events[5].image"
-                               :title="events[5].title"
-                               :description="events[5].description"
-                               />
-                        </div>
+                    <div class="slide-row">
+                        <Card
+                        v-for="(event, index) in events.slice(3, 6)"
+                        :key="event.id"
+                        :id="event.id"
+                        :image="event.image"
+                        :title="event.title"
+                        :description="event.description"
+                        @click="openModal(event)"
+                        />
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               :id="events[3].id"
-                               :image="events[3].image"
-                               :title="events[3].title"
-                               :description="events[3].description"
-                               />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               :id="events[4].id"
-                               :image="events[4].image"
-                               :title="events[4].title"
-                               :description="events[4].description"
-                               />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               :id="events[5].id"
-                               :image="events[5].image"
-                               :title="events[5].title"
-                               :description="events[5].description"
-                               />
-                        </div>
+                    <div class="slide-row">
+                        <Card
+                        v-for="(event, index) in events.slice(3, 6)"
+                        :key="event.id"
+                        :id="event.id"
+                        :image="event.image"
+                        :title="event.title"
+                        :description="event.description"
+                        @click="openModal(event)"
+                        />
                     </div>
                 </div>
             </div>
@@ -119,15 +87,44 @@ onMounted(() => {
             <i class="bi bi-chevron-right fs-4"></i>
         </button>
     </div>
+    <!-- Botones inferiores (solo visibles en móviles) -->
+    <div class="text-center mobile-controls">
+        <button class="btn btn-outline-primary mx-2" type="button" data-bs-target="#carrusel2" data-bs-slide="prev">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+        <button class="btn btn-outline-primary mx-2" type="button" data-bs-target="#carrusel2" data-bs-slide="next"><i class="bi bi-chevron-right"></i>
+        </button>
+    </div>
+    
     <div class="custom-slider-bar" v-if="showSlider">
-        <div class="custom-slider-thumb" :style="{ left: `${(activeSlide / (totalSlides - 4)) * 100}%` }"></div>
+        <div class="custom-slider-thumb" :style="{ left: `${(activeSlide / (totalSlides - 1)) * 100}%` }"></div>
     </div>
 
-
-
+    <Modal :isOpen="isModalOpen" :event="selectedEvent" @close="closeModal" />
 </template>
 
 <style scoped>
+.slide-row {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 15px;
+}
+
+.slide-row > * {
+  flex: 1 1 30%;
+  max-width: 30%;
+  display: flex;
+}
+body {
+  overflow-x: hidden;
+}
+
+
+.mobile-controls button {
+  min-width: 10px;
+}
+
 .custom-slider-bar {
   position: relative;
   height: 6px;
@@ -151,13 +148,17 @@ onMounted(() => {
 }
 
 .contenedor-carrusel {
-    width: 83%;
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 .carousel {
     position: relative;
-    padding-bottom: 30px;
+    padding-bottom: 10px;
 }
+
 .carousel-item {
     margin: 0 auto;
     padding: 20px 10px;
@@ -175,4 +176,24 @@ onMounted(() => {
     display: none;
 }
 
+/* Estilos para los botones en móvil */
+@media (max-width: 776px) {
+    .carousel-control-prev-bottom,
+    .carousel-control-next-bottom {
+        display: none !important;
+    }
+    
+    .mobile-controls {
+        display: block !important;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Ocultar controles móviles en pantallas grandes */
+@media (min-width: 776px) {
+    .mobile-controls {
+        display: none !important;
+    }
+}
 </style>

@@ -5,23 +5,16 @@
       <p>Cargando detalles del libro...</p>
     </div>
     
-    <div v-else-if="error" class="error-message">
-      <p>{{ error }}</p>
-      <button @click="fetchBookData" class="retry-button">Intentar de nuevo</button>
-    </div>
-    
     <main v-else class="book-content">
       <Breadcrumb :paths="breadcrumbPaths" />
-      
+
       <BookInfo
         :title="book.Title"
         :authors="book.authors"
         :coverImage="book.coverImage"
         :synopsis="book.synopsis"
       />
-      
-      <BookActions />
-      
+
       <BookMetadata
         :format="book.format || 'N/A'"
         :authors="book.authorText || ''"
@@ -35,7 +28,6 @@
         :categories="book.categories || []"
       />
       
-      <!-- Uncomment when components are ready -->
       <!-- <BookReviews :reviews="book.reviews" /> -->
       <!-- <RelatedBooks :books="relatedBooks" /> -->
       
@@ -43,8 +35,8 @@
         <div class="progress-bar-blue"></div>
       </div> -->
     </main>
+
     
-    <!-- <Footer2 /> -->
   </div>
 </template>
 
@@ -56,7 +48,7 @@ import Breadcrumb from "@/components/Library/Book/Breadcrumb.vue";
 import BookInfo from "@/components/Library/Book/BookInfo.vue";
 import BookActions from "@/components/Library/Book/BookActions.vue";
 import BookMetadata from "@/components/Library/Book/BookMetadata.vue";
-// import BookReviews from "@/components/Library/Book/BookReviews.vue";
+import CarruselBiblioteca from '@/components/Library/CarruselBiblioteca.vue';
 
 // State management
 const route = useRoute();
@@ -110,6 +102,9 @@ onMounted(() => {
 watch(bookId, () => {
   fetchBookData();
 });
+
+
+
 </script>
 
 <style scoped>
@@ -127,8 +122,8 @@ watch(bookId, () => {
   align-self: center;
   display: flex;
   margin-top: 31px;
-  width: 100%;
-  max-width: 1468px;
+  width: 92%;
+  max-width: 95vw;
   flex-direction: column;
   align-items: stretch;
   padding: 0 15px; /* Add padding for mobile */

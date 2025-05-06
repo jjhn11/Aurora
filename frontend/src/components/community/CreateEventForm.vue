@@ -141,7 +141,9 @@
 
                 <section class="form-content">
                     <label class="form-label">Nombre del evento:</label>
+
                     <div class="input-container">
+
                         <input 
                             v-model="eventName" 
                             type="text" 
@@ -149,87 +151,83 @@
                             required
                             maxlength="60"
                         >
+
                         <span class="char-count">{{ eventName.length }}/60</span>
+
                     </div>
             
                     <div class="form-grid">
 
                         <section class="form-column">
 
-                            <div class="description-section">
-
-                                <label class="form-label">Descripción del evento:</label>
-                                <div class="input-container">
-                                    <textarea 
-                                        v-model="description" 
-                                        class="form-textarea" 
-                                        required 
-                                        @focus="resetIconError"
-                                        maxlength="600"
-                                    ></textarea>
-                                    <span class="char-count">{{ description.length }}/600</span>
-                                </div>
-                
-                                <label class="form-label">Tipo de actividad:</label>
-                                <select v-model="activityType" class="form-input" required @focus="resetIconError">
-
-                                    <option value="" disabled selected class="placeholder-option">
-                                        SELECCIONAR UNA ACTIVIDAD
-                                    </option>
-
-                                    <option v-for="activity in activities" :key="activity" :value="activity">
-                                        {{ activity }}
-                                    </option>
-
-                                </select>
-
-
+                            <label class="form-label">Descripción del evento:</label>
+                            
+                            <div class="input-container">
+                                <textarea 
+                                    v-model="description" 
+                                    class="form-textarea" 
+                                    required 
+                                    @focus="resetIconError"
+                                    maxlength="600"
+                                ></textarea>
+                                <span class="char-count">{{ description.length }}/600</span>
                             </div>
+            
+                            <label class="form-label">Tipo de actividad:</label>
+                            
+                            <select v-model="activityType" class="form-input" required @focus="resetIconError">
+
+                                <option value="" disabled selected class="placeholder-option">
+                                    Selecciona una Actividad
+                                </option>
+
+                                <option v-for="activity in activities" :key="activity" :value="activity">
+                                    {{ activity }}
+                                </option>
+
+                            </select>
 
                         </section>
             
+                        
                         <section class="form-column">
 
-                            <div class="time-section">
+                            <label class="form-label">Fecha del evento:</label>
+                            <input 
+                                v-model="eventDate"
+                                type="date"
+                                class="time-input"
+                                required
+                                :min="new Date().toISOString().split('T')[0]"
+                                @focus="resetIconError"
+                            >
 
-                                <label class="form-label">Fecha del evento:</label>
-                                <input 
-                                    v-model="eventDate"
-                                    type="date"
-                                    class="time-input"
-                                    required
-                                    :min="new Date().toISOString().split('T')[0]"
-                                    @focus="resetIconError"
-                                >
+                            <div class="time-grid">
 
-                                <div class="time-grid">
-
-                                    <div class="time-column">
-                                        <label class="form-label">Hora de inicio:</label>
-                                        <input v-model="startTime" type="time" class="time-input" required @focus="resetIconError">
-                                    </div>
-
-                                    <div class="time-column">
-                                        <label class="form-label">Hora de cierre:</label>
-                                        <input v-model="endTime" type="time" class="time-input" required @focus="resetIconError">
-                                    </div>
-
+                                <div class="time-column">
+                                    <label class="form-label">Hora de inicio:</label>
+                                    <input v-model="startTime" type="time" class="time-input" required @focus="resetIconError">
                                 </div>
 
-                                <label class="form-label">Ubicación</label>
-                                <select v-model="location" class="form-input" required @focus="resetIconError">
+                                <div class="time-column">
+                                    <label class="form-label">Hora de cierre:</label>
+                                    <input v-model="endTime" type="time" class="time-input" required @focus="resetIconError">
+                                </div>
 
-                                    <option value="" disabled selected class="placeholder-option">
-                                        SELECCIONAR UNA UBICACION
-                                    </option>
-
-                                    <option v-for="loc in locations" :key="loc" :value="loc">
-                                        {{ loc }}
-                                    </option>
-                                </select>
-                            
                             </div>
 
+                            <label class="form-label">Ubicación</label>
+                            <select v-model="location" class="form-input" required @focus="resetIconError">
+
+                                <option value="" disabled selected class="placeholder-option">
+                                    Selecciona una Ubicación
+                                </option>
+
+                                <option v-for="loc in locations" :key="loc" :value="loc">
+                                    {{ loc }}
+                                </option>
+                            </select>
+                            
                             <div class="icon-select-container row">
 
                                 <div class="icon-select" 
@@ -354,20 +352,18 @@
     }
 
     .create-event-form {
+        width: 75%;
+        height: 100%;
+        max-height: 775px;
+        max-width: 900px;
         border-radius: 20px;
         background-color: rgba(255, 255, 255, 1);
         box-shadow: 0px 4px 100px rgba(0, 0, 0, 0.5);
         display: flex;
         padding: 8px 24px;
         flex-direction: column;
-        overflow: hidden;
+        overflow-y: auto;
         align-items: center;
-    }
-
-    @media (max-width: 991px) {
-        .create-event-form {
-            padding: 20px;
-        }
     }
 
     .form-header {
@@ -389,26 +385,11 @@
         justify-content: space-between;
     }
 
-    @media (max-width: 991px) {
-        .form-header {
-            max-width: 100%;
-            font-size: 40px;
-        }
-    }
-
     .form-title {
         font-size: 38px;
         align-self: end;
         margin-top: 10px;
         font-weight: 700;
-    }
-
-    @media (max-width: 991px) {
-        .form-title {
-            margin-top: 20px;
-            padding: 12px;
-            font-size: 20px;
-        }
     }
 
     .close-button {
@@ -501,15 +482,9 @@
     .form-grid {
         margin-top: 6px;
         width: 100%;
-        max-width: 960px;
+
         display: flex;
         gap: 20px;
-    }
-
-    @media (max-width: 991px) {
-        .form-grid {
-            flex-direction: column;
-        }
     }
 
     .form-column {
@@ -518,31 +493,13 @@
         flex-direction: column;
     }
 
-    @media (max-width: 991px) {
-        .form-column {
-            width: 100%;
-        }
-    }
-
     .time-grid {
         display: flex;
         gap: 20px;
     }
 
-    @media (max-width: 991px) {
-        .time-grid {
-            flex-direction: column;
-        }
-    }
-
     .time-column {
         width: 50%;
-    }
-
-    @media (max-width: 991px) {
-        .time-column {
-            width: 100%;
-        }
     }
 
     .time-input {
@@ -588,12 +545,6 @@
 
         &:hover {
             background-color: #FBE326;
-        }
-    }
-
-    @media (max-width: 991px) {
-        .submit-button {
-            max-width: 100%;
         }
     }
 
@@ -714,29 +665,12 @@
         object-fit: contain;
     }
 
-    @media (max-width: 991px) {
-        .icon-view {
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .activity-title {
-            white-space: initial;
-        }
-    
-        .image-container {
-            padding: 20px;
-        }
-    }
-    
-
     .icon-select-container {
         position: relative;
         width: fit-content;
-        margin: 32px auto 0;
+        margin: 10px auto 0;
         /* Agregar padding-bottom para dejar espacio para el mensaje de error */
-        padding: 0px 20px 5px 20px;
-        margin: 16px auto 0;
+        padding: 0px 20px 10px 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -748,7 +682,7 @@
         border-radius: 50%;
         width: 180px;
         height: 180px;
-        margin: 13px auto 0;
+        margin: 10px auto 0;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -869,5 +803,194 @@
         margin: 0; /* Añadido */
     }
 
+    /* ################## Media Queries ################## */
+
+    /* Breakpoint 768px */
+    @media (max-width: 768px) {
+
+        .create-event-form {
+            width: 95%;
+            padding: 15px 10px;
+            max-height: 90vh;
+        }
+
+        .form-content {
+            width: 100%;
+            padding: 0 15px;
+        }
+
+        .form-grid {
+            flex-direction: column;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .form-column {
+            width: 100%;
+        }
+
+        .time-grid {
+            width: 100%;
+            padding: 0;
+            gap: 10px;
+        }
+
+        .time-column {
+            width: 100%;
+        }
+
+        .submit-button {
+            max-width: 100%;
+        }
+
+        .icon-view {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-title {
+            font-size: 28px;
+        }
+
+        .close-button {
+            font-size: 24px;
+        }
+
+        .form-label {
+            font-size: 14px;
+            margin: 8px 0 4px 4px;
+        }
+        
+        .input-container {
+            width:100%;
+        }
+
+        .form-input {
+            height: 35px;
+            font-size: 14px;
+            padding: 8px;
+        }
+
+        .form-textarea {
+            height: 150px;
+            font-size: 14px;
+        }
+
+        .time-input {
+            height: 45px;
+            font-size: 14px;
+        }
+
+        .submit-button {
+            padding: 15px;
+            font-size: 24px;
+
+            span {
+                height: 30px;
+            }
+        }
+
+        /* Menú de iconos */
+        .icon-select {
+            width: 140px;
+            height: 140px;
+        }
+
+        .icon-select-text {
+            font-size: 14px;
+            padding: 15px;
+            height: 60px;
+        }
+
+        .icon-menu-container {
+            width: 90%;
+            max-height: 80vh;
+        }
+
+        .menu-header {
+            padding: 15px;
+        }
+
+        .menu-title {
+            font-size: 24px;
+        }
+
+        .icon-view {
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            padding: 15px;
+        }
+
+        .activity-title {
+            font-size: 14px;
+            padding: 8px;
+        }
+
+        .image-container {
+            padding: 30px 15px 15px 15px;
+        }
+
+        .image-border {
+            width: 70%;
+            height: 70%;
+        }
+
+        .activity-image {
+            max-width: 70%;
+            max-height: 70%;
+        }
+    }
+
+    /* Breakpoint 480px */
+    @media (max-width: 480px) {
+
+        .icon-view {
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            padding: 10px;
+            max-height: calc(85vh - 70px); /* Ajustar la altura máxima considerando el header */
+            padding-bottom: 10px; /* Añadir padding inferior */
+        }
+
+        .activity-title {
+            font-size: 12px;
+            padding: 6px;
+        }
+
+        .icon-menu-container {
+            width: 95%;
+            max-height: 85vh;
+            padding-bottom: 20px; /* Añadir padding inferior */
+        }
+
+        .icon-select-container {
+            padding: 0px 50px 10px 50px;
+        }
+
+        .icon-select {
+            width: 120px;
+            height: 120px;
+        }
+
+        .icon-select-text {
+            font-size: 12px;
+            padding: 10px;
+            height: 50px;
+        }
+
+        .form-textarea {
+            height: 120px;
+        }
+
+        .char-count {
+            font-size: 10px;
+        }
+
+        .submit-button {
+            padding: 12px;
+            font-size: 20px;
+        }
+    }
 
 </style>

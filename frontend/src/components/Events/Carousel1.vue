@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import Card from './Card.vue';
-
+import Modal from '../Modal.vue';
 // Setup reactive state
 const activeSlide = ref(0);
 const totalSlides = ref(3);
@@ -20,114 +20,114 @@ onMounted(() => {
     });
   }
 });
+
+// Estado del Modal
+const selectedEvent = ref({});
+const isModalOpen = ref(false);
+
+const openModal = (event) => {
+  selectedEvent.value = event;
+  isModalOpen.value = true;
+};
+
+const closeModal = () => {
+  selectedEvent.value = {};
+  isModalOpen.value = false;
+};
+
 </script>
 
 <template>
-    <div class="contenedor-carrusel container-fluid d-flex justify-content-center">
-        <button class="btn btn-link carousel-control-prev-bottom" type="button" data-bs-target="#carrusel1" data-bs-slide="prev">
+    <div class="contenedor-carrusel container-fluid d-flex justify-content-center px-0">
+        <!-- Botones laterales (visibles en pantallas grandes) -->
+        <button class="btn btn-link carousel-control-prev-bottom d-none d-md-block" type="button" data-bs-target="#carrusel1" data-bs-slide="prev">
             <i class="bi bi-chevron-left fs-4"></i>
         </button>
         <div id="carrusel1" class="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               :id="events[0].id"
-                               :image="events[0].image"
-                               :title="events[0].title"
-                               :description="events[0].description"
-                               />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                                <Card
-                                :id="events[1].id"
-                                :image="events[1].image"
-                                :title="events[1].title"
-                                :description="events[1].description"
-                               />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                            :id="events[2].id"
-                               :image="events[2].image"
-                               :title="events[2].title"
-                               :description="events[2].description"
-                               />
-                        </div>
+                    <div class="slide-row">
+                        <Card
+                        v-for="(event, index) in events.slice(0, 3)"
+                        :key="event.id"
+                        :id="event.id"
+                        :image="event.image"
+                        :title="event.title"
+                        :description="event.description"
+                        @click="openModal(event)"
+                        />
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               :id="events[0].id"
-                               :image="events[0].image"
-                               :title="events[0].title"
-                               :description="events[0].description"
-                               />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               :id="events[1].id"
-                               :image="events[1].image"
-                               :title="events[1].title"
-                               :description="events[1].description"
-                               />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               :id="events[2].id"
-                               :image="events[2].image"
-                               :title="events[2].title"
-                               :description="events[2].description"
-                               />
-                        </div>
+                    <div class="slide-row">
+                        <Card
+                        v-for="(event, index) in events.slice(0, 3)"
+                        :key="event.id"
+                        :id="event.id"
+                        :image="event.image"
+                        :title="event.title"
+                        :description="event.description"
+                        @click="openModal(event)"
+                        />
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               :id="events[0].id"
-                               :image="events[0].image"
-                               :title="events[0].title"
-                               :description="events[0].description"
-                               />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               :id="events[1].id"
-                               :image="events[1].image"
-                               :title="events[1].title"
-                               :description="events[1].description"
-                               />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               :id="events[2].id"
-                               :image="events[2].image"
-                               :title="events[2].title"
-                               :description="events[2].description"
-                               />
-                        </div>
+                    <div class="slide-row">
+                        <Card
+                        v-for="(event, index) in events.slice(0, 3)"
+                        :key="event.id"
+                        :id="event.id"
+                        :image="event.image"
+                        :title="event.title"
+                        :description="event.description"
+                        @click="openModal(event)"
+                        />
                     </div>
                 </div>
             </div>
         </div>
-        <button class="btn btn-link carousel-control-next-bottom" type="button" data-bs-target="#carrusel1" data-bs-slide="next">
+        <button class="btn btn-link carousel-control-next-bottom d-none d-md-block" type="button" data-bs-target="#carrusel1" data-bs-slide="next">
             <i class="bi bi-chevron-right fs-4"></i>
         </button>
     </div>
+    
+    <!-- Botones inferiores (solo visibles en móviles) -->
+    <div class="text-center mobile-controls">
+        <button class="btn btn-outline-primary mx-2" type="button" data-bs-target="#carrusel1" data-bs-slide="prev">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+        <button class="btn btn-outline-primary mx-2" type="button" data-bs-target="#carrusel1" data-bs-slide="next"><i class="bi bi-chevron-right"></i>
+        </button>
+    </div>
+    
     <div class="custom-slider-bar" v-if="showSlider">
         <div class="custom-slider-thumb" :style="{ left: `${(activeSlide / (totalSlides - 1)) * 100}%` }"></div>
     </div>
 
-
-
+    <Modal :isOpen="isModalOpen" :event="selectedEvent" @close="closeModal" />
 </template>
 
 <style scoped>
+.slide-row {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 15px;
+}
+
+.slide-row > * {
+  flex: 1 1 30%;
+  max-width: 30%;
+}
+body {
+  overflow-x: hidden;
+}
+
+
+.mobile-controls button {
+  min-width: 10px;
+}
+
 .custom-slider-bar {
   position: relative;
   height: 6px;
@@ -151,23 +151,20 @@ onMounted(() => {
 }
 
 .contenedor-carrusel {
-    width: 83%;
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 .carousel {
     position: relative;
-    padding-bottom: 30px;
+    padding-bottom: 5px;
 }
+
 .carousel-item {
     margin: 0 auto;
     padding: 20px 10px;
-}
-
-.carousel-item .row {
-    flex-wrap: nowrap;
-    max-width: 1600px;
-    justify-content: center;
-    margin: 15 auto;
 }
 
 .carousel-control-prev,
@@ -175,4 +172,31 @@ onMounted(() => {
     display: none;
 }
 
+/* Estilos para los botones en móvil */
+@media (max-width: 776px) {
+  .carousel {
+    position: relative;
+}
+
+.carousel-item {
+    margin: 0 auto;
+}
+    .carousel-control-prev-bottom,
+    .carousel-control-next-bottom {
+        display: none !important;
+    }
+    
+    .mobile-controls {
+        display: block !important;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Ocultar controles móviles en pantallas grandes */
+@media (min-width: 776px) {
+    .mobile-controls {
+        display: none !important;
+    }
+}
 </style>

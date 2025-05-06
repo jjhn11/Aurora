@@ -111,7 +111,7 @@ export default {
             }
             */
             if (this.isAttending) {
-                return 'ASISTIRE'
+                return 'ASISTIRÉ'
             }
             /*
             if (this.isHovering) {
@@ -135,41 +135,51 @@ export default {
 
 <template>
     <section class="event-card">
+
         <div class="event-content">
+
             <div class="event-info-column">
+
                 <div class="event-details">
+                    
                     <div class="title-container">
                         <h2 class="event-title">{{ title }}</h2>
                     </div>
+
                     <div class="event-info">
-                        <div class="event-header">
-                            <p class="event-organizer">• Organizador: {{ organizer }}</p>
+
+                        <p class="event-organizer">• Organizador: {{ organizer }}</p>
+                        <p class="event-category">• Categoria: {{ category }}</p>
+                        <p class="event-date">• Fecha: {{ formattedDate }}</p>
+                        
+                        <div class="event-time">
+                            <p>• Hora: {{ formattedTime.start }}</p>
+                            <p class="time-separator">-</p>
+                            <p>{{ formattedTime.end }}</p>
                         </div>
-                        <div class="event-datetime">
-                            <p class="event-category">• Categoria: {{ category }}</p>
-                            <p class="event-date">• Fecha: {{ formattedDate }}</p>
-                            <div class="event-time-location">
-                                <div class="event-time">
-                                    <span>• Hora: {{ formattedTime.start }}</span>
-                                    <span class="time-separator">-</span>
-                                    <span>{{ formattedTime.end }}</span>
-                                </div>
-                                <span class="event-location">• Ubicacion: {{ location }}</span>
-                            </div>
-                        </div>
+
+                        <p class="event-location">• Ubicacion: {{ location }}</p>
+
                     </div>
+
                 </div>
+
             </div>
 
             <div class="attendance-column">
+
                 <div class="attendance-container">
-                    <div class="attendance-circle mt-4" :style="{ backgroundColor }">
+
+                    <div class="attendance-circle" :style="{ backgroundColor }">
                         <img :src="imageSrc" class="attendance-image" alt="Event icon" />
                     </div>
-                    <div class="buttons-container mt-4">
+
+                    <div class="buttons-container">
+
                         <button class="info-button" @click="toggleInfoModal">
                             <i class="fas fa-info-circle"></i> INFO
                         </button>
+
                         <button 
                             class="attendance-button"
                             :style="attendanceButtonStyle"
@@ -177,8 +187,10 @@ export default {
                             @mouseenter="isHovering = true"
                             @mouseleave="isHovering = false"
                         >
+                            <i v-if="isAttending" class="fa-solid fa-check"></i>
                             {{ attendanceButtonText }}
                         </button>
+
                     </div>
                 </div>
             </div>
@@ -188,18 +200,27 @@ export default {
     <!-- Modal --> 
 
     <Transition name="fade">
+
         <div v-if="showInfoModal" class="modal-overlay" @click.self="toggleInfoModal">
+
             <div class="modal-content">
+
                 <header class="modal-header">
+
                     <h2 class="modal-title">Información del Evento</h2>
+
                     <button type="button" class="modal-close-button" @click="toggleInfoModal">
                         <i class="fas fa-times"></i>
                     </button>
+
                 </header>
 
                 <div class="modal-body">
+
                     <div class="modal-grid">
+
                         <div class="modal-info">
+
                             <h3 class="event-full-title">{{ title }}</h3>
                             
                             <p class="event-info-item">• Organizador: {{ organizer }}</p>
@@ -213,19 +234,24 @@ export default {
                         </div>
 
                         <div class="modal-icon-wrapper">
+                            
                             <div class="modal-icon-container" :style="{ backgroundColor }">
                                 <img :src="imageSrc" class="modal-icon" alt="Event icon" />
                             </div>
-                            <div class="buttons-container mt-4">
+
+                            <div class="modal-buttons-container">
+                                
                                 <button 
-                                    class="attendance-button"
+                                    class="modal-attendance-button"
                                     :style="attendanceButtonStyle"
                                     @click="toggleAttendance"
                                     @mouseenter="isHovering = true"
                                     @mouseleave="isHovering = false"
                                 >
+                                    <i v-if="isAttending" class="fa-solid fa-check"></i>
                                     {{ attendanceButtonText }}
                                 </button>
+
                             </div>
                         </div>
                     </div>
@@ -255,47 +281,48 @@ export default {
   
     .event-info-column {
         flex: 1;
+        width: 100%;
         min-width: 0;
         max-width: calc(100% - 300px); /* Ensures proper spacing from attendance column */
-        margin-right: 20px;
         line-height: normal;
-    }
-  
-    .event-details {
-        display: flex;
-        margin-top: 22px;
-        flex-grow: 1;
-        flex-direction: column;
-        color: rgba(0, 14, 50, 1);
-        font-weight: 700;
     }
 
     .title-container {
-        width: 800px; /* Reduced from 900px to create more space */
-        margin-bottom: 10px;
+        display: flex;
+        justify-content: start;
+        align-items: start;
+        width: 100%; /* Reduced from 900px to create more space */
     }
   
     .event-title {
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        margin-top: 10px;
+        width: 100%;
+
         font-family: "Crimson Text", -apple-system, Roboto, Helvetica, sans-serif;
         font-size: 50px;
         font-weight: 700;
         color: rgba(0, 14, 50, 1);
-        margin: 0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        width: 100%;
     }
   
     .event-info {
-        align-self: flex-start;
         display: flex;
+        flex-direction: column;
+        align-self: flex-start;
+        align-items: start;
+        justify-content: space-between;
+        gap: 20px;
+
         min-height: 191px;
         width: 800px;
         max-width: 100%;
-        padding: 10px 10px 10px 0px;
-        flex-direction: column;
-        align-items: flex-start;
+        
+        padding: 5px 10px 0px 0px;
+
         font-family:
             Josefin Sans,
             -apple-system,
@@ -303,45 +330,31 @@ export default {
             Helvetica,
             sans-serif;
         font-size: 30px;
-        justify-content: space-between;
     }
-  
-    .event-organizer {
-        align-self: stretch;
-        padding: 10px;
-        text-align: left;
-        margin: 0px;
-    }
-  
-    .event-time-location {
+
+    .event-details {
         display: flex;
-        width: 663px;
-        max-width: 100%;
-        padding: 10px;
-        align-items: left;
-        gap: 36px;
-        justify-content: space-between;
-        flex-wrap: wrap;
+        justify-content: left;
+        align-items: center;
+        flex-direction: column;
+        gap: 30px;
+        width: 100%;
     }
-  
+
     .event-time {
-        text-align: left;
-        align-self: stretch;
-        margin: auto 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
-  
-    .event-location {
-        align-self: stretch;
-        margin: auto 0;
-        width: 800px;
+
+    .time-separator {
+        color: black;
     }
-  
-    .event-category {
-        padding: 10px;
-        white-space: nowrap;
-        text-align: left;
-        margin: 0;
+
+    .event-date {
+        text-transform: capitalize;
     }
+
   
     .attendance-column {
         display: flex;
@@ -352,6 +365,10 @@ export default {
     }
   
     .attendance-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         width: 100%;
     }
   
@@ -359,7 +376,7 @@ export default {
         border: 1px solid rgba(126, 131, 130, 1);
         border-radius: 50%;
         display: flex;
-        margin: 0 10px;
+        margin: 30px 10px;
         padding: 30px;
         flex-direction: column;
         align-items: center;
@@ -372,14 +389,13 @@ export default {
         object-fit: contain;
         object-position: center;
         width: 152px;
-        border-radius: 200px;
     }
   
     .attendance-button {
         align-self: stretch;
         border-radius: 20px;
         border: 1px solid;
-        min-height: 51px;
+        min-height: 60px;
         padding: 16px 10px;
         font-family: Josefin Sans, -apple-system, Roboto, Helvetica, sans-serif;
         font-size: 20px;
@@ -390,41 +406,8 @@ export default {
         transition: all 0.3s ease;
     }
 
-    .attendance-button:hover {
+    .attendance-button:hover, .modal-attendance-button:hover {
         transform: scale(1.05);
-    }
-
-    .event-time {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .time-separator {
-        color: black;
-
-    }
-
-    .event-datetime {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-    }
-
-    .event-date {
-        color: rgba(0, 14, 50, 1);
-        margin: 0;
-        padding: 10px;
-        text-transform: capitalize;
-    }
-
-    .event-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        margin-bottom: 15px;
     }
 
     .buttons-container {
@@ -439,7 +422,7 @@ export default {
         border-radius: 20px;
         background-color: rgba(0, 14, 50, 1);
         border: 1px solid rgba(126, 131, 130, 1);
-        min-height: 51px;
+        min-height: 60px;
         padding: 16px 10px;
         font-family: Josefin Sans, -apple-system, Roboto, Helvetica, sans-serif;
         font-size: 20px;
@@ -605,6 +588,29 @@ export default {
         object-fit: contain;
     }
 
+    .modal-buttons-container {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 70%;
+    }
+
+    .modal-attendance-button {
+        align-self: stretch;
+        border-radius: 20px;
+        border: 1px solid;
+        min-height: 60px;
+        padding: 16px 10px;
+        font-family: Josefin Sans, -apple-system, Roboto, Helvetica, sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+
     .fade-enter-active,
     .fade-leave-active {
         transition: opacity 0.3s ease;
@@ -615,120 +621,213 @@ export default {
         opacity: 0;
     }
   
-    @media (max-width: 991px) {
+    @media screen and (max-width: 1024px) {
         .event-card {
-            padding: 25px 20px 45px;
-            margin-top: 40px;
-        }
-  
-        .event-content {
-            flex-direction: column;
-            gap: 30px;
-        }
-  
-        .event-info-column {
-            margin-right: 0;
-            margin-bottom: 20px;
-            max-width: 100%;
-        }
-  
-        .event-details {
-            max-width: 100%;
-            margin-top: 40px;
-        }
-  
-        .event-title {
-            font-size: 40px;
-        }
-  
-        .event-location {
-            max-width: 100%;
-        }
-  
-        .event-category {
-            white-space: initial;
-        }
-  
-        .attendance-column {
+            padding: 15px 20px;
             width: 100%;
-            margin-left: 0;
-        }
-  
-        .attendance-container {
-            margin-top: 25px;
-        }
-  
-        .attendance-circle {
-            padding: 20px;
-        }
-  
-        .attendance-button {
-            font-size: 18px;
-            padding: 12px 8px;
         }
 
-        .event-description {
+        .event-info-column {
+            max-width: 100%;
+        }
+
+        .event-content {
+            gap: 20px;
+        }
+
+        .event-details{
+            gap: 10px;
+        }
+
+        .event-title {
+            font-size: 27px;
+            margin-top: 5px;
+        }
+
+        .event-info {
             font-size: 16px;
-        }
-
-        .event-time {
-            flex-direction: column;
             gap: 5px;
+            min-height: auto;
+            width: 100%;
         }
 
-        .time-separator {
+        /* Ocultar elementos no necesarios en móvil */
+        .event-time,
+        .event-location {
             display: none;
         }
 
-        .event-date {
-            font-size: 20px;
+        .attendance-column {
+            width: 30%;
+            min-width: 120px;
         }
 
+        .attendance-circle {
+            padding: 15px;
+            margin: 0 10px;
+        }
+
+        .attendance-image {
+            width: 60px;
+        }
+
+        .buttons-container {
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .attendance-button,
         .info-button {
-            font-size: 18px;
-            padding: 12px 8px;
+            height: 30px;
+            min-height: 30px;
+            padding: 8px 5px;
+            font-size: 14px;
         }
 
+        /* Ajustes del Modal */
         .modal-content {
             width: 95%;
-            padding: 20px;
+            max-height: 85vh;
+        }
+
+        .modal-header {
+            padding: 15px;
         }
 
         .modal-title {
-            font-size: 30px;
+            font-size: 24px;
+        }
+
+        .modal-close-button {
+            font-size: 24px;
+        }
+
+        .modal-body {
+            padding: 15px;
         }
 
         .modal-grid {
             grid-template-columns: 1fr;
+            gap: 20px;
         }
 
+        /* Reordenar elementos del modal */
         .modal-icon-wrapper {
-            order: -1;
-            padding-top: 0;
+            order: -1; /* Mueve el icono y botón arriba */
+            padding: 0;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .modal-icon-container {
-            width: 200px;
-            height: 200px;
-            padding: 30px;
+            width: 150px;
+            height: 150px;
+            padding: 20px;
+        }
+
+        .modal-info {
+            padding: 10px;
         }
 
         .event-full-title {
-            font-size: 35px;
+            font-size: 24px;
             text-align: center;
         }
 
         .event-info-item {
-            font-size: 20px;
+            font-size: 16px;
+            margin-bottom: 5px;
         }
 
         .event-description {
-            font-size: 18px;
-        }
-
-        .title-container {
-            width: 100%;
+            font-size: 14px;
+            padding: 0 0 0 8px;
         }
     }
 
+    /* Ajustes adicionales para pantallas muy pequeñas */
+    @media screen and (max-width: 480px) {
+        .event-card {
+            padding: 10px 15px;
+        }
+
+        .event-content {
+            gap: 10px;
+        }
+
+        .event-title {
+            font-size: 20px;
+        }
+
+        .event-info {
+            font-size: 12px;
+            gap: 2px;
+        }
+
+        .attendance-circle {
+            padding: 10px;
+        }
+
+        .attendance-image {
+            width: 50px;
+        }
+
+        .buttons-container {
+            gap: 4px;
+        }
+
+        .attendance-button,
+        .info-button {
+            height: 10px;
+            min-height: 30px;
+            font-size: 10px;
+            padding: 6px 4px;
+        }
+
+        /* Ajustes adicionales del Modal */
+        .modal-grid {
+            grid-template-columns: 1fr;
+            gap: 5px;  /* Reducido de 20px a 10px */
+        }
+
+        .modal-icon-wrapper {
+            padding: 0;
+            margin-bottom: 5px;  /* Reducido de 20px a 10px */
+        }
+
+        .modal-icon-container {
+            width: 120px;
+            height: 120px;
+            padding: 15px;
+        }
+
+        .modal-attendance-button {
+            height: 10px;
+            min-height: 30px;
+            font-size: 10px;
+            padding: 0px 4px;
+        }
+
+        .event-full-title {
+            font-size: 20px;
+        }
+
+        .event-info-item {
+            font-size: 14px;
+        }
+
+        .event-description {
+            font-size: 12px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+        }
+
+        .modal-close-button {
+            font-size: 20px;
+        }
+    }
 </style>

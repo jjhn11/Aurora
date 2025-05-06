@@ -4,9 +4,9 @@
         <div class="book-cover-column">
           <div class="book-cover-wrapper">
             <img :src="coverImage" class="book-cover" alt="Book cover" />
-            <div class="favorite-button">
-              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/86fb110ff84335d6202748c08acaddc91f75cb77?placeholderIfAbsent=true&apiKey=e4bc752606e34419a710b790ae8468cc" class="favorite-icon" alt="Favorite" />
-              <span class="favorite-text">Agregar a lista de favoritos</span>
+            <div class="share-container" @click="showShareModal = true">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/1a6aa4f2fbb51c866a58a3dfe493a0c3472a88e6?placeholderIfAbsent=true&apiKey=e4bc752606e34419a710b790ae8468cc" class="share-icon" alt="Share" />
+              <span class="share-text">Compartir</span>
             </div>
           </div>
         </div>
@@ -28,35 +28,59 @@
               <h2 class="synopsis-heading">Sinopsis del libro</h2>
               <p class="synopsis-text">{{ synopsis }}</p>
             </div>
+            <div class="action-buttons">
+              <button class="action-button">RESERVAR</button>
+            </div>
           </div>
         </div>
       </div>
     </section>
+
+    <Share v-if="showShareModal" @close="showShareModal = false"/>
   </template>
   
-  <script>
-  export default {
-    name: "BookInfo",
-    props: {
-      title: {
-        type: String,
-        required: true,
-      },
-      authors: {
-        type: Array,
-        required: true,
-      },
-      coverImage: {
-        type: String,
-        required: true,
-      },
-      synopsis: {
-        type: String,
-        required: true,
-      },
-    },
-  };
-  </script>
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+import { onMounted } from 'vue';
+import Share from '@/components/Library/Book/Share.vue';
+
+const store = useStore();
+
+defineProps({
+  title: {
+    type: String,
+    required: true,
+  },
+  authors: {
+    type: Array,
+    required: true,
+  },
+  coverImage: {
+    type: String,
+    required: true,
+  },
+  synopsis: {
+    type: String,
+    required: true,
+  },
+});
+
+// Replace local ref with computed property connected to store
+const showShareModal = computed({
+  get() {
+    return store.state.showingShareModal;
+  },
+  set(value) {
+    store.commit('setShowingShareModal', value);
+  }
+});
+
+onMounted(() => {
+  showShareModal.value = false; // Initialize the modal state
+});
+
+</script>
   
   <style scoped>
   .book-info-section {
@@ -70,8 +94,9 @@
   }
   
   .book-info-container {
-    gap: 20px;
+    width: 95%;
     display: flex;
+    align-items: start;
   }
   
   @media (max-width: 991px) {
@@ -121,11 +146,12 @@
   }
   
   .book-cover {
-    aspect-ratio: 0.79;
-    object-fit: contain;
-    object-position: center;
-    width: 100%;
+    aspect-ratio: 0.75;
+    /* object-fit: contain;
+    object-position: center; */
+    max-width: 90%;
     border-radius: 10px;
+    border: 1px solid rgba(0, 14, 50, 1);
   }
   
   .favorite-button {
@@ -148,6 +174,7 @@
   }
   
   .favorite-text {
+    font-size: 20px;
     margin-top: auto;
     margin-bottom: auto;
     flex-grow: 1;
@@ -190,8 +217,9 @@
   
   .book-title {
     color: rgba(0, 14, 50, 1);
-    font-size: 50px;
+    font-size: 40px;
     font-family:
+      Playfair Display,
       Crimson Text,
       -apple-system,
       Roboto,
@@ -279,7 +307,7 @@
   
   .synopsis-text {
     color: rgba(0, 14, 50, 1);
-    font-size: 24px;
+    font-size: 20px;
     font-family:
       Nunito Sans,
       -apple-system,
@@ -295,6 +323,87 @@
     .synopsis-text {
       max-width: 100%;
     }
+  }
+
+  /* Add any additional styles here */
+  .share-container {
+    display: flex;
+    margin-top: 19px;
+    align-items: center;
+    gap: 24px;
+    font-family:
+      Nunito Sans,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    font-size: 24px;
+    color: rgba(0, 14, 50, 1);
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  
+  @media (max-width: 991px) {
+    .share-container {
+      white-space: initial;
+    }
+  }
+  
+  .share-icon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    width: 50px;
+    flex-shrink: 0;
+  }
+  
+  .share-text {
+    margin-top: auto;
+    margin-bottom: auto;
+    flex-basis: auto;
+  }
+
+
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 40px 100px;
+    font-family:
+      Josefin Sans,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    font-size: 25px;
+    color: rgba(255, 255, 255, 1);
+    flex-wrap: wrap;
+  }
+  
+  @media (max-width: 991px) {
+    .action-buttons {
+      max-width: 100%;
+    }
+  }
+  
+  .action-button {
+    align-self: stretch;
+    border-radius: 20px;
+    background-color: rgba(0, 71, 255, 1);
+    border-color: rgba(0, 14, 50, 1);
+    border-style: solid;
+    border-width: 1px;
+    padding: 10px 20px 10px 20px;
+    gap: 10px;
+    color: rgba(255, 255, 255, 1);
+    font-family:
+      Josefin Sans,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    font-size: 25px;
+    font-weight: 600;
+    cursor: pointer;
   }
   </style>
   

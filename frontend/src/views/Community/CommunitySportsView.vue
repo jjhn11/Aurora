@@ -4,6 +4,8 @@
     import CreateEventForm from '@/components/community/CreateEventForm.vue';
     import EventCard from '@/components/community/EventCard.vue';
 
+    import NOEVE from '@/assets/img/community/IMAGEN SIN EVENTOS.png';
+
     import VOLLEY from '@/assets/img/community/icons/sports/ICONO VOLLEYBALL.png'
     import BEIS from '@/assets/img/community/icons/sports/ICONO BEISBOL.png'
     import ATLET from '@/assets/img/community/icons/sports/ICONO ATLETISMO.png'
@@ -35,29 +37,29 @@
     };
 
     const recreationalActivities = [
-        'VOLLEYBALL SALA',
-        'VOLLEYBALL PLAYA',
-        'SOFTBOL',
-        'BEISBOL',
-        'BASQUETBOL',
-        'ATLETISMO',
-        'PORRA',
-        'BOX',
-        'SOCCER / FUTBOL'
+        'Volleyball Sala',
+        'Volleyball Playa',
+        'Softball',
+        'Baseball',
+        'Basketball',
+        'Atletismo',
+        'Porra',
+        'Box',
+        'Football'
     ];
 
     const recreationalLocations = [
-        'CANCHA VOLLEYBALL SALA TRASERA 1',
-        'CANCHA VOLLEYBALL SALA TRASERA 2',
-        'CANCHA VOLLEYBALL PLAYA',
-        'CAMPO SOFTBOL',
-        'CAMPO BEISBOL 1',
-        'CAMPO BEISBOL 2',
-        'CANCHA BASQUETBOL CENTRAL',
-        'CANCHA BASQUETBOL TRASERA',
-        'CANCHA SOCCER / FUTBOL 1',
-        'CANCHA SOCCER / FUTBOL 2',
-        'CANCHA SOCCER / FUTBOL 3'
+        'Cancha Volleyball Sala Trasera 1',
+        'Cancha Volleyball Sala Trasera 2',
+        'Cancha Volleyball Playa',
+        'Campo Softball',
+        'Campo Baseball 1',
+        'Campo Baseball 2',
+        'Cancha Basketball Central',
+        'Cancha Basketball Trasera',
+        'Cancha Soccer / Football 1',
+        'Cancha Soccer / Football 2',
+        'Cancha Soccer / Football 3'
     ];
 
     const recreationalIcons = [
@@ -122,8 +124,8 @@
     <!-- ### Botón Crear Evento ### -->
     
     <div class="container-fluid justify-content-center">
-        <div class="cre-cont col-12 d-flex justify-content-end text-center mt-4 pe-4">
-            <button class="cre-button btn btn-primary mt-3" type="button" @click="showForm = true">
+        <div class="cre-cont col-12 d-flex justify-content-end text-center pe-4">
+            <button class="cre-button btn btn-primary" type="button" @click="showForm = true">
                 <i class="cre-icon fa-solid fa-circle-plus"></i>
                 <span> CREAR EVENTO</span>
             </button>
@@ -160,9 +162,11 @@
     <!-- ### Aviso de "Ningún Evento" ### -->
     
     <div v-else class="container-fluid justify-content-center">
-        <div class="avit-cont col-12 text-center my-5">
-            <p class="avit-text">No hay ningún evento de la comunidad, por favor regrese en un momento.</p>
-            <RouterLink to="/" class="avit-button btn btn-primary mt-3">
+        <div class="avit-cont col-12 text-center">
+            <p class="avit-text-up">¡CREA TU EVENTO!</p>
+            <img class="avit-img" :src="NOEVE">
+            <p class="avit-text-down">No hay ningún evento de la comunidad, por favor regrese en un momento.</p>
+            <RouterLink to="/" class="avit-button btn btn-primary mt-2">
                 <span>Regresar a Inicio</span>
             </RouterLink>
         </div>
@@ -242,15 +246,16 @@
     }
 
     .cre-cont {
-        
+        margin-top: 30px;
+
         .cre-button {
             display: flex;
             align-items: center; /* Centra verticalmente */
             justify-content: center; /* Centra horizontalmente */
             text-align: center;
 
-            background-color: white;
-            border: none;
+            background-color: rgba(0, 0, 0, 0);
+            border-color: rgba(0, 0, 0, 0); /* Updated border color */
 
 
             width: 225px;
@@ -285,18 +290,36 @@
     }
 
     .avit-cont {
+        margin-top: 30px;
+        margin-bottom: 35px;
+
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         
-        .avit-text {
+        .avit-text-up {
+            font-family: 'Playfair Display';
+            font-weight: 700;
+            font-size: 35px;
+            color: rgb(145, 145, 145);
+            letter-spacing: 0.05em;
+            width: 900px;
+        }
+
+        .avit-text-down {
             font-family: 'Playfair Display';
             font-weight: 700;
             font-size: 45px;
             color: rgb(145, 145, 145);
             letter-spacing: 0.05em;
             width: 900px;
+        }
+
+        .avit-img {
+            width: auto;
+            height: 300px;
+            margin: 20px 0;
         }
 
         .avit-button {
@@ -344,8 +367,163 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
-        padding: 20px;
+        padding: 30px 20px;
         align-items: center;
+    }
+
+    /* Media Queries para Responsive Design */
+    @media screen and (max-width: 1024px) {
+        /* Hero Section */
+        .hero-container {
+            height: 180px;
+        }
+
+        .hero-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3.5rem;
+            width: 100%;
+            height: auto;
+            transform: none;
+            padding: 10px 0 0 0;
+        }
+
+        /* Botón Crear Evento */
+        .cre-cont {
+            display: flex;
+            justify-content: center !important;
+            padding-right: 0 !important;
+            
+            .cre-button {
+                border-color: rgba(126, 131, 130, 1);
+                background-color: rgba(242, 242, 242, 1);
+                border-radius: 50px;
+
+                height: 50px;
+                width: 90%;
+                max-width: 300px;
+                margin: 0px auto;
+                
+
+                &:hover {
+                    background-color: #000E32;
+
+                    span, .cre-icon {
+                        color: white;
+                    }
+                }
+            }
+        }
+
+        /* Mensaje sin eventos */
+        .avit-cont {
+            padding: 0 15px;
+
+            .avit-text-up {
+                width: 100%;
+                font-size: 22px;
+                text-align: center;
+                padding: 0 10px;
+            }
+            
+            .avit-text-down {
+                width: 100%;
+                font-size: 28px;
+                text-align: center;
+                padding: 0 10px;
+            }
+
+            .avit-img {
+                width: auto;
+                height: 250px;
+                margin: 10px 0;
+            }
+
+            .avit-button {
+                border-color: rgba(126, 131, 130, 1);
+                background-color: rgba(242, 242, 242, 1);
+                width: 200px;
+                margin-top: 20px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        /* Hero Section ajustes para móviles pequeños */
+        .hero-container {
+            height: 100px;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+        }
+
+        /* Botón Crear Evento ajustes */
+        .cre-cont {
+            .cre-button {
+                border-color: rgba(126, 131, 130, 1);
+                background-color: rgba(242, 242, 242, 1);
+                border-radius: 50px;
+
+                height: 45px;
+                
+                span {
+                    height: 20px;
+                    font-size: 16px;
+                }
+
+                .cre-icon {
+                    font-size: 24px;
+                    margin-right: 10px;
+                }
+
+                &:hover {
+                    background-color: #000E32;
+
+                    span, .cre-icon {
+                        color: white;
+                    }
+                }
+            }
+        }
+
+        /* Mensaje sin eventos ajustes */
+        .avit-cont {
+
+            .avit-text-up {
+                font-size: 20px;
+            }
+
+            .avit-text-down {
+                font-size: 24px;
+            }
+
+            .avit-img {
+                width: auto;
+                height: 200px;
+                margin: 5px 0;
+            }
+
+            .avit-button {
+                border-color: rgba(126, 131, 130, 1);
+                background-color: rgba(242, 242, 242, 1);
+                width: 180px;
+                height: 45px;
+                
+                span {
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+
+    /* Contenedor de eventos responsive */
+    @media screen and (max-width: 768px) {
+        .events-container {
+            padding: 30px 10px;
+            width: 100%;
+        }
     }
 
 </style>

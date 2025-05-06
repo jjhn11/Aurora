@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
 import Card from './Card.vue';
-
+import Modal from '../Modal.vue';
 const props = defineProps({
   category: String
 });
@@ -41,23 +41,39 @@ const paginatedFilteredEvents = computed(() => {
 // Total de páginas filtrada
 const totalPages = computed(() => Math.ceil(filteredEvents.value.length / itemsPerPage));
 
+// Estado del Modal
+const selectedEvent = ref({});
+const isModalOpen = ref(false);
+
+const openModal = (event) => {
+  selectedEvent.value = event;
+  isModalOpen.value = true;
+};
+
+const closeModal = () => {
+  selectedEvent.value = {};
+  isModalOpen.value = false;
+};
+
 </script>
 
 <template>
     <div class="container py-4">
       <div class="row">
         <div
-          class="col-12 col-md-6 col-lg-4 mb-4"
-          v-for="event in paginatedFilteredEvents"
-          :key="event.id"
-        >
-          <Card
-            :title="event.title"
-            :date="event.date"
-            :description="event.description"
-            :image="event.image"
-          />
-        </div>
+  class="event-column mb-4"
+  v-for="event in paginatedFilteredEvents"
+  :key="event.id"
+>
+  <Card
+    :title="event.title"
+    :date="event.date"
+    :description="event.description"
+    :image="event.image"
+    @click="openModal(event)"
+  />
+</div>
+
       </div>
 
   
@@ -85,7 +101,8 @@ const totalPages = computed(() => Math.ceil(filteredEvents.value.length / itemsP
         </ul>
       </nav>
     </div>
-  </template>
+  <Modal :isOpen="isModalOpen" :event="selectedEvent" @close="closeModal" />
+</template>
   
 
 <style scoped>
@@ -120,5 +137,67 @@ const totalPages = computed(() => Math.ceil(filteredEvents.value.length / itemsP
 .page-btn:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 90%;
+  position: relative;
+  text-align: center;
+}
+
+.modal-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.close-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.event-column {
+  width: 100%;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+  align-items: stretch;
+}
+
+.event-column {
+  width: 33.3333%;
+  padding: 0 0.5rem;
+  display: flex;
+}
+
+@media (max-width: 776px) {
+  .event-column {
+    width: 33.3333%;
+    padding: 0 3.5%;
+  }
 }
 </style>

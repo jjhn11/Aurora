@@ -1,36 +1,36 @@
 <template>
-  <div>
-    <section class="hero-container">
-      <!-- Always show the GIF as fallback -->
-      <img 
-        src="@/assets/img/home/herovideo.gif" 
-        alt="Hero animation" 
-        class="hero-background"
-      >
-      
-      <!-- Simple video implementation -->
-      <video 
-        autoplay 
-        muted 
-        loop 
-        playsinline
-        class="hero-video"
-      >
-        <source src="@/assets/img/home/herovideo.mp4" type="video/mp4">
-      </video>
 
-      <!-- Overlay Content -->
-      <div class="hero-overlay">
-        <!-- <span class="hero-title">Aurora</span> -->
-        <img src="@/assets/img/home/herovideo-title.png" alt="Hero title" class="hero-title">
-      </div>
+  <section class="hero-container">
+    <!-- Always show the GIF as fallback -->
+    <img 
+      src="@/assets/img/home/herovideo.gif" 
+      alt="Hero animation" 
+      class="hero-background"
+    >
+    
+    <!-- Simple video implementation -->
+    <video 
+      autoplay 
+      muted 
+      loop 
+      playsinline
+      class="hero-video"
+    >
+      <source src="@/assets/img/home/herovideo.mp4" type="video/mp4">
+    </video>
 
-      <!-- SVG Curve -->
-      <svg class="hero-curve" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path fill="white" fill-opacity="1" d="M0,160 C360,300 1080,300 1440,160 L1440,321 L0,321 Z"></path>
-      </svg>
-    </section>
-  </div>
+    <!-- Overlay Content -->
+    <div class="hero-overlay">
+      <!-- <span class="hero-title">Aurora</span> -->
+      <img src="@/assets/img/home/herovideo-title.png" alt="Hero title" class="hero-title">
+    </div>
+
+    <!-- SVG Curve -->
+    <svg class="hero-curve" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 345">
+      <path fill="white" fill-opacity="1" d="M0,160 C360,400 1080,400 1440,160 L1440,400 L0,400 Z"></path>
+    </svg>
+  </section>
+
 </template>
   
 <style scoped>
@@ -38,11 +38,13 @@
 /* Hero Container */
 .hero-container {
   position: relative;
+  top:auto;
   width: 100%;
-  height: 90vh;
+  height: 100vh;
   overflow: hidden;
   display: flex;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0); /* Cambiado a fondo transparente */
+  margin-top: -115px;
 }
 
 /* Gradient Overlay */
@@ -64,7 +66,7 @@
   top: 0;
   left: -10%;
   width: 130%;
-  height: 113%;
+  height: 95%;
   object-fit: cover;
   object-position: 100% 95%;
 }
@@ -92,25 +94,12 @@
 /* SVG Curve */
 .hero-curve {
   position: absolute;
-  bottom: 0;
+  bottom: -1%;
   left: 0;
-  width: 100%;
+  width: 101%;
   height: auto;
   z-index: 4;
 }
-
-/* .hero-title {
-  font-family: 'Cinzel Decorative';
-  font-weight: 700;
-  font-size: 5rem;
-  color: white;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-  margin: 0 auto;
-  transform: translateY(30%);
-  letter-spacing: 0.05em;
-}
-*/
-
 
 .hero-title {
   width: 75%;
@@ -118,6 +107,26 @@
   margin: 0 auto;
   transform: translate(20%, 130%); 
 } 
+@media (max-width: 1076px) {
+  .hero-container {
+    height: 60vh;
+  }
 
+  .hero-title {
+    width: 75%;
+    transform: translateY(30%);
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-container {
+    height: 45vh;
+  }
+
+  .hero-title {
+    width: 85%;
+    transform: translateY(20%);
+  }
+}
 
 </style>

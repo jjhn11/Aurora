@@ -13,16 +13,21 @@ export default createStore({
   state: {
     isAuthenticated: false,
     user: null,
+    showingShareModal: false,
   },
   getters: {
     isAuthenticated: (state) => state.isAuthenticated,
     user: (state) => state.user,
+    showingShareModal: (state) => state.showingShareModal,
   },
   mutations: {
     setAuthState(state, { isAuthenticated, user }) {
       state.isAuthenticated = isAuthenticated;
       state.user = user;
-    }
+    },
+    setShowingShareModal(state, showingShareModal) {
+      state.showingShareModal = showingShareModal;
+    },
   },
   actions: {
     // Check if user is authenticated
