@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useStore } from 'vuex';
 import CardHome from './CardHome.vue';
 import Modal from '../Modal.vue';
@@ -7,10 +7,22 @@ import Modal from '../Modal.vue';
 const store = useStore();
 
 // Get popular books from store
-const events = store.state.events?.events;
+// const events = store.state.events?.events;
 
 // Setup carousel events handling
 let scrollPos = 0;
+
+// Cargar eventos al montar el componente
+onMounted(async () => {
+  if (!store.state.events?.events?.length) {
+    await store.dispatch('events/loadInitialData');
+  }
+});
+
+// Obtener solo eventos escolares usando el getter
+const events = computed(() => 
+  store.getters['events/getAllEvents'] || []
+);
 
 onMounted(() => {
   const carousel = document.querySelector('#carrusel1');
@@ -62,60 +74,29 @@ const closeModal = () => {
                     <div class="row justify-content-center">
                         <div class="col-md-4">
                             <CardHome
-                               :id="events[0].id"
-                               :image="events[0].image"
-                               :title="events[0].title"
-                               :description="events[0].description"
-                               @openModal="openModal(events[0])"
+                              :id="events[0].Id_event"
+                              :image="'/src/assets/img/events/sports-event-2.jpg'"
+                              :title="events[0].Title"
+                              :description="events[0].Description"
+                              @openModal="openModal(event)"
                             />
                         </div>
                         <div class="col-md-4">
                             <CardHome
-                               :id="events[1].id"
-                               :image="events[1].image"
-                               :title="events[1].title"
-                               :description="events[1].description"
-                               @openModal="openModal(events[1])"
+                              :id="events[1].Id_event"
+                              :image="'/src/assets/img/events/sports-event-2.jpg'"
+                              :title="events[1].Title"
+                              :description="events[1].Description"
+                              @openModal="openModal(event)"
                             />
                         </div>
                         <div class="col-md-4">
                             <CardHome
-                               :id="events[2].id"
-                               :image="events[2].image"
-                               :title="events[2].title"
-                               :description="events[2].description"
-                               @openModal="openModal(events[2])"
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="row justify-content-center">
-                        <div class="col-md-4">
-                            <CardHome
-                               :id="events[3].id"
-                               :image="events[3].image"
-                               :title="events[3].title"
-                               :description="events[3].description"
-                               @openModal="openModal(events[3])"
-                            />
-                        </div>
-                        <div class="col-md-4">
-                            <CardHome
-                               :id="events[4].id"
-                               :image="events[4].image"
-                               :title="events[4].title"
-                               :description="events[4].description"
-                               @openModal="openModal(events[4])"
-                            />
-                        </div>
-                        <div class="col-md-4">
-                            <CardHome
-                               :id="events[5].id"
-                               :image="events[5].image"
-                               :title="events[5].title"
-                               :description="events[5].description"
-                               @openModal="openModal(events[5])"
+                              :id="events[2].Id_event"
+                              :image="'/src/assets/img/events/sports-event-2.jpg'"
+                              :title="events[2].Title"
+                              :description="events[2].Description"
+                              @openModal="openModal(event)"
                             />
                         </div>
                     </div>
@@ -124,29 +105,60 @@ const closeModal = () => {
                     <div class="row justify-content-center">
                         <div class="col-md-4">
                             <CardHome
-                               :id="events[6].id"
-                               :image="events[6].image"
-                               :title="events[6].title"
-                               :description="events[6].description"
-                               @openModal="openModal(events[6])"
+                              :id="events[3].Id_event"
+                              :image="'/src/assets/img/events/sports-event-2.jpg'"
+                              :title="events[3].Title"
+                              :description="events[3].Description"
+                              @openModal="openModal(event)"
                             />
                         </div>
                         <div class="col-md-4">
                             <CardHome
-                               :id="events[7].id"
-                               :image="events[7].image"
-                               :title="events[7].title"
-                               :description="events[7].description"
-                               @openModal="openModal(events[7])"
+                              :id="events[4].Id_event"
+                              :image="'/src/assets/img/events/sports-event-2.jpg'"
+                              :title="events[4].Title"
+                              :description="events[4].Description"
+                              @openModal="openModal(event)"
                             />
                         </div>
                         <div class="col-md-4">
                             <CardHome
-                               :id="events[8].id"
-                               :image="events[8].image"
-                               :title="events[8].title"
-                               :description="events[8].description"
-                               @openModal="openModal(events[8])"
+                              :id="events[5].Id_event"
+                              :image="'/src/assets/img/events/sports-event-2.jpg'"
+                              :title="events[5].Title"
+                              :description="events[5].Description"
+                              @openModal="openModal(event)"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row justify-content-center">
+                        <div class="col-md-4">
+                            <CardHome
+                              :id="events[6].Id_event"
+                              :image="'/src/assets/img/events/sports-event-2.jpg'"
+                              :title="events[6].Title"
+                              :description="events[6].Description"
+                              @openModal="openModal(event)"
+                            />
+                        </div>
+                        <div class="col-md-4">
+                            <CardHome
+                              :id="events[7].Id_event"
+                              :image="'/src/assets/img/events/sports-event-2.jpg'"
+                              :title="events[7].Title"
+                              :description="events[7].Description"
+                              @openModal="openModal(event)"
+                            />
+                        </div>
+                        <div class="col-md-4">
+                            <CardHome
+                              :id="events[8].Id_event"
+                              :image="'/src/assets/img/events/sports-event-2.jpg'"
+                              :title="events[8].Title"
+                              :description="events[8].Description"
+                              @openModal="openModal(event)"
                             />
                         </div>
                     </div>
