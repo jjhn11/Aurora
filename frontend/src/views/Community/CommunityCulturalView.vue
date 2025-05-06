@@ -4,21 +4,14 @@ import { useStore } from 'vuex';
 import CreateEventForm from '@/components/community/CreateEventForm.vue';
 import EventCard from '@/components/community/EventCard.vue';
 
-import PIANO from '@/assets/img/community/icons/cultural/ICONO PIANO.png';
-import INTER from '@/assets/img/community/icons/cultural/ICONO INTERNACIONALES.png';
-import DANZA from '@/assets/img/community/icons/cultural/ICONO DANZA.png';
-import MUSICA from '@/assets/img/community/icons/cultural/ICONO MUSICA.png';
-import DEBATE from '@/assets/img/community/icons/cultural/ICONO DEBATE.png';
-import ARTES from '@/assets/img/community/icons/cultural/ICONO ARTES PLASTICAS.png';
+import NOEVE from '@/assets/img/community/IMAGEN SIN EVENTOS.png';
 
-    import NOEVE from '@/assets/img/community/IMAGEN SIN EVENTOS.png';
-
-    import PIANO from '@/assets/img/community/icons/cultural/ICONO PIANO.png'
-    import INTER from '@/assets/img/community/icons/cultural/ICONO INTERNACIONALES.png'
-    import DANZA from '@/assets/img/community/icons/cultural/ICONO DANZA.png'
-    import MUSICA from '@/assets/img/community/icons/cultural/ICONO MUSICA.png'
-    import DEBATE from '@/assets/img/community/icons/cultural/ICONO DEBATE.png'
-    import ARTES from '@/assets/img/community/icons/cultural/ICONO ARTES PLASTICAS.png'
+import PIANO from '@/assets/img/community/icons/cultural/ICONO PIANO.png'
+import INTER from '@/assets/img/community/icons/cultural/ICONO INTERNACIONALES.png'
+import DANZA from '@/assets/img/community/icons/cultural/ICONO DANZA.png'
+import MUSICA from '@/assets/img/community/icons/cultural/ICONO MUSICA.png'
+import DEBATE from '@/assets/img/community/icons/cultural/ICONO DEBATE.png'
+import ARTES from '@/assets/img/community/icons/cultural/ICONO ARTES PLASTICAS.png'
 const store = useStore();
 const showForm = ref(false);
 const events = ref([]);

@@ -4,6 +4,7 @@ import { useStore } from 'vuex';
 import CreateEventForm from '@/components/community/CreateEventForm.vue';
 import EventCard from '@/components/community/EventCard.vue';
 
+import NOEVE from '@/assets/img/community/IMAGEN SIN EVENTOS.png';
 import VOLLEY from '@/assets/img/community/icons/sports/ICONO VOLLEYBALL.png'
 import BEIS from '@/assets/img/community/icons/sports/ICONO BEISBOL.png'
 import ATLET from '@/assets/img/community/icons/sports/ICONO ATLETISMO.png'
@@ -13,16 +14,6 @@ import SOFT from '@/assets/img/community/icons/sports/ICONO SOFTBOL.png'
 import PORRA from '@/assets/img/community/icons/sports/ICONO PORRA.png'
 import BOX from '@/assets/img/community/icons/sports/ICONO BOX.png'
 
-    import NOEVE from '@/assets/img/community/IMAGEN SIN EVENTOS.png';
-
-    import VOLLEY from '@/assets/img/community/icons/sports/ICONO VOLLEYBALL.png'
-    import BEIS from '@/assets/img/community/icons/sports/ICONO BEISBOL.png'
-    import ATLET from '@/assets/img/community/icons/sports/ICONO ATLETISMO.png'
-    import FUTB from '@/assets/img/community/icons/sports/ICONO FUTBOL.png'
-    import BASKET from '@/assets/img/community/icons/sports/ICONO BASQUETBOL.png'
-    import SOFT from '@/assets/img/community/icons/sports/ICONO SOFTBOL.png'
-    import PORRA from '@/assets/img/community/icons/sports/ICONO PORRA.png'
-    import BOX from '@/assets/img/community/icons/sports/ICONO BOX.png'
 const store = useStore();
 const showForm = ref(false);
 const events = ref([]);

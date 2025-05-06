@@ -11,18 +11,17 @@ import I3EA from '@/assets/img/community/icons/recreational/ICONO ESCOLTA.png'
 import I4TS from '@/assets/img/community/icons/recreational/ICONO TUTORIAS.png'
 import I5AZ from '@/assets/img/community/icons/recreational/ICONO AJEDREZ.png'
 
-    import NOEVE from '@/assets/img/community/IMAGEN SIN EVENTOS.png';
-
-    import ACCION from '@/assets/img/community/icons/videogames/ICONO ACCION.png'
-    import AVENTURA from '@/assets/img/community/icons/videogames/ICONO AVENTURA.png'
-    import ROL from '@/assets/img/community/icons/videogames/ICONO ROL.png'
-    import ESTRATEGIA from '@/assets/img/community/icons/videogames/ICONO ESTRATEGIA.png'
-    import SIMULACION from '@/assets/img/community/icons/videogames/ICONO SIMULACION.png'
-    import DEPORTE from '@/assets/img/community/icons/videogames/ICONO DEPORTE.png'
-    import CARRERA from '@/assets/img/community/icons/videogames/ICONO CARRERA.png'
-    import PUZZLE from '@/assets/img/community/icons/videogames/ICONO PUZZLE.png'
-    import TERROR from '@/assets/img/community/icons/videogames/ICONO TERROR.png'
-    import MUSICA from '@/assets/img/community/icons/videogames/ICONO MUSICA.png'
+import NOEVE from '@/assets/img/community/IMAGEN SIN EVENTOS.png';
+import ACCION from '@/assets/img/community/icons/videogames/ICONO ACCION.png'
+import AVENTURA from '@/assets/img/community/icons/videogames/ICONO AVENTURA.png'
+import ROL from '@/assets/img/community/icons/videogames/ICONO ROL.png'
+import ESTRATEGIA from '@/assets/img/community/icons/videogames/ICONO ESTRATEGIA.png'
+import SIMULACION from '@/assets/img/community/icons/videogames/ICONO SIMULACION.png'
+import DEPORTE from '@/assets/img/community/icons/videogames/ICONO DEPORTE.png'
+import CARRERA from '@/assets/img/community/icons/videogames/ICONO CARRERA.png'
+import PUZZLE from '@/assets/img/community/icons/videogames/ICONO PUZZLE.png'
+import TERROR from '@/assets/img/community/icons/videogames/ICONO TERROR.png'
+import MUSICA from '@/assets/img/community/icons/videogames/ICONO MUSICA.png'
     
 const store = useStore();
 const showForm = ref(false);
