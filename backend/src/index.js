@@ -1,19 +1,23 @@
-require('dotenv').config();
-const express = require('express');
-const session = require('express-session');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const passport = require('./config/passport');
-const open = (...args) => import('open').then(m => m.default(...args));
-const authRoutes = require('./routes/auth');
-const taskRoutes = require('./routes/task');
-const checkAuth = require('./middlewares/checkAuth');
-const { pool } = require('./config/db');
-const { sequelize } = require('./config/db');
-const communityRoutes = require('./routes/community');
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import express from 'express';
+import session from 'express-session';
+import { sequelize } from './config/db.js';
+import passport from './config/passport.js';
+import checkAuth from './middlewares/checkAuth.js';
+import authRoutes from './routes/auth.js';
+import communityRoutes from './routes/community.js';
+import eventsRoutes from './routes/events.js';
+import userRoutes from './routes/user.js';
+import { runAssociations } from './models/associations.js'
+import { loadSampleData } from './scripts/loadSampleData.js'
 
-const { isProfane } = require('./middlewares/checkProfane.js');	
+dotenv.config();
+const open = (...args) => import('open').then(m => m.default(...args));
+import mailRoutes from './routes/mail.js';
+
+import { isProfane } from './middlewares/checkProfane.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -24,6 +28,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 
+
 app.use(session({
   secret: process.env.SESSION_SECRET || 'your_session_secret',
   resave: false,
@@ -31,9 +36,10 @@ app.use(session({
   rolling: true,
   cookie: {
     secure: process.env.NODE_ENV === 'production',
-    maxAge: 1 * 60 * 1000,
+    maxAge: 1 * 60 * 60 * 1000,
     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-    httpOnly: true
+    httpOnly: true,
+    // javaScriptEnabled: false
   }
 }));
 
@@ -43,8 +49,10 @@ app.use(passport.session());
 
 // Routes
 app.use('/auth', authRoutes);
-app.use('/api/tasks', taskRoutes);
-app.use('/api', communityRoutes);
+app.use('/community', communityRoutes);
+app.use('/events', eventsRoutes);
+app.use('/user', userRoutes);
+app.use('/mail', mailRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => res.json({ status: 'ok', service: 'backend' }));
@@ -54,10 +62,14 @@ app.get('/', checkAuth, (req, res) => {
   res.json({ message: 'Tas loggeado tilin' });
 });
 
-app.post('/test/profanity', isProfane(['texto1', 'texto2', 'texto3']), (req, res) => {
-  console.log(req.body);
-  res.json({ message: 'No hay profanidad' });
+app.post('/profanity', isProfane, (req, res) => {
+  res.json({ 
+    message: 'No hay profanidad',
+    SFW: true,
+    verifiedFields: req.body.fieldsToCheck
+  });
 });
+
 
 // DB init  **************CONSULTAS MANUALES*************
 // async function connectWithRetry(maxAttempts = 10, delay = 5000) {
@@ -85,6 +97,10 @@ async function connectWithRetry(maxAttempts = 10, delay = 5000) {
     try {
       await sequelize.authenticate();
       console.log(' Database connected successfully with Sequelize.');
+      await sequelize.sync({ force: false }); 
+      runAssociations();
+      // await CommunityEventAttendance.sync(); // Por si no se sincroniza con la linea de arriba
+      console.log('Database synchronized successfully.');
       return true;
     } catch (err) {
       attempts++;
@@ -95,24 +111,30 @@ async function connectWithRetry(maxAttempts = 10, delay = 5000) {
   return false;
 }
 
+
+
 // Start server
 async function startServer() {
-  const server = app.listen(PORT, '0.0.0.0', async () => {
-    console.log(`Server running on port ${PORT}`);
-    if (process.env.NODE_ENV !== 'production') {
-      await open(`http://localhost:${PORT}`);
-    }
-  });
-
   const connected = await connectWithRetry();
   if (!connected) {
     console.error('DB connection failed. Exiting.');
     server.close();
     process.exit(1);
   }
+  
+  const server = app.listen(PORT, '0.0.0.0', async () => {
+    console.log(`Server running on port ${PORT}`);
+    if (process.env.NODE_ENV !== 'production') {
+      await open(`http://localhost:${PORT}`);
+    }
+  });
 }
 
 startServer().catch(err => {
   console.error('Startup error:', err);
   process.exit(1);
 });
+
+// await loadSampleData();
+
+console.log('Modelo registrado: ', Object.keys(sequelize.models));

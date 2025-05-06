@@ -1,102 +1,116 @@
-import libroBigData from '@/assets/img/library/LibroBigData.png';
-import libroFisicoquimica from '@/assets/img/library/LibroFisicoquimica.png';
-import libroMarxismo from '@/assets/img/library/LibroMarxismo.jpg';
-import libroPsicologia from '@/assets/img/library/LibroPsicologia.jpg';
+import axios from 'axios';
 
 export default {
   namespaced: true,
+  
   state: {
-    userData: {
-      id: 'user123',
-      name: 'Juan Pérez',
-      email: 'juan.perez@example.com',
-      role: 'estudiante'
-    },
-    favoriteBooks: [
-      {
-        id: "codigo-limpio-1",
-        ISBN: "9788441532106",
-        title: "CÓDIGO LIMPIO",
-        coverImage: libroBigData,
-        description: "Este libro aborda los principios y buenas prácticas para escribir código limpio, mantenible y eficiente. Es una guía esencial para desarrolladores que desean mejorar la calidad y legibilidad de su código.",
-        type: "Libro Físico",
-        addedDate: "15/03/2023",
-        comments: "",
-        author: "Robert C. Martin"
-      },
-      {
-        id: "contabilidad-avanzada-2",
-        ISBN: "9788480888646",
-        title: "CONTABILIDAD AVANZADA",
-        coverImage: libroFisicoquimica,
-        description: "Este libro abarca en profundidad los métodos y prácticas de la contabilidad avanzada, incluyendo técnicas de consolidación, combinaciones de negocios y otros temas complejos en el ámbito contable.",
-        type: "Libro Digital",
-        addedDate: "22/04/2023",
-        comments: "Excelente para la clase de Finanzas III",
-        author: "José Luis Wanden-Berghe"
-      },
-      {
-        id: "big-data-3",
-        ISBN: "9788415832102",
-        title: "BIG DATA",
-        coverImage: libroMarxismo,
-        description: "Una exploración completa sobre el manejo y análisis de grandes volúmenes de datos, sus aplicaciones en diferentes industrias y cómo está transformando la toma de decisiones y los modelos de negocio.",
-        type: "Libro Físico",
-        addedDate: "08/05/2023",
-        comments: "",
-        author: "Viktor Mayer-Schönberger"
-      },
-      {
-        id: "circuitos-electronicos-4",
-        ISBN: "9786073227391",
-        title: "CIRCUITOS ELECTRÓNICOS",
-        coverImage: libroPsicologia,
-        description: "Un texto comprensivo sobre el diseño, análisis y aplicación de circuitos electrónicos, desde los conceptos básicos hasta aplicaciones avanzadas en sistemas digitales y analógicos.",
-        type: "Libro Físico",
-        addedDate: "12/06/2023",
-        comments: "Útil para el proyecto final",
-        author: "Robert L. Boylestad"
-      }
-    ],
-    reservations: [],
-    debts: [],
+    // Usuario autenticado y su información de perfil
+    profile: null,
+    // Datos completos del usuario (incluyendo datos del modelo User)
+    userData: null,
+    // Estado de autenticación (redundante con el store principal, pero útil aquí)
+    isAuthenticated: false,
+    // Libros favoritos del usuario
+    favoriteBooks: [],
+    // Actividades organizadas por el usuario
+    organizedActivities: [],
+    // Actividades a las que asistirá el usuario
+    attendingActivities: [],
+    // Estados de carga para diferentes operaciones
     loading: {
+      profile: false,
+      userData: false,
       favorites: false,
-      reservations: false,
-      debts: false,
-      profile: false
+      activities: false,
+      update: false
     },
+    // Estados de error para diferentes operaciones
     error: {
+      profile: null,
+      userData: null,
       favorites: null,
-      reservations: null,
-      debts: null,
-      profile: null
+      activities: null,
+      update: null
     }
   },
 
   getters: {
-    // Get all favorite books
-    getFavoriteBooks: (state) => {
-      return state.favoriteBooks;
+    // Obtener perfil de usuario de Google
+    getProfile: state => state.profile,
+    
+    // Obtener datos completos del usuario
+    getUserData: state => state.userData,
+    
+    // Obtener nombre completo del usuario
+    getFullName: state => {
+      if (state.userData) {
+        return `${state.userData.Name_user || ''} ${state.userData.Last_name || ''}`.trim();
+      }
+      return state.profile ? state.profile.name : '';
     },
     
-    // Get a specific favorite book by ID
-    getFavoriteBookById: (state) => (id) => {
-      return state.favoriteBooks.find(book => book.id === id || book.ISBN === id);
+    // Obtener correo del usuario
+    getEmail: state => {
+      if (state.userData) {
+        return state.userData.Email;
+      }
+      return state.profile ? state.profile.email : '';
     },
     
-    // Check if a book is in favorites
-    isBookFavorite: (state) => (id) => {
-      return state.favoriteBooks.some(book => book.id === id || book.ISBN === id);
+    // Obtener ID del usuario
+    getUserId: state => {
+      if (state.userData) {
+        return state.userData.Id_user;
+      }
+      return null;
     },
     
-    // Get user profile data
-    getUserProfile: (state) => {
-      return state.userData;
-    }
+    // Obtener número de control
+    getControlNumber: state => state.userData?.Control_num || null,
+    
+    // Obtener género del usuario
+    getGenderId: state => state.userData?.Id_gender || null,
+    
+    // Obtener ocupación del usuario
+    getOccupationId: state => state.userData?.Id_occupation || null,
+    
+    // Obtener estado del usuario
+    getUserStatusId: state => state.userData?.Id_user_status || null,
+    
+    // Obtener estado de autenticación
+    isAuthenticated: state => state.isAuthenticated,
+    
+    // Obtener libros favoritos
+    getFavoriteBooks: state => state.favoriteBooks,
+    
+    // Verificar si un libro está en favoritos
+    isBookFavorite: state => bookId => {
+      return state.favoriteBooks.some(book => book.id === bookId || book.ISBN === bookId);
+    },
+    
+    // Obtener actividades organizadas por el usuario
+    getOrganizedActivities: state => state.organizedActivities,
+    
+    // Obtener actividades a las que asistirá el usuario
+    getAttendingActivities: state => state.attendingActivities,
+    
+    // Estados de carga
+    isLoading: state => type => state.loading[type],
+    
+    // Estados de error
+    getError: state => type => state.error[type]
   },
   
   mutations: {
+    SET_PROFILE(state, profile) {
+      state.profile = profile;
+      state.isAuthenticated = !!profile;
+    },
+    
+    SET_USER_DATA(state, userData) {
+      state.userData = userData;
+    },
+    
     SET_FAVORITE_BOOKS(state, books) {
       state.favoriteBooks = books;
     },
@@ -111,128 +125,278 @@ export default {
       );
     },
     
-    SET_USER_DATA(state, userData) {
-      state.userData = userData;
+    SET_ORGANIZED_ACTIVITIES(state, activities) {
+      state.organizedActivities = activities;
+    },
+    
+    SET_ATTENDING_ACTIVITIES(state, activities) {
+      state.attendingActivities = activities;
     },
     
     SET_LOADING(state, { type, value }) {
-      state.loading[type] = value;
+      if (state.loading && type in state.loading) {
+        state.loading[type] = value;
+      }
     },
     
     SET_ERROR(state, { type, value }) {
-      state.error[type] = value;
+      if (state.error && type in state.error) {
+        state.error[type] = value;
+      }
     }
   },
   
   actions: {
-    // Fetch user's favorite books
-    fetchFavoriteBooks({ commit, state }) {
-      commit('SET_LOADING', { type: 'favorites', value: true });
-      commit('SET_ERROR', { type: 'favorites', value: null });
+    // Sincronizar estado de autenticación desde el store principal
+    syncAuthState({ commit, dispatch }, { isAuthenticated, user }) {
+      commit('SET_PROFILE', user);
       
-      // Simulate API call
-      return new Promise(resolve => {
-        setTimeout(() => {
-          // In a real app, this would be an API call
-          commit('SET_LOADING', { type: 'favorites', value: false });
-          resolve(state.favoriteBooks);
-        }, 500);
-      });
+      if (isAuthenticated && user && user.email) {
+        // Si hay usuario autenticado, obtener sus datos completos
+        dispatch('fetchUserData', user.email);
+      } else {
+        commit('SET_USER_DATA', null);
+      }
     },
     
-    // Add a book to favorites
-    addFavoriteBook({ commit, state, rootGetters }, bookId) {
+    // Obtener datos del usuario desde la base de datos usando su correo
+    async fetchUserData({ commit, dispatch }, email) {
+      if (!email) {
+        console.error('No se proporcionó un correo electrónico');
+        return;
+      }
+      
+      commit('SET_LOADING', { type: 'userData', value: true });
+      commit('SET_ERROR', { type: 'userData', value: null });
+      
+      try {
+        const response = await axios.get(`/user/byEmail/${email}`);
+        console.log("accediendo a " + axios.baseURL + "/user/byEmail/" + email)
+        commit('SET_USER_DATA', response.data);
+        
+        // Cargar también datos relacionados
+        dispatch('fetchFavoriteBooks');
+        dispatch('fetchUserActivities');
+        
+        commit('SET_LOADING', { type: 'userData', value: false });
+        return response.data;
+      } catch (error) {
+        const errorMsg = error.response?.data?.error || 'Error al obtener datos del usuario';
+        commit('SET_ERROR', { type: 'userData', value: errorMsg });
+        commit('SET_LOADING', { type: 'userData', value: false });
+        
+        // Si el usuario no existe en la BD, pero está autenticado, crear su cuenta
+        if (error.response?.status === 404) {
+          return dispatch('createUserAccount');
+        }
+        
+        throw error;
+      }
+    },
+    
+    // Crear cuenta de usuario para un usuario autenticado pero que no existe en la BD
+    async createUserAccount({ commit, state }) {
+      if (!state.profile) {
+        throw new Error('No hay usuario autenticado');
+      }
+      
+      commit('SET_LOADING', { type: 'userData', value: true });
+      
+      try {
+        // Crear objeto de usuario con datos mínimos
+        const userCreate = {
+          Email: state.profile.email,
+          Name_user: state.profile.name.split(' ').slice(0, -1).join(' '), // Nombre sin apellido
+          Last_name: state.profile.name.split(' ').slice(-1).join(' '), // Último apellido
+          Id_occupation: 1, // Valor por defecto, ajustar según tu modelo
+          Id_gender: 1, // Valor por defecto, ajustar según tu modelo
+          Id_user_status: 1, // Activo por defecto
+          // Generar ID basado en parte del correo + timestamp para asegurar unicidad
+          Id_user: `U${state.profile.email.split('@')[0].substring(0, 6)}${Date.now().toString().substring(9)}`
+        };
+        
+        const response = await axios.post('/user/create', userCreate);
+        commit('SET_USER_DATA', response.data);
+        commit('SET_LOADING', { type: 'userData', value: false });
+        return response.data;
+      } catch (error) {
+        const errorMsg = error.response?.data?.error || 'Error al crear cuenta de usuario';
+        commit('SET_ERROR', { type: 'userData', value: errorMsg });
+        commit('SET_LOADING', { type: 'userData', value: false });
+        throw error;
+      }
+    },
+    
+    // Actualizar datos del perfil de usuario
+    async updateUserProfile({ commit, state }, userData) {
+      if (!state.userData?.Id_user) {
+        throw new Error('No hay usuario para actualizar');
+      }
+      
+      commit('SET_LOADING', { type: 'update', value: true });
+      commit('SET_ERROR', { type: 'update', value: null });
+      
+      try {
+        const response = await axios.put(`/user/${state.userData.Id_user}`, userData);
+        commit('SET_USER_DATA', response.data);
+        commit('SET_LOADING', { type: 'update', value: false });
+        return response.data;
+      } catch (error) {
+        const errorMsg = error.response?.data?.error || 'Error al actualizar perfil';
+        commit('SET_ERROR', { type: 'update', value: errorMsg });
+        commit('SET_LOADING', { type: 'update', value: false });
+        throw error;
+      }
+    },
+    
+    // Obtener libros favoritos del usuario
+    async fetchFavoriteBooks({ commit, state }) {
+      if (!state.userData?.Id_user) {
+        return [];
+      }
+      
       commit('SET_LOADING', { type: 'favorites', value: true });
       commit('SET_ERROR', { type: 'favorites', value: null });
       
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          try {
-            // Check if the book is already in favorites
-            if (state.favoriteBooks.some(book => book.id === bookId || book.ISBN === bookId)) {
-              commit('SET_LOADING', { type: 'favorites', value: false });
-              reject(new Error('El libro ya está en favoritos'));
-              return;
+      try {
+        const response = await axios.get(`/user/${state.userData.Id_user}/favorites`);
+        commit('SET_FAVORITE_BOOKS', response.data);
+        commit('SET_LOADING', { type: 'favorites', value: false });
+        return response.data;
+      } catch (error) {
+        const errorMsg = error.response?.data?.error || 'Error al obtener favoritos';
+        commit('SET_ERROR', { type: 'favorites', value: errorMsg });
+        commit('SET_LOADING', { type: 'favorites', value: false });
+        throw error;
+      }
+    },
+    
+    // Añadir un libro a favoritos
+    async addFavoriteBook({ commit, state }, bookId) {
+      if (!state.userData?.Id_user) {
+        throw new Error('Usuario no autenticado');
+      }
+      
+      commit('SET_LOADING', { type: 'favorites', value: true });
+      commit('SET_ERROR', { type: 'favorites', value: null });
+      
+      try {
+        const response = await axios.post(`/user/${state.userData.Id_user}/favorites`, {
+          bookId
+        });
+        
+        commit('ADD_FAVORITE_BOOK', response.data);
+        commit('SET_LOADING', { type: 'favorites', value: false });
+        return response.data;
+      } catch (error) {
+        const errorMsg = error.response?.data?.error || 'Error al añadir favorito';
+        commit('SET_ERROR', { type: 'favorites', value: errorMsg });
+        commit('SET_LOADING', { type: 'favorites', value: false });
+        throw error;
+      }
+    },
+    
+    // Eliminar un libro de favoritos
+    async removeFavoriteBook({ commit, state }, bookId) {
+      if (!state.userData?.Id_user) {
+        throw new Error('Usuario no autenticado');
+      }
+      
+      commit('SET_LOADING', { type: 'favorites', value: true });
+      commit('SET_ERROR', { type: 'favorites', value: null });
+      
+      try {
+        await axios.delete(`/user/${state.userData.Id_user}/favorites/${bookId}`);
+        
+        commit('REMOVE_FAVORITE_BOOK', bookId);
+        commit('SET_LOADING', { type: 'favorites', value: false });
+        return { success: true };
+      } catch (error) {
+        const errorMsg = error.response?.data?.error || 'Error al eliminar favorito';
+        commit('SET_ERROR', { type: 'favorites', value: errorMsg });
+        commit('SET_LOADING', { type: 'favorites', value: false });
+        throw error;
+      }
+    },
+    
+    // Obtener actividades del usuario (organizadas y asistencia)
+    async fetchUserActivities({ commit, state, dispatch }) {
+      if (!state.userData?.Id_user) {
+        return { organized: [], attending: [] };
+      }
+      
+      commit('SET_LOADING', { type: 'activities', value: true });
+      commit('SET_ERROR', { type: 'activities', value: null });
+      
+      try {
+        await Promise.all([
+          dispatch('fetchOrganizedActivities'),
+          dispatch('fetchAttendingActivities')
+        ]);
+        
+        commit('SET_LOADING', { type: 'activities', value: false });
+        return {
+          organized: state.organizedActivities,
+          attending: state.attendingActivities
+        };
+      } catch (error) {
+        const errorMsg = error.message || 'Error al obtener actividades';
+        commit('SET_ERROR', { type: 'activities', value: errorMsg });
+        commit('SET_LOADING', { type: 'activities', value: false });
+        throw error;
+      }
+    },
+    
+    // Obtener actividades organizadas por el usuario
+    async fetchOrganizedActivities({ commit, state }) {
+      if (!state.userData?.Id_user) {
+        return [];
+      }
+      
+      try {
+        const response = await axios.get(`/community/activity?organizerId=${state.userData.Id_user}`);
+        commit('SET_ORGANIZED_ACTIVITIES', response.data);
+        return response.data;
+      } catch (error) {
+        console.error('Error al obtener actividades organizadas:', error);
+        commit('SET_ORGANIZED_ACTIVITIES', []);
+        throw error;
+      }
+    },
+    
+    // Obtener actividades a las que asistirá el usuario
+    async fetchAttendingActivities({ commit, state }) {
+      if (!state.userData?.Id_user) {
+        return [];
+      }
+      
+      try {
+        // Primero obtenemos los registros de asistencia
+        const attendanceResponse = await axios.get(`/community/activity/attendance?userId=${state.userData.Id_user}`);
+        
+        // Luego obtenemos los detalles de cada actividad
+        const activitiesPromises = attendanceResponse.data.map(async (attendance) => {
+          if (attendance.Confirmation === 1) { // Solo si está confirmada
+            try {
+              const activityResponse = await axios.get(`/community/activity/${attendance.Id_activity}`);
+              return activityResponse.data;
+            } catch (e) {
+              console.error(`Error al obtener actividad ${attendance.Id_activity}:`, e);
+              return null;
             }
-            
-            // Get book details from the books store
-            const book = rootGetters['books/getBookById'](bookId);
-            
-            if (!book) {
-              commit('SET_LOADING', { type: 'favorites', value: false });
-              reject(new Error('Libro no encontrado'));
-              return;
-            }
-            
-            // Create a favorite book entry
-            const favoriteBook = {
-              id: book.id || book.ISBN,
-              ISBN: book.ISBN,
-              title: book.Title || book.title,
-              coverImage: book.coverImage,
-              description: book.synopsis || 'Sin descripción disponible',
-              type: book.format || 'Libro Físico',
-              addedDate: new Date().toLocaleDateString('es-MX'),
-              comments: "",
-              author: book.author || (book.authors ? book.authors[0] : 'Autor desconocido')
-            };
-            
-            // In a real app, this would be an API call
-            commit('ADD_FAVORITE_BOOK', favoriteBook);
-            commit('SET_LOADING', { type: 'favorites', value: false });
-            resolve(favoriteBook);
-          } catch (error) {
-            commit('SET_ERROR', { type: 'favorites', value: error.message });
-            commit('SET_LOADING', { type: 'favorites', value: false });
-            reject(error);
           }
-        }, 500);
-      });
-    },
-    
-    // Remove a book from favorites
-    removeFavoriteBook({ commit, state }, id) {
-      commit('SET_LOADING', { type: 'favorites', value: true });
-      commit('SET_ERROR', { type: 'favorites', value: null });
-      
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          try {
-            // Check if the book exists in favorites
-            const bookExists = state.favoriteBooks.some(book => book.id === id || book.ISBN === id);
-            
-            if (!bookExists) {
-              commit('SET_LOADING', { type: 'favorites', value: false });
-              reject(new Error('El libro no está en favoritos'));
-              return;
-            }
-            
-            // In a real app, this would be an API call
-            commit('REMOVE_FAVORITE_BOOK', id);
-            commit('SET_LOADING', { type: 'favorites', value: false });
-            resolve(true);
-          } catch (error) {
-            commit('SET_ERROR', { type: 'favorites', value: error.message });
-            commit('SET_LOADING', { type: 'favorites', value: false });
-            reject(error);
-          }
-        }, 500);
-      });
-    },
-    
-    // Update user profile
-    updateUserProfile({ commit }, userData) {
-      commit('SET_LOADING', { type: 'profile', value: true });
-      commit('SET_ERROR', { type: 'profile', value: null });
-      
-      return new Promise(resolve => {
-        setTimeout(() => {
-          // In a real app, this would be an API call
-          commit('SET_USER_DATA', userData);
-          commit('SET_LOADING', { type: 'profile', value: false });
-          resolve(userData);
-        }, 500);
-      });
+          return null;
+        });
+        
+        // Esperar todas las promesas y filtrar nulos
+        const activities = (await Promise.all(activitiesPromises)).filter(a => a !== null);
+        commit('SET_ATTENDING_ACTIVITIES', activities);
+        return activities;
+      } catch (error) {
+        console.error('Error al obtener actividades de asistencia:', error);
+        commit('SET_ATTENDING_ACTIVITIES', []);
+        throw error;
+      }
     }
   }
 };

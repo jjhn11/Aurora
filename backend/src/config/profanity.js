@@ -1,4 +1,4 @@
-const filter = require('leo-profanity');
+import filter from 'leo-profanity';
 
 // Configurar filtro
 filter.clearList();
@@ -14,4 +14,4 @@ const customBadWords = [
 filter.add(customBadWords);
 
 
-module.exports = filter;
+export default filter;

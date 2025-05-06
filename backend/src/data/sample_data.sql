@@ -1,0 +1,78 @@
+USE AuroraV2;
+
+-- First, insert data into tables with no dependencies
+INSERT INTO Occupations_ (Occupation) VALUES 
+('Estudiante'), ('Profesor'), ('Administrativo'), ('Investigador'), ('Directivo');
+
+INSERT INTO User_status_ (User_status) VALUES 
+('Activo'), ('Inactivo'), ('Suspendido'), ('Graduado'), ('Baja temporal');
+
+INSERT INTO Genders_ (Gender_name) VALUES 
+('Masculino'), ('Femenino'), ('No binario'), ('Prefiero no decir');
+
+-- Then insert Users_ data (depends on the above tables)
+INSERT INTO Users_ (Id_user, Id_Occupation, Control_num, Name_user, Last_name, Email, Id_gender, Id_user_status) VALUES 
+('USER001', 1, '19210001', 'Juan', 'Pérez González', 'juan.perez@itmexicali.edu.mx', 1, 1),
+('USER002', 2, '19210002', 'María', 'López Sánchez', 'maria.lopez@itmexicali.edu.mx', 2, 1),
+('USER003', 1, '19210003', 'Carlos', 'Ramírez Vega', 'carlos.ramirez@itmexicali.edu.mx', 1, 1),
+('USER004', 3, '19210004', 'Ana', 'Martínez Cruz', 'ana.martinez@itmexicali.edu.mx', 2, 1),
+('USER005', 1, '19210005', 'Roberto', 'González Torres', 'roberto.gonzalez@itmexicali.edu.mx', 1, 1),
+('USER006', 3, '22490390', 'JHOSTIN', 'PACO VELAZQUEZ', 'a22490390@itmexicali.edu.mx', 1, 1);
+
+-- Event categories before events
+INSERT INTO Event_categories_ (Type_event, Event_name) VALUES 
+('Exposición', 'Cultural'), 
+('Conferencia', 'Escolar'), 
+('Competencia', 'Deportivo'), 
+('Reunión', 'Social'), 
+('Hackathon', 'Tecnológico');
+
+-- Community tables
+INSERT INTO Community_categories_ (Category_name) VALUES 
+('Tecnología'), ('Arte y Cultura'), ('Deporte'), ('Académico'), ('Voluntariado');
+
+INSERT INTO Community_activity_types_ (Type_name, Id_category) VALUES 
+('Proyecto Colaborativo', 1),
+('Exposición', 2),
+('Entrenamiento', 3),
+('Grupo de Estudio', 4),
+('Ayuda Comunitaria', 5);
+
+-- FIXED: Added Id_category which is required per model/schema
+INSERT INTO Community_activity_location_ (Location_, Id_category) VALUES
+('Sala de Juntas A', 1), 
+('Galería Central', 2), 
+('Cancha de Baloncesto', 3), 
+('Aula 102', 4), 
+('Playa Municipal', 5);
+
+-- First insert Calendar_Events_ data (Events_ depends on this)
+INSERT INTO Calendar_Events_ (Start_date, End_date) VALUES 
+('2025-01-01', '2025-07-31');
+
+-- Now insert Events_ data with reference to Calendar_Events_
+INSERT INTO Events_ (Title, Description, Image_url, Id_category, Event_date, Id_calendar, Is_coming) VALUES 
+('Conferencia de IA', 'Exploraremos los avances más recientes en IA', '/images/events/conf-ia.jpg', 1, '2025-01-15', 1, 1),
+('Taller de Desarrollo Web', 'Aprende a crear sitios web modernos', '/images/events/web-dev.jpg', 1, '2025-01-20', 1, 1),
+('Concierto de Bandas', 'Presentación de las mejores bandas', '/images/events/concert.jpg', 2, '2025-02-05', 1, 1),
+('Torneo de Fútbol', 'Competencia deportiva entre carreras', '/images/events/football.jpg', 3, '2025-03-10', 1, 1),
+('Networking Tecnológico', 'Conecta con empresas del sector', '/images/events/networking.jpg', 4, '2025-03-15', 1, 1);
+
+-- Community activities
+INSERT INTO Community_activities_ (Title, Description, Id_type, Id_Location, Start_time, End_time, Event_date, Organizer_id) VALUES 
+('Desarrollo de App Móvil', 'Proyecto colaborativo para estudiantes', 1, 1, '14:00:00', '17:00:00', '2025-01-25', 'USER001'),
+('Exposición de Fotografía', 'Muestra del trabajo fotográfico', 2, 2, '10:00:00', '18:00:00', '2025-02-01', 'USER002'),
+('Entrenamiento de Baloncesto', 'Sesión de práctica para el equipo', 3, 3, '16:00:00', '18:00:00', '2025-01-18', 'USER003'),
+('Grupo de Estudio de Matemáticas', 'Sesiones para reforzar conocimientos', 4, 4, '13:00:00', '15:00:00', '2025-01-17', 'USER004'),
+('Limpieza de Playa', 'Actividad de voluntariado local', 5, 5, '08:00:00', '12:00:00', '2025-02-12', 'USER005');
+
+-- Community activity attendance
+INSERT INTO Community_activity_attendance_ (Id_user, Id_activity, Confirmation) VALUES 
+('USER001', 1, 1),
+('USER002', 1, 1),
+('USER003', 2, 1),
+('USER004', 3, 1),
+('USER005', 4, 1),
+('USER001', 5, 1),
+('USER002', 3, 1),
+('USER003', 4, 1);

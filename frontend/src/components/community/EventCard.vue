@@ -1,13 +1,76 @@
 <script>
+import { computed, ref, onMounted } from 'vue';
+import { useStore } from 'vuex';
 
 export default {
     name: "EventCard",
-    data() {
+    setup(props) {
+        const store = useStore();
+        const isHovering = ref(false);
+        const showInfoModal = ref(false);
+        
+        // Cargar datos de asistencia al montar el componente
+        onMounted(async () => {
+            try {
+                // Solo cargar si hay un usuario autenticado y un ID de actividad
+                if (store.state.isAuthenticated && store.state.user?.id && props.activityId) {
+                    await store.dispatch('community/fetchAttendance');
+                }
+            } catch (error) {
+                console.error("Error al cargar datos de asistencia:", error);
+            }
+        });
+        
+        // Estado reactivo para la asistencia
+        const isAttending = computed(() => {
+            const userId = store.state.user?.id;
+            const activityId = props.activityId;
+            
+            if (!userId || !activityId) return false;
+            
+            // Comprobación directa de asistencia con console.log para depuración
+            const attendance = store.state.community?.attendances?.find(
+                a => a.Id_user === userId && 
+                     a.Id_activity === parseInt(activityId) && 
+                     a.Confirmation === 1
+            );
+            
+            console.log("Usuario:", userId);
+            console.log("Actividad:", activityId);
+            console.log("¿Asiste?", !!attendance);
+            console.log("Attendances:", store.state.community?.attendances);
+            
+            return !!attendance;
+        });
+        
+        // Método para alternar asistencia
+        const toggleAttendance = async () => {
+            if (!props.activityId) return;
+            
+            if (!store.state.isAuthenticated) {
+                alert("Debes iniciar sesión para registrar tu asistencia");
+                return;
+            }
+            
+            try {
+                await store.dispatch('community/toggleAttendance', props.activityId);
+                // Recargar datos de asistencia después de alternar para actualizar la UI
+                await store.dispatch('community/fetchAttendance');
+            } catch (error) {
+                console.error("Error al registrar asistencia:", error);
+                // Podrías mostrar una notificación al usuario
+            }
+        };
+        
         return {
-            showInfoModal: false,
-            isAttending: false,
-            isHovering: false
-        }
+            isAttending,
+            isHovering,
+            toggleAttendance,
+            showInfoModal,
+            toggleInfoModal: () => {
+                showInfoModal.value = !showInfoModal.value;
+            }
+        };
     },
     props: {
         title: {
@@ -49,6 +112,10 @@ export default {
         date: {
             type: String,
             required: true,
+        },
+        activityId: {
+            type: Number,
+            default: null
         },
     },
     
@@ -121,14 +188,6 @@ export default {
             return 'ASISTENCIA'
         }
     },
-    methods: {
-        toggleInfoModal() {
-            this.showInfoModal = !this.showInfoModal;
-        },
-        toggleAttendance() {
-            this.isAttending = !this.isAttending;
-        }
-    }
 };
 
 </script>
@@ -831,3 +890,4 @@ export default {
         }
     }
 </style>
+``` 

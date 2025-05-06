@@ -1,8 +1,17 @@
 <script setup>
+import { ref, onMounted } from 'vue';
+import { useStore } from 'vuex';
+import CreateEventForm from '@/components/community/CreateEventForm.vue';
+import EventCard from '@/components/community/EventCard.vue';
 
-    import { ref } from 'vue';
-    import CreateEventForm from '@/components/community/CreateEventForm.vue';
-    import EventCard from '@/components/community/EventCard.vue';
+import VOLLEY from '@/assets/img/community/icons/sports/ICONO VOLLEYBALL.png'
+import BEIS from '@/assets/img/community/icons/sports/ICONO BEISBOL.png'
+import ATLET from '@/assets/img/community/icons/sports/ICONO ATLETISMO.png'
+import FUTB from '@/assets/img/community/icons/sports/ICONO FUTBOL.png'
+import BASKET from '@/assets/img/community/icons/sports/ICONO BASQUETBOL.png'
+import SOFT from '@/assets/img/community/icons/sports/ICONO SOFTBOL.png'
+import PORRA from '@/assets/img/community/icons/sports/ICONO PORRA.png'
+import BOX from '@/assets/img/community/icons/sports/ICONO BOX.png'
 
     import NOEVE from '@/assets/img/community/IMAGEN SIN EVENTOS.png';
 
@@ -14,27 +23,61 @@
     import SOFT from '@/assets/img/community/icons/sports/ICONO SOFTBOL.png'
     import PORRA from '@/assets/img/community/icons/sports/ICONO PORRA.png'
     import BOX from '@/assets/img/community/icons/sports/ICONO BOX.png'
+const store = useStore();
+const showForm = ref(false);
+const events = ref([]);
+const isLoading = ref(false);
+const error = ref(null);
 
-    const showForm = ref(false);
+// Cargar eventos desde el backend al montar el componente
+onMounted(async () => {
+    isLoading.value = true;
+    try {
+        // Obtener ID de la categoría "Deportiva" (en un sistema real deberías buscar este ID)
+        const sportsCategoryId = 2; // ID simulado
+        
+        // Cargar eventos por categoría
+        const activities = await store.dispatch('community/fetchActivities', sportsCategoryId);
+        
+        // Convertir las actividades del backend al formato que espera el componente EventCard
+        events.value = activities.map(activity => ({
+            activityId: activity.Id_activity,
+            title: activity.Title,
+            description: activity.Description,
+            organizer: activity.Organizer_id, // Idealmente convertir ID a nombre
+            startTime: activity.Start_time,
+            endTime: activity.End_time,
+            location: activity.Id_Location, // Idealmente convertir ID a nombre
+            category: "Deportivo", // Dependiendo del Id_type
+            imageSrc: "/assets/img/community/icons/sports/ICONO_DEFAULT.png", // Placeholder
+            backgroundColor: "#5C77BA", // Color por defecto
+            date: activity.Event_date
+        }));
+    } catch (err) {
+        error.value = err.message || "Error al cargar eventos";
+        console.error("Error al cargar eventos:", err);
+    } finally {
+        isLoading.value = false;
+    }
+});
 
-    const events = ref([]); // Array para almacenar los eventos
-
-    // Función para manejar la creación de eventos
-    const handleEventCreated = (eventData) => {
-        events.value.push({
-            title: eventData.eventName,
-            description: eventData.description,
-            organizer: "Usuario Actual",
-            startTime: eventData.startTime,
-            endTime: eventData.endTime,
-            location: eventData.location,
-            category: eventData.activityType,
-            imageSrc: eventData.selectedIcon.image,
-            backgroundColor: eventData.selectedIcon.bgColor,
-            date: eventData.date
-        });
+// Función para manejar la creación de eventos (usando el backend)
+const handleEventCreated = async (eventData) => {
+    try {
+        // Crear actividad usando la store
+        await store.dispatch('community/createEventFromForm', eventData);
+        
+        // Actualizar la lista de eventos
+        const sportsCategoryId = 2; // ID simulado
+        await store.dispatch('community/fetchActivities', sportsCategoryId);
+        
+        // Cerrar el formulario
         showForm.value = false;
-    };
+    } catch (err) {
+        console.error("Error al crear evento:", err);
+        // Aquí puedes mostrar un mensaje de error al usuario
+    }
+};
 
     const recreationalActivities = [
         'Volleyball Sala',
@@ -104,15 +147,10 @@
             bgColor: 'rgba(135, 213, 204, 1)'
         },
     ];
-
 </script>
 
-
-
 <template>
-
     <!-- ### Hero ### -->
-    
     <div>
         <section class="hero-container">
             <div class="hero-overlay">
@@ -122,7 +160,6 @@
     </div>
 
     <!-- ### Botón Crear Evento ### -->
-    
     <div class="container-fluid justify-content-center">
         <div class="cre-cont col-12 d-flex justify-content-end text-center pe-4">
             <button class="cre-button btn btn-primary" type="button" @click="showForm = true">
@@ -137,15 +174,28 @@
         :activities="recreationalActivities"
         :locations="recreationalLocations"
         :icons="recreationalIcons"
+        :useBackendSubmit="true"
         @event-created="handleEventCreated"
     />
+    
+    <!-- Estado de carga -->
+    <div v-if="isLoading" class="loading-container">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+    </div>
+    
+    <!-- Mostrar mensaje de error -->
+    <div v-else-if="error" class="error-container alert alert-danger">
+        {{ error }}
+    </div>
 
     <!-- Lista de Eventos -->
-    
-    <div v-if="events.length > 0" class="events-container">
+    <div v-else-if="events.length > 0" class="events-container">
         <EventCard 
             v-for="(event, index) in events" 
             :key="index"
+            :activityId="event.activityId"
             :title="event.title"
             :description="event.description"
             :organizer="event.organizer"
@@ -160,7 +210,6 @@
     </div>
 
     <!-- ### Aviso de "Ningún Evento" ### -->
-    
     <div v-else class="container-fluid justify-content-center">
         <div class="avit-cont col-12 text-center">
             <p class="avit-text-up">¡CREA TU EVENTO!</p>
@@ -171,7 +220,6 @@
             </RouterLink>
         </div>
     </div>
-
 </template>
 
 <style scoped>

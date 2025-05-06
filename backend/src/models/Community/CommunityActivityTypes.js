@@ -1,6 +1,5 @@
-const { DataTypes } = require('sequelize');
-const { sequelize } = require('../config/db');
-const CommunityCategory = require('./CommunityCategories');
+import { DataTypes, Sequelize } from 'sequelize';
+import { sequelize } from '../../config/db.js';
 
 const CommunityActivityType = sequelize.define('CommunityActivityType', {
   Id_type: {
@@ -10,7 +9,7 @@ const CommunityActivityType = sequelize.define('CommunityActivityType', {
     field: 'Id_type'
   },
   Type_name: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(40),
     allowNull: false,
     field: 'Type_name'
   },
@@ -28,10 +27,16 @@ const CommunityActivityType = sequelize.define('CommunityActivityType', {
   timestamps: false
 });
 
-// Define relationship
-CommunityActivityType.belongsTo(CommunityCategory, {
-  foreignKey: 'Id_category',
-  targetKey: 'Id_category'
-});
+CommunityActivityType.associate = (models) => {
+  CommunityActivityType.belongsTo(models.CommunityCategory, {
+    foreignKey: 'Id_category',
+    as: 'category',
+  });
+  
+  CommunityActivityType.hasMany(models.CommunityActivity, {
+    foreignKey: 'Id_type',
+    as: 'activities',
+  });
+};
 
-module.exports = CommunityActivityType;
+export default CommunityActivityType;

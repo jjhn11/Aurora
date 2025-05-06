@@ -5,5 +5,5 @@ const checkAuth = (req, res, next) => {
     return res.redirect('/auth/google');
   };
   
-  module.exports = checkAuth;
+  export default checkAuth;
   

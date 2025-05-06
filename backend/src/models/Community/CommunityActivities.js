@@ -1,5 +1,7 @@
-const { DataTypes } = require('sequelize');
-const { sequelize } = require('../config/db');
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../../config/db.js';
+
+
 
 const CommunityActivity = sequelize.define('CommunityActivity', {
   Id_activity: {
@@ -26,9 +28,14 @@ const CommunityActivity = sequelize.define('CommunityActivity', {
       key: 'Id_type'
     }
   },
-  Location: {
-    type: DataTypes.STRING(150),
-    field: 'Location'
+  Id_Location: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    field: 'Id_Location',
+    references: {
+      model: 'Community_activity_location_',
+      key: 'Id_Location'
+    }
   },
   Start_time: {
     type: DataTypes.TIME,
@@ -42,11 +49,7 @@ const CommunityActivity = sequelize.define('CommunityActivity', {
     type: DataTypes.DATE,
     field: 'Event_date'
   },
-  Status: {
-    type: DataTypes.ENUM('Activo', 'Finalizado', 'Cancelado'),
-    defaultValue: 'Activo',
-    field: 'Status'
-  },
+  
   Organizer_id: {
     type: DataTypes.STRING(8),
     field: 'Organizer_id',
@@ -60,11 +63,22 @@ const CommunityActivity = sequelize.define('CommunityActivity', {
   timestamps: false
 });
 
-const CommunityActivityType = require('./CommunityActivityTypes');
-
-CommunityActivity.belongsTo(CommunityActivityType, {
-  foreignKey: 'Id_type',
-  targetKey: 'Id_type'
-});
-
-module.exports = CommunityActivity;
+CommunityActivity.associate = (models) => {
+  CommunityActivity.belongsTo(models.CommunityActivityType, {
+    foreignKey: 'Id_type',
+    as: 'type',
+  });
+  CommunityActivity.belongsTo(models.User, {
+    foreignKey: 'Organizer_id',
+    as: 'organizer',
+  });
+  CommunityActivity.belongsTo(models.CommunityActivityLocation, {
+    foreignKey: 'Id_Location',
+    as: 'location',
+  });
+  CommunityActivity.hasMany(models.CommunityActivityAttendance, {
+    foreignKey: 'Id_activity',
+    as: 'attendances'
+  });
+};
+export default CommunityActivity;

@@ -1,4 +1,5 @@
 <script>
+import { mapState, mapGetters } from 'vuex';
 import CalendarCell from './CalendarCell.vue';
 
 export default {
@@ -137,6 +138,12 @@ data() {
         this.currentMonth--;
       }
     }
+  },
+  async created() {
+    // Cargar eventos usando loadInitialData para asegurar que todos los datos necesarios se carguen
+    await this.$store.dispatch('events/loadInitialData');
+    // Añadir este log para verificar que se cargaron datos
+    console.log("Eventos cargados:", this.$store.state.events.events);
   }
 };
 </script>

@@ -1,57 +1,67 @@
-const filter = require('../config/profanity.js');
+import filter from '../config/profanity.js';
 
-/** Middleware configurable para revisar profanidad en campos específicos
- * @param {string|string[]} fields - Campo o campos a revisar del req.body
+/** 
+ * Middleware para revisar profanidad que acepta campos desde el frontend
+ * @param {Array} fields - Campos a verificar
  * @returns {Function} Middleware de Express
  */
-const isProfane = (fields) => {
-    return (req, res, next) => {
-        // Convertir a array si es string
-        const fieldsToCheck = Array.isArray(fields) ? fields : [fields];
-        const profaneFields = [];
+export const isProfane = (fields) => (req, res, next) => {
+    const content = req.body;
+    const fieldsToCheck = fields;
+    
+    // Validar que se proporcionaron los campos necesarios
+    if (!fieldsToCheck || !Array.isArray(fieldsToCheck) || fieldsToCheck.length === 0) {
+        return res.status(400).json({ 
+            error: 'Debe proporcionar un arreglo de campos a verificar (fieldsToCheck)' 
+        });
+    }
+    
+    if (!content || typeof content !== 'object') {
+        return res.status(400).json({ 
+            error: 'Debe proporcionar un objeto con el contenido a verificar (content)' 
+        });
+    }
 
-        // Revisar cada campo especificado
-        for (const field of fieldsToCheck) {
-            if (req.body && req.body[field]) {
-                const content = req.body[field];
-                
-                // Manejar tanto strings como arrays
-                if (typeof content == 'string') {
-                    if (filter.check(content)) {
+    const profaneFields = [];
+
+    // Revisar cada campo especificado
+    for (const field of fieldsToCheck) {
+        if (content && content[field]) {
+            const fieldContent = content[field];
+            
+            // Manejar tanto strings como arrays
+            if (typeof fieldContent === 'string') {
+                if (filter.check(fieldContent)) {
+                    profaneFields.push({
+                        field,
+                        original: fieldContent,
+                        censored: filter.clean(fieldContent)
+                    });
+                }
+            } else if (Array.isArray(fieldContent)) {
+                // Revisar cada elemento del array
+                for (let i = 0; i < fieldContent.length; i++) {
+                    if (typeof fieldContent[i] === 'string' && filter.check(fieldContent[i])) {
                         profaneFields.push({
-                            field,
-                            original: content,
-                            censored: filter.clean(content)
+                            field: `${field}[${i}]`,
+                            original: fieldContent[i],
+                            censored: filter.clean(fieldContent[i])
                         });
                     }
-                } else if (Array.isArray(content)) {
-                    // Revisar cada elemento del array
-                    for (let i = 0; i < content.length; i++) {
-                        if (typeof content[i] == 'string' && filter.check(content[i])) {
-                            profaneFields.push({
-                                field: `${field}[${i}]`,
-                                original: content[i],
-                                censored: filter.clean(content[i])
-                            });
-                        }
-                    }
                 }
-            };
+            }
         }
+    }
 
-        // Si se encontraron palabras prohibidas
-        if (profaneFields.length > 0) {
-            return res.status(400).json({
-                error: 'El contenido contiene lenguaje inapropiado',
-                profaneFields
-            });
-        }
+    // Si se encontraron palabras prohibidas
+    if (profaneFields.length > 0) {
+        return res.status(200).json({
+            message: 'El contenido contiene lenguaje inapropiado',
+            SFW: false,
+            profaneFields
+        });
+    }
 
-        // Si no hay problema, continuar
-        next();
-    };
-};
-
-module.exports = { 
-    isProfane 
+    // Si no hay problema, continuar
+    next();
 };

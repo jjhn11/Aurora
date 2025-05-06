@@ -1,15 +1,28 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import Card from './Card.vue';
 import Modal from '../Modal.vue';
 // Setup reactive state
 const activeSlide = ref(0);
 const totalSlides = ref(3);
+const showSlider = ref(true);
 const store = useStore();
 
-// Get popular books from store
-const events = store.state.events?.events;
+// Categoría Cultural (ID=1)
+const culturalCategoryId = 1;
+
+// Cargar eventos al montar el componente
+onMounted(async () => {
+  if (!store.state.events?.events?.length) {
+    await store.dispatch('events/loadInitialData');
+  }
+});
+
+// Obtener solo eventos culturales usando el getter
+const culturalEvents = computed(() => 
+  store.getters['events/getEventsByCategory'](culturalCategoryId) || []
+);
 
 // Setup carousel events handling
 onMounted(() => {
@@ -44,7 +57,7 @@ const closeModal = () => {
             <i class="bi bi-chevron-left fs-4"></i>
         </button>
         <div id="carrusel1" class="carousel">
-            <div class="carousel-inner">
+            <div class="carousel-inner" v-if="culturalEvents.length >= 3">
                 <div class="carousel-item active">
                     <div class="slide-row">
                         <Card
@@ -84,6 +97,9 @@ const closeModal = () => {
                         />
                     </div>
                 </div>
+            </div>
+            <div class="no-events" v-else>
+                <p>No hay eventos culturales disponibles</p>
             </div>
         </div>
         <button class="btn btn-link carousel-control-next-bottom d-none d-md-block" type="button" data-bs-target="#carrusel1" data-bs-slide="next">
@@ -161,6 +177,7 @@ body {
     position: relative;
     padding-bottom: 5px;
 }
+
 
 .carousel-item {
     margin: 0 auto;

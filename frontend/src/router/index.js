@@ -14,6 +14,7 @@ import BookView from '@/views/Library/BookView.vue'
 import FavoritesView from '@/views/User/FavoritesView.vue'
 import CatalogueView from '@/views/Library/CatalogueView.vue'
 import AdminEventsView from '@/views/Admin/AdminEventsView.vue'
+import ProfanityTestView from '@/views/Test/ProfanityView.vue'
 
 const routes = [
   {
@@ -98,6 +99,15 @@ const routes = [
     name: 'library-book',
     component: BookView,
     props: true,
+  },
+
+  {
+    path: '/test/profanity',
+    name: 'ProfanityTest',
+    component: ProfanityTestView,
+    meta: {
+      title: 'Test de Profanidad'
+    }
   }
 ]
 

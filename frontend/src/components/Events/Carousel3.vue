@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import Card from './Card.vue';
 import Modal from '../Modal.vue';
@@ -7,10 +7,23 @@ import Modal from '../Modal.vue';
 // Setup reactive state
 const activeSlide = ref(0);
 const totalSlides = ref(3);
+const showSlider = ref(true);
 const store = useStore();
 
-// Get popular books from store
-const events = store.state.events?.events;
+// Categoría Deportiva (ID=2)
+const sportsCategoryId = 2;
+
+// Cargar eventos al montar el componente
+onMounted(async () => {
+  if (!store.state.events?.events?.length) {
+    await store.dispatch('events/loadInitialData');
+  }
+});
+
+// Obtener solo eventos deportivos usando el getter
+const sportsEvents = computed(() => 
+  store.getters['events/getEventsByCategory'](sportsCategoryId) || []
+);
 
 // Setup carousel events handling
 onMounted(() => {
@@ -42,7 +55,7 @@ const closeModal = () => {
             <i class="bi bi-chevron-left fs-4"></i>
         </button>
         <div id="carrusel3" class="carousel">
-            <div class="carousel-inner">
+            <div class="carousel-inner" v-if="sportsEvents.length >= 1">
                 <div class="carousel-item active">
                     <div class="slide-row">
                         <Card
@@ -82,6 +95,9 @@ const closeModal = () => {
                         />
                     </div>
                 </div>
+            </div>
+            <div class="no-events" v-else>
+                <p>No hay eventos deportivos disponibles</p>
             </div>
         </div>
         <button class="btn btn-link carousel-control-next-bottom" type="button" data-bs-target="#carrusel3" data-bs-slide="next">
@@ -157,6 +173,7 @@ body {
     padding-bottom: 10px;
 }
 
+
 .carousel-item {
     margin: 0 auto;
     padding: 20px 10px;
@@ -166,7 +183,7 @@ body {
     flex-wrap: nowrap;
     max-width: 1600px;
     justify-content: center;
-    margin: 15 auto;
+    margin: 15px auto;
 }
 
 .carousel-control-prev,

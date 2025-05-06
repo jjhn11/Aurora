@@ -1,8 +1,15 @@
 <script setup>
+import { ref, onMounted } from 'vue';
+import { useStore } from 'vuex';
+import CreateEventForm from '@/components/community/CreateEventForm.vue';
+import EventCard from '@/components/community/EventCard.vue';
 
-    import { ref } from 'vue';
-    import CreateEventForm from '@/components/community/CreateEventForm.vue';
-    import EventCard from '@/components/community/EventCard.vue';
+import PIANO from '@/assets/img/community/icons/cultural/ICONO PIANO.png';
+import INTER from '@/assets/img/community/icons/cultural/ICONO INTERNACIONALES.png';
+import DANZA from '@/assets/img/community/icons/cultural/ICONO DANZA.png';
+import MUSICA from '@/assets/img/community/icons/cultural/ICONO MUSICA.png';
+import DEBATE from '@/assets/img/community/icons/cultural/ICONO DEBATE.png';
+import ARTES from '@/assets/img/community/icons/cultural/ICONO ARTES PLASTICAS.png';
 
     import NOEVE from '@/assets/img/community/IMAGEN SIN EVENTOS.png';
 
@@ -12,27 +19,61 @@
     import MUSICA from '@/assets/img/community/icons/cultural/ICONO MUSICA.png'
     import DEBATE from '@/assets/img/community/icons/cultural/ICONO DEBATE.png'
     import ARTES from '@/assets/img/community/icons/cultural/ICONO ARTES PLASTICAS.png'
+const store = useStore();
+const showForm = ref(false);
+const events = ref([]);
+const isLoading = ref(false);
+const error = ref(null);
 
-    const showForm = ref(false);
+// Cargar eventos desde el backend al montar el componente
+onMounted(async () => {
+    isLoading.value = true;
+    try {
+        // Obtener ID de la categoría "Cultural" (en un sistema real deberías buscar este ID)
+        const culturalCategoryId = 1; // ID simulado
+        
+        // Cargar eventos por categoría
+        const activities = await store.dispatch('community/fetchActivities', culturalCategoryId);
+        
+        // Convertir las actividades del backend al formato que espera el componente EventCard
+        events.value = activities.map(activity => ({
+            activityId: activity.Id_activity,
+            title: activity.Title,
+            description: activity.Description,
+            organizer: activity.Organizer_id, // Idealmente convertir ID a nombre
+            startTime: activity.Start_time,
+            endTime: activity.End_time,
+            location: activity.Id_Location, // Idealmente convertir ID a nombre
+            category: "Cultural", // Dependiendo del Id_type
+            imageSrc: "/assets/img/community/icons/cultural/ICONO_DEFAULT.png", // Placeholder
+            backgroundColor: "#FBE326", // Color por defecto
+            date: activity.Event_date
+        }));
+    } catch (err) {
+        error.value = err.message || "Error al cargar eventos";
+        console.error("Error al cargar eventos:", err);
+    } finally {
+        isLoading.value = false;
+    }
+});
 
-    const events = ref([]); // Array para almacenar los eventos
-
-    // Función para manejar la creación de eventos
-    const handleEventCreated = (eventData) => {
-        events.value.push({
-            title: eventData.eventName,
-            description: eventData.description,
-            organizer: "Usuario Actual",
-            startTime: eventData.startTime,
-            endTime: eventData.endTime,
-            location: eventData.location,
-            category: eventData.activityType,
-            imageSrc: eventData.selectedIcon.image,
-            backgroundColor: eventData.selectedIcon.bgColor,
-            date: eventData.date
-        });
+// Función para manejar la creación de eventos (usando el backend)
+const handleEventCreated = async (eventData) => {
+    try {
+        // Crear actividad usando la store
+        await store.dispatch('community/createEventFromForm', eventData);
+        
+        // Actualizar la lista de eventos
+        const culturalCategoryId = 1; // ID simulado
+        await store.dispatch('community/fetchActivities', culturalCategoryId);
+        
+        // Cerrar el formulario
         showForm.value = false;
-    };
+    } catch (err) {
+        console.error("Error al crear evento:", err);
+        // Aquí puedes mostrar un mensaje de error al usuario
+    }
+};
 
     const recreationalActivities = [
         'Danza',
@@ -59,42 +100,40 @@
         'Cancha Extraescolares'
     ];
 
-    const recreationalIcons = [
-        {
-            title: 'PIANO',
-            image: PIANO,
-            bgColor: 'rgba(255, 196, 156, 1)'
-        },
-        {
-            title: 'INTERNACIONAL',
-            image: INTER,
-            bgColor: 'rgba(239, 230, 224, 1)'
-        },
-        {
-            title: 'DANZA',
-            image: DANZA,
-            bgColor: 'rgba(150, 199, 135, 1)'
-        },
-        {
-            title: 'MUSICA',
-            image: MUSICA,
-            bgColor: 'rgba(124, 147, 207, 1)'
-        },
-        {
-            title: 'DEBATE',
-            image: DEBATE,
-            bgColor: 'rgba(255, 150, 190, 1)'
-        },
-        {
-            title: 'ARTES PLASTICAS',
-            image: ARTES,
-            bgColor: 'rgba(193, 15, 2, 1)'
-        },
-    ];
+const recreationalIcons = [
+    {
+        title: 'PIANO',
+        image: PIANO,
+        bgColor: 'rgba(255, 196, 156, 1)'
+    },
+    {
+        title: 'INTERNACIONAL',
+        image: INTER,
+        bgColor: 'rgba(239, 230, 224, 1)'
+    },
+    {
+        title: 'DANZA',
+        image: DANZA,
+        bgColor: 'rgba(150, 199, 135, 1)'
+    },
+    {
+        title: 'MUSICA',
+        image: MUSICA,
+        bgColor: 'rgba(124, 147, 207, 1)'
+    },
+    {
+        title: 'DEBATE',
+        image: DEBATE,
+        bgColor: 'rgba(255, 150, 190, 1)'
+    },
+    {
+        title: 'ARTES PLASTICAS',
+        image: ARTES,
+        bgColor: 'rgba(193, 15, 2, 1)'
+    },
+];
 
 </script>
-
-
 
 <template>
 
@@ -124,15 +163,28 @@
         :activities="recreationalActivities"
         :locations="recreationalLocations"
         :icons="recreationalIcons"
+        :useBackendSubmit="true"
         @event-created="handleEventCreated"
     />
+    
+    <!-- Estado de carga -->
+    <div v-if="isLoading" class="loading-container">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+    </div>
+    
+    <!-- Mostrar mensaje de error -->
+    <div v-else-if="error" class="error-container alert alert-danger">
+        {{ error }}
+    </div>
 
     <!-- Lista de Eventos -->
-    
-    <div v-if="events.length > 0" class="events-container">
+    <div v-else-if="events.length > 0" class="events-container">
         <EventCard 
             v-for="(event, index) in events" 
             :key="index"
+            :activityId="event.activityId"
             :title="event.title"
             :description="event.description"
             :organizer="event.organizer"
