@@ -66,7 +66,7 @@
   top: 0;
   left: -10%;
   width: 130%;
-  height: 95%;
+  height: 110%;
   object-fit: cover;
   object-position: 100% 95%;
 }

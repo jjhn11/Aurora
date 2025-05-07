@@ -52,7 +52,6 @@
     height: auto;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 0px;
 }
 .card-cover{
     width: 100%;
@@ -81,7 +80,8 @@
 .card-description {
     font-weight: 400;
     font-size: 18px;
-    padding-left: 10px;
+    padding-left: 5%;
+    padding-right: 5%;
     width: 100%;
     height: 124px;
     color: #0047FF;

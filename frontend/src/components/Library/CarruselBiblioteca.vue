@@ -74,7 +74,7 @@ const chunkedBooks = computed(() => {
       <i class="bi bi-chevron-left fs-4"></i>
     </button>
     
-    <div :id="carouselId" class="carousel">
+    <div :id="carouselId" class="carousel slide" data-bs-touch="true" data-bs-interval="false">
       <div class="carousel-inner">
         <div v-for="(group, index) in chunkedBooks" :key="index" class="carousel-item" :class="index === 0 ? 'active' : ''">
           <div class="row justify-content-center">
@@ -161,10 +161,6 @@ const chunkedBooks = computed(() => {
   position: relative;
 }
 
-.carousel-item {
-  margin: 0 auto;
-  padding: 20px 10px;
-}
 
 .carousel-item .row {
   flex-wrap: nowrap;
