@@ -24,7 +24,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+// CUANDO ESTE EN PRODUCCION, BORREN EL DE localhost:5173
+app.use(cors({ origin: ["http://168.231.73.137", "http://localhost:5173"], credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
