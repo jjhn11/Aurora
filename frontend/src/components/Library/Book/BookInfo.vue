@@ -29,7 +29,7 @@
               <p class="synopsis-text">{{ synopsis }}</p>
             </div>
             <div class="action-buttons">
-              <button class="action-button">RESERVAR</button>
+              <button class="action-button" @click="$emit('reserve-click')">RESERVAR</button>
             </div>
           </div>
         </div>
@@ -54,7 +54,7 @@ defineProps({
   },
   authors: {
     type: Array,
-    required: true,
+    default: () => [],
   },
   coverImage: {
     type: String,
@@ -62,9 +62,11 @@ defineProps({
   },
   synopsis: {
     type: String,
-    required: true,
+    default: 'No hay sinopsis disponible para este libro.',
   },
 });
+
+defineEmits(['reserve-click']);
 
 // Replace local ref with computed property connected to store
 const showShareModal = computed({
@@ -406,4 +408,3 @@ onMounted(() => {
     cursor: pointer;
   }
   </style>
-  

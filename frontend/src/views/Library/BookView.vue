@@ -13,6 +13,13 @@
         :authors="book.authors"
         :coverImage="book.coverImage"
         :synopsis="book.synopsis"
+        @reserve-click="showReservationForm = true"
+      />
+
+<!-- disque para ocultarlo uso el :hideButtons -->
+      <BookActions 
+        @reserve-click="showReservationForm = true" 
+        :hideButtons="!hideActionButtons"
       />
 
       <BookMetadata
@@ -36,7 +43,12 @@
       </div> -->
     </main>
 
-    
+    <!-- Formulario de Reservación (Modal) -->
+    <ReservationForm 
+      v-if="showReservationForm" 
+      :book="book" 
+      @close="showReservationForm = false"
+    />
   </div>
 </template>
 
@@ -48,6 +60,7 @@ import Breadcrumb from "@/components/Library/Book/Breadcrumb.vue";
 import BookInfo from "@/components/Library/Book/BookInfo.vue";
 import BookActions from "@/components/Library/Book/BookActions.vue";
 import BookMetadata from "@/components/Library/Book/BookMetadata.vue";
+import ReservationForm from "@/components/Library/Book/ReservationForm.vue";
 import CarruselBiblioteca from '@/components/Library/CarruselBiblioteca.vue';
 
 // State management
@@ -56,6 +69,8 @@ const store = useStore();
 const loading = ref(true);
 const error = ref(null);
 const book = ref({});
+const showReservationForm = ref(false);
+const hideActionButtons = ref(true); // true para ocultar, false para mostrar
 
 // Get the book ID from the route parameter
 const bookId = computed(() => route.params.id);
@@ -102,9 +117,6 @@ onMounted(() => {
 watch(bookId, () => {
   fetchBookData();
 });
-
-
-
 </script>
 
 <style scoped>
