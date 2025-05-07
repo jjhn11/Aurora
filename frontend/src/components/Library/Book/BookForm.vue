@@ -18,8 +18,10 @@ const store = useStore();
 
 // Form state
 const loading = ref(false);
+const sending = ref(false);
 const error = ref(null);
 const formSubmitted = ref(false);
+const success = ref(false);
 
 // Book and user data (read-only)
 const book = ref(null);
@@ -28,6 +30,14 @@ const user = computed(() => store.getters['user/getUserData']);
 // Reservation data (user input)
 const date = ref('');
 const time = ref('');
+const message = ref('');
+
+// Add computed property for min date
+const minDate = computed(() => {
+    const today = new Date();
+    today.setDate(today.getDate());
+    return today.toISOString().split('T')[0];
+});
 
 // Fetch the book and user data
 const fetchData = async () => {
@@ -55,39 +65,23 @@ const fetchData = async () => {
 };
 
 const handleSubmit = async () => {
-    formSubmitted.value = true;
+    if (success.value || sending.value) return; // Prevent multiple submissions
     
+    formSubmitted.value = true;
+    sending.value = true;
     try {
-        const reservationData = {
-            bookTitle: book.value.Title,
-            bookAuthor: book.value.author,
-            bookISBN: book.value.ISBN,
-            userName: user.value.Name_user,
-            userEmail: user.value.Email,
-            date: date.value,
-            time: time.value
-        };
+        await store.dispatch('mail/sendBookReservation', {
+            book: book.value,
+            pickupDate: date.value,
+            pickupTime: time.value
+        });
         
-        // Show alert with formatted data
-        alert(
-            'Datos de la Reserva:\n\n' +
-            `Libro: ${reservationData.bookTitle}\n` +
-            `Autor: ${reservationData.bookAuthor}\n` +
-            `ISBN: ${reservationData.bookISBN}\n` +
-            `Usuario: ${reservationData.userName}\n` +
-            `Email: ${reservationData.userEmail}\n` +
-            `Fecha: ${reservationData.date}\n` +
-            `Hora: ${reservationData.time}`
-        );
-        
-        // Here you would dispatch the reservation action
-        // await store.dispatch('books/createReservation', reservationData);
-        
-        emit('form-sent-success');
-        closeForm();
+        success.value = true;
     } catch (error) {
         console.error("Error al crear reserva:", error);
         alert('Error al procesar la reserva');
+    } finally {
+        sending.value = false;
     }
 };
 
@@ -110,14 +104,21 @@ watch(() => props.modelValue, (isOpen) => {
 });
 
 const closeForm = () => {
-    date.value = '';
-    time.value = '';
+    setDate();
     formSubmitted.value = false;
     emit('update:modelValue', false);
 };
 
+const setDate = () => {
+    const today = new Date();
+    today.setDate(today.getDate()); 
+    date.value = today.toISOString().split('T')[0];
+    time.value = '10:00';
+}
+
 onMounted(() => {
     fetchData();
+    setDate();
 });
 </script>
 
@@ -138,6 +139,12 @@ onMounted(() => {
 
                 <div v-else-if="error" class="error">
                     {{ error }}
+                </div>
+
+                <div v-else-if="success" class="success-message">
+                    <i class="fas fa-check-circle"></i>
+                    <p>¡Reservación solicitada con éxito! Te contactaremos pronto.</p>
+                    <button @click="closeForm" class="btn-primary">Cerrar</button>
                 </div>
 
                 <div v-else class="form-content">
@@ -173,7 +180,7 @@ onMounted(() => {
                                     type="date"
                                     class="form-input"
                                     required
-                                    :min="new Date().toISOString().split('T')[0]"
+                                    :min="minDate"
                                 >
                             </div>
 
@@ -189,8 +196,18 @@ onMounted(() => {
                         </div>
                     </section>
 
-                    <button type="submit" class="submit-button" @click="handleSubmit">
-                        CONFIRMAR RESERVA
+                    <button 
+                        type="submit" 
+                        class="submit-button"
+                        :disabled="sending"
+                    >
+                        <span v-if="sending">
+                            <i class="fas fa-spinner fa-spin me-2"></i>
+                            ENVIANDO...
+                        </span>
+                        <span v-else>
+                            CONFIRMAR RESERVA
+                        </span>
                     </button>
                 </div>
             </form>
@@ -215,7 +232,7 @@ onMounted(() => {
 .reservation-form {
     width: auto;
     min-width: 500px;
-    max-width: 800px;
+    max-width: 900px;
     height: auto;
     max-height: 80vh;
     background-color: white;
@@ -331,6 +348,12 @@ onMounted(() => {
     color: red;
 }
 
+.success-message {
+    text-align: center;
+    padding: 2rem;
+    color: green;
+}
+
 .fade-enter-active,
 .fade-leave-active {
     transition: opacity 0.3s ease;
@@ -356,6 +379,11 @@ onMounted(() => {
         color: #FBE326;
     }
 }
+
+.btn-primary:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
 
 /* Add responsive behavior */
 @media (max-width: 576px) {

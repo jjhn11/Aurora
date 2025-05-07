@@ -44,7 +44,7 @@ export default {
         // EMAIL DE QUIEN ADMINISTRA LOS PRESTAMOS (CHAV EN ESTE CASO)
         // EMAIL DE QUIEN ADMINISTRA LOS PRESTAMOS (CHAV EN ESTE CASO)
         // EMAIL DE QUIEN ADMINISTRA LOS PRESTAMOS (CHAV EN ESTE CASO)
-        const to = 'a22490390@itmexicali.edu.mx';
+        const to = 'a22490388@itmexicali.edu.mx';
         
         const response = await axios.post('/mail/send', {
           to,
