@@ -9,6 +9,7 @@
       <Breadcrumb :paths="breadcrumbPaths" />
 
       <BookInfo
+        :bookId="bookId"
         :title="book.Title"
         :authors="book.authors"
         :coverImage="book.coverImage"
