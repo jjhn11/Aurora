@@ -15,8 +15,9 @@ const API_BASE_URL = isProduction
   ? 'http://168.231.73.137:3000'  // URL de producción
   : 'http://localhost:3000';      // URL de desarrollo
 
-  alert(`App running in ${isProduction ? 'production' : 'development'} mode`);
-  alert(`${mode} mode`);
+//   alert(`App running in ${isProduction ? 'production' : 'development'} mode`);
+//   alert(`${mode} mode`);
+//   console.log(API_BASE_URL)
 
 // Configure axios
 axios.defaults.baseURL = API_BASE_URL; // Set the base URL for axios requests
