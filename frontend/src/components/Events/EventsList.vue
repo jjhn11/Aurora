@@ -117,12 +117,21 @@ const closeModal = () => {
           :key="event.id"
         >
           <Card
+            :key="event.Id_event"
+            :id="event.Id_event"
+            :date="event.date"
+            :image="'/src/assets/img/events/sports-event-2.jpg'"
+            :title="event.Title"
+            :description="event.Description"
+            @click="openModal(event)"
+          />
+          <!-- <Card
             :title="event.title"
             :date="event.date"
             :description="event.description"
             :image="event.image"
             @click="openModal(event)"
-          />
+          /> -->
         </div>
       </div>
 

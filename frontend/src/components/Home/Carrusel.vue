@@ -6,9 +6,6 @@ import Modal from '../Modal.vue';
 
 const store = useStore();
 
-// Get popular books from store
-// const events = store.state.events?.events;
-
 // Setup carousel events handling
 let scrollPos = 0;
 
@@ -78,7 +75,7 @@ const closeModal = () => {
                               :image="'/src/assets/img/events/sports-event-2.jpg'"
                               :title="events[0].Title"
                               :description="events[0].Description"
-                              @openModal="openModal(event)"
+                              @openModal="openModal(events[0])"
                             />
                         </div>
                         <div class="col-md-4">
@@ -87,7 +84,7 @@ const closeModal = () => {
                               :image="'/src/assets/img/events/sports-event-2.jpg'"
                               :title="events[1].Title"
                               :description="events[1].Description"
-                              @openModal="openModal(event)"
+                              @openModal="openModal(events[1])"
                             />
                         </div>
                         <div class="col-md-4">
@@ -96,7 +93,7 @@ const closeModal = () => {
                               :image="'/src/assets/img/events/sports-event-2.jpg'"
                               :title="events[2].Title"
                               :description="events[2].Description"
-                              @openModal="openModal(event)"
+                              @openModal="openModal(events[2])"
                             />
                         </div>
                     </div>
@@ -109,7 +106,7 @@ const closeModal = () => {
                               :image="'/src/assets/img/events/sports-event-2.jpg'"
                               :title="events[3].Title"
                               :description="events[3].Description"
-                              @openModal="openModal(event)"
+                              @openModal="openModal(events[3])"
                             />
                         </div>
                         <div class="col-md-4">
@@ -118,7 +115,7 @@ const closeModal = () => {
                               :image="'/src/assets/img/events/sports-event-2.jpg'"
                               :title="events[4].Title"
                               :description="events[4].Description"
-                              @openModal="openModal(event)"
+                              @openModal="openModal(events[4])"
                             />
                         </div>
                         <div class="col-md-4">
@@ -127,7 +124,7 @@ const closeModal = () => {
                               :image="'/src/assets/img/events/sports-event-2.jpg'"
                               :title="events[5].Title"
                               :description="events[5].Description"
-                              @openModal="openModal(event)"
+                              @openModal="openModal(events[5])"
                             />
                         </div>
                     </div>
@@ -140,7 +137,7 @@ const closeModal = () => {
                               :image="'/src/assets/img/events/sports-event-2.jpg'"
                               :title="events[6].Title"
                               :description="events[6].Description"
-                              @openModal="openModal(event)"
+                              @openModal="openModal(events[6])"
                             />
                         </div>
                         <div class="col-md-4">
@@ -149,7 +146,7 @@ const closeModal = () => {
                               :image="'/src/assets/img/events/sports-event-2.jpg'"
                               :title="events[7].Title"
                               :description="events[7].Description"
-                              @openModal="openModal(event)"
+                              @openModal="openModal(events[7])"
                             />
                         </div>
                         <div class="col-md-4">
@@ -158,7 +155,7 @@ const closeModal = () => {
                               :image="'/src/assets/img/events/sports-event-2.jpg'"
                               :title="events[8].Title"
                               :description="events[8].Description"
-                              @openModal="openModal(event)"
+                              @openModal="openModal(events[8])"
                             />
                         </div>
                     </div>

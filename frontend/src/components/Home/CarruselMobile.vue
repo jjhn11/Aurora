@@ -1,16 +1,58 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useStore } from 'vuex';
 import CardHome from './CardHome.vue';
 import Modal from '../Modal.vue';
 
 const store = useStore();
-const events = store.state.events?.events;
 
-// Modal handling
+// Setup carousel events handling
+let scrollPos = 0;
+
+// Cargar eventos al montar el componente
+onMounted(async () => {
+  if (!store.state.events?.events?.length) {
+    await store.dispatch('events/loadInitialData');
+  }
+});
+
+// Obtener solo eventos escolares usando el getter
+const events = computed(() => 
+  store.getters['events/getAllEvents'] || []
+);
+
+onMounted(() => {
+  const carousel = document.querySelector('#carrusel1');
+  if (!carousel) return;
+
+  let scrollPos = window.scrollY;
+
+  carousel.addEventListener('slide.bs.carousel', () => {
+    scrollPos = window.scrollY;
+
+    // Previene que cualquier botón o contenido reciba foco y cause scroll
+    requestAnimationFrame(() => {
+      if (document.activeElement && document.activeElement !== document.body) {
+        document.activeElement.blur();
+      }
+    });
+
+    document.body.style.overflow = 'hidden';
+  });
+
+  carousel.addEventListener('slid.bs.carousel', () => {
+    window.scrollTo({ top: scrollPos, behavior: 'instant' });
+    document.body.style.overflow = '';
+  });
+});
+
+
+
+// Modal 
 const isModalOpen = ref(false);
 const selectedEvent = ref({});
 
+//abrir/cerrar el modal
 const openModal = (event) => {
   selectedEvent.value = event;
   isModalOpen.value = true;
@@ -25,15 +67,16 @@ const closeModal = () => {
   <div class="mobile-carousel container-fluid">
     <div id="carouselMobile" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
-        <div v-for="(event, index) in events" 
-             :key="event.id" 
-             class="carousel-item"
-             :class="{ active: index === 0 }">
+        <div v-for="(event, index) in events.slice(0, 4)" 
+          :key="event.id" 
+          class="carousel-item"
+          :class="{ active: index === 0 }"
+        >
           <CardHome
-            :id="event.id"
-            :image="event.image"
-            :title="event.title"
-            :description="event.description"
+            :id="event.Id_event"
+            :image="'/src/assets/img/events/sports-event-2.jpg'"
+            :title="event.Title"
+            :description="event.Description"
             @openModal="openModal(event)"
           />
         </div>
@@ -45,7 +88,7 @@ const closeModal = () => {
         </button>
 
         <div class="carousel-indicators">
-          <button v-for="(_, index) in events" 
+          <button v-for="(_, index) in events.slice(0, 4)" 
                   :key="index"
                   type="button"
                   data-bs-target="#carouselMobile"
