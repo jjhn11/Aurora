@@ -78,7 +78,10 @@ export default {
     getUserStatusId: state => state.userData?.Id_user_status || null,
     
     // Obtener estado de autenticación
-    isAuthenticated: state => state.isAuthenticated,
+    isAuthenticated: state => {
+      // Add null check and provide default value
+      return state ? !!state.isAuthenticated : false;
+    },
     
     // Obtener libros favoritos
     getFavoriteBooks: state => state.favoriteBooks,
