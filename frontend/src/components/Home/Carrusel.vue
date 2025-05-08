@@ -6,6 +6,9 @@ import Modal from '../Modal.vue';
 
 const store = useStore();
 
+// Get popular books from store
+// const events = store.state.events?.events;
+
 // Setup carousel events handling
 let scrollPos = 0;
 
@@ -140,7 +143,7 @@ const closeModal = () => {
   
         <!-- Controles del carrusel -->
         <div class="carousel-controls-bottom">
-          <button class="btn btn-link carousel-control-next-bottom" type="button" data-bs-target="#carrusel1" data-bs-slide="next">
+          <button class="btn btn-link carousel-control-prev-bottom" type="button" data-bs-target="#carrusel1" data-bs-slide="prev">
             <i class="bi bi-chevron-left fs-4"></i>
           </button>
   
@@ -150,7 +153,7 @@ const closeModal = () => {
             <button type="button" data-bs-target="#carrusel1" data-bs-slide-to="2"></button>
           </div>
   
-          <button class="btn btn-link carousel-control-prev-bottom" type="button" data-bs-target="#carrusel1" data-bs-slide="prev">
+          <button class="btn btn-link carousel-control-next-bottom" type="button" data-bs-target="#carrusel1" data-bs-slide="next">
             <i class="bi bi-chevron-right fs-4"></i>
           </button>
         </div>
@@ -350,6 +353,6 @@ const closeModal = () => {
     .carousel-control-next {
       display: none;
     }
-}
-
-</style>
+  }
+  </style>
+  
