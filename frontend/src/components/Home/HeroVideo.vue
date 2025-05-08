@@ -1,36 +1,43 @@
 <template>
-  <div>
-    <section class="hero-container">
-      <!-- Always show the GIF as fallback -->
-      <img 
-        src="@/assets/img/home/herovideo.gif" 
-        alt="Hero animation" 
-        class="hero-background"
-      >
-      
-      <!-- Simple video implementation -->
-      <video 
-        autoplay 
-        muted 
-        loop 
-        playsinline
-        class="hero-video"
-      >
-        <source src="@/assets/img/home/herovideo.mp4" type="video/mp4">
-      </video>
 
-      <!-- Overlay Content -->
-      <div class="hero-overlay">
-        <!-- <span class="hero-title">Aurora</span> -->
-        <img src="@/assets/img/home/herovideo-title.png" alt="Hero title" class="hero-title">
-      </div>
+  <section class="hero-container">
+    <!-- Always show the GIF as fallback -->
+    <img 
+      src="@/assets/img/home/herovideo.gif" 
+      alt="Hero animation" 
+      class="hero-background"
+    >
+    
+    <!-- Simple video implementation -->
+    <video 
+      autoplay 
+      muted 
+      loop 
+      playsinline
+      class="hero-video"
+    >
+      <source src="@/assets/img/home/herovideo.mp4" type="video/mp4">
+    </video>
 
-      <!-- SVG Curve -->
-      <svg class="hero-curve" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path fill="white" fill-opacity="1" d="M0,160 C360,300 1080,300 1440,160 L1440,321 L0,321 Z"></path>
-      </svg>
-    </section>
-  </div>
+    <!-- Overlay Content -->
+    <div class="hero-overlay">
+      <!-- <span class="hero-title">Aurora</span> -->
+      <!--<img src="@/assets/img/home/herovideo-title.png" alt="Hero title" class="hero-title">  <!---->
+      <p class="hero-title">AURORA</p> <!---->
+    </div>
+
+    <!-- SVG Curve for Desktop-->
+    <svg class="hero-curve desktop-curve" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 300">
+      <path fill="white" fill-opacity="1" d="M0,160 C360,300 1080,300 1440,160 L1440,300 L0,400 Z"></path>
+    </svg>
+
+    <!-- SVG Curve for Mobile -->
+    <svg class="hero-curve mobile-curve" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 345">
+      <path fill="white" fill-opacity="1" d="M0,160 C360,400 1080,400 1440,160 L1440,400 L0,400 Z"></path>
+    </svg>
+    
+  </section>
+
 </template>
   
 <style scoped>
@@ -38,11 +45,13 @@
 /* Hero Container */
 .hero-container {
   position: relative;
+  top:auto;
   width: 100%;
-  height: 90vh;
+  height: 100vh;
   overflow: hidden;
   display: flex;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0); /* Cambiado a fondo transparente */
+  margin-top: -115px;
 }
 
 /* Gradient Overlay */
@@ -99,25 +108,89 @@
   z-index: 4;
 }
 
-/* .hero-title {
-  font-family: 'Cinzel Decorative';
-  font-weight: 700;
-  font-size: 5rem;
-  color: white;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-  margin: 0 auto;
-  transform: translateY(30%);
-  letter-spacing: 0.05em;
+/* Desktop curve */
+.mobile-curve {
+  display: none;
 }
-*/
 
-
+/*
 .hero-title {
   width: 75%;
   max-width: 80%; 
   margin: 0 auto;
   transform: translate(20%, 130%); 
-} 
+}
+*/
 
+.hero-title {
+  position: fixed;
+  left: 50%;
+  top: 25%;
+  transform: translate(-15%, -35%);
+  
+  position: relative;
 
+  font-family: 'Cinzel Decorative';
+  font-size: 5.5vw; /* Tamaño responsive basado en el viewport width */
+  font-weight: 600;
+  
+  transition: 0.6s;
+  z-index: 3;
+}
+
+@media (max-width: 1024px) {
+  .hero-container {
+    height: 55vh;
+  }
+
+  .hero-title {
+    transform: translate(-15%, 35%);
+  }
+
+  .desktop-curve {
+    display: none;
+  }
+  
+  .mobile-curve {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .desktop-curve {
+    display: none;
+  }
+  
+  .mobile-curve {
+    display: block;
+  }
+
+  .hero-container {
+    height: 50vh;
+  }
+
+  .hero-title {
+    font-size: 6vw;
+    transform: translate(-15%, 40%);
+  }
+}
+
+@media (max-width: 576px) {
+  .desktop-curve {
+    display: none;
+  }
+  
+  .mobile-curve {
+    display: block;
+  }
+
+  .hero-container {
+    height: 45vh;
+  }
+
+  .hero-title {
+    font-size: 6vw;
+    transform: translate(-20%, 85%);
+  }
+}
 </style>

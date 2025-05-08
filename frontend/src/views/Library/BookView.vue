@@ -5,37 +5,30 @@
       <p>Cargando detalles del libro...</p>
     </div>
     
-    <div v-else-if="error" class="error-message">
-      <p>{{ error }}</p>
-      <button @click="fetchBookData" class="retry-button">Intentar de nuevo</button>
-    </div>
-    
     <main v-else class="book-content">
       <Breadcrumb :paths="breadcrumbPaths" />
-      
+
       <BookInfo
-        :title="book.title"
+        :bookId="bookId"
+        :title="book.Title"
         :authors="book.authors"
         :coverImage="book.coverImage"
         :synopsis="book.synopsis"
       />
-      
-      <BookActions />
-      
+
       <BookMetadata
-        :format="book.format"
-        :authors="book.authorText"
-        :publisher="book.publisher"
-        :year="book.year"
-        :pages="book.pages"
-        :binding="book.binding"
-        :isbn="book.isbn"
-        :isbn13="book.isbn13"
-        :edition="book.edition"
-        :categories="book.categories"
+        :format="book.format || 'N/A'"
+        :authors="book.authorText || ''"
+        :publisher="book.publisher || 'N/A'"
+        :year="book.year || 'N/A'"
+        :pages="book.pages || 'N/A'"
+        :binding="book.binding || 'N/A'"
+        :isbn="book.ISBN || 'N/A'"
+        :isbn13="book.ISBN || 'N/A'"
+        :edition="book.edition || 'N/A'"
+        :categories="book.categories || []"
       />
       
-      <!-- Uncomment when components are ready -->
       <!-- <BookReviews :reviews="book.reviews" /> -->
       <!-- <RelatedBooks :books="relatedBooks" /> -->
       
@@ -43,100 +36,56 @@
         <div class="progress-bar-blue"></div>
       </div> -->
     </main>
+
     
-    <!-- <Footer2 /> -->
   </div>
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, computed } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
+import { useStore } from "vuex";
 import Breadcrumb from "@/components/Library/Book/Breadcrumb.vue";
 import BookInfo from "@/components/Library/Book/BookInfo.vue";
 import BookActions from "@/components/Library/Book/BookActions.vue";
 import BookMetadata from "@/components/Library/Book/BookMetadata.vue";
-// import BookReviews from "@/components/Library/Book/BookReviews.vue";
-// import RelatedBooks from "@/components/Library/Book/RelatedBooks.vue";
-// import Footer2 from "@/components/Library/Book/Footer2.vue";
+import CarruselBiblioteca from '@/components/Library/CarruselBiblioteca.vue';
 
 // State management
 const route = useRoute();
+const store = useStore();
 const loading = ref(true);
 const error = ref(null);
-const book = reactive({
-  id: '',
-  title: '',
-  authors: [],
-  authorText: '',
-  coverImage: '',
-  synopsis: '',
-  format: '',
-  publisher: '',
-  year: '',
-  pages: '',
-  binding: '',
-  isbn: '',
-  isbn13: '',
-  edition: '',
-  categories: [],
-  reviews: []
-});
-const relatedBooks = ref([]);
+const book = ref({});
 
-// Computed properties
+// Get the book ID from the route parameter
+const bookId = computed(() => route.params.id);
+
+// Create breadcrumb paths
 const breadcrumbPaths = computed(() => [
   { name: 'INICIO', path: '/' },
-  { name: 'BIBLIOTECA', path: '/biblioteca' },
-  { name: 'CATALOGO', path: '/biblioteca/catalogo' },
-  {
-    name: book.title || 'Cargando...',
-    path: `/biblioteca/libro/${route.params.id || ''}`,
-    active: true,
-  },
+  { name: 'BIBLIOTECA', path: '/library' },
+  { name: book.value.Title || 'Cargando...', path: `/library/book/${bookId.value}`, active: true }
 ]);
 
-// Methods
+// Fetch the book data
 const fetchBookData = async () => {
   loading.value = true;
   error.value = null;
   
   try {
-    // Get the book ID from route params
-    const bookId = route.params.id;
+    // Use the store to fetch book details
+    await store.dispatch('books/fetchBookDetails', bookId.value);
     
-    // In a real app, you would fetch from your API
-    // const response = await fetch(`/api/books/${bookId}`);
-    // const data = await response.json();
+    // Get the book from the store
+    const bookDetails = store.getters['books/getBookById'](bookId.value);
     
-    // For demo, we'll simulate an API response with timeout
-    await new Promise(resolve => setTimeout(resolve, 800));
-    
-    // Mock data - replace with actual API call
-    const data = {
-      id: bookId || '123',
-      title: 'Big Data: la Revolución de los Datos Masivos',
-      authors: ['Viktor Mayer-Schönberger', 'Kenneth Cukier'],
-      authorText: 'Viktor Mayer-Schönberger y Kenneth Cukier',
-      coverImage: 'https://cdn.builder.io/api/v1/image/assets/TEMP/5441e3a1d6cebb44ed0a7f840df7d73dabef7cbf?placeholderIfAbsent=true&apiKey=e4bc752606e34419a710b790ae8468cc',
-      synopsis: 'Qué color de pintura es más probable que le diga si un vehículo de segunda mano está en buen estado. Cómo puede identificar un ayuntamiento cuáles son los baches más peligrosos de una ciudad. La clave para responder a todas estas preguntas son los datos masivos, los big data. Este término hace referencia a la ingente cantidad de información que proviene de la red, una información que hoy estamos en condiciones de procesar, analizar, tabular y utilizar, para bien o para mal. Los datos masivos representan una revolución que ya está cambiando la forma de hacer negocios, la sanidad, la política, la educación y la innovación. A la vez, significan el fin de la privacidad tal como la considerábamos hasta ahora. Este es un ensayo accesible sobre el mundo big data, cómo nos puede cambiar la vida, y qué podemos hacer frente a sus riesgos.',
-      format: 'Libro Físico',
-      publisher: 'Turner',
-      year: '2013',
-      pages: '278',
-      binding: 'Tapa Blanda',
-      isbn: '8415832109',
-      isbn13: '9788415832102',
-      edition: '1',
-      categories: ['Ciencias', 'Computación'],
-      reviews: []
-    };
-    
-    // Update our reactive state with the fetched data
-    Object.assign(book, data);
-    
-    // Fetch related books (in a real app)
-    await fetchRelatedBooks(data.categories);
-    
+    if (bookDetails) {
+      // Update the book ref with the fetched data
+      book.value = bookDetails;
+    } else {
+      error.value = 'No se encontró el libro solicitado.';
+    }
   } catch (err) {
     console.error('Error fetching book data:', err);
     error.value = 'No se pudo cargar la información del libro. Por favor intenta de nuevo más tarde.';
@@ -145,37 +94,18 @@ const fetchBookData = async () => {
   }
 };
 
-const fetchRelatedBooks = async (categories) => {
-  try {
-    // In a real app, fetch related books by categories
-    // const response = await fetch(`/api/books/related?categories=${categories.join(',')}`);
-    // relatedBooks.value = await response.json();
-    
-    // For demo, simulate related books
-    relatedBooks.value = [
-      {
-        id: '124',
-        title: 'Inteligencia Artificial',
-        author: 'Stuart Russell',
-        coverImage: '/placeholder-book.jpg'
-      },
-      {
-        id: '125',
-        title: 'Machine Learning con Python',
-        author: 'Sarah Guido',
-        coverImage: '/placeholder-book.jpg'
-      }
-    ];
-  } catch (err) {
-    console.error('Error fetching related books:', err);
-    // Non-critical error, so we don't set the main error state
-  }
-};
-
-// Lifecycle hooks
+// Fetch book data when the component is mounted
 onMounted(() => {
   fetchBookData();
 });
+
+// Watch for changes to the book ID (in case user navigates between books)
+watch(bookId, () => {
+  fetchBookData();
+});
+
+
+
 </script>
 
 <style scoped>
@@ -185,7 +115,7 @@ onMounted(() => {
   flex-direction: column;
   overflow: hidden;
   align-items: stretch;
-  margin-top: 40px;
+  margin-top: 20px;
   min-height: 100vh; /* Ensure full height even when loading */
 }
 
@@ -193,8 +123,8 @@ onMounted(() => {
   align-self: center;
   display: flex;
   margin-top: 31px;
-  width: 100%;
-  max-width: 1468px;
+  width: 92%;
+  max-width: 95vw;
   flex-direction: column;
   align-items: stretch;
   padding: 0 15px; /* Add padding for mobile */

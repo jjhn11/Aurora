@@ -1,115 +1,149 @@
-<script>
-    import Card from './Card.vue';
-    export default {
-    components: { Card },
-    props: {
-        showSlider: {
-        type: Boolean,
-        default: false // visible nono
-        }
-    },
-    data() {
-        return {
-        activeSlide: 0,
-        totalSlides: 3 // <-- cambia este número si tienes más slides
-        };
-    },
-    mounted() {
-        const carousel = document.querySelector('#carrusel1');
-        carousel.addEventListener('slid.bs.carousel', (e) => {
-        this.activeSlide = e.to;
-        });
-    }
-    }
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import { useStore } from 'vuex';
+import Card from './Card.vue';
+import Modal from '../Modal.vue';
+// Setup reactive state
+const activeSlide = ref(0);
+const totalSlides = ref(3);
+const showSlider = ref(false);
+const store = useStore();
+
+// Categoría Cultural (ID=1)
+const culturalCategoryId = 1;
+
+// Cargar eventos al montar el componente
+onMounted(async () => {
+  if (!store.state.events?.events?.length) {
+    await store.dispatch('events/loadInitialData');
+  }
+});
+
+// Obtener solo eventos culturales usando el getter
+const culturalEvents = computed(() => 
+  store.getters['events/getEventsByCategory'](culturalCategoryId) || []
+);
+
+// Setup carousel events handling
+onMounted(() => {
+  const carousel = document.querySelector('#carrusel1');
+  if (carousel) {
+    carousel.addEventListener('slid.bs.carousel', (e) => {
+      activeSlide.value = e.to;
+    });
+  }
+});
+
+// Estado del Modal
+const selectedEvent = ref({});
+const isModalOpen = ref(false);
+
+const openModal = (event) => {
+  selectedEvent.value = event;
+  isModalOpen.value = true;
+};
+
+const closeModal = () => {
+  selectedEvent.value = {};
+  isModalOpen.value = false;
+};
+
 </script>
+
 <template>
-    <div class="contenedor-carrusel container-fluid d-flex justify-content-center">
-        <button class="btn btn-link carousel-control-prev-bottom" type="button" data-bs-target="#carrusel1" data-bs-slide="prev">
+    <div class="contenedor-carrusel container-fluid d-flex justify-content-center px-0">
+        <!-- Botones laterales (visibles en pantallas grandes) -->
+        <button class="btn btn-link carousel-control-prev-bottom d-none d-md-block" type="button" data-bs-target="#carrusel1" data-bs-slide="prev">
             <i class="bi bi-chevron-left fs-4"></i>
         </button>
-        <div id="carrusel1" class="carousel">
-            <div class="carousel-inner">
+        <div id="carrusel1" class="carousel slide">
+            <div class="carousel-inner" v-if="culturalEvents.length >= 9">
                 <div class="carousel-item active">
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               image="src\assets\img\events\img1.png"
-                               title="Charla: “Habilidades Blandas”"
-                               description="Se explicó el porque las habilidades blandas son una ventaja en ideas y proyectos, base para establecer funciones de liderazgo."/>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                                <Card
-                                image="src\assets\img\events\img2.png"
-                                title="Creación de un NODESS"
-                                description="Se acordaron diversos proyectos en favor del cooperativismo para apoyar emprendimientos."/>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                                image="src\assets\img\events\img2.png"
-                                title="Creación de un NODESS"
-                                description="Se acordaron diversos proyectos en favor del cooperativismo para apoyar emprendimientos."/>
-                        </div>
+                    <div class="slide-row">
+                        <Card
+                          v-for="(event, index) in culturalEvents.slice(0, 3)"
+                          :key="event.Id_event"
+                          :id="event.Id_event"
+                          :image="'/src/assets/img/events/sports-event-2.jpg'"
+                          :title="event.Title"
+                          :description="event.Description"
+                          @click="openModal(event)"
+                        />
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               image="src\assets\img\events\img2.png"
-                               title="Creación de un NODESS"
-                               description="Se acordaron diversos proyectos en favor del cooperativismo para apoyar emprendimientos."/>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               image="src\assets\img\events\img2.png"
-                               title="Creación de un NODESS"
-                               description="Se acordaron diversos proyectos en favor del cooperativismo para apoyar emprendimientos."/>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               image="src\assets\img\events\img2.png"
-                               title="Creación de un NODESS"
-                               description="Se acordaron diversos proyectos en favor del cooperativismo para apoyar emprendimientos."/>
-                        </div>
+                    <div class="slide-row">
+                        <Card
+                          v-for="(event, index) in culturalEvents.slice(3, 6)"
+                          :key="event.Id_event"
+                          :id="event.Id_event"
+                          :image="'/src/assets/img/events/sports-event-2.jpg'"
+                          :title="event.Title"
+                          :description="event.Description"
+                          @click="openModal(event)"
+                        />
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               image="src\assets\img\events\img2.png"
-                               title="Creación de un NODESS"
-                               description="Se acordaron diversos proyectos en favor del cooperativismo para apoyar emprendimientos."/>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               image="src\assets\img\events\img2.png"
-                               title="Creación de un NODESS"
-                               description="Se acordaron diversos proyectos en favor del cooperativismo para apoyar emprendimientos."/>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <Card
-                               image="src\assets\img\events\img2.png"
-                               title="Creación de un NODESS"
-                               description="Se acordaron diversos proyectos en favor del cooperativismo para apoyar emprendimientos."/>
-                        </div>
+                    <div class="slide-row">
+                        <Card
+                          v-for="(event, index) in culturalEvents.slice(6, 9)"
+                          :key="event.Id_event"
+                          :id="event.Id_event"
+                          :image="'/src/assets/img/events/sports-event-2.jpg'"
+                          :title="event.Title"
+                          :description="event.Description"
+                          @click="openModal(event)"
+                        />
                     </div>
                 </div>
             </div>
+            <div class="no-events" v-else>
+                <p>No hay eventos culturales disponibles</p>
+            </div>
         </div>
-        <button class="btn btn-link carousel-control-next-bottom" type="button" data-bs-target="#carrusel1" data-bs-slide="next">
+        <button class="btn btn-link carousel-control-next-bottom d-none d-md-block" type="button" data-bs-target="#carrusel1" data-bs-slide="next">
             <i class="bi bi-chevron-right fs-4"></i>
         </button>
     </div>
+    
+    <!-- Botones inferiores (solo visibles en móviles) -->
+    <div class="text-center mobile-controls">
+        <button class="btn btn-outline-primary mx-2" type="button" data-bs-target="#carrusel1" data-bs-slide="prev">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+        <button class="btn btn-outline-primary mx-2" type="button" data-bs-target="#carrusel1" data-bs-slide="next"><i class="bi bi-chevron-right"></i>
+        </button>
+    </div>
+    
     <div class="custom-slider-bar" v-if="showSlider">
         <div class="custom-slider-thumb" :style="{ left: `${(activeSlide / (totalSlides - 1)) * 100}%` }"></div>
     </div>
 
-
-
+    <Modal :isOpen="isModalOpen" :event="selectedEvent" @close="closeModal" />
 </template>
 
 <style scoped>
+.slide-row {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 15px;
+}
+
+.slide-row > * {
+  flex: 1 1 30%;
+  max-width: 30%;
+}
+body {
+  overflow-x: hidden;
+}
+
+
+.mobile-controls button {
+  min-width: 10px;
+}
+
 .custom-slider-bar {
   position: relative;
   height: 6px;
@@ -133,23 +167,14 @@
 }
 
 .contenedor-carrusel {
-    width: 83%;
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 .carousel {
     position: relative;
-    padding-bottom: 30px;
-}
-.carousel-item {
-    margin: 0 auto;
-    padding: 20px 10px;
-}
-
-.carousel-item .row {
-    flex-wrap: nowrap;
-    max-width: 1600px;
-    justify-content: center;
-    margin: 15 auto;
 }
 
 .carousel-control-prev,
@@ -157,4 +182,24 @@
     display: none;
 }
 
+/* Estilos para los botones en móvil */
+@media (max-width: 776px) {
+    .carousel-control-prev-bottom,
+    .carousel-control-next-bottom {
+        display: none !important;
+    }
+    
+    .mobile-controls {
+        display: block !important;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Ocultar controles móviles en pantallas grandes */
+@media (min-width: 776px) {
+    .mobile-controls {
+        display: none !important;
+    }
+}
 </style>

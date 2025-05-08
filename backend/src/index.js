@@ -1,154 +1,142 @@
-const express = require('express');
-const cors = require('cors');
-const mysql = require('mysql2/promise');
-require('dotenv').config();
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import express from 'express';
+import session from 'express-session';
+import { sequelize } from './config/db.js';
+import passport from './config/passport.js';
+import checkAuth from './middlewares/checkAuth.js';
+import authRoutes from './routes/auth.js';
+import communityRoutes from './routes/community.js';
+import eventsRoutes from './routes/events.js';
+import userRoutes from './routes/user.js';
+import { runAssociations } from './models/associations.js'
+import { loadSampleData } from './scripts/loadSampleData.js'
+import { cleanupData } from './scripts/cleanupData.js';
 
-// Create express app
+dotenv.config();
+const open = (...args) => import('open').then(m => m.default(...args));
+import mailRoutes from './routes/mail.js';
+
+import { isProfane } from './middlewares/checkProfane.js';
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors());
+// CUANDO ESTE EN PRODUCCION, BORREN EL DE localhost:5173
+app.use(cors({ origin: ["http://168.231.73.137", "http://localhost:5173"], credentials: true }));
 app.use(express.json());
+app.use(cookieParser());
 
-// Database connection pool
-const pool = mysql.createPool({
-  host: process.env.DB_HOST || 'db',
-  user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || 'rootpassword',
-  database: process.env.DB_NAME || 'mydb',
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
+
+
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'your_session_secret',
+  resave: false,
+  saveUninitialized: false, 
+  rolling: true,
+  cookie: {
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 1 * 60 * 60 * 1000,
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    httpOnly: true,
+    // javaScriptEnabled: false
+  }
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+// Routes
+app.use('/auth', authRoutes);
+app.use('/community', communityRoutes);
+app.use('/events', eventsRoutes);
+app.use('/user', userRoutes);
+app.use('/mail', mailRoutes);
+
+// Health check
+app.get('/api/health', (req, res) => res.json({ status: 'ok', service: 'backend' }));
+
+// Home (protegido)
+app.get('/', checkAuth, (req, res) => {
+  res.json({ message: 'Tas loggeado tilin' });
 });
 
-// Enhanced database connection with retry logic
+app.post('/profanity', isProfane(['title', 'description']), (req, res) => {
+  res.json({ 
+    message: 'No hay profanidad',
+    SFW: true,
+    verifiedFields: ['title', 'description']
+  });
+});
+
+
+// DB init  **************CONSULTAS MANUALES*************
+// async function connectWithRetry(maxAttempts = 10, delay = 5000) {
+//   let attempts = 0;
+//   while (attempts < maxAttempts) {
+//     try {
+//       const conn = await pool.getConnection();
+//       const [rows] = await conn.query('SELECT NOW() as now');
+//       console.log('Database connected:', rows[0].now);
+//       conn.release();
+//       return true;
+//     } catch (err) {
+//       attempts++;
+//       console.log(`Attempt ${attempts} failed:`, err.message);
+//       await new Promise(r => setTimeout(r, delay));
+//     }
+//   }
+//   return false;
+// }
+
+// DB init with Sequelize
 async function connectWithRetry(maxAttempts = 10, delay = 5000) {
   let attempts = 0;
-  
-  console.log('Starting database connection attempts...');
-  
   while (attempts < maxAttempts) {
     try {
-      console.log(`Attempt ${attempts + 1}/${maxAttempts} to connect to database...`);
-      const connection = await pool.getConnection();
-      const [rows] = await connection.query('SELECT NOW() as now');
-      console.log('Database connected:', rows[0].now);
-      connection.release();
+      await sequelize.authenticate();
+      console.log(' Database connected successfully with Sequelize.');
+      await sequelize.sync({ force: false }); 
+      runAssociations();
+      // await CommunityEventAttendance.sync(); // Por si no se sincroniza con la linea de arriba
+      console.log('Database synchronized successfully.');
       return true;
     } catch (err) {
       attempts++;
-      console.log(`Database connection attempt ${attempts}/${maxAttempts} failed:`, err.message);
-      
-      if (attempts >= maxAttempts) {
-        console.error('Max connection attempts reached. Giving up.');
-        return false;
-      }
-      
-      console.log(`Retrying in ${delay}ms...`);
-      await new Promise(resolve => setTimeout(resolve, delay));
+      console.log(`Attempt ${attempts} failed:`, err.message);
+      await new Promise(r => setTimeout(r, delay));
     }
   }
+  return false;
 }
 
-// Health check endpoint
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', service: 'backend' });
-});
 
-// Get all tasks
-app.get('/api/tasks', async (req, res) => {
-  try {
-    const [rows] = await pool.query('SELECT * FROM tasks');
-    res.json(rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Server error' });
-  }
-});
 
-// Create a new task
-app.post('/api/tasks', async (req, res) => {
-  try {
-    const { name, description, completed } = req.body;
-    const [result] = await pool.query(
-      'INSERT INTO tasks (name, description, completed) VALUES (?, ?, ?)',
-      [name, description, completed]
-    );
-    
-    const [rows] = await pool.query('SELECT * FROM tasks WHERE id = ?', [result.insertId]);
-    res.status(201).json(rows[0]);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Server error' });
-  }
-});
-
-// Update a task
-app.put('/api/tasks/:id', async (req, res) => {
-  try {
-    const { name, description, completed } = req.body;
-    const taskId = req.params.id;
-    
-    const [result] = await pool.query(
-      'UPDATE tasks SET name = ?, description = ?, completed = ? WHERE id = ?',
-      [name, description, completed, taskId]
-    );
-    
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ error: 'Task not found' });
-    }
-    
-    const [rows] = await pool.query('SELECT * FROM tasks WHERE id = ?', [taskId]);
-    res.json(rows[0]);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Server error' });
-  }
-});
-
-// Delete a task
-app.delete('/api/tasks/:id', async (req, res) => {
-  try {
-    const taskId = req.params.id;
-    const [result] = await pool.query('DELETE FROM tasks WHERE id = ?', [taskId]);
-    
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ error: 'Task not found' });
-    }
-    
-    res.json({ message: 'Task deleted successfully' });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Server error' });
-  }
-});
-
-// Start server after ensuring database connection
+// Start server
 async function startServer() {
-  console.log('Starting server initialization...');
-  
-  // Start Express listener first, but don't announce ready until DB is connected
-  const server = app.listen(PORT, () => {
-    console.log(`Server process running on port ${PORT}, waiting for database...`);
-  });
-  
-  // Try to connect to database
   const connected = await connectWithRetry();
-  console.log('Database connection result:', connected);
-  
   if (!connected) {
-    console.error('Failed to connect to database after maximum retries. Shutting down.');
+    console.error('DB connection failed. Exiting.');
     server.close();
     process.exit(1);
   }
   
-  console.log(`Server fully initialized and ready for connections on port ${PORT}`);
+  const server = app.listen(PORT, '0.0.0.0', async () => {
+    console.log(`Server running on port ${PORT}`);
+    if (process.env.NODE_ENV !== 'production') {
+      await open(`http://localhost:${PORT}`);
+    }
+  });
 }
 
-// Initialize the server with better error handling
-console.log('Initializing application...');
 startServer().catch(err => {
-  console.error('Fatal error during startup:', err);
+  console.error('Startup error:', err);
   process.exit(1);
 });
+
+//await loadSampleData();
+
+console.log('Modelo registrado: ', Object.keys(sequelize.models));

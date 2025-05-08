@@ -100,4 +100,20 @@
   height: 198px;
   max-width: 80%; 
 }  
+@media (max-width:776px) {
+  .hero-container {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+  display: flex;
+}
+  .hero-title {
+  font-size: 3rem;
+  transform: translateY(30%);
+  width: 870px;
+  height: 198px;
+  max-width: 80%; 
+}  
+}
 </style>
