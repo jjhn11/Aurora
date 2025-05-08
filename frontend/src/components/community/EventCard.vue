@@ -35,11 +35,6 @@ export default {
                      a.Confirmation === 1
             );
             
-            console.log("Usuario:", userId);
-            console.log("Actividad:", activityId);
-            console.log("¿Asiste?", !!attendance);
-            console.log("Attendances:", store.state.community?.attendances);
-            
             return !!attendance;
         });
         
@@ -60,6 +55,7 @@ export default {
                 console.error("Error al registrar asistencia:", error);
                 // Podrías mostrar una notificación al usuario
             }
+            
         };
         
         return {
@@ -188,6 +184,19 @@ export default {
             return 'ASISTENCIA'
         }
     },
+    methods: {
+        // Manejar errores de carga de imagen
+        handleImageError(e) {
+            // Establecer una imagen de respaldo basada en la categoría
+            const backupImages = {
+                'Deportivo': '/src/assets/img/community/icons/sports/ICONO VOLLEYBALL.png',
+                'Cultural': '/src/assets/img/community/icons/cultural/ICONO DANZA.png',
+                'Recreativo': '/src/assets/img/community/icons/recreational/ICONO LECTURA.png',
+                'Videojuegos': '/src/assets/img/community/icons/videogames/ICONO ACCION.png'
+            };
+            e.target.src = backupImages[this.category] || '/src/assets/img/community/icons/recreational/ICONO LECTURA.png';
+        }
+    }
 };
 
 </script>
@@ -229,8 +238,13 @@ export default {
 
                 <div class="attendance-container">
 
-                    <div class="attendance-circle" :style="{ backgroundColor }">
-                        <img :src="imageSrc" class="attendance-image" alt="Event icon" />
+                    <div class="attendance-circle" :style="{ backgroundColor: backgroundColor || '#cccccc' }">
+                        <img 
+                            class="attendance-image" 
+                            :src="imageSrc" 
+                            :alt="`Icono de ${category}`" 
+                            @error="handleImageError" 
+                        />
                     </div>
 
                     <div class="buttons-container">
@@ -890,4 +904,3 @@ export default {
         }
     }
 </style>
-``` 

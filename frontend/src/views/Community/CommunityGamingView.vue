@@ -38,21 +38,23 @@ onMounted(async () => {
         
         // Cargar eventos por categoría
         const activities = await store.dispatch('community/fetchActivities', gamingCategoryId);
-        
+
         // Convertir las actividades del backend al formato que espera el componente EventCard
         events.value = activities.map(activity => ({
             activityId: activity.Id_activity,
             title: activity.Title,
             description: activity.Description,
-            organizer: activity.Organizer_id, // Idealmente convertir ID a nombre
+            organizer: activity.Organizer_id,
             startTime: activity.Start_time,
             endTime: activity.End_time,
-            location: activity.Id_Location, // Idealmente convertir ID a nombre
-            category: "Videojuegos", // Dependiendo del Id_type
-            imageSrc: "/assets/img/community/icons/recreational/ICONO_DEFAULT.png", // Placeholder
-            backgroundColor: "#61FFD2", // Color por defecto
+            location: activity.Id_Location,
+            category: "Videojuegos", // Texto mostrado
+            // Usar los metadatos para el ícono y color
+            imageSrc: activity._metadata?.iconPath || "/src/assets/img/community/icons/videogames/ICONO ACCION.png", 
+            backgroundColor: activity._metadata?.backgroundColor || "#61FFD2",
             date: activity.Event_date
         }));
+
     } catch (err) {
         error.value = err.message || "Error al cargar eventos";
         console.error("Error al cargar eventos:", err);

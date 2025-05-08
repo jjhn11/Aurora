@@ -1,10 +1,5 @@
 import filter from '../config/profanity.js';
 
-/** 
- * Middleware para revisar profanidad que acepta campos desde el frontend
- * @param {Array} fields - Campos a verificar
- * @returns {Function} Middleware de Express
- */
 export const isProfane = (fields) => (req, res, next) => {
     const content = req.body;
     const fieldsToCheck = fields;

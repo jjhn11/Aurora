@@ -33,13 +33,14 @@ onMounted(async () => {
             activityId: activity.Id_activity,
             title: activity.Title,
             description: activity.Description,
-            organizer: activity.Organizer_id, // Idealmente convertir ID a nombre
+            organizer: activity.Organizer_id,
             startTime: activity.Start_time,
             endTime: activity.End_time,
-            location: activity.Id_Location, // Idealmente convertir ID a nombre
-            category: "Cultural", // Dependiendo del Id_type
-            imageSrc: "/assets/img/community/icons/cultural/ICONO_DEFAULT.png", // Placeholder
-            backgroundColor: "#FBE326", // Color por defecto
+            location: activity.Id_Location,
+            category: "Cultural", // Texto mostrado
+            // Usar los metadatos para el ícono y color
+            imageSrc: activity._metadata?.iconPath || "/src/assets/img/community/icons/cultural/ICONO DANZA.png", 
+            backgroundColor: activity._metadata?.backgroundColor || "#FBE326",
             date: activity.Event_date
         }));
     } catch (err) {

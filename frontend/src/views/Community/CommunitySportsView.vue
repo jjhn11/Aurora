@@ -35,15 +35,17 @@ onMounted(async () => {
             activityId: activity.Id_activity,
             title: activity.Title,
             description: activity.Description,
-            organizer: activity.Organizer_id, // Idealmente convertir ID a nombre
+            organizer: activity.Organizer_id, 
             startTime: activity.Start_time,
             endTime: activity.End_time,
-            location: activity.Id_Location, // Idealmente convertir ID a nombre
-            category: "Deportivo", // Dependiendo del Id_type
-            imageSrc: "/assets/img/community/icons/sports/ICONO_DEFAULT.png", // Placeholder
-            backgroundColor: "#5C77BA", // Color por defecto
+            location: activity.Id_Location,
+            category: "Deportivo", // Texto mostrado
+            // Usar los metadatos para el ícono y color
+            imageSrc: activity._metadata?.iconPath || "/src/assets/img/community/icons/sports/ICONO VOLLEYBALL.png", 
+            backgroundColor: activity._metadata?.backgroundColor || "#5C77BA",
             date: activity.Event_date
         }));
+
     } catch (err) {
         error.value = err.message || "Error al cargar eventos";
         console.error("Error al cargar eventos:", err);
