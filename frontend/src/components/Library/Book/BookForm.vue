@@ -25,7 +25,12 @@ const success = ref(false);
 
 // Book and user data (read-only)
 const book = ref(null);
-const user = computed(() => store.getters['user/getUserData']);
+const user = computed(() => {
+  if (!store.state.isAuthenticated) {
+    return null;
+  }
+  return store.getters['user/getUserData'];
+});
 
 // Reservation data (user input)
 const date = ref('');
@@ -67,6 +72,11 @@ const fetchData = async () => {
 const handleSubmit = async () => {
     if (success.value || sending.value) return; // Prevent multiple submissions
     
+    // Check for user authentication first
+    if (!user.value) {
+        error.value = 'Debes iniciar sesión para reservar un libro.';
+        return;
+    }
     formSubmitted.value = true;
     sending.value = true;
     try {
@@ -89,7 +99,7 @@ const handleSubmit = async () => {
 watch([user, book], ([newUser, newBook]) => {
     if (!newUser || !newBook) {
         error.value = !newUser 
-            ? 'No se pudo cargar la información del usuario.'
+            ? 'Debes iniciar sesión para reservar un libro.'
             : 'No se pudo cargar la información del libro.';
     } else {
         error.value = null;
@@ -101,6 +111,13 @@ watch(() => props.modelValue, (isOpen) => {
     if (isOpen) {
         fetchData();
     }
+});
+
+// Add a watch for authentication state
+watch(() => store.state.isAuthenticated, (isAuthenticated) => {
+  if (!isAuthenticated) {
+    closeForm();
+  }
 });
 
 const closeForm = () => {

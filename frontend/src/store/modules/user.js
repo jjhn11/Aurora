@@ -39,7 +39,7 @@ export default {
     getProfile: state => state.profile,
     
     // Obtener datos completos del usuario
-    getUserData: state => state.userData,
+    getUserData: state => state.userData || null,
     
     // Obtener nombre completo del usuario
     getFullName: state => {
@@ -103,12 +103,30 @@ export default {
   
   mutations: {
     SET_PROFILE(state, profile) {
-      state.profile = profile;
+      if (!state) return; // Guard clause to prevent null state access
+      
+      // Ensure state properties exist with default values if needed
+      if (typeof state.profile === 'undefined') {
+        state.profile = null;
+      }
+      if (typeof state.isAuthenticated === 'undefined') {
+        state.isAuthenticated = false;
+      }
+
+      // Set the values
+      state.profile = profile || null;
       state.isAuthenticated = !!profile;
     },
     
     SET_USER_DATA(state, userData) {
-      state.userData = userData;
+      if (!state) return;
+    
+      // Initialize state properties if needed
+      if (typeof state.userData === 'undefined') {
+        state.userData = null;
+      }
+      
+      state.userData = userData || null;
     },
     
     SET_FAVORITE_BOOKS(state, books) {
