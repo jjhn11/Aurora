@@ -10,6 +10,10 @@ const props = defineProps({
   nombre: {
     type: String,
     default: 'events'
+  },
+  category: {
+    type: String,
+    default: null
   }
 });
 
@@ -26,7 +30,20 @@ const weekDays = [
 
 // Get events from store and transform them to calendar format
 const storeEvents = computed(() => {
-  const events = store.getters['events/getAllEvents'];
+  let events = store.getters['events/getAllEvents'];
+  
+  // Filter by category if specified
+  if (props.category) {
+    const categories = store.getters['events/getAllCategories'];
+    const categoryObj = categories.find(
+      cat => cat.Category_event_name?.toLowerCase() === props.category.toLowerCase()
+    );
+    
+    if (categoryObj) {
+      events = store.getters['events/getEventsByCategory'](categoryObj.Id_category);
+    }
+  }
+  
   const calendarEvents = {};
 
   events.forEach(event => {
@@ -44,6 +61,8 @@ const storeEvents = computed(() => {
 
 // Computed properties
 const eventosSeleccionados = computed(() => {
+  return storeEvents.value;
+  
   // Combine static and dynamic events
   const staticEvents = {
     events: {

@@ -9,5 +9,5 @@ const bannerImage = new URL('@/assets/img/events/Banner.png', import.meta.url).h
     <HeroVideo :img="bannerImage" title="ESCOLARES" />
     <EventsList category="Escolar"/>
     <br><br>
-    <Calendar nombre="eventsSchool"/>
+    <Calendar nombre="eventsSchool" category="Escolar"/>
 </template>
