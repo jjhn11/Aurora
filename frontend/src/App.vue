@@ -69,11 +69,11 @@ onUnmounted(() => {
 /* Small mobile styles */
 @media (max-width: 576px) {
   .main-content {
-    padding-top: 30px; /* Smaller full mobile navbar height */
+    padding-top: 0px; /* Smaller full mobile navbar height */
   }
   
   .main-content.navbar-shrunk {
-    padding-top: 30px; /* Smaller shrunk mobile navbar height */
+    padding-top: 0px; /* Smaller shrunk mobile navbar height */
   }
 }
 </style>
