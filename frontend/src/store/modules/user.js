@@ -415,6 +415,7 @@ export default {
         commit('SET_ATTENDING_ACTIVITIES', []);
         throw error;
       }
-    }
+    },
+
   }
 };

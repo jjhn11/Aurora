@@ -38,13 +38,14 @@ onMounted(async () => {
             activityId: activity.Id_activity,
             title: activity.Title,
             description: activity.Description,
-            organizer: activity.Organizer_id, // Idealmente convertir ID a nombre
+            organizer: activity.Organizer_id,
             startTime: activity.Start_time,
             endTime: activity.End_time,
-            location: activity.Id_Location, // Idealmente convertir ID a nombre
-            category: "Recreativo", // Dependiendo del Id_type
-            imageSrc: "/assets/img/community/icons/recreational/ICONO_DEFAULT.png", // Placeholder
-            backgroundColor: "#6DCEff", // Color por defecto
+            location: activity.location_name,
+            category: "Recreativo", // Texto mostrado
+            // Usar los metadatos para el ícono y color
+            imageSrc: activity._metadata?.iconPath || "/src/assets/img/community/icons/recreational/ICONO LECTURA.png", 
+            backgroundColor: activity._metadata?.backgroundColor || "#6DCEff",
             date: activity.Event_date
         }));
     } catch (err) {
