@@ -3,6 +3,10 @@
   import { RouterLink, useRoute } from 'vue-router';
   import { ref, onMounted, onUnmounted, computed, watch } from 'vue';
   import { useStore } from 'vuex';
+  import { useRouter } from 'vue-router';
+  import { Offcanvas } from 'bootstrap';
+
+  const router = useRouter();
   const store = useStore();
 
   // Images
@@ -25,11 +29,6 @@
 
   const toggleMenu = () => {
     showMenu.value = !showMenu.value;
-  };
-
-  const isActiveLink = (routePath) => {
-    const route = useRoute();
-    return route.path === routePath;
   };
 
   // Handle outside clicks for user menu
@@ -155,6 +154,10 @@
     }
   });
 
+  const handleNavigation = (path) => {
+    router.push(path);
+  };
+
 </script>
 
 <template>
@@ -227,7 +230,7 @@
         <ul class="navbar-nav d-flex p-0">
 
           <li class="nav-item">
-            <RouterLink to="/" class="btn btn-main flex-grow-1 d-flex align-items-center ps-3">
+            <RouterLink to="/" class="btn btn-main flex-grow-1 d-flex align-items-center ps-3" @click="handleNavigation('/')" data-bs-dismiss="offcanvas">
               INICIO
             </RouterLink>
           </li>
@@ -240,7 +243,7 @@
 
               <!-- Botón principal -->
 
-              <RouterLink to="/library" class="btn btn-main flex-grow-1 d-flex align-items-center ps-3">
+              <RouterLink to="/biblioteca" class="btn btn-main flex-grow-1 d-flex align-items-center ps-3" @click="handleNavigation('/biblioteca')" data-bs-dismiss="offcanvas">
                 <span>BIBLIOTECA</span>
               </RouterLink>
 
@@ -263,8 +266,8 @@
             </div>
 
             <div class="collapse" id="bibliotecaMenu">
-              <RouterLink to="/library/catalogue" class="nav-link sub-link">CATÁLOGO</RouterLink>
-              <RouterLink to="/library/cubicles" class="nav-link sub-link">CUBÍCULOS</RouterLink>
+              <RouterLink to="/biblioteca/catalogo" class="nav-link sub-link" @click="handleNavigation('/biblioteca/catalogo')" data-bs-dismiss="offcanvas">CATÁLOGO</RouterLink>
+              <RouterLink to="/biblioteca/cubiculos" class="nav-link sub-link" @click="handleNavigation('/biblioteca/cubiculos')" data-bs-dismiss="offcanvas">CUBÍCULOS</RouterLink>
             </div>
 
           </li>
@@ -277,7 +280,7 @@
 
               <!-- Botón principal -->
 
-              <RouterLink to="/events" class="btn btn-main flex-grow-1 d-flex align-items-center ps-3">
+              <RouterLink to="/eventos" class="btn btn-main flex-grow-1 d-flex align-items-center ps-3" @click="handleNavigation('/eventos')" data-bs-dismiss="offcanvas">
                 <span>EVENTOS</span>
               </RouterLink>
 
@@ -301,9 +304,9 @@
             </div>
 
             <div class="collapse" id="eventosMenu">
-              <RouterLink to="/events/cultural" class="nav-link sub-link">CULTURALES</RouterLink>
-              <RouterLink to="/events/sports" class="nav-link sub-link">DEPORTIVOS</RouterLink>
-              <RouterLink to="/events/school" class="nav-link sub-link">ESCOLARES</RouterLink>
+              <RouterLink to="/eventos/culturales" class="nav-link sub-link" @click="handleNavigation('/eventos/culturales')" data-bs-dismiss="offcanvas">CULTURALES</RouterLink>
+              <RouterLink to="/eventos/deportivos" class="nav-link sub-link" @click="handleNavigation('/eventos/deportivos')" data-bs-dismiss="offcanvas">DEPORTIVOS</RouterLink>
+              <RouterLink to="/eventos/escolares" class="nav-link sub-link" @click="handleNavigation('/eventos/escolares')" data-bs-dismiss="offcanvas">ESCOLARES</RouterLink>
             </div>
 
           </li>
@@ -340,10 +343,10 @@
             </div>
 
             <div class="collapse" id="comunidadMenu">
-              <RouterLink to="/community/recreational" class="nav-link sub-link">RECREATIVAS</RouterLink>
-              <RouterLink to="/community/sports" class="nav-link sub-link">DEPORTES</RouterLink>
-              <RouterLink to="/community/cultural" class="nav-link sub-link">CULTURAL</RouterLink>
-              <RouterLink to="/community/gaming" class="nav-link sub-link">VIDEOJUEGOS</RouterLink>
+              <RouterLink to="/comunidad/recreativas" class="nav-link sub-link" @click="handleNavigation('/comunidad/recreativas')" data-bs-dismiss="offcanvas">RECREATIVAS</RouterLink>
+              <RouterLink to="/comunidad/deportes" class="nav-link sub-link" @click="handleNavigation('/comunidad/deportes')" data-bs-dismiss="offcanvas">DEPORTES</RouterLink>
+              <RouterLink to="/comunidad/cultural" class="nav-link sub-link" @click="handleNavigation('/comunidad/cultural')" data-bs-dismiss="offcanvas">CULTURAL</RouterLink>
+              <RouterLink to="/comunidad/videojuegos" class="nav-link sub-link" @click="handleNavigation('/comunidad/videojuegos')" data-bs-dismiss="offcanvas">VIDEOJUEGOS</RouterLink>
             </div>
 
           </li>

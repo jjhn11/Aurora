@@ -6,7 +6,7 @@
 </style>
 <template>
     <div class="book-card">
-      <RouterLink :to="`/library/book/${id}`" class="book-link">
+      <RouterLink :to="`/biblioteca/libro/${id}`" class="book-link">
         <div class="book-cover">
             <img :src="coverImage" :alt="title" class="book-image" />
         </div>
@@ -159,7 +159,7 @@
  <script setup>
 defineProps({
   id: {
-    type: String,
+    type: [String, Number],
     required: true
   },
   coverImage: {

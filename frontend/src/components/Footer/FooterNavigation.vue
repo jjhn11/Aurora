@@ -9,17 +9,17 @@
             >
           </li>
           <li>
-            <RouterLink to="/library" class="footer-nav__link footer-nav__link--biblioteca"
+            <RouterLink to="/biblioteca" class="footer-nav__link footer-nav__link--biblioteca"
               >BIBLIOTECA</RouterLink
             >
           </li>
           <li>
-            <RouterLink to="/events" class="footer-nav__link footer-nav__link--eventos"
+            <RouterLink to="/eventos" class="footer-nav__link footer-nav__link--eventos"
               >EVENTOS</RouterLink
             >
           </li>
           <li>
-            <RouterLink to="" class="footer-nav__link footer-nav__link--comunidad"
+            <RouterLink to="/" class="footer-nav__link footer-nav__link--comunidad"
               >COMUNIDAD</RouterLink
             >
           </li>
@@ -133,4 +133,3 @@
     }
   }
   </style>
-  

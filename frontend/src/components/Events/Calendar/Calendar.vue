@@ -247,7 +247,6 @@ const prevMonth = () => {
 onMounted(async () => {
   await store.dispatch('events/loadInitialData');
   await initializeCalendarBounds();
-  console.log("Eventos cargados:", store.state.events.events);
 });
 </script>
 <template>

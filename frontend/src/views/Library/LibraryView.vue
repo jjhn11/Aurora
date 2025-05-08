@@ -12,7 +12,7 @@ import SearchBar from '@/components/SearchBar.vue';
     <div class="container">
         <h1 class="title">INDUSTRIAL</h1>
         <h2 class="subtitle">Conozca el contenido más popular</h2>
-        <CarruselBiblioteca bookCategory="popular" carouselId="carousel-popular" :showSlider="false"/>
+        <CarruselBiblioteca bookSource="popularBooks" carouselId="carousel-popular" :showSlider="false"/>
     </div>
     <div class="container">
         <h1 class="title">SISTEMAS COMPUTACIONALES</h1>
@@ -41,7 +41,7 @@ import SearchBar from '@/components/SearchBar.vue';
             </p>
         </div>
         
-        <RouterLink to="/library/book" class="btn-access">
+        <RouterLink to="/biblioteca/catalogo" class="btn-access">
             ACCEDER
         </RouterLink>
     </div>

@@ -245,7 +245,7 @@
                 </li>
 
                 <li class="nav-item dropdown position-static mt-4" id="droph">
-                  <RouterLink to="/library" class="nav-link db2 " role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/library') }">
+                  <RouterLink to="/biblioteca" class="nav-link db2 " role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/biblioteca') || isActiveLink('/biblioteca/catalogo') || isActiveLink('/biblioteca/cubiculos') }">
                     BIBLIOTECA
                   </RouterLink>
 
@@ -255,7 +255,7 @@
 
                         <div class="col-12 col-md-5 py-2">
 
-                          <li><RouterLink to="/library/catalogue" class="dropdown-item" id="dbut">
+                          <li><RouterLink to="/biblioteca/catalogo" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/biblioteca/catalogo')}">
                             <img :src="B3C" class="mt-3" id="dim2">
                             <span class="my-3">CATÁLOGO</span>
                           </RouterLink></li>
@@ -264,7 +264,7 @@
 
                         <div class="col-12 col-md-5 py-2">
 
-                          <li><RouterLink to="/library/cubicles" class="dropdown-item" id="dbut">
+                          <li><RouterLink to="/biblioteca/cubiculos" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/biblioteca/cubiculos')}">
                             <img :src="B2R" class="mt-3" id="dim2">
                             <span class="my-3">CUBÍCULOS</span>
                           </RouterLink></li>
@@ -277,7 +277,7 @@
                 </li>
 
                 <li class="nav-item dropdown position-static mt-4" id="droph">
-                  <RouterLink to="/events" class="nav-link de3" role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/events') || isActiveLink('/events/cultural') || isActiveLink('/events/sports') || isActiveLink('/events/school') }">
+                  <RouterLink to="/eventos" class="nav-link de3" role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/eventos') || isActiveLink('/eventos/culturales') || isActiveLink('/eventos/deportivos') || isActiveLink('/eventos/escolares') }">
                     EVENTOS
                   </RouterLink>
                   
@@ -287,7 +287,7 @@
 
                         <div class="col-12 col-md-4 py-2">
 
-                          <li><RouterLink to="/events/cultural" class="dropdown-item" id="dbut">
+                          <li><RouterLink to="/eventos/culturales" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/eventos/culturales')}">
                             <img :src="E1C" class="mt-3" id="dim3">
                             <span class="my-3">CULTURALES</span>
                           </RouterLink></li>
@@ -296,7 +296,7 @@
 
                         <div class="col-12 col-md-4 py-2">
 
-                          <li><RouterLink to="/events/sports" class="dropdown-item" id="dbut">
+                          <li><RouterLink to="/eventos/deportivos" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/eventos/deportivos')}">
                             <img :src="E2D" class="mt-3" id="dim3">
                             <span class="my-3">DEPORTIVOS</span>
                           </RouterLink></li>
@@ -305,7 +305,7 @@
 
                         <div class="col-12 col-md-4 py-2">
 
-                          <li><RouterLink to="/events/school" class="dropdown-item" id="dbut">
+                          <li><RouterLink to="/eventos/escolares" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/eventos/escolares')}">
                             <img :src="E3E" class="mt-3" id="dim3">
                             <span class="my-3">ESCOLARES</span>
                           </RouterLink></li>
@@ -319,7 +319,7 @@
                 </li>
 
                 <li class="nav-item dropdown position-static mt-4" id="droph">
-                  <a class="nav-link dc4" role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/community/cultural') || isActiveLink('/community/gaming') || isActiveLink('/community/sports') || isActiveLink('/community/recreational')}">
+                  <a class="nav-link dc4" role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/comunidad/cultural') || isActiveLink('/comunidad/videojuegos') || isActiveLink('/comunidad/deportes') || isActiveLink('/comunidad/recreativas')}">
                     COMUNIDAD
                   </a>
 
@@ -329,7 +329,7 @@
 
                         <div class="col-12 col-md-3 py-2 px-1">
 
-                          <li><RouterLink to="/community/recreational" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/community/recreational')}">
+                          <li><RouterLink to="/comunidad/recreativas" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/comunidad/recreativas')}">
                             <img :src="C1R" class="mt-4" id="dim4">
                             <span class="my-3">RECREATIVAS</span>
                           </RouterLink></li>
@@ -338,7 +338,7 @@
 
                         <div class="col-12 col-md-3 py-2 px-1">
 
-                          <li><RouterLink to="/community/sports" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/community/sports')}">
+                          <li><RouterLink to="/comunidad/deportes" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/comunidad/deportes')}">
                             <img :src="C2D" class="mt-4" id="dim4">
                             <span class="my-3">DEPORTES</span>
                           </RouterLink></li>
@@ -347,7 +347,7 @@
 
                         <div class="col-12 col-md-3 py-2 px-1">
 
-                          <li><RouterLink to="/community/cultural" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/community/cultural')}">
+                          <li><RouterLink to="/comunidad/cultural" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/comunidad/cultural')}">
                             <img :src="C3C" class="mt-4" id="dim4">
                             <span class="my-3">CULTURAL</span>
                           </RouterLink></li>
@@ -356,7 +356,7 @@
 
                         <div class="col-12 col-md-3 py-2 px-1">
 
-                          <li><RouterLink to="/community/gaming" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/community/gaming')}">
+                          <li><RouterLink to="/comunidad/videojuegos" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/comunidad/videojuegos')}">
                             <img :src="C4V" class="mt-4" id="dim4">
                             <span class="my-3">VIDEOJUEGOS</span>
                           </RouterLink></li>

@@ -1,7 +1,7 @@
 <script setup>
 defineProps({
   id: {
-    type: String,
+    type: [String, Number],
     required: true
   },
   image: {
