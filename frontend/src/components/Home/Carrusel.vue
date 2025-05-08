@@ -21,30 +21,6 @@ const events = computed(() =>
   store.getters['events/getAllEvents'] || []
 );
 
-onMounted(() => {
-  const carousel = document.querySelector('#carrusel1');
-  if (!carousel) return;
-
-  let scrollPos = window.scrollY;
-
-  carousel.addEventListener('slide.bs.carousel', () => {
-    scrollPos = window.scrollY;
-
-    // Previene que cualquier botón o contenido reciba foco y cause scroll
-    requestAnimationFrame(() => {
-      if (document.activeElement && document.activeElement !== document.body) {
-        document.activeElement.blur();
-      }
-    });
-
-    document.body.style.overflow = 'hidden';
-  });
-
-  carousel.addEventListener('slid.bs.carousel', () => {
-    window.scrollTo({ top: scrollPos, behavior: 'instant' });
-    document.body.style.overflow = '';
-  });
-});
 
 
 
@@ -64,8 +40,8 @@ const closeModal = () => {
 </script>
 
 <template>
-    <div class="contenedor-carrusel container-fluid d-flex justify-content-center">
-      <div id="carrusel1" class="carousel">
+    <div class="contenedor-carrusel container-fluid  justify-content-center">
+      <div id="carrusel1" class="carousel slide">
             <div class="carousel-inner" v-if="events && events.length >= 3">
                 <div class="carousel-item active">
                     <div class="row justify-content-center">
@@ -197,11 +173,6 @@ const closeModal = () => {
   .carousel {
     position: relative;
     padding-bottom: 30px;
-  }
-  
-  .carousel-item {
-    margin: 0 auto;
-    padding: 20px 10px;
   }
   
   .carousel-item .row {

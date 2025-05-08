@@ -53,8 +53,8 @@ CREATE TABLE Users_ (
 -- Tabla de categorías de eventos
 CREATE TABLE Event_categories_ (
     Id_category INT PRIMARY KEY AUTO_INCREMENT,
-    Type_event varchar (40),
-    Event_name VARCHAR(15) NOT NULL UNIQUE
+    Category_event_name varchar (15) NOT NULL UNIQUE
+   
 );
 
 

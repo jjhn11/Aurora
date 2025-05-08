@@ -56,7 +56,7 @@ const closeModal = () => {
         <button class="btn btn-link carousel-control-prev-bottom d-none d-md-block" type="button" data-bs-target="#carrusel1" data-bs-slide="prev">
             <i class="bi bi-chevron-left fs-4"></i>
         </button>
-        <div id="carrusel1" class="carousel">
+        <div id="carrusel1" class="carousel slide">
             <div class="carousel-inner" v-if="culturalEvents.length >= 9">
                 <div class="carousel-item active">
                     <div class="slide-row">
@@ -175,13 +175,6 @@ body {
 
 .carousel {
     position: relative;
-    padding-bottom: 5px;
-}
-
-
-.carousel-item {
-    margin: 0 auto;
-    padding: 20px 10px;
 }
 
 .carousel-control-prev,
@@ -191,13 +184,6 @@ body {
 
 /* Estilos para los botones en móvil */
 @media (max-width: 776px) {
-  .carousel {
-    position: relative;
-}
-
-.carousel-item {
-    margin: 0 auto;
-}
     .carousel-control-prev-bottom,
     .carousel-control-next-bottom {
         display: none !important;

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineEmits, defineProps, onMounted } from 'vue';
+import { ref, defineEmits, defineProps, onMounted, computed } from 'vue';
 import { useStore } from 'vuex';
 
 const props = defineProps({
@@ -45,6 +45,17 @@ const isShaking = ref(false);
 const showIconMenu = ref(false);
 const selectedIcon = ref(null);
 
+const isProfanityChecking = ref(false);
+const profanityErrors = ref({
+    title: null,
+    description: null
+});
+const hasProfanity = computed(() => profanityErrors.value.title || profanityErrors.value.description);
+
+// Verificar autenticación del usuario usando el módulo user
+const isAuthenticated = computed(() => store.getters['user/isAuthenticated']);
+const currentUser = computed(() => store.getters['user/userData']);
+
 onMounted(async () => {
     try {
         if (props.loadBackendData) {
@@ -60,7 +71,14 @@ onMounted(async () => {
 
 const handleSubmit = async () => {
     formSubmitted.value = true;
-    
+
+    // Verificar si el usuario está autenticado
+    if (!isAuthenticated.value) {
+        // Mostrar diálogo personalizado en lugar de alert
+        alert("Debes iniciar sesión para crear un evento.");
+        return;
+    }
+
     if (!selectedIcon.value) {
         isShaking.value = true;
         setTimeout(() => {
@@ -69,7 +87,43 @@ const handleSubmit = async () => {
         return;
     }
     
+    profanityErrors.value = { title: null, description: null };
+    
     try {
+        isProfanityChecking.value = true;
+        
+        const profanityResult = await store.dispatch('profanity/checkProfanity', {
+            fieldsToCheck: ['title', 'description'],
+            content: {
+                title: eventName.value,
+                description: description.value
+            }
+        });
+
+        if (!profanityResult.SFW) {
+            const profaneFields = profanityResult.profaneFields || [];
+            
+            profaneFields.forEach(field => {
+                if (field.field === 'title') {
+                    profanityErrors.value.title = {
+                        original: field.original,
+                        censored: field.censored
+                    };
+                }
+                if (field.field === 'description') {
+                    profanityErrors.value.description = {
+                        original: field.original,
+                        censored: field.censored
+                    };
+                }
+            });
+            
+            isProfanityChecking.value = false;
+            return;
+        }
+        
+        isProfanityChecking.value = false;
+
         if (props.useBackendSubmit) {
             await store.dispatch('community/createEventFromForm', {
                 eventName: eventName.value,
@@ -100,6 +154,7 @@ const handleSubmit = async () => {
         emit('update:modelValue', false);
     } catch (error) {
         console.error("Error al crear evento:", error);
+        isProfanityChecking.value = false;
     }
 };
 
@@ -114,6 +169,7 @@ const resetForm = () => {
     selectedIcon.value = null;
     formSubmitted.value = false;
     isShaking.value = false;
+    profanityErrors.value = { title: null, description: null };
 };
 
 const resetIconError = () => {
@@ -132,6 +188,12 @@ const selectIcon = (activity) => {
 const closeForm = () => {
     resetForm();
     emit('update:modelValue', false);
+};
+
+const clearProfanityError = (field) => {
+    if (profanityErrors.value[field]) {
+        profanityErrors.value[field] = null;
+    }
 };
 </script>
 
@@ -171,9 +233,17 @@ const closeForm = () => {
                             class="form-input" 
                             required
                             maxlength="60"
+                            :class="{'is-invalid': profanityErrors.title}"
+                            @input="clearProfanityError('title')"
                         >
 
                         <span class="char-count">{{ eventName.length }}/60</span>
+
+                        <div v-if="profanityErrors.title" class="profanity-error">
+                            Lenguaje inapropiado detectado: {{ profanityErrors.title.original }}
+                            <br>
+                            Sugerencia: {{ profanityErrors.title.censored }}
+                        </div>
 
                     </div>
             
@@ -190,8 +260,16 @@ const closeForm = () => {
                                     required 
                                     @focus="resetIconError"
                                     maxlength="600"
+                                    :class="{'is-invalid': profanityErrors.description}"
+                                    @input="clearProfanityError('description')"
                                 ></textarea>
                                 <span class="char-count">{{ description.length }}/600</span>
+
+                                <div v-if="profanityErrors.description" class="profanity-error">
+                                    Lenguaje inapropiado detectado: {{ profanityErrors.description.original }}
+                                    <br>
+                                    Sugerencia: {{ profanityErrors.description.censored }}
+                                </div>
                             </div>
             
                             <label class="form-label">Tipo de actividad:</label>
@@ -278,9 +356,15 @@ const closeForm = () => {
 
                 </section>
             
-                <button type="submit" class="submit-button mb-3">
-                    <span>CREAR</span>
+                <button type="submit" class="submit-button mb-3" :disabled="isProfanityChecking || hasProfanity">
+                    <span v-if="isProfanityChecking">Verificando...</span>
+                    <span v-else-if="hasProfanity">Corregir texto</span>
+                    <span v-else>CREAR</span>
                 </button>
+
+                <div v-if="hasProfanity" class="general-profanity-error">
+                    Por favor corrige el lenguaje inapropiado antes de continuar.
+                </div>
 
             </form>
         </div>
@@ -822,6 +906,35 @@ const closeForm = () => {
         color: rgba(0, 14, 50, 1);
         font-weight: 700;
         margin: 0; /* Añadido */
+    }
+
+    /* Estilos para errores de profanidad */
+    .profanity-error {
+        color: #dc3545;
+        font-size: 12px;
+        margin-top: 4px;
+        font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
+        text-align: left;
+        padding: 0 5px;
+    }
+
+    .general-profanity-error {
+        color: #dc3545;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
+        text-align: center;
+    }
+
+    .is-invalid {
+        border-color: #dc3545 !important;
+        box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.25) !important;
+    }
+
+    .submit-button:disabled {
+        background-color: #6c757d;
+        cursor: not-allowed;
     }
 
     /* ################## Media Queries ################## */

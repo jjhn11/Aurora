@@ -64,11 +64,11 @@ app.get('/', checkAuth, (req, res) => {
   res.json({ message: 'Tas loggeado tilin' });
 });
 
-app.post('/profanity', isProfane, (req, res) => {
+app.post('/profanity', isProfane(['title', 'description']), (req, res) => {
   res.json({ 
     message: 'No hay profanidad',
     SFW: true,
-    verifiedFields: req.body.fieldsToCheck
+    verifiedFields: ['title', 'description']
   });
 });
 

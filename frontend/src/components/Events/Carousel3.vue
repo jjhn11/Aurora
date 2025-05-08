@@ -10,8 +10,8 @@ const totalSlides = ref(3);
 const showSlider = ref(false);
 const store = useStore();
 
-// Categoría Deportiva (ID=2)
-const sportsCategoryId = 2;
+// Categoría Deportiva (ID=3)
+const sportsCategoryId = 3;
 
 // Cargar eventos al montar el componente
 onMounted(async () => {
@@ -54,7 +54,7 @@ const closeModal = () => {
         <button class="btn btn-link carousel-control-prev-bottom" type="button" data-bs-target="#carrusel3" data-bs-slide="prev">
             <i class="bi bi-chevron-left fs-4"></i>
         </button>
-        <div id="carrusel3" class="carousel">
+        <div id="carrusel3" class="carousel slide">
             <div class="carousel-inner" v-if="sportsEvents.length >= 9">
                 <div class="carousel-item active">
                     <div class="slide-row">
@@ -136,12 +136,7 @@ body {
   overflow-x: hidden;
 }
 
-.contenedor-carrusel {
-  width: 100%;
-  padding: 0;
-  margin: 0 auto;
-  overflow: hidden;
-}
+
 .mobile-controls button {
   min-width: 10px;
 }
@@ -168,15 +163,16 @@ body {
   transform: translateX(-50%);
 }
 
+.contenedor-carrusel {
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
 .carousel {
     position: relative;
     padding-bottom: 10px;
-}
-
-
-.carousel-item {
-    margin: 0 auto;
-    padding: 20px 10px;
 }
 
 .carousel-item .row {

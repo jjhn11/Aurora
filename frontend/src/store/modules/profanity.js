@@ -4,158 +4,54 @@ export default {
   namespaced: true,
   
   state: {
-    isProfane: false,
-    profaneFields: [],
-    content: null,
-    isSFW: true,
     loading: false,
     error: null,
-    verifiedFields: []
+    result: null
   },
   
   getters: {
-    // Verifica si el contenido contiene profanidad
-    isProfane: (state) => state.isProfane,
-    
-    // Obtiene los campos con profanidad
-    profaneFields: (state) => state.profaneFields,
-    
-    // Verifica si el contenido es "Safe For Work"
-    isSFW: (state) => state.isSFW,
-    
-    // Obtiene los campos verificados
-    verifiedFields: (state) => state.verifiedFields,
-    
-    // Estado de carga
-    isLoading: (state) => state.loading,
-    
-    // Errores
-    getError: (state) => state.error
+    isLoading: state => state.loading,
+    getError: state => state.error,
+    getResult: state => state.result
   },
   
   mutations: {
-    SET_PROFANITY_STATE(state, { isProfane, profaneFields, isSFW, verifiedFields }) {
-      state.isProfane = isProfane;
-      state.profaneFields = profaneFields;
-      state.isSFW = isSFW;
-      state.verifiedFields = verifiedFields;
+    SET_LOADING(state, value) {
+      state.loading = value;
     },
-    
-    SET_CONTENT(state, content) {
-      state.content = content;
-    },
-    
-    SET_LOADING(state, loading) {
-      state.loading = loading;
-    },
-    
     SET_ERROR(state, error) {
       state.error = error;
     },
-    
-    RESET_STATE(state) {
-      state.isProfane = false;
-      state.profaneFields = [];
-      state.content = null;
-      state.isSFW = true;
-      state.loading = false;
-      state.error = null;
-      state.verifiedFields = [];
+    SET_RESULT(state, result) {
+      state.result = result;
     }
   },
   
   actions: {
-    /**
-     * Verifica si el contenido contiene profanidad
-     * @param {Object} fieldsToCheck - Arreglo con los nombres de los campos a verificar
-     * @param {Object} content - Objeto con el contenido a verificar
-     */
+    // Verificar profanidad
     async checkProfanity({ commit }, { fieldsToCheck, content }) {
-      if (!fieldsToCheck || !Array.isArray(fieldsToCheck) || fieldsToCheck.length === 0) {
-        commit('SET_ERROR', 'Debe proporcionar un arreglo de campos a verificar');
-        return Promise.reject(new Error('Debe proporcionar un arreglo de campos a verificar'));
-      }
-      
-      if (!content || typeof content !== 'object') {
-        commit('SET_ERROR', 'Debe proporcionar un objeto con el contenido a verificar');
-        return Promise.reject(new Error('Debe proporcionar un objeto con el contenido a verificar'));
-      }
-      
       commit('SET_LOADING', true);
-      commit('SET_CONTENT', content);
+      commit('SET_ERROR', null);
       
       try {
-        const response = await axios.post('/profanity', {
-          fieldsToCheck,
-          content
-        }, { withCredentials: true });
+        console.log("Enviando solicitud de verificación de profanidad:", { fieldsToCheck, content });
         
-        // Si la respuesta es 200, verificamos si es SFW o no basado en la respuesta
-        if (response.data.SFW) {
-          // Contenido es seguro
-          commit('SET_PROFANITY_STATE', {
-            isProfane: false,
-            profaneFields: [],
-            isSFW: true,
-            verifiedFields: response.data.verifiedFields || fieldsToCheck
-          });
-          
-          commit('SET_LOADING', false);
-          return { 
-            isSFW: true, 
-            isProfane: false,
-            profaneFields: [],
-            verifiedFields: response.data.verifiedFields || fieldsToCheck
-          };
-        } else {
-          // Contenido no es seguro, pero la respuesta fue exitosa
-          // Esto es para el nuevo formato donde el backend devuelve un 200 pero con la información de profanidad
-          commit('SET_PROFANITY_STATE', {
-            isProfane: true,
-            profaneFields: response.data.profaneFields || [],
-            isSFW: false,
-            verifiedFields: fieldsToCheck
-          });
-          
-          commit('SET_LOADING', false);
-          return {
-            isSFW: false,
-            isProfane: true,
-            profaneFields: response.data.profaneFields || [],
-            verifiedFields: fieldsToCheck
-          };
-        }
+        // La ruta backend espera los campos como parámetro en el middleware, no en el body
+        // Usar el endpoint correctamente configurado
+        const response = await axios.post('/profanity', content);
+        
+        console.log("Respuesta de profanidad:", response.data);
+        
+        commit('SET_RESULT', response.data);
+        commit('SET_LOADING', false);
+        return response.data;
       } catch (error) {
-        // Manejo de errores para el caso en que el backend devuelve error
-        if (error.response) {
-          // Error con respuesta del servidor
-          const status = error.response.status;
-          
-          if (status === 400) {
-            // Error 400 - Bad Request, puede ser por datos faltantes o incorrectos
-            commit('SET_ERROR', error.response.data.error || 'Error en la solicitud');
-          } else {
-            // Otros errores del servidor
-            commit('SET_ERROR', `Error del servidor: ${status}`);
-          }
-        } else if (error.request) {
-          // No se recibió respuesta del servidor
-          commit('SET_ERROR', 'No se pudo conectar con el servidor');
-        } else {
-          // Error al preparar la solicitud
-          commit('SET_ERROR', error.message || 'Error al verificar el contenido');
-        }
-        
+        console.error("Error al verificar profanidad:", error);
+        const errorMsg = error.response?.data?.error || 'Error al verificar profanidad';
+        commit('SET_ERROR', errorMsg);
         commit('SET_LOADING', false);
         throw error;
       }
-    },
-    
-    /**
-     * Limpia el estado de profanidad
-     */
-    resetProfanityState({ commit }) {
-      commit('RESET_STATE');
     }
   }
 };

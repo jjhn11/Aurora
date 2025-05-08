@@ -9,8 +9,8 @@ const totalSlides = ref(3);
 const showSlider = ref(false);
 const store = useStore();
 
-// Categoría Escolar (ID=3)
-const schoolCategoryId = 3;
+// Categoría Escolar (ID=2)
+const schoolCategoryId = 2;
 
 // Cargar eventos al montar el componente
 onMounted(async () => {
@@ -53,7 +53,7 @@ const closeModal = () => {
         <button class="btn btn-link carousel-control-prev-bottom" type="button" data-bs-target="#carrusel2" data-bs-slide="prev">
             <i class="bi bi-chevron-left fs-4"></i>
         </button>
-        <div id="carrusel2" class="carousel">
+        <div id="carrusel2" class="carousel slide">
             <div class="carousel-inner" v-if="schoolEvents.length >= 3">
                 <div class="carousel-item active">
                     <div class="slide-row">
@@ -130,7 +130,6 @@ const closeModal = () => {
 .slide-row > * {
   flex: 1 1 30%;
   max-width: 30%;
-  display: flex;
 }
 body {
   overflow-x: hidden;
@@ -175,11 +174,6 @@ body {
     padding-bottom: 10px;
 }
 
-
-.carousel-item {
-    margin: 0 auto;
-    padding: 20px 10px;
-}
 
 .carousel-item .row {
     flex-wrap: nowrap;

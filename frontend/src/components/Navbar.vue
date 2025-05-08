@@ -264,7 +264,7 @@
 
                         <div class="col-12 col-md-5 py-2">
 
-                          <li><RouterLink to="/library" class="dropdown-item" id="dbut">
+                          <li><RouterLink to="/library/cubicles" class="dropdown-item" id="dbut">
                             <img :src="B2R" class="mt-3" id="dim2">
                             <span class="my-3">CUBÍCULOS</span>
                           </RouterLink></li>
@@ -386,7 +386,7 @@
 
   <!-- @@@@@@@@ Menu de Usuario @@@@@@@@ -->
 
-  <div class="container-fluid p-3">
+  <div class="container-fluid">
     
     <!-- Contenedor del menú -->
     <form class="bg-white border" id="uform"  :class="{'form-shrunk': isNavbarShrunk,
