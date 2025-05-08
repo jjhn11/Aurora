@@ -9,8 +9,8 @@ const totalSlides = ref(3);
 const showSlider = ref(false);
 const store = useStore();
 
-// Categoría Escolar (ID=3)
-const schoolCategoryId = 3;
+// Categoría Escolar (ID=2)
+const schoolCategoryId = 2;
 
 // Cargar eventos al montar el componente
 onMounted(async () => {

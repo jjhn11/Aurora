@@ -10,8 +10,8 @@ const totalSlides = ref(3);
 const showSlider = ref(false);
 const store = useStore();
 
-// Categoría Deportiva (ID=2)
-const sportsCategoryId = 2;
+// Categoría Deportiva (ID=3)
+const sportsCategoryId = 3;
 
 // Cargar eventos al montar el componente
 onMounted(async () => {
