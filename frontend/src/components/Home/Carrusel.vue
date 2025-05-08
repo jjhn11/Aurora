@@ -140,7 +140,7 @@ const closeModal = () => {
   
         <!-- Controles del carrusel -->
         <div class="carousel-controls-bottom">
-          <button class="btn btn-link carousel-control-prev-bottom" type="button" data-bs-target="#carrusel1" data-bs-slide="prev">
+          <button class="btn btn-link carousel-control-next-bottom" type="button" data-bs-target="#carrusel1" data-bs-slide="next">
             <i class="bi bi-chevron-left fs-4"></i>
           </button>
   
@@ -150,7 +150,7 @@ const closeModal = () => {
             <button type="button" data-bs-target="#carrusel1" data-bs-slide-to="2"></button>
           </div>
   
-          <button class="btn btn-link carousel-control-next-bottom" type="button" data-bs-target="#carrusel1" data-bs-slide="next">
+          <button class="btn btn-link carousel-control-prev-bottom" type="button" data-bs-target="#carrusel1" data-bs-slide="prev">
             <i class="bi bi-chevron-right fs-4"></i>
           </button>
         </div>
@@ -252,5 +252,104 @@ const closeModal = () => {
   .carousel-control-next {
     display: none;
   }
-  </style>
-  
+
+  @media (max-width: 768px) {
+    .carousel-inner {
+      height: 100%;
+      min-height: 350px; /* ajusta según el contenido mínimo del slide */
+    }
+
+    .contenedor-carrusel {
+      width: 100%;
+    }
+    
+    .carousel {
+      position: relative;
+      padding-bottom: 30px;
+    }
+    
+    .carousel-item {
+      margin: 0 auto;
+      padding: 20px 10px;
+    }
+    
+    .carousel-item .row {
+      flex-wrap: wrap; /* ahora sí deja que se acomoden en pantallas chicas */
+      max-width: 1600px;
+      justify-content: center;
+      margin: 0 auto;
+    }
+    
+    /* CardHome */
+    .card-home {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .card-home img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+    
+    /* Controles inferiores */
+    .carousel-controls-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      margin-top: 20px;
+    }
+    
+    .carousel-control-prev-bottom,
+    .carousel-control-next-bottom {
+      color: #007bff;
+      transition: all 0.3s ease;
+      padding: 5px;
+    }
+    
+    .carousel-control-prev-bottom:hover,
+    .carousel-control-next-bottom:hover {
+      color: #0056b3;
+      transform: scale(1.2);
+    }
+    
+    /* Indicadores */
+    .carousel-indicators {
+      position: relative;
+      display: flex;
+      gap: 5px;
+      margin: 0;
+      bottom: auto;
+    }
+    
+    .carousel-indicators button {
+      width: 12px !important;
+      height: 12px !important;
+      border-radius: 50%;
+      background-color: #fff;
+      border: 1px solid #6f00ff !important;
+      opacity: 0.5;
+      transition: all 0.3s ease;
+      margin: 0 5px;
+    }
+    
+    .carousel-indicators button.active {
+      background-color: #007bff;
+      opacity: 1;
+      transform: scale(1.2);
+    }
+    
+    .carousel-control-prev,
+    .carousel-control-next {
+      display: none;
+    }
+}
+
+</style>

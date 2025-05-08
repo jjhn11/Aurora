@@ -363,9 +363,10 @@
   <div class="container-fluid">
     
     <!-- Contenedor del menú -->
-    <form class="bg-white border" id="uform"  :class="{'form-shrunk': isNavbarShrunk,
-                                                        'show': showMenu, 
-                                                        'hide': !showMenu
+    <form class="bg-white border" id="uform"  :class="{                                                        'show': showMenu, 
+                                                        'hide': !showMenu,
+                                                        'bg-none': !isNavbarWhite, 
+                                                        'bg-appear': isNavbarWhite
                                                       }, 
                                                       currentView === 'MainMenuAc' ? 'ac-size' : 'nac-size',
                                                       currentView === 'AcProfile' ? 'acp-size' : 'nac-size'" 
@@ -997,7 +998,7 @@
 }
 
 .edu-logo {
-  height: 30px;
+  height: 25px;
   width: auto;
 }
 
@@ -1326,7 +1327,6 @@
     
     background-color: white;
     border: 2px solid black;
-    border-radius: 25px 0px 0px 25px;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     
     font-family: 'Inria Sans';
@@ -1366,6 +1366,14 @@
       right: -250px; /* Reducido de -330px */
       opacity: 0;
       visibility: hidden;
+    }
+
+    &.bg-none {
+      border-radius: 25px 0px 0px 25px;
+    }
+
+    &.bg-appear {
+      border-radius: 0px 0px 0px 25px;
     }
   
     &.form-shrunk {

@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid d-flex justify-content-center">
-      <div class="row flex-column align-items-center gap-3 flex-md-row">
+      <div class="row flex-column d-flex justify-content-center align-items-center gap-3 flex-md-row">
         <div class="col-auto">
           <img src="@/assets/img/home/CajasBiblioteca.png" class="custom-image"/>
         </div>
@@ -13,7 +13,8 @@
     </div>
   </template>
   
-  <style scoped>
+<style scoped>
+
   .custom-image {
     height: 359px;
     width: 359px;
@@ -21,18 +22,25 @@
     border-radius: 12px;
     object-fit: cover;
   }
+
   @media (max-width: 1076px) {
-  .custom-image {
-    height: 359px;
-    width: 359px;
-    display: flex;
+    .custom-image {
+      height: 359px;
+      width: 359px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
-}
+
   @media (max-width: 576px) {
-  .custom-image {
-    height: 259px;
-    width: 259px;
-    display: flex;
+    .custom-image {
+      height: 259px;
+      width: 259px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
-}
+
 </style>

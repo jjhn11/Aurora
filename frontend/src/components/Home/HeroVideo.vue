@@ -22,13 +22,20 @@
     <!-- Overlay Content -->
     <div class="hero-overlay">
       <!-- <span class="hero-title">Aurora</span> -->
-      <img src="@/assets/img/home/herovideo-title.png" alt="Hero title" class="hero-title">
+      <!--<img src="@/assets/img/home/herovideo-title.png" alt="Hero title" class="hero-title">  <!---->
+      <p class="hero-title">AURORA</p> <!---->
     </div>
 
-    <!-- SVG Curve -->
-    <svg class="hero-curve" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 345">
+    <!-- SVG Curve for Desktop-->
+    <svg class="hero-curve desktop-curve" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 300">
+      <path fill="white" fill-opacity="1" d="M0,160 C360,300 1080,300 1440,160 L1440,300 L0,400 Z"></path>
+    </svg>
+
+    <!-- SVG Curve for Mobile -->
+    <svg class="hero-curve mobile-curve" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 345">
       <path fill="white" fill-opacity="1" d="M0,160 C360,400 1080,400 1440,160 L1440,400 L0,400 Z"></path>
     </svg>
+    
   </section>
 
 </template>
@@ -66,7 +73,7 @@
   top: 0;
   left: -10%;
   width: 130%;
-  height: 110%;
+  height: 113%;
   object-fit: cover;
   object-position: 100% 95%;
 }
@@ -94,39 +101,96 @@
 /* SVG Curve */
 .hero-curve {
   position: absolute;
-  bottom: -1%;
+  bottom: 0;
   left: 0;
-  width: 101%;
+  width: 100%;
   height: auto;
   z-index: 4;
 }
 
+/* Desktop curve */
+.mobile-curve {
+  display: none;
+}
+
+/*
 .hero-title {
   width: 75%;
   max-width: 80%; 
   margin: 0 auto;
   transform: translate(20%, 130%); 
-} 
-@media (max-width: 1076px) {
+}
+*/
+
+.hero-title {
+  position: fixed;
+  left: 50%;
+  top: 25%;
+  transform: translate(-15%, -35%);
+  
+  position: relative;
+
+  font-family: 'Cinzel Decorative';
+  font-size: 5.5vw; /* Tamaño responsive basado en el viewport width */
+  font-weight: 600;
+  
+  transition: 0.6s;
+  z-index: 3;
+}
+
+@media (max-width: 1024px) {
   .hero-container {
-    height: 60vh;
+    height: 55vh;
   }
 
   .hero-title {
-    width: 75%;
-    transform: translateY(30%);
+    transform: translate(-15%, 35%);
+  }
+
+  .desktop-curve {
+    display: none;
+  }
+  
+  .mobile-curve {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .desktop-curve {
+    display: none;
+  }
+  
+  .mobile-curve {
+    display: block;
+  }
+
+  .hero-container {
+    height: 50vh;
+  }
+
+  .hero-title {
+    font-size: 6vw;
+    transform: translate(-15%, 40%);
   }
 }
 
 @media (max-width: 576px) {
+  .desktop-curve {
+    display: none;
+  }
+  
+  .mobile-curve {
+    display: block;
+  }
+
   .hero-container {
     height: 45vh;
   }
 
   .hero-title {
-    width: 85%;
-    transform: translateY(20%);
+    font-size: 6vw;
+    transform: translate(-20%, 85%);
   }
 }
-
 </style>

@@ -9,7 +9,7 @@
 </script>
 
 <template>
-    <div class="container-fluid mt-5 text-center">
+    <div class="container-fluid text-center">
                 <div v-if="border" class="d-flex justify-content-center">
                     <h1 class="title borders">{{ title }}</h1>
                 </div>
