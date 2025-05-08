@@ -9,16 +9,11 @@ const EventCategory = sequelize.define('EventCategory', {
     autoIncrement: true,
     field: 'Id_category',
   },
-  Type_event: {
-    type: DataTypes.STRING(40),
-    allowNull: true,
-    field: 'Type_event',
-  },
-  Event_name: {
+  Category_event_name: {
     type: DataTypes.STRING(15),
     allowNull: false,
     unique: true,
-    field: 'Event_name',
+    field: 'Category name',
   },
 }, {
   tableName: 'Event_categories_',

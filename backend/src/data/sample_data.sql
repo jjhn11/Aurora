@@ -20,29 +20,87 @@ INSERT INTO Users_ (Id_user, Id_Occupation, Control_num, Name_user, Last_name, E
 ('USER006', 3, '22490390', 'JHOSTIN', 'PACO VELAZQUEZ', 'a22490390@itmexicali.edu.mx', 1, 1);
 
 -- Event categories before events
-INSERT INTO Event_categories_ (Type_event, Event_name) VALUES 
-('Exposición', 'Cultural'), 
-('Conferencia', 'Escolar'), 
-('Competencia', 'Deportivo');
+INSERT INTO Event_categories_ (Category_event_name) VALUES 
+( 'Cultural'), 
+( 'Escolar'), 
+( 'Deportivo');
 
 -- Community tables
 INSERT INTO Community_categories_ (Category_name) VALUES 
-('Tecnología'), ('Arte y Cultura'), ('Deporte'), ('Académico'), ('Voluntariado');
+('Recreativas'), ('Deportes'), ('Cultural'), ('Videojuegos');
 
 INSERT INTO Community_activity_types_ (Type_name, Id_category) VALUES 
-('Proyecto Colaborativo', 1),
-('Exposición', 2),
-('Entrenamiento', 3),
-('Grupo de Estudio', 4),
-('Ayuda Comunitaria', 5);
+('DANZA', 1),('CELEBRACIONES INTERNACIONALES',1),('MÚSICA', 1),
+('ARTES PLÁSTICAS', 1),('PIANO', 1),('DEBATE', 1),('OTRAS', 1),
 
+('VOLLEYBALL SALA', 2),('VOLLEYBALL PLAYA', 2),('SOFTBOL', 2),
+('BEISBOL', 2),('BASQUETBOL', 2),('ATLETISMO', 2),('PORRA', 2),
+('BOX', 2),('SOCCER / FUTBOL', 2),('OTROS', 2),
+
+('BANDA DE GUERRA', 3),('ESCOLTA', 3),('LECTURAS', 3),('AJEDREZ', 3),('RALLYS', 3),
+('BATALLAS DE FREESTYLE / RAP', 3),('JUEGOS DE MESA', 3),('BAZAR', 3),
+('CONCURSO', 3),('TUTORÍAS', 3),('OTRAS', 3),
+
+('ACCIÓN', 4),('ROL', 4),('ESTRATEGIA', 4),
+('AVENTURA', 4),('SIMULADORES', 4),('DEPORTES', 4),('CARRERAS', 4),
+('PUZZLES', 4),('CHICAS', 4),('OTROS', 4);
+
+
+OTROS
 -- FIXED: Added Id_category which is required per model/schema
 INSERT INTO Community_activity_location_ (Location_, Id_category) VALUES
-('Sala de Juntas A', 1), 
-('Galería Central', 2), 
-('Cancha de Baloncesto', 3), 
-('Aula 102', 4), 
-('Playa Municipal', 5);
+
+('SELECCIONAR UBICACIÓN', 1),
+('BIBLIOTECA PLANTA ALTA', 1),
+('BIBLIOTECA PLANTA BAJA', 1),
+('PLAZA C-BÚFALO', 1),
+('PLAZA BICENTENARIO', 1),
+('AUDIOVISUAL EDIFICIO U PLANTA ALTA', 1),
+('AUDIOVISUAL EDIFICIO U PLANTA BAJA', 1),
+('AUDIOVISUAL EDIFICIO D', 1),
+('CUBICULO DE ESTUDIO', 1),
+('CANCHA EXTRAESCOLARES', 1),
+('BIBLIOTECA SALA CIRCULOS DE LECTURA', 1),
+('OTRO', 1),
+
+('CANCHA VOLLEYBALL SALA TRASERA 1', 2),
+('CANCHA VOLLEYBALL SALA TRASERA 2', 2),
+('CANCHA VOLLEYBALL PLAYA', 2),
+('CAMPO SOFTBOL', 2),
+('CAMPO BEISBOL 1', 2),
+('CAMPO BEISBOL 2', 2),
+('CANCHA BASQUETBOL CENTRAL', 2),
+('CANCHA BASQUETBOL TRASERA', 2),
+('CANCHA SOCCER / FUTBOL 1', 2),
+('CANCHA SOCCER / FUTBOL 2', 2),
+('CANCHA SOCCER / FUTBOL 3', 2),
+
+('EDIFICIO D', 3),
+('EDIFICIO F', 3),
+('EDIFICIO U', 3),
+('EDIFICIO G', 3),
+('PLAZA C-BÚFALO', 3),
+('PLAZA BICENTENARIO', 3),
+('BIBLIOTECA PLANTA ALTA', 3),
+('EDIFICIO M', 3),
+('EDIFICIO X', 3),
+('EDIFICIO E', 3),
+('OTRO', 3),
+
+('EDIFICIO D', 4),
+('EDIFICIO F', 4),
+('EDIFICIO U', 4),
+('EDIFICIO G', 4),
+('PLAZA C-BÚFALO', 4),
+('PLAZA BICENTENARIO', 4),
+('BIBLIOTECA PLANTA ALTA', 4),
+('EDIFICIO M', 4),
+('EDIFICIO X', 4),
+('EDIFICIO E', 4),
+('OTRO', 4);
+
+
+
 
 -- First insert Calendar_Events_ data (Events_ depends on this)
 INSERT INTO Calendar_Events_ (Start_date, End_date) VALUES 
