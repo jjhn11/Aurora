@@ -112,5 +112,9 @@
     width: 95%;
     font-size: 0.9rem;
   }
+
+  .search-button {
+    left: 3%;
+  }
 }
 </style>

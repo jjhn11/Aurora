@@ -161,4 +161,5 @@ const closeModal = () => {
   background-color: #007bff;
   opacity: 1;
 }
+
 </style>
