@@ -1,26 +1,53 @@
-<script>
-import { mapState, mapGetters } from 'vuex';
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import { useStore } from 'vuex';
 import CalendarCell from './CalendarCell.vue';
 
-export default {
-  components: { CalendarCell },
-  props: {
+const store = useStore();
+
+// Props
+const props = defineProps({
   nombre: {
     type: String,
     default: 'events'
   }
-},
-data() {
-  return {
-    currentMonth: 0,
-    currentYear: 2025,
-    weekDays: [
-      'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'
-    ],
+});
+
+// State
+const currentMonth = ref(new Date().getMonth());
+const currentYear = ref(new Date().getFullYear());
+const calendarBounds = ref({
+  start: null,
+  end: null
+});
+const weekDays = [
+  'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'
+];
+
+// Get events from store and transform them to calendar format
+const storeEvents = computed(() => {
+  const events = store.getters['events/getAllEvents'];
+  const calendarEvents = {};
+
+  events.forEach(event => {
+    if (event.Event_date) {
+      const dateStr = new Date(event.Event_date).toISOString().split('T')[0];
+      if (!calendarEvents[dateStr]) {
+        calendarEvents[dateStr] = [];
+      }
+      calendarEvents[dateStr].push(event.Title);
+    }
+  });
+
+  return calendarEvents;
+});
+
+// Computed properties
+const eventosSeleccionados = computed(() => {
+  // Combine static and dynamic events
+  const staticEvents = {
     events: {
       '2025-01-06': ['INICIO DE LABORES', 'PAGO CURSO C BÚFALO'],
-      '2025-01-07': ['patogonia'],
-      // ...
     },
     eventsSports: {
       '2025-01-12': ['Entrenamiento de fútbol'],
@@ -35,74 +62,77 @@ data() {
       '2025-01-20': ['Entrega de proyectos'],
     }
   };
-},
 
-  computed: {
-  eventosSeleccionados() {
-    return this[this.nombre] || {};
-  },
-  monthName() {
-    return new Date(this.currentYear, this.currentMonth).toLocaleString('es-ES', {
-      month: 'long'
-    });
-  },
-  calendarGrid() {
-    const firstDay = new Date(this.currentYear, this.currentMonth, 1);
-    const startDay = (firstDay.getDay() + 6) % 7;
-    const daysInMonth = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
+  return props.nombre === 'events' ? storeEvents.value : staticEvents[props.nombre] || {};
+});
 
-    const prevMonth = this.currentMonth === 0 ? 11 : this.currentMonth - 1;
-    const prevYear = this.currentMonth === 0 ? this.currentYear - 1 : this.currentYear;
-    const daysInPrevMonth = new Date(prevYear, prevMonth + 1, 0).getDate();
+const monthName = computed(() => {
+  return new Date(currentYear.value, currentMonth.value).toLocaleString('es-ES', {
+    month: 'long'
+  });
+});
 
-    const nextMonth = this.currentMonth === 11 ? 0 : this.currentMonth + 1;
-    const nextYear = this.currentMonth === 11 ? this.currentYear + 1 : this.currentYear;
+const calendarGrid = computed(() => {
+  const firstDay = new Date(currentYear.value, currentMonth.value, 1);
+  const startDay = (firstDay.getDay() + 6) % 7;
+  const daysInMonth = new Date(currentYear.value, currentMonth.value + 1, 0).getDate();
 
-    const grid = [];
-    let week = [];
+  const prevMonth = currentMonth.value === 0 ? 11 : currentMonth.value - 1;
+  const prevYear = currentMonth.value === 0 ? currentYear.value - 1 : currentYear.value;
+  const daysInPrevMonth = new Date(prevYear, prevMonth + 1, 0).getDate();
 
-    for (let i = startDay - 1; i >= 0; i--) {
-      const dateNum = daysInPrevMonth - i;
-      const dateStr = `${prevYear}-${String(prevMonth + 1).padStart(2, '0')}-${String(dateNum).padStart(2, '0')}`;
-      week.push({ date: dateNum, events: this.eventosSeleccionados[dateStr] || [], isOtherMonth: true });
+  const nextMonth = currentMonth.value === 11 ? 0 : currentMonth.value + 1;
+  const nextYear = currentMonth.value === 11 ? currentYear.value + 1 : currentYear.value;
+
+  const grid = [];
+  let week = [];
+
+  // Previous month days
+  for (let i = startDay - 1; i >= 0; i--) {
+    const dateNum = daysInPrevMonth - i;
+    const dateStr = `${prevYear}-${String(prevMonth + 1).padStart(2, '0')}-${String(dateNum).padStart(2, '0')}`;
+    week.push({ date: dateNum, events: eventosSeleccionados.value[dateStr] || [], isOtherMonth: true });
+  }
+
+  // Current month days
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dateStr = `${currentYear.value}-${String(currentMonth.value + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    week.push({ date: day, events: eventosSeleccionados.value[dateStr] || [], isOtherMonth: false });
+
+    if (week.length === 7) {
+      grid.push(week);
+      week = [];
     }
+  }
 
-    for (let day = 1; day <= daysInMonth; day++) {
-      const dateStr = `${this.currentYear}-${String(this.currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-      week.push({ date: day, events: this.eventosSeleccionados[dateStr] || [], isOtherMonth: false });
+  // Next month days
+  let nextDay = 1;
+  while (week.length < 7) {
+    const dateStr = `${nextYear}-${String(nextMonth + 1).padStart(2, '0')}-${String(nextDay).padStart(2, '0')}`;
+    week.push({ date: nextDay, events: eventosSeleccionados.value[dateStr] || [], isOtherMonth: true });
+    nextDay++;
+  }
+  grid.push(week);
 
-      if (week.length === 7) {
-        grid.push(week);
-        week = [];
-      }
-    }
-
-    let nextDay = 1;
-    while (week.length < 7) {
+  // Fill remaining weeks
+  while (grid.length < 6) {
+    const emptyWeek = [];
+    for (let i = 0; i < 7; i++) {
       const dateStr = `${nextYear}-${String(nextMonth + 1).padStart(2, '0')}-${String(nextDay).padStart(2, '0')}`;
-      week.push({ date: nextDay, events: this.eventosSeleccionados[dateStr] || [], isOtherMonth: true });
+      emptyWeek.push({ date: nextDay, events: eventosSeleccionados.value[dateStr] || [], isOtherMonth: true });
       nextDay++;
     }
-    grid.push(week);
+    grid.push(emptyWeek);
+  }
 
-    while (grid.length < 6) {
-      const emptyWeek = [];
-      for (let i = 0; i < 7; i++) {
-        const dateStr = `${nextYear}-${String(nextMonth + 1).padStart(2, '0')}-${String(nextDay).padStart(2, '0')}`;
-        emptyWeek.push({ date: nextDay, events: this.eventosSeleccionados[dateStr] || [], isOtherMonth: true });
-        nextDay++;
-      }
-      grid.push(emptyWeek);
-    }
+  return grid;
+});
 
-    return grid;
-  },
-  uniqueEventsWithColor() {
-  const monthStr = String(this.currentMonth + 1).padStart(2, '0');
-  const yearStr = String(this.currentYear);
+const uniqueEventsWithColor = computed(() => {
+  const monthStr = String(currentMonth.value + 1).padStart(2, '0');
+  const yearStr = String(currentYear.value);
 
-  // Filtra solo los eventos del mes y año actual
-  const filteredEvents = Object.entries(this.eventosSeleccionados)
+  const filteredEvents = Object.entries(eventosSeleccionados.value)
     .filter(([date]) => {
       const [y, m] = date.split('-');
       return y === yearStr && m === monthStr;
@@ -116,44 +146,112 @@ data() {
     for (let i = 0; i < event.length; i++) {
       hash = event.charCodeAt(i) + ((hash << 5) - hash);
     }
-    const color = `hsl(${hash % 360}, 70%, 70%)`;
-    return { name: event, color };
+    return {
+      name: event,
+      color: `hsl(${hash % 360}, 70%, 70%)`
+    };
   });
-}
-},
-  methods: {
-    nextMonth() {
-      if (this.currentMonth === 11) {
-        this.currentMonth = 0;
-        this.currentYear++;
-      } else {
-        this.currentMonth++;
-      }
-    },
-    prevMonth() {
-      if (this.currentMonth === 0) {
-        this.currentMonth = 11;
-        this.currentYear--;
-      } else {
-        this.currentMonth--;
-      }
+});
+
+// Get calendar bounds from store
+const initializeCalendarBounds = async () => {
+  try {
+    // Fetch calendar events if not already loaded
+    const calendarEvents = store.state.events.calendarEvents;
+    if (!calendarEvents.length) {
+      await store.dispatch('events/fetchCalendarEvents');
     }
-  },
-  async created() {
-    // Cargar eventos usando loadInitialData para asegurar que todos los datos necesarios se carguen
-    await this.$store.dispatch('events/loadInitialData');
-    // Añadir este log para verificar que se cargaron datos
-    console.log("Eventos cargados:", this.$store.state.events.events);
+
+    // Get the current calendar period
+    const currentDate = new Date();
+    const currentCalendar = store.state.events.calendarEvents.find(calendar => {
+      const startDate = new Date(calendar.Start_date);
+      const endDate = new Date(calendar.End_date);
+      return currentDate >= startDate && currentDate <= endDate;
+    });
+
+    if (currentCalendar) {
+      const startDate = new Date(currentCalendar.Start_date);
+      const endDate = new Date(currentCalendar.End_date);
+      
+      calendarBounds.value = {
+        start: startDate,
+        end: endDate
+      };
+
+      // Set initial month and year based on start date
+      currentMonth.value = startDate.getMonth();
+      currentYear.value = startDate.getFullYear();
+    }
+  } catch (error) {
+    console.error('Error initializing calendar bounds:', error);
   }
 };
+
+// Add validation to navigation methods
+const canNavigateNext = computed(() => {
+  if (!calendarBounds.value.end) return true;
+  const nextMonth = currentMonth.value === 11 ? 0 : currentMonth.value + 1;
+  const nextYear = currentMonth.value === 11 ? currentYear.value + 1 : currentYear.value;
+  const nextDate = new Date(nextYear, nextMonth + 1, 0); // Last day of next month
+  return nextDate <= calendarBounds.value.end;
+});
+
+const canNavigatePrev = computed(() => {
+  if (!calendarBounds.value.start) return true;
+  const prevMonth = currentMonth.value === 0 ? 11 : currentMonth.value - 1;
+  const prevYear = currentMonth.value === 0 ? currentYear.value - 1 : currentYear.value;
+  const prevDate = new Date(prevYear, prevMonth, 1); // First day of prev month
+  return prevDate >= calendarBounds.value.start;
+});
+
+// Update navigation methods
+const nextMonth = () => {
+  if (!canNavigateNext.value) return;
+  
+  if (currentMonth.value === 11) {
+    currentMonth.value = 0;
+    currentYear.value++;
+  } else {
+    currentMonth.value++;
+  }
+};
+
+const prevMonth = () => {
+  if (!canNavigatePrev.value) return;
+  
+  if (currentMonth.value === 0) {
+    currentMonth.value = 11;
+    currentYear.value--;
+  } else {
+    currentMonth.value--;
+  }
+};
+
+// Lifecycle hooks
+onMounted(async () => {
+  await store.dispatch('events/loadInitialData');
+  await initializeCalendarBounds();
+  console.log("Eventos cargados:", store.state.events.events);
+});
 </script>
 <template>
   <div class="container py-4">
     <!-- Encabezado con flechas y mes -->
     <div class="d-flex align-items-center">
-      <button class="nav-arrow me-3" @click="prevMonth">&lt;</button>
+      <button 
+        class="nav-arrow me-3" 
+        @click="prevMonth"
+        :disabled="!canNavigatePrev"
+        :class="{ 'disabled': !canNavigatePrev }"
+      >&lt;</button>
       <h3 class="calendar-month m-0">{{ monthName }} {{ currentYear }}</h3>
-      <button class="nav-arrow ms-3" @click="nextMonth">&gt;</button>
+      <button 
+        class="nav-arrow ms-3" 
+        @click="nextMonth"
+        :disabled="!canNavigateNext"
+        :class="{ 'disabled': !canNavigateNext }"
+      >&gt;</button>
     </div>
 
     <!-- Días de la semana -->
@@ -253,6 +351,11 @@ data() {
   border: none;
   color: #5404ff;
   cursor: pointer;
+}
+
+.nav-arrow.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .day-headers .col {
