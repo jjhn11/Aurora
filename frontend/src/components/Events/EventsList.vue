@@ -33,7 +33,7 @@ const categoryId = computed(() => {
   if (!props.category) return null;
   
   const category = categories.value.find(
-    cat => cat.Event_name?.toLowerCase() === props.category.toLowerCase()
+    cat => cat.Category_event_name?.toLowerCase() === props.category.toLowerCase()
   );
   
   return category ? category.Id_category : null;
