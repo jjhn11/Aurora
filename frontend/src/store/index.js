@@ -5,6 +5,7 @@ import userModule from './modules/user';
 import eventsModule from './modules/events';
 import communityModule from './modules/community';
 import profanityModule from './modules/profanity';
+import mailModule from './modules/mail.js';
 
 const travel = (path) => {
   const url = new URL(axios.defaults.baseURL + path);
@@ -92,6 +93,7 @@ export default createStore({
     user: userModule,
     events: eventsModule,
     profanity: profanityModule,
-    community: communityModule
+    community: communityModule,
+    mail: mailModule
   }
 });

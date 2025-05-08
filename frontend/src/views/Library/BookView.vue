@@ -9,6 +9,7 @@
       <Breadcrumb :paths="breadcrumbPaths" />
 
       <BookInfo
+        :bookId="bookId"
         :title="book.Title"
         :authors="book.authors"
         :coverImage="book.coverImage"
@@ -114,7 +115,7 @@ watch(bookId, () => {
   flex-direction: column;
   overflow: hidden;
   align-items: stretch;
-  margin-top: 40px;
+  margin-top: 20px;
   min-height: 100vh; /* Ensure full height even when loading */
 }
 
