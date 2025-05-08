@@ -46,6 +46,7 @@ INSERT INTO Community_activity_types_ (Type_name, Id_category) VALUES
 ('PUZZLES', 4),('CHICAS', 4),('OTROS', 4);
 
 
+
 -- FIXED: Added Id_category which is required per model/schema
 INSERT INTO Community_activity_location_ (Location_, Id_category) VALUES
 
