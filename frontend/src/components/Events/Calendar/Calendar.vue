@@ -178,10 +178,6 @@ const initializeCalendarBounds = async () => {
         start: startDate,
         end: endDate
       };
-
-      // Set initial month and year based on start date
-      currentMonth.value = startDate.getMonth();
-      currentYear.value = startDate.getFullYear();
     }
   } catch (error) {
     console.error('Error initializing calendar bounds:', error);
@@ -260,7 +256,12 @@ onMounted(async () => {
     </div>
     <div class="calendar-grid-wrapper position-relative">
       <!-- Flecha izquierda -->
-      <button class="side-arrow left" @click="prevMonth">&lt;</button>
+      <button 
+        class="side-arrow left" 
+        @click="prevMonth"
+        :disabled="!canNavigatePrev"
+        :class="{ 'disabled': !canNavigatePrev }"
+      >&lt;</button>
 
       <!-- Calendario -->
       <div class="calendar-grid">
@@ -302,7 +303,12 @@ onMounted(async () => {
       </div>
 
       <!-- Flecha derecha -->
-      <button class="side-arrow right" @click="nextMonth">&gt;</button>
+      <button 
+        class="side-arrow right" 
+        @click="nextMonth"
+        :disabled="!canNavigateNext"
+        :class="{ 'disabled': !canNavigateNext }"
+      >&gt;</button>
     </div>
   </div>
 </template>
@@ -337,6 +343,11 @@ onMounted(async () => {
 
 .side-arrow.right {
   right: -80px;
+}
+
+.side-arrow.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .calendar-month {
