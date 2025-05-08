@@ -11,7 +11,7 @@ router.route('/')
 .get(async (req, res) => {
     try {
         const { categoryId, iscoming } = req.query;
-        const today = new Date('2025-05-04');
+        const today = new Date();
 
         // Encontrar el calendario actual
         const currentCalendar = await CalendarEvent.findOne({
@@ -52,7 +52,7 @@ router.route('/')
                 {
                     model: EventCategory,
                     as: 'category',
-                    attributes: ['Event_name', 'Type_event']
+                    attributes: ['Category_event_name']
                 }
             ],
             order: [['Event_date', 'ASC']]
@@ -204,7 +204,7 @@ router.route('/')
             include: [{
                 model: EventCategory,
                 as: 'category',
-                attributes: ['Event_name', 'Type_event']
+                attributes: ['Category_event_name']
             }]
         });
 
@@ -272,7 +272,7 @@ router.route('/categories')
 
     const newCategory = await EventCategory.create({
         Type_event,
-        Event_name
+        Category_event_name: Event_name
     });
 
     res.status(201).json(newCategory);
@@ -328,7 +328,7 @@ router.route('/calendar')
 router.route('/calendar/current') 
 .get (async (req, res) => {
     try {
-      const now = new Date('2025-09-04'); 
+      const now = new Date(); 
   
       const currentCalendar = await CalendarEvent.findOne({
         where: {
@@ -348,49 +348,87 @@ router.route('/calendar/current')
   });
   
   // 🔹 POST: Crear el calendario del siguiente semestre si no existe
-  router.route('/calendar/next') 
-  .post(async (req, res) => {
-    try {
-      const now = new Date();
-  
-      // Determinar semestre actual
+router.route('/calendar/next')
+.post(async (req, res) => {
+  try {
+    const now = new Date();
+
+    // Verificar si hay un calendario activo
+    const activeCalendar = await CalendarEvent.findOne({
+      where: {
+        Start_date: { [Op.lte]: now },
+        End_date: { [Op.gte]: now }
+      }
+    });
+
+    if (!activeCalendar) {
+      // Crear el calendario correspondiente a la fecha actual
       const year = now.getFullYear();
       const month = now.getMonth() + 1;
-  
-      let nextStart, nextEnd;
-  
+
+      let currentStart, currentEnd;
+
       if (month >= 1 && month <= 7) {
-        // Si estamos en el 1er semestre, crear el 2do
-        nextStart = new Date(`${year}-08-01`);
-        nextEnd = new Date(`${year}-12-31`);
+        // Si estamos en el 1er semestre
+        currentStart = new Date(`${year}-01-01`);
+        currentEnd = new Date(`${year}-07-31`);
       } else {
-        // Si estamos en el 2do semestre, crear el 1ro del siguiente año
-        nextStart = new Date(`${year + 1}-01-01`);
-        nextEnd = new Date(`${year + 1}-07-31`);
+        // Si estamos en el 2do semestre
+        currentStart = new Date(`${year}-08-01`);
+        currentEnd = new Date(`${year}-12-31`);
       }
-  
-      // Verificar si ya existe ese calendario
-      const existing = await CalendarEvent.findOne({
-        where: {
-          Start_date: nextStart,
-          End_date: nextEnd
-        }
+
+      const newCurrentCalendar = await CalendarEvent.create({
+        Start_date: currentStart,
+        End_date: currentEnd
       });
-  
-      if (existing) {
-        return res.status(400).json({ error: 'El calendario del próximo semestre ya existe.' });
-      }
-  
-      // Crear calendario
-      const newCalendar = await CalendarEvent.create({
+
+      return res.status(201).json({
+        message: 'No había un calendario activo. Se creó el calendario correspondiente a la fecha actual.',
+        calendar: newCurrentCalendar
+      });
+
+      
+    }
+
+    // Determinar semestre actual para crear el siguiente
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+
+    let nextStart, nextEnd;
+
+    if (month >= 1 && month <= 7) {
+      // Si estamos en el 1er semestre, crear el 2do
+      nextStart = new Date(`${year}-08-01`);
+      nextEnd = new Date(`${year}-12-31`);
+    } else {
+      // Si estamos en el 2do semestre, crear el 1ro del siguiente año
+      nextStart = new Date(`${year + 1}-01-01`);
+      nextEnd = new Date(`${year + 1}-07-31`);
+    }
+
+    // Verificar si ya existe ese calendario
+    const existing = await CalendarEvent.findOne({
+      where: {
         Start_date: nextStart,
         End_date: nextEnd
-      });
-  
-      res.status(201).json(newCalendar);
-    } catch (error) {
-      res.status(500).json({ error: 'Error al crear calendario del próximo semestre', details: error.message });
+      }
+    });
+
+    if (existing) {
+      return res.status(400).json({ error: 'El calendario del próximo semestre ya existe.' });
     }
-  });
+
+    // Crear calendario del siguiente semestre
+    const newCalendar = await CalendarEvent.create({
+      Start_date: nextStart,
+      End_date: nextEnd
+    });
+
+    res.status(201).json(newCalendar);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al crear calendario del próximo semestre', details: error.message });
+  }
+});
 
 export default router;
