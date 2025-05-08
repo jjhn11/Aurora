@@ -58,7 +58,6 @@ import SearchBar from '@/components/SearchBar.vue';
     font-weight: 700;
     font-size: 37.5px;
     line-height: 100%;
-
 }
 
 .subtitle {

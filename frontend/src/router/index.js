@@ -10,6 +10,7 @@ import CommunityGamingView from '@/views/Community/CommunityGamingView.vue'
 import CommunityRecreationalView from '@/views/Community/CommunityRecreationalView.vue'
 import ProfileView from '@/views/User/ProfileView.vue'
 import LibraryView from '@/views/Library/LibraryView.vue'
+import CubiclesView from '@/views/Library/CubiclesView.vue'
 import BookView from '@/views/Library/BookView.vue'
 import FavoritesView from '@/views/User/FavoritesView.vue'
 import CatalogueView from '@/views/Library/CatalogueView.vue'
@@ -39,7 +40,11 @@ const routes = [
     name: 'catalogue',
     component: CatalogueView,
   },
-
+  {
+    path: '/library/cubicles',
+    name: 'cubicles',
+    component: CubiclesView,
+  },
   {
     path: '/events',
     name: 'events',
