@@ -386,7 +386,7 @@
 
   <!-- @@@@@@@@ Menu de Usuario @@@@@@@@ -->
 
-  <div class="container-fluid p-3">
+  <div class="container-fluid">
     
     <!-- Contenedor del menú -->
     <form class="bg-white border" id="uform"  :class="{'form-shrunk': isNavbarShrunk,
