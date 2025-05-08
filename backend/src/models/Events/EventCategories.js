@@ -13,7 +13,7 @@ const EventCategory = sequelize.define('EventCategory', {
     type: DataTypes.STRING(15),
     allowNull: false,
     unique: true,
-    field: 'Category name',
+    field: 'Category_event_name',
   },
 }, {
   tableName: 'Event_categories_',
