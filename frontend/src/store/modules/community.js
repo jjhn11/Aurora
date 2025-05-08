@@ -173,7 +173,11 @@ export default {
         if (state.activityTypes.length === 0) {
           await dispatch('fetchActivityTypes');
         }
-        
+
+        if (state.locations.length === 0) {
+          await dispatch('fetchLocations');
+        }
+          
         const response = await axios.get(url);
         
         // Enriquecer actividades con información de iconos si no la tienen
@@ -230,9 +234,11 @@ export default {
             // Generar ruta de ícono
             const typeName = type.Type_name.replace(/\s+/g, '_').toUpperCase();
             const iconPath = `/src/assets/img/community/icons/${categoryFolder}/ICONO ${typeName}.png`;
+            const locationName = state.locations.find(loc => loc.Id_Location === activity.Id_Location)?.Location_ || 'Ubicación no disponible';
 
             return {
               ...activity,
+              location_name: locationName,
               _metadata: {
                 iconPath,
                 backgroundColor: bgColor,
@@ -496,9 +502,13 @@ export default {
       if (state.locations.length === 0) {
         await dispatch('fetchLocations');
       }
+
+      alert(`Ubicaciones: ${JSON.stringify(state.locations)}`);
+      alert(`Nombre de ubicación: ${locationName}`);
+      
       
       // Buscar la ubicación por nombre
-      const location = state.locations.find(loc => loc.Location_ === locationName);
+      const location = state.locations.find(loc => loc.Location_ == locationName.toUpperCase());
       return location ? location.Id_Location : 1; // ID por defecto si no se encuentra
     },
     

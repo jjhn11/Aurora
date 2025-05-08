@@ -41,7 +41,7 @@ onMounted(async () => {
             organizer: activity.Organizer_id,
             startTime: activity.Start_time,
             endTime: activity.End_time,
-            location: activity.Id_Location,
+            location: activity.location_name,
             category: "Recreativo", // Texto mostrado
             // Usar los metadatos para el ícono y color
             imageSrc: activity._metadata?.iconPath || "/src/assets/img/community/icons/recreational/ICONO LECTURA.png", 

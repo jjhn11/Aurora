@@ -4,7 +4,7 @@ import booksModule from './modules/books';
 import userModule from './modules/user';
 import eventsModule from './modules/events';
 import communityModule from './modules/community';
-import profanity from './modules/profanity';
+import profanityModule from './modules/profanity';
 
 const travel = (path) => {
   const url = new URL(axios.defaults.baseURL + path);
@@ -91,7 +91,7 @@ export default createStore({
     books: booksModule,
     user: userModule,
     events: eventsModule,
-    profanity: profanity,
+    profanity: profanityModule,
     community: communityModule
   }
 });
