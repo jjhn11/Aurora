@@ -28,8 +28,12 @@
           <div class="col-md-3">
             <select class="form-select" v-model="filters.category" @change="applyFilters">
               <option value="">Todas las categorías</option>
-              <option v-for="category in eventCategories" :key="category" :value="category">
-                {{ category }}
+              <option 
+                v-for="category in eventCategories" 
+                :key="category.Id_category" 
+                :value="category.Id_category"
+              >
+                {{ category.Category_event_name }}
               </option>
             </select>
           </div>
@@ -41,6 +45,8 @@
                 class="form-control" 
                 v-model="filters.date"
                 @change="applyFilters"
+                :min="minDate"
+                :max="maxDate"
               >
             </div>
           </div>
@@ -78,11 +84,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="event in paginatedEvents" :key="event.id">
-              <td>{{ event.id }}</td>
-              <td>{{ event.title }}</td>
-              <td><span class="badge bg-info">{{ event.category }}</span></td>
-              <td>{{ formatDate(event.date) }}</td>
+            <tr v-for="event in paginatedEvents" :key="event.Id_event">
+              <td>{{ event.Id_event }}</td>
+              <td>{{ event.Title }}</td>
+              <td><span class="badge bg-info">{{ event.category?.Category_event_name }}</span></td>
+              <td>{{ formatDate(event.Event_date) }}</td>
               <td>
                 <div class="btn-group">
                   <button class="btn btn-sm btn-info" @click="viewEventDetails(event)">
@@ -157,8 +163,9 @@
             </div>
             <div class="modal-body">
               <form @submit.prevent="saveEvent">
+                <!-- Title -->
                 <div class="mb-3">
-                  <label for="eventTitle" class="form-label">Título</label>
+                  <label for="eventTitle" class="form-label">Título *</label>
                   <input 
                     type="text" 
                     class="form-control" 
@@ -170,8 +177,9 @@
                   <div class="invalid-feedback">{{ titleError }}</div>
                 </div>
                 
+                <!-- Category -->
                 <div class="mb-3">
-                  <label for="eventCategory" class="form-label">Categoría</label>
+                  <label for="eventCategory" class="form-label">Categoría *</label>
                   <select 
                     class="form-select" 
                     id="eventCategory" 
@@ -179,14 +187,19 @@
                     required
                   >
                     <option value="" disabled>Seleccione una categoría</option>
-                    <option v-for="category in eventCategories" :key="category" :value="category">
-                      {{ category }}
+                    <option 
+                      v-for="category in eventCategories" 
+                      :key="category.Id_category" 
+                      :value="category.Id_category"
+                    >
+                      {{ category.Category_event_name }}
                     </option>
                   </select>
                 </div>
   
+                <!-- Event Date -->
                 <div class="mb-3">
-                  <label for="eventDate" class="form-label">Fecha del Evento</label>
+                  <label for="eventDate" class="form-label">Fecha del Evento *</label>
                   <input 
                     type="date" 
                     class="form-control" 
@@ -195,9 +208,28 @@
                     required
                   >
                 </div>
-                
+  
+                <!-- Is Coming Switch -->
                 <div class="mb-3">
-                  <label for="eventDescription" class="form-label">Descripción</label>
+                  <div class="form-check form-switch">
+                    <input 
+                      class="form-check-input" 
+                      type="checkbox" 
+                      id="isComingSwitch"
+                      v-model="eventForm.isComing"
+                    >
+                    <label class="form-check-label" for="isComingSwitch">
+                      Evento Próximo
+                    </label>
+                  </div>
+                  <small class="text-muted">
+                    Active esta opción si desea mostrar este evento en la sección de próximos eventos
+                  </small>
+                </div>
+  
+                <!-- Description (only if isComing) -->
+                <div class="mb-3" v-if="eventForm.isComing">
+                  <label for="eventDescription" class="form-label">Descripción *</label>
                   <textarea 
                     class="form-control" 
                     id="eventDescription" 
@@ -207,44 +239,19 @@
                   ></textarea>
                 </div>
   
-                <!-- Calendar Event Info -->
-                <div class="card mb-3">
-                  <div class="card-header">
-                    Información de Calendario
-                  </div>
-                  <div class="card-body">
-                    <div class="row g-3">
-                      <div class="col-md-6">
-                        <label for="calendarStartDate" class="form-label">Fecha de Inicio</label>
-                        <input 
-                          type="date" 
-                          class="form-control" 
-                          id="calendarStartDate" 
-                          v-model="eventForm.startDate"
-                        >
-                      </div>
-                      <div class="col-md-6">
-                        <label for="calendarEndDate" class="form-label">Fecha de Fin</label>
-                        <input 
-                          type="date" 
-                          class="form-control" 
-                          id="calendarEndDate" 
-                          v-model="eventForm.endDate"
-                        >
-                      </div>
-                      <div class="col-md-12">
-                        <label for="calendarNotes" class="form-label">Notas de Calendario</label>
-                        <textarea 
-                          class="form-control" 
-                          id="calendarNotes" 
-                          v-model="eventForm.notes" 
-                          rows="2"
-                        ></textarea>
-                      </div>
-                    </div>
-                  </div>
+                <!-- Image URL (only if isComing) -->
+                <div class="mb-3" v-if="eventForm.isComing">
+                  <label for="eventImage" class="form-label">URL de Imagen *</label>
+                  <input 
+                    type="url" 
+                    class="form-control" 
+                    id="eventImage" 
+                    v-model="eventForm.imageUrl"
+                    placeholder="https://ejemplo.com/imagen.jpg"
+                    required
+                  >
                 </div>
-                
+  
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                   <button type="submit" class="btn btn-primary">
@@ -356,7 +363,6 @@ import { ref, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { Modal } from 'bootstrap';
 
-// Store
 const store = useStore();
 
 // Refs for DOM elements
@@ -394,16 +400,15 @@ const eventForm = ref({
   description: '',
   category: '',
   date: '',
-  startDate: '',
-  endDate: '',
-  notes: ''
+  isComing: true,
+  imageUrl: ''
 });
 
 // Get events from store
 const events = computed(() => store.getters['events/getAllEvents']);
-const eventCategories = computed(() => store.getters['events/getEventCategories']);
-const loading = computed(() => store.state.events.loading.allEvents);
-const error = computed(() => store.state.events.error.allEvents);
+const eventCategories = computed(() => store.state.events.categories);
+const loading = computed(() => store.state.events.loading.events);
+const error = computed(() => store.state.events.error.events);
 
 // Filtered events
 const filteredEvents = computed(() => {
@@ -413,22 +418,29 @@ const filteredEvents = computed(() => {
   if (filters.value.search) {
     const searchTerm = filters.value.search.toLowerCase();
     result = result.filter(event => 
-      event.title.toLowerCase().includes(searchTerm) || 
-      event.description.toLowerCase().includes(searchTerm)
+      event.Title.toLowerCase().includes(searchTerm) || 
+      (event.Description && event.Description.toLowerCase().includes(searchTerm))
     );
   }
   
   // Apply category filter
   if (filters.value.category) {
-    result = result.filter(event => event.category === filters.value.category);
+    result = result.filter(event => event.Id_category === parseInt(filters.value.category));
   }
   
   // Apply date filter
   if (filters.value.date) {
-    const filterDate = new Date(filters.value.date).toISOString().split('T')[0];
     result = result.filter(event => {
-      const eventDate = new Date(event.date).toISOString().split('T')[0];
-      return eventDate === filterDate;
+      if (!event.Event_date) return false;
+      
+      // Normalize dates to avoid timezone issues
+      const filterDate = new Date(filters.value.date);
+      filterDate.setHours(0, 0, 0, 0);
+      
+      const eventDate = new Date(event.Event_date);
+      eventDate.setHours(0, 0, 0, 0);
+      
+      return filterDate.getTime() === eventDate.getTime();
     });
   }
   
@@ -488,15 +500,39 @@ const hasCalendarInfo = computed(() => {
     selectedEvent.value.notes);
 });
 
+// Add these computed properties
+const minDate = computed(() => {
+  const first = events.value[0]?.Event_date;
+  return first ? new Date(first).toISOString().split('T')[0] : '';
+});
+
+const maxDate = computed(() => {
+  if (!events.value.length) return '';
+  const dates = events.value.map(e => new Date(e.Event_date));
+  const last = new Date(Math.max(...dates));
+  return last.toISOString().split('T')[0];
+});
+
 // Load events on mount
 onMounted(async () => {
-  await store.dispatch('events/fetchEvents');
+  try {
+    await Promise.all([
+      store.dispatch('events/fetchEvents'),
+      store.dispatch('events/fetchCategories')
+    ]);
+  } catch (err) {
+    console.error('Error loading initial data:', err);
+  }
 });
 
 // Format date for display
 const formatDate = (dateString) => {
   if (!dateString) return '';
+  
+  // Create date object and normalize to local timezone
   const date = new Date(dateString);
+  date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+  
   return date.toLocaleDateString('es-ES', {
     year: 'numeric', 
     month: 'long', 
@@ -510,28 +546,24 @@ const showEventForm = (event = null) => {
   titleError.value = '';
   
   if (event) {
-    // Edit existing event
     eventForm.value = {
-      id: event.id,
-      title: event.title,
-      description: event.description,
-      category: event.category,
-      date: event.date,
-      startDate: event.startDate || '',
-      endDate: event.endDate || '',
-      notes: event.notes || ''
+      id: event.Id_event,
+      title: event.Title,
+      description: event.Description || '',
+      category: event.Id_category,
+      date: new Date(event.Event_date).toISOString().split('T')[0],
+      isComing: event.Is_coming === 1,
+      imageUrl: event.Image_url || ''
     };
   } else {
-    // Create new event
     eventForm.value = {
       id: null,
       title: '',
       description: '',
       category: '',
       date: new Date().toISOString().split('T')[0],
-      startDate: '',
-      endDate: '',
-      notes: ''
+      isComing: true,
+      imageUrl: ''
     };
   }
   
@@ -540,7 +572,16 @@ const showEventForm = (event = null) => {
 };
 
 const viewEventDetails = (event) => {
-  selectedEvent.value = event;
+  selectedEvent.value = {
+    title: event.Title,
+    category: event.category?.Category_event_name,
+    date: event.Event_date,
+    description: event.Description,
+    calendarDate: event.Event_date,
+    startDate: event.Start_date,
+    endDate: event.End_date,
+    notes: event.Notes
+  };
   const modal = new Modal(eventDetailsModal.value);
   modal.show();
 };
@@ -553,7 +594,6 @@ const confirmDelete = (event) => {
 
 // CRUD operations
 const saveEvent = async () => {
-  // Validate form
   if (eventForm.value.title.trim().length < 3) {
     titleError.value = 'El título debe tener al menos 3 caracteres';
     return;
@@ -561,22 +601,29 @@ const saveEvent = async () => {
   
   try {
     const eventData = {
-      ...eventForm.value,
+      Title: eventForm.value.title,
+      Id_category: parseInt(eventForm.value.category),
+      Event_date: eventForm.value.date,
+      Is_coming: eventForm.value.isComing ? 1 : 0,
+      Description: eventForm.value.isComing ? eventForm.value.description : null,
+      Image_url: eventForm.value.isComing ? eventForm.value.imageUrl : null
     };
     
     if (isEditing.value) {
-      await store.dispatch('events/updateEvent', eventData);
-      // Show success message
+      await store.dispatch('events/updateEvent', {
+        eventId: eventForm.value.id,
+        eventData
+      });
       alert('Evento actualizado correctamente');
     } else {
-      await store.dispatch('events/addEvent', eventData);
-      // Show success message
+      await store.dispatch('events/createEvent', eventData);
       alert('Evento creado correctamente');
     }
     
-    // Close modal
     const modal = Modal.getInstance(eventModal.value);
     modal.hide();
+    
+    await store.dispatch('events/fetchEvents');
   } catch (err) {
     console.error('Error saving event:', err);
     alert('Error al guardar el evento: ' + err.message);
@@ -585,14 +632,13 @@ const saveEvent = async () => {
 
 const deleteEvent = async () => {
   try {
-    await store.dispatch('events/deleteEvent', selectedEvent.value.id);
-    
-    // Close modal
+    await store.dispatch('events/deleteEvent', selectedEvent.value.Id_event);
     const modal = Modal.getInstance(deleteModal.value);
     modal.hide();
-    
-    // Show success message
     alert('Evento eliminado correctamente');
+    
+    // Refresh events list
+    await store.dispatch('events/fetchEvents');
   } catch (err) {
     console.error('Error deleting event:', err);
     alert('Error al eliminar el evento: ' + err.message);
