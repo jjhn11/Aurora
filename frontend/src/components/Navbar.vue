@@ -238,14 +238,14 @@
 
               <ul class="navbar-nav border-top border-black border-2 d-flex justify-content-center" id="nav" :class="{ 'no-border': isNavbarShrunk }">
 
-                <li class="nav-item mt-4">
-                  <RouterLink to="/" class="nav-link di1" id="bot" :class="{ 'active-link': isActiveLink('/') }">
+                <li class="nav-item mt-4 di1">
+                  <RouterLink to="/" class="nav-link" id="bot" :class="{ 'active-link': isActiveLink('/') }">
                     INICIO
                   </RouterLink>
                 </li>
 
-                <li class="nav-item dropdown position-static mt-4" id="droph">
-                  <RouterLink to="/biblioteca" class="nav-link db2 " role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/biblioteca') || isActiveLink('/biblioteca/catalogo') || isActiveLink('/biblioteca/cubiculos') }">
+                <li class="nav-item dropdown position-static mt-4 db2" id="droph">
+                  <RouterLink to="/biblioteca" class="nav-link" role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/biblioteca') || isActiveLink('/biblioteca/catalogo') || isActiveLink('/biblioteca/cubiculos') }">
                     BIBLIOTECA
                   </RouterLink>
 
@@ -276,8 +276,8 @@
 
                 </li>
 
-                <li class="nav-item dropdown position-static mt-4" id="droph">
-                  <RouterLink to="/eventos" class="nav-link de3" role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/eventos') || isActiveLink('/eventos/culturales') || isActiveLink('/eventos/deportivos') || isActiveLink('/eventos/escolares') }">
+                <li class="nav-item dropdown position-static mt-4 de3" id="droph">
+                  <RouterLink to="/eventos" class="nav-link" role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/eventos') || isActiveLink('/eventos/culturales') || isActiveLink('/eventos/deportivos') || isActiveLink('/eventos/escolares') }">
                     EVENTOS
                   </RouterLink>
                   
@@ -318,8 +318,8 @@
 
                 </li>
 
-                <li class="nav-item dropdown position-static mt-4" id="droph">
-                  <a class="nav-link dc4" role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/comunidad/cultural') || isActiveLink('/comunidad/videojuegos') || isActiveLink('/comunidad/deportes') || isActiveLink('/comunidad/recreativas')}">
+                <li class="nav-item dropdown position-static mt-4 dc4" id="droph">
+                  <a class="nav-link" role="button" aria-expanded="false" id="bot" :class="{ 'active-link': isActiveLink('/comunidad/cultural') || isActiveLink('/comunidad/videojuegos') || isActiveLink('/comunidad/deportes') || isActiveLink('/comunidad/recreativas')}">
                     COMUNIDAD
                   </a>
 
