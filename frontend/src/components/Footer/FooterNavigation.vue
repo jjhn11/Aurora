@@ -9,17 +9,17 @@
             >
           </li>
           <li>
-            <RouterLink to="/biblioteca" class="footer-nav__link footer-nav__link--biblioteca"
+            <RouterLink to="/library" class="footer-nav__link footer-nav__link--biblioteca"
               >BIBLIOTECA</RouterLink
             >
           </li>
           <li>
-            <RouterLink to="/eventos" class="footer-nav__link footer-nav__link--eventos"
+            <RouterLink to="/events" class="footer-nav__link footer-nav__link--eventos"
               >EVENTOS</RouterLink
             >
           </li>
           <li>
-            <RouterLink to="/" class="footer-nav__link footer-nav__link--comunidad"
+            <RouterLink to="" class="footer-nav__link footer-nav__link--comunidad"
               >COMUNIDAD</RouterLink
             >
           </li>
@@ -37,13 +37,12 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    margin-top: 40px;
     line-height: normal;
     width: 17%;
-    margin-left: 20px;
   }
   
   .footer-nav__content {
-    margin-top: auto;
     margin-bottom: auto;
     align-self: stretch;
   }
@@ -117,11 +116,21 @@
   @media (max-width: 991px) {
     .footer-nav {
       width: 100%;
-      margin-top: 40px;
+      margin-top: 20px;
+    }
+
+    .footer-nav__content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      align-self: stretch;
+      text-align: center;
+      flex-direction: column;
+      margin-bottom: auto;
     }
   
     .footer-nav__title {
-      margin-left: 8px;
+      align-self: center;
     }
   
     .footer-nav__links {
@@ -133,3 +142,4 @@
     }
   }
   </style>
+  
