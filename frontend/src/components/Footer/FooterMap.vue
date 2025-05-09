@@ -3,7 +3,7 @@
   <img 
     src="@/assets/img/footer/tec-map.png" 
     alt="Mapa del TecNM" 
-    class="img-fluid cursor-pointer" 
+    class="img-fluid map-img" 
     data-bs-toggle="modal" 
     data-bs-target="#mapModal"
   >
@@ -34,12 +34,19 @@
 </template>
 
 <style scoped>
-.cursor-pointer {
+
+
+.map-img {
   cursor: pointer;
+  border:  1px solid rgba(0, 14, 50, 1);
 }
 
 .custom-fullscreen-modal {
-  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
   height: 100vh;
   max-width: none;
   margin: 0;
@@ -89,14 +96,19 @@
 }
 
 @media (max-width: 576px) {
+  .map-container {
+    padding: 0.5rem;
+  }
+
   .custom-full-map {
-    max-width: 100vw;
-    max-height: 80vh;
+    max-width: 100%;
+    max-height: 85vh;
   }
 
   .map-close-btn {
-    top: 10px;
-    right: 10px;
+    top: 8px;
+    right: 8px;
+    padding: 8px;
     width: 2rem;
     height: 2rem;
   }
