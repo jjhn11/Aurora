@@ -140,11 +140,11 @@
 
 @media (max-width: 1024px) {
   .hero-container {
-    height: 55vh;
+    height: 100vh;
   }
 
   .hero-title {
-    transform: translate(-15%, 35%);
+    transform: translate(-15%, -30%);
   }
 
   .desktop-curve {
