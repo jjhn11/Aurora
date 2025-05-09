@@ -1,7 +1,9 @@
 <template>
   <footer class="footer">
-    <!-- <img v-if="isHomePage" src="@/assets/img/footer/tec-map.png" alt="Mapa del TecNM" class="img-fluid"> -->
-    <FooterMap v-if="isHomePage"/>
+    <div v-if="isHomePage" class="footer__map">
+      <!-- <img v-if="isHomePage" src="@/assets/img/footer/tec-map.png" alt="Mapa del TecNM" class="img-fluid"> -->
+      <FooterMap/>
+    </div>
     <div class="footer__main">
       <div class="footer__container">
         <div class="footer__row">
@@ -41,11 +43,18 @@ const isHomePage = computed(() => {
   padding: 0;
 }
 
+.footer__map {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto; /* Adjust height to auto for better responsiveness */
+}
+
 .footer__main {
   background-color: rgba(248, 247, 247, 1);
   display: flex;
   width: 100%;
-  padding-top: 78px;
   flex-direction: column;
   align-items: stretch;
 }
@@ -56,7 +65,7 @@ const isHomePage = computed(() => {
   width: 100%;
   max-width: 1481px;
   flex-direction: column;
-  align-items: end;
+  align-items: center;
   padding: 0 30px; /* Added padding to keep content from touching edges */
 }
 
@@ -66,6 +75,7 @@ const isHomePage = computed(() => {
   align-self: stretch;
   width: 100%;
   justify-content: space-between; /* Distribute space evenly */
+  flex-direction: row;
 }
 
 /* New classes to control component widths */
@@ -83,7 +93,6 @@ const isHomePage = computed(() => {
 .footer__contact {
   flex: 1; /* Contact gets same base space as logo */
   display: flex;
-  padding: 0 3%; /* Add padding on both sides of contact */
   max-width: 30%;
 }
 
@@ -93,15 +102,14 @@ const isHomePage = computed(() => {
   }
 
   .footer__container {
-    max-width: 100%;
-    padding: 0 15px; /* Less padding on smaller screens */
+    width: 100%;
   }
 
   .footer__row {
     flex-direction: column;
     align-items: stretch;
-    gap: 40px; /* Maintain vertical spacing */
-    max-width: 100%;
+    gap: 10px; /* Maintain vertical spacing */
+    width: 100%;
   }
   
   /* Reset flex properties for mobile view */
@@ -118,12 +126,34 @@ const isHomePage = computed(() => {
 
 /* Additional adjustment for smaller mobile screens */
 @media (max-width: 576px) {
+  .footer__navigation {
+    display: none;
+  }
+
+  .footer__contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
   .footer__row {
     gap: 30px;
   }
   
   .footer__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 0 10px;
+  }
+
+  .footer__social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+
   }
 }
 </style>

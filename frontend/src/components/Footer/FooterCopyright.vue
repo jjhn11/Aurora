@@ -37,5 +37,16 @@
       padding: 21px 20px;
     }
   }
+
+  @media (max-width: 576px) {
+    .footer-copyright {
+      padding: 15px;
+      text-align: center;
+    }
+
+    .footer-copyright__text {
+      font-size: 14px;
+    }
+  }
   </style>
   

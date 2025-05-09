@@ -366,7 +366,7 @@
   <div class="container-fluid">
     
     <!-- Contenedor del menú -->
-    <form class="bg-white border" id="uform"  :class="{                                                        'show': showMenu, 
+    <form class="bg-white border" id="uform"  :class="{ 'show': showMenu, 
                                                         'hide': !showMenu,
                                                         'bg-none': !isNavbarWhite, 
                                                         'bg-appear': isNavbarWhite
@@ -1379,9 +1379,9 @@
       border-radius: 0px 0px 0px 25px;
     }
   
-    &.form-shrunk {
+    /* &.form-shrunk {
       transform: translateY(-100px);
-    }
+    } */
 
     .ac-img{
 

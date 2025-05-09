@@ -1,22 +1,57 @@
+<script setup>
+  import face from '@/assets/img/footer/fb.png';
+  import insta from '@/assets/img/footer/insta.png';
+  import yutu from '@/assets/img/footer/youtube.png';
+  import school from '@/assets/img/footer/school-sharp.png';
+</script>
+
+   
+
 <template>
     <section class="footer-social">
       <h3 class="footer-social__title">SIGUENOS</h3>
+
       <div class="footer-social__icons">
-        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/3f622abeaf585639325cd9491a9eaba9774f0e2f?placeholderIfAbsent=true&apiKey=e4bc752606e34419a710b790ae8468cc" alt="Social media icons" class="footer-social__image" />
+
+        <div class="button-space col-3">
+          <a href="https://www.instagram.com/aurora.mxli/" class="btn footer-social__button">
+            <img :src="face" class="img fb" alt="">
+          </a>
+        </div>
+
+        <div class="button-space col-3">
+          <a href="https://www.instagram.com/aurora.mxli/" class="btn footer-social__button" >
+            <img :src="insta" class="img ig" alt="">
+          </a>
+        </div>
+
+        <div class="button-space col-3">
+          <a href="https://www.instagram.com/aurora.mxli/" class="btn footer-social__button">
+            <img :src="yutu" class="img yt" alt="">
+          </a>    
+        </div>
+
+        <div class="button-space col-3">
+          <a href="https://www.instagram.com/aurora.mxli/" class="btn footer-social__button">
+            <img :src="school" class="img sch" alt="">
+          </a>
+        </div>
+
       </div>
+
     </section>
-  </template>
-  
-  <script setup>
-  // Component for the social media section of the footer
-  </script>
-  
-  <style scoped>
+</template>
+
+   
+
+<style scoped>
   .footer-social {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    margin-top: 27px;
+    align-items: center;
+    text-align: center;
+    margin-top: 40px;
   }
   
   .footer-social__title {
@@ -29,12 +64,49 @@
       Helvetica,
       sans-serif;
     font-weight: 700;
-    margin: 0 156px 19px 0;
+    margin-bottom: 20px;
   }
-  
+
   .footer-social__icons {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
+    align-items: center;
+
+    .button-space {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0px 50px;
+
+      .footer-social__button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+
+        width: 35px;
+        height: 35px;
+
+        .fb {
+          width: 35px;
+          height: auto;
+        }
+        .ig {
+          width: 34.25px;
+          height: auto;
+        }
+        .yt {
+          width: 38px;
+          height: auto;
+        }
+        .sch {
+          width: 42.5px;
+          height: auto;
+        }
+      }
+    }
   }
   
   .footer-social__image {
@@ -44,11 +116,63 @@
     width: 473px;
     max-width: 100%;
   }
-  
-  @media (max-width: 991px) {
+
+  @media (max-width: 576px) {
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .footer-social__icons {
+      justify-content: center;
+      width: 100%;
+
+      .button-space {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0px 20px;
+
+        .footer-social__button {
+          
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+
+          width: 35px;
+          height: 35px;
+
+          .fb {
+            width: 27px;
+            height: auto;
+          }
+          .ig {
+            width: 26.25px;
+            height: auto;
+          }
+          .yt {
+            width: 30px;
+            height: auto;
+          }
+          .sch {
+            width: 34.5px;
+            height: auto;
+          }
+        }
+      }
+    }
+
+    .footer-social__image {
+      width: 280px;
+    }
+
     .footer-social__title {
-      margin-right: 10px;
+      display: none;
     }
   }
-  </style>
+</style>
   
