@@ -20,13 +20,13 @@ const events = ref([]);
 const isLoading = ref(false);
 const error = ref(null);
 
+// Define the category ID as a constant
+const sportsCategoryId = 2; // ID for Sports category
+
 // Cargar eventos desde el backend al montar el componente
 onMounted(async () => {
     isLoading.value = true;
     try {
-        // Obtener ID de la categoría "Deportiva" (en un sistema real deberías buscar este ID)
-        const sportsCategoryId = 2; // ID simulado
-        
         // Cargar eventos por categoría
         const activities = await store.dispatch('community/fetchActivities', sportsCategoryId);
         
@@ -60,8 +60,6 @@ const handleEventCreated = async (eventData) => {
         // Crear actividad usando la store
         await store.dispatch('community/createEventFromForm', eventData);
         
-        // Actualizar la lista de eventos
-        const sportsCategoryId = 2; // ID simulado
         await store.dispatch('community/fetchActivities', sportsCategoryId);
         
         // Cerrar el formulario
@@ -72,31 +70,34 @@ const handleEventCreated = async (eventData) => {
     }
 };
 
-    const recreationalActivities = [
-        'Volleyball Sala',
-        'Volleyball Playa',
-        'Softball',
-        'Baseball',
-        'Basketball',
-        'Atletismo',
-        'Porra',
-        'Box',
-        'Football'
-    ];
-
-    const recreationalLocations = [
-        'Cancha Volleyball Sala Trasera 1',
-        'Cancha Volleyball Sala Trasera 2',
-        'Cancha Volleyball Playa',
-        'Campo Softball',
-        'Campo Baseball 1',
-        'Campo Baseball 2',
-        'Cancha Basketball Central',
-        'Cancha Basketball Trasera',
-        'Cancha Soccer / Football 1',
-        'Cancha Soccer / Football 2',
-        'Cancha Soccer / Football 3'
-    ];
+// Updated function that uses the categoryId constant
+const handleEventCreatedSuccess = async () => {
+    showForm.value = false;
+    isLoading.value = true;
+    
+    try {
+        const activities = await store.dispatch('community/fetchActivities', sportsCategoryId);
+        // Transform activities to events as before...
+        events.value = activities.map(activity => ({
+            activityId: activity.Id_activity,
+            title: activity.Title,
+            description: activity.Description,
+            organizer: activity.Organizer_id, 
+            startTime: activity.Start_time,
+            endTime: activity.End_time,
+            location: activity.location_name,
+            category: "Deportivo", // Texto mostrado
+            imageSrc: activity._metadata?.iconPath || "/src/assets/img/community/icons/sports/ICONO VOLLEYBALL.png", 
+            backgroundColor: activity._metadata?.backgroundColor || "#5C77BA",
+            date: activity.Event_date
+        }));
+    } catch (err) {
+        error.value = err.message || "Error al actualizar eventos";
+        console.error("Error al actualizar eventos:", err);
+    } finally {
+        isLoading.value = false;
+    }
+};
 
     const recreationalIcons = [
         {
@@ -164,11 +165,11 @@ const handleEventCreated = async (eventData) => {
 
     <CreateEventForm 
         v-model="showForm"
-        :activities="recreationalActivities"
-        :locations="recreationalLocations"
         :icons="recreationalIcons"
         :useBackendSubmit="true"
+        :categoryId="sportsCategoryId" 
         @event-created="handleEventCreated"
+        @event-created-success="handleEventCreatedSuccess"
     />
     
     <!-- Estado de carga -->

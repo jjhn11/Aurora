@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineEmits, defineProps, onMounted, computed } from 'vue';
+import { ref, defineEmits, defineProps, onMounted, computed, watch } from 'vue'; // Añadir watch
 import { useStore } from 'vuex';
 
 const props = defineProps({
@@ -7,25 +7,17 @@ const props = defineProps({
         type: Boolean,
         required: true
     },
-    activities: {
-        type: Array,
-        required: true
+    useBackendSubmit: {
+        type: Boolean,
+        default: true
     },
-    locations: {
-        type: Array,
-        required: true
+    categoryId: { // Add this new prop
+        type: Number,
+        required: true // We'll require the categoryId to filter activity types
     },
     icons: {
         type: Array,
         required: true
-    },
-    loadBackendData: {
-        type: Boolean,
-        default: false
-    },
-    useBackendSubmit: {
-        type: Boolean,
-        default: false
     }
 });
 
@@ -33,6 +25,7 @@ const emit = defineEmits(['update:modelValue', 'event-created', 'event-created-s
 
 const store = useStore();
 
+// Form data
 const eventName = ref('');
 const description = ref('');
 const activityType = ref('');
@@ -45,6 +38,7 @@ const isShaking = ref(false);
 const showIconMenu = ref(false);
 const selectedIcon = ref(null);
 
+// For profanity checking
 const isProfanityChecking = ref(false);
 const profanityErrors = ref({
     title: null,
@@ -52,22 +46,70 @@ const profanityErrors = ref({
 });
 const hasProfanity = computed(() => profanityErrors.value.title || profanityErrors.value.description);
 
-// Verificar autenticación del usuario usando el módulo user
+// Authentication check
 const isAuthenticated = computed(() => store.getters['user/isAuthenticated']);
 const currentUser = computed(() => store.getters['user/userData']);
 
+// Available activity types and locations for the selected category
+const availableActivityTypes = ref([]);
+const availableLocations = ref([]);
+
+// Load data when component mounts
 onMounted(async () => {
     try {
-        if (props.loadBackendData) {
-            await Promise.all([
-                store.dispatch('community/fetchActivityTypes'),
-                store.dispatch('community/fetchLocations')
-            ]);
+        // 1. Load activity types filtered by category
+        const activityTypes = await store.dispatch('community/fetchActivityTypes', props.categoryId);
+        availableActivityTypes.value = activityTypes;
+
+        // 2. Load locations filtered by category
+        const locations = await store.dispatch('community/fetchLocations', props.categoryId);
+        availableLocations.value = locations;
+
+        // Default to first activity type if available
+        if (activityTypes.length > 0) {
+            activityType.value = activityTypes[0].Type_name;
+            console.log("Tipo de actividad inicial configurado:", activityType.value);
         }
+
+        // Default to first location if available
+        if (locations.length > 0) {
+            location.value = locations[0].Location_;
+        }
+
+        console.log(`Loaded ${activityTypes.length} activity types and ${locations.length} locations for category ${props.categoryId}`);
     } catch (error) {
-        console.error("Error al cargar datos del backend:", error);
+        console.error('Error loading form data:', error);
     }
 });
+
+// Modificar el watcher para que se ejecute inmediatamente
+watch(activityType, async (newType) => {
+    if (!newType) return;
+    
+    try {
+        // Buscar el tipo de actividad seleccionado
+        const selectedActivityType = availableActivityTypes.value.find(
+            type => type.Type_name === newType
+        );
+        
+        if (selectedActivityType) {
+            // Obtener información del icono usando el método existente
+            let iconInfo = await store.dispatch('community/getIconPathForActivityType', {
+                categoryId: props.categoryId,
+                typeName: newType
+            });
+            
+            // Actualizar el icono seleccionado
+            selectedIcon.value = {
+                title: newType,
+                image: iconInfo.path,
+                bgColor: iconInfo.bgColor
+            };
+        }
+    } catch (error) {
+        console.error("Error al obtener icono para el tipo:", error);
+    }
+}, { immediate: true }); // Ejecutar inmediatamente cuando se monta el componente
 
 const handleSubmit = async () => {
     formSubmitted.value = true;
@@ -86,12 +128,12 @@ const handleSubmit = async () => {
         }, 500);
         return;
     }
-    
+
     profanityErrors.value = { title: null, description: null };
-    
+
     try {
         isProfanityChecking.value = true;
-        
+
         const profanityResult = await store.dispatch('profanity/checkProfanity', {
             fieldsToCheck: ['title', 'description'],
             content: {
@@ -102,7 +144,7 @@ const handleSubmit = async () => {
 
         if (!profanityResult.SFW) {
             const profaneFields = profanityResult.profaneFields || [];
-            
+
             profaneFields.forEach(field => {
                 if (field.field === 'title') {
                     profanityErrors.value.title = {
@@ -117,11 +159,11 @@ const handleSubmit = async () => {
                     };
                 }
             });
-            
+
             isProfanityChecking.value = false;
             return;
         }
-        
+
         isProfanityChecking.value = false;
 
         if (props.useBackendSubmit) {
@@ -135,7 +177,7 @@ const handleSubmit = async () => {
                 selectedIcon: selectedIcon.value,
                 date: eventDate.value
             });
-            
+
             emit('event-created-success');
         } else {
             emit('event-created', {
@@ -149,7 +191,7 @@ const handleSubmit = async () => {
                 date: eventDate.value
             });
         }
-        
+
         resetForm();
         emit('update:modelValue', false);
     } catch (error) {
@@ -177,7 +219,7 @@ const resetIconError = () => {
 };
 
 const openIconMenu = () => {
-    showIconMenu.value = true;
+    // showIconMenu.value = true;
 };
 
 const selectIcon = (activity) => {
@@ -208,12 +250,12 @@ const clearProfanityError = (field) => {
             <form class="create-event-form" @submit.prevent="handleSubmit">
 
                 <!-- Agregar input oculto para hacer que el icono sea requerido para el evento -->
-                <input 
+                <!-- <input 
                     type="hidden" 
                     :value="selectedIcon ? selectedIcon.title : ''" 
                     required
                     @invalid="openIconMenu"
-                >
+                > -->
 
                 <header class="form-header">
                     <h1 class="form-title">CREAR EVENTO</h1>
@@ -274,16 +316,13 @@ const clearProfanityError = (field) => {
             
                             <label class="form-label">Tipo de actividad:</label>
                             
-                            <select v-model="activityType" class="form-input" required @focus="resetIconError">
-
-                                <option value="" disabled selected class="placeholder-option">
+                            <select v-model="activityType" class="form-input" required @focus="resetIconError" @change="console.log('Tipo seleccionado:', activityType)">
+                                <option value="" disabled class="placeholder-option">
                                     Selecciona una Actividad
                                 </option>
-
-                                <option v-for="activity in activities" :key="activity" :value="activity">
-                                    {{ activity }}
+                                <option v-for="type in availableActivityTypes" :key="type.Id_type" :value="type.Type_name">
+                                    {{ type.Type_name }}
                                 </option>
-
                             </select>
 
                         </section>
@@ -322,8 +361,8 @@ const clearProfanityError = (field) => {
                                     Selecciona una Ubicación
                                 </option>
 
-                                <option v-for="loc in locations" :key="loc" :value="loc">
-                                    {{ loc }}
+                                <option v-for="loc in availableLocations" :key="loc.Id_Location" :value="loc.Location_">
+                                    {{ loc.Location_ }}
                                 </option>
                             </select>
                             
@@ -340,6 +379,7 @@ const clearProfanityError = (field) => {
                                         Elige Icono de Evento
                                     </span>
                                     <img v-else 
+                                    
                                         :src="selectedIcon.image" 
                                         :alt="selectedIcon.title"
                                         class="selected-icon-image">

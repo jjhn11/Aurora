@@ -502,13 +502,16 @@ export default {
       if (state.locations.length === 0) {
         await dispatch('fetchLocations');
       }
-
-      alert(`Ubicaciones: ${JSON.stringify(state.locations)}`);
-      alert(`Nombre de ubicación: ${locationName}`);
       
+      // Buscar la ubicación por nombre (case-insensitive comparison)
+      const location = state.locations.find(loc => 
+        loc.Location_.toUpperCase() === locationName.toUpperCase()
+      );
       
-      // Buscar la ubicación por nombre
-      const location = state.locations.find(loc => loc.Location_ == locationName.toUpperCase());
+      if (!location) {
+        console.warn(`Location not found: ${locationName}`);
+      }
+      
       return location ? location.Id_Location : 1; // ID por defecto si no se encuentra
     },
     
@@ -566,7 +569,7 @@ export default {
         .replace(/[()\/]/g, ''); // Quitar paréntesis y barras
       
       // Obtener el nombre de la categoría y convertirlo a minúsculas para la carpeta
-      const categoryFolder = category.Category_name.toLowerCase();
+      let categoryFolder = category.Category_name.toLowerCase();
       
       // Determinar el color de fondo según la categoría
       let bgColor;

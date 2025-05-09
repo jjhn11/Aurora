@@ -23,12 +23,13 @@ const events = ref([]);
 const isLoading = ref(false);
 const error = ref(null);
 
+    // Obtener ID de la categoría "Recreativa" (en un sistema real deberías buscar este ID)
+    const recreationalCategoryId = 3; // ID simulado
+
 // Cargar eventos desde el backend al montar el componente
 onMounted(async () => {
     isLoading.value = true;
     try {
-        // Obtener ID de la categoría "Recreativa" (en un sistema real deberías buscar este ID)
-        const recreationalCategoryId = 3; // ID simulado
         
         // Cargar eventos por categoría
         const activities = await store.dispatch('community/fetchActivities', recreationalCategoryId);
@@ -63,7 +64,6 @@ const handleEventCreated = async (eventData) => {
         await store.dispatch('community/createEventFromForm', eventData);
         
         // Actualizar la lista de eventos
-        const recreationalCategoryId = 3; // ID simulado
         await store.dispatch('community/fetchActivities', recreationalCategoryId);
         
         // Cerrar el formulario
@@ -74,34 +74,35 @@ const handleEventCreated = async (eventData) => {
     }
 };
 
-    const recreationalActivities = [
-        'Banda de Guerra',
-        'Escolta',
-        'Lecturas',
-        'Ajedrez',
-        'Rallys',
-        'Batallas de Freestyle / Rap',
-        'Juegos de Mesa',
-        'Bazar',
-        'Concurso',
-        'Tutorias'
-    ];
 
-    const recreationalLocations = [
-        'Aula Extraescolares',
-        'Jardin Edificio U',
-        'Biblioteca Planta Alta',
-        'Biblioteca Planta Baja',
-        'Plaza C-Bufalo',
-        'Plaza Bicentenario',
-        'Audiovisual Edificio U Planta Alta',
-        'Audiovisual Edificio U Planta Baja',
-        'Audiovisual Edificio D',
-        'Cubiculo de Estudio',
-        'Zona Libre',
-        'Biblioteca Sala Circulos de Lectura',
-        'Cancha Extraescolares'
-    ];
+// Updated function that uses the categoryId constant
+const handleEventCreatedSuccess = async () => {
+    showForm.value = false;
+    isLoading.value = true;
+    
+    try {
+        const activities = await store.dispatch('community/fetchActivities', recreationalCategoryId);
+        // Transform activities to events as before...
+        events.value = activities.map(activity => ({
+            activityId: activity.Id_activity,
+            title: activity.Title,
+            description: activity.Description,
+            organizer: activity.Organizer_id, 
+            startTime: activity.Start_time,
+            endTime: activity.End_time,
+            location: activity.location_name,
+            category: "Recreativas", // Texto mostrado
+            imageSrc: activity._metadata?.iconPath || "/src/assets/img/community/icons/recreational/ICONO LECTURA.png", 
+            backgroundColor: activity._metadata?.backgroundColor || "#6DCEff",
+            date: activity.Event_date
+        }));
+    } catch (err) {
+        error.value = err.message || "Error al actualizar eventos";
+        console.error("Error al actualizar eventos:", err);
+    } finally {
+        isLoading.value = false;
+    }
+};
 
     const recreationalIcons = [
         {
@@ -182,11 +183,11 @@ const handleEventCreated = async (eventData) => {
 
     <CreateEventForm 
         v-model="showForm"
-        :activities="recreationalActivities"
-        :locations="recreationalLocations"
         :icons="recreationalIcons"
         :useBackendSubmit="true"
+        :categoryId="recreationalCategoryId" 
         @event-created="handleEventCreated"
+        @event-created-success="handleEventCreatedSuccess"
     />
 
     <!-- Estado de carga -->

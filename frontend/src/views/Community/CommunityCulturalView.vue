@@ -18,12 +18,13 @@ const events = ref([]);
 const isLoading = ref(false);
 const error = ref(null);
 
+// Define the category ID as a constant
+const culturalCategoryId = 1; // ID for cultural category
+
 // Cargar eventos desde el backend al montar el componente
 onMounted(async () => {
     isLoading.value = true;
     try {
-        // Obtener ID de la categoría "Cultural" (en un sistema real deberías buscar este ID)
-        const culturalCategoryId = 1; // ID simulado
         
         // Cargar eventos por categoría
         const activities = await store.dispatch('community/fetchActivities', culturalCategoryId);
@@ -66,6 +67,35 @@ const handleEventCreated = async (eventData) => {
     } catch (err) {
         console.error("Error al crear evento:", err);
         // Aquí puedes mostrar un mensaje de error al usuario
+    }
+};
+
+// Updated function that uses the categoryId constant
+const handleEventCreatedSuccess = async () => {
+    showForm.value = false;
+    isLoading.value = true;
+    
+    try {
+        const activities = await store.dispatch('community/fetchActivities', culturalCategoryId);
+        // Transform activities to events as before...
+        events.value = activities.map(activity => ({
+            activityId: activity.Id_activity,
+            title: activity.Title,
+            description: activity.Description,
+            organizer: activity.Organizer_id,
+            startTime: activity.Start_time,
+            endTime: activity.End_time,
+            location: activity.location_name,
+            category: "Cultural", // Texto mostrado
+            imageSrc: activity._metadata?.iconPath || "/src/assets/img/community/icons/cultural/ICONO DANZA.png", 
+            backgroundColor: activity._metadata?.backgroundColor || "#FBE326",
+            date: activity.Event_date
+        }));
+    } catch (err) {
+        error.value = err.message || "Error al actualizar eventos";
+        console.error("Error al actualizar eventos:", err);
+    } finally {
+        isLoading.value = false;
     }
 };
 
@@ -154,11 +184,11 @@ const recreationalIcons = [
 
     <CreateEventForm 
         v-model="showForm"
-        :activities="recreationalActivities"
-        :locations="recreationalLocations"
         :icons="recreationalIcons"
         :useBackendSubmit="true"
+        :categoryId="culturalCategoryId" 
         @event-created="handleEventCreated"
+        @event-created-success="handleEventCreatedSuccess"
     />
     
     <!-- Estado de carga -->
