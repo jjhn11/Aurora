@@ -14,27 +14,27 @@
       <div class="footer-social__icons">
 
         <div class="button-space col-3">
-          <button class="btn footer-social__button">
+          <a href="https://www.instagram.com/aurora.mxli/" class="btn footer-social__button">
             <img :src="face" class="img fb" alt="">
-          </button>
+          </a>
         </div>
 
         <div class="button-space col-3">
-          <button class="btn footer-social__button" >
+          <a href="https://www.instagram.com/aurora.mxli/" class="btn footer-social__button" >
             <img :src="insta" class="img ig" alt="">
-          </button>
+          </a>
         </div>
 
         <div class="button-space col-3">
-          <button class="btn footer-social__button">
+          <a href="https://www.instagram.com/aurora.mxli/" class="btn footer-social__button">
             <img :src="yutu" class="img yt" alt="">
-          </button>    
+          </a>    
         </div>
 
         <div class="button-space col-3">
-          <button class="btn footer-social__button">
+          <a href="https://www.instagram.com/aurora.mxli/" class="btn footer-social__button">
             <img :src="school" class="img sch" alt="">
-          </button>
+          </a>
         </div>
 
       </div>
