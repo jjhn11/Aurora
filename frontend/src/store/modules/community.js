@@ -124,8 +124,33 @@ export default {
     },
     
     // Asistencia
-    SET_ATTENDANCES(state, attendances) {
-      state.attendances = attendances;
+    SET_ATTENDANCES(state, { attendances, replace = false }) {
+      if (replace) {
+        // Reemplazar todo el array si se solicita explícitamente
+        state.attendances = attendances;
+      } else {
+        // Agregar nuevas asistencias o actualizar las existentes
+        const updatedAttendances = [...state.attendances];
+        
+        // Para cada asistencia recibida
+        attendances.forEach(newAttendance => {
+          // Buscar si ya existe un registro para este usuario y actividad
+          const existingIndex = updatedAttendances.findIndex(
+            att => att.Id_user === newAttendance.Id_user && 
+                   att.Id_activity === newAttendance.Id_activity
+          );
+          
+          if (existingIndex >= 0) {
+            // Si existe, actualizarlo
+            updatedAttendances[existingIndex] = newAttendance;
+          } else {
+            // Si no existe, agregarlo
+            updatedAttendances.push(newAttendance);
+          }
+        });
+        
+        state.attendances = updatedAttendances;
+      }
     },
     
     ADD_ATTENDANCE(state, attendance) {
@@ -352,7 +377,7 @@ export default {
     // ===== ASISTENCIA =====
     
     // Obtener registros de asistencia (con filtro opcional por actividad)
-    async fetchAttendance({ commit, rootState }, activityId = null) {
+    async fetchAttendance({ commit, rootState }, { activityId = null, considerUser = true, replace = false } = {}) {
       commit('SET_LOADING', { type: 'attendance', value: true });
       commit('SET_ERROR', { type: 'attendance', value: null });
       
@@ -363,14 +388,20 @@ export default {
         // Si hay un activityId específico, filtrar por él
         if (activityId) {
           url += `?activityId=${activityId}`;
-        } 
-        // Si no hay activityId pero hay un usuario autenticado, cargar sus asistencias
-        else if (rootState.user?.id) {
+        }
+        // Si no hay activityId pero hay un usuario autenticado y considerUser es true, cargar sus asistencias
+        else if (considerUser && rootState.user?.id) {
           url += `?userId=${rootState.user.id}`;
         }
         
         const response = await axios.get(url);
-        commit('SET_ATTENDANCES', response.data);
+        
+        // Pasar el flag replace a la mutación
+        commit('SET_ATTENDANCES', { 
+          attendances: response.data,
+          replace: replace
+        });
+        
         commit('SET_LOADING', { type: 'attendance', value: false });
         return response.data;
       } catch (error) {
@@ -386,6 +417,8 @@ export default {
       commit('SET_LOADING', { type: 'attendance', value: true });
       commit('SET_ERROR', { type: 'attendance', value: null });
       
+      console.log("Registering attendance:", { userId, activityId, confirmation });
+
       try {
         const response = await axios.post('/community/activity/attendance', {
           Id_user: userId,
@@ -502,13 +535,16 @@ export default {
       if (state.locations.length === 0) {
         await dispatch('fetchLocations');
       }
-
-      alert(`Ubicaciones: ${JSON.stringify(state.locations)}`);
-      alert(`Nombre de ubicación: ${locationName}`);
       
+      // Buscar la ubicación por nombre (case-insensitive comparison)
+      const location = state.locations.find(loc => 
+        loc.Location_.toUpperCase() === locationName.toUpperCase()
+      );
       
-      // Buscar la ubicación por nombre
-      const location = state.locations.find(loc => loc.Location_ == locationName.toUpperCase());
+      if (!location) {
+        console.warn(`Location not found: ${locationName}`);
+      }
+      
       return location ? location.Id_Location : 1; // ID por defecto si no se encuentra
     },
     
@@ -566,7 +602,7 @@ export default {
         .replace(/[()\/]/g, ''); // Quitar paréntesis y barras
       
       // Obtener el nombre de la categoría y convertirlo a minúsculas para la carpeta
-      const categoryFolder = category.Category_name.toLowerCase();
+      let categoryFolder = category.Category_name.toLowerCase();
       
       // Determinar el color de fondo según la categoría
       let bgColor;
@@ -620,7 +656,6 @@ export default {
     async toggleAttendance({ dispatch, rootState, state }, activityId) {
       const userId = rootState.user?.id || "anonymous"; // Obtener ID de usuario
       
-      
       // Verificar si el usuario ya está registrado
       const isAttending = state.attendances.some(
         a => a.Id_user === userId && a.Id_activity === activityId && a.Confirmation === 1
@@ -649,6 +684,38 @@ export default {
           }
           throw error; // Re-lanzar otros errores
         });
+      }
+    },
+
+    // Helper: Obtener recuento de asistentes para una actividad
+    async getAttendanceCount({ dispatch, state }, activityId) {
+      try {
+        // Si no tenemos datos de asistencia o necesitamos actualizarlos
+        // podemos buscarlos específicamente para esta actividad
+        let attendances = state.attendances.filter(a => a.Id_activity === activityId);
+
+        // Si no tenemos datos en el state, los cargamos
+        // Usamos considerUser=false para evitar filtrar por usuario actual
+        if (attendances.length === 0) {
+          await dispatch('fetchAttendance', { activityId, considerUser: false });
+          attendances = state.attendances.filter(a => a.Id_activity === activityId);
+        }
+
+        // Contar solo aquellos con confirmación = 1 (asistirán)
+        const confirmedCount = attendances.filter(a => a.Confirmation === 1).length;
+        
+        return {
+          total: attendances.length,
+          confirmed: confirmedCount,
+          pending: attendances.length - confirmedCount
+        };
+      } catch (error) {
+        console.error('Error al obtener recuento de asistentes:', error);
+        return {
+          total: 0,
+          confirmed: 0,
+          pending: 0
+        };
       }
     }
   }

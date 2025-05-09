@@ -187,17 +187,33 @@ router.route('/activity/attendance')
   try {
     const { Id_user, Id_activity, Confirmation } = req.body;
     
-    const attendance = await CommunityActivityAttendance.update(
-      { Confirmation },
-      { where: { Id_user, Id_activity } }
-    );
+    // Log para depuración
+    console.log("Actualizando asistencia:", { Id_user, Id_activity, Confirmation });
     
-    if (attendance[0] === 0) {
-      return res.status(404).json({ error: 'Registro de asistencia no encontrado' });
+    // Primero verificar si existe el registro
+    const existingAttendance = await CommunityActivityAttendance.findOne({
+      where: { 
+        Id_user: Id_user, 
+        Id_activity: Id_activity 
+      }
+    });
+    
+    if (!existingAttendance) {
+      return res.status(404).json({ 
+        error: 'Registro de asistencia no encontrado',
+        where: { Id_user, Id_activity }
+      });
     }
     
-    res.status(200).json({ message: 'Asistencia actualizada correctamente' });
+    // Si existe, actualizarlo
+    await existingAttendance.update({ Confirmation });
+    
+    res.status(200).json({ 
+      message: 'Asistencia actualizada correctamente',
+      attendance: existingAttendance
+    });
   } catch (error) {
+    console.error("Error al actualizar asistencia:", error);
     res.status(500).json({ error: error.message });
   }
 });

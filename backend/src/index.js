@@ -137,6 +137,6 @@ startServer().catch(err => {
   process.exit(1);
 });
 
-//await loadSampleData();
+// await loadSampleData();
 
 console.log('Modelo registrado: ', Object.keys(sequelize.models));
