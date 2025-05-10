@@ -73,7 +73,7 @@ const closeModal = () => {
   <div class="container py-4">
     <div class="row">
       <div
-        class="book-column mb-4 custom-book-style"
+        class="book-column custom-book-style"
         v-for="book in paginatedBooks"
         :key="book.id"
       >
@@ -121,6 +121,7 @@ const closeModal = () => {
 <style scoped>
 .book-column {
   width: 20%; /* Se hizo para mostrar 5 libros por fila */
+  margin: 0px 0px -20px 0px;
   padding: 0 10px;
 }
 @media (max-width: 1002px) {

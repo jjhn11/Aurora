@@ -63,6 +63,7 @@ export default {
 }
 
 ul {
+  font-family: "Nunito Sans", sans-serif;
   font-size: 0.7rem;
   line-height: 1.1;
   margin: 0;

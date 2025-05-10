@@ -19,10 +19,25 @@
             >
           </li>
           <li>
-            <RouterLink to="/" class="footer-nav__link footer-nav__link--comunidad"
-              >COMUNIDAD</RouterLink
+            <RouterLink to="/comunidad/recreativas" class="footer-nav__link footer-nav__link--comunidad"
+              >RECREATIVAS</RouterLink
             >
           </li>
+          <li>
+            <RouterLink to="/comunidad/deportes" class="footer-nav__link footer-nav__link--comunidad"
+              >DEPORTES</RouterLink
+            >
+          </li>
+          <li>
+            <RouterLink to="/comunidad/cultural" class="footer-nav__link footer-nav__link--comunidad"
+              >CULTURALES</RouterLink
+            >
+          </li>
+          <li>
+            <RouterLink to="/comunidad/videojuegos" class="footer-nav__link footer-nav__link--comunidad"
+              >VIDEOJUEGOS</RouterLink
+            >
+            </li>
         </ul>
       </div>
     </nav>
@@ -63,7 +78,7 @@
   .footer-nav__links {
     display: flex;
     min-height: 158px;
-    width: 120px;
+    width: 130px;
     max-width: 100%;
     padding: 0;
     flex-direction: column;
@@ -75,8 +90,9 @@
       Helvetica,
       sans-serif;
     font-size: 18px;
+
     color: rgba(0, 71, 255, 1);
-    font-weight: 700;
+    font-weight: 800;
     white-space: nowrap;
     justify-content: space-between;
     list-style-type: none;

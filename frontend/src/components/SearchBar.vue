@@ -1,3 +1,6 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+</style>
 <template>
     <div class="search-bar-container">
         <h2 class="search-bar-title">¡El conocimiento está al alcance de tus manos!</h2>
@@ -20,12 +23,14 @@
 <style scoped>
 .search-bar-container {
     text-align: center;
+    margin-top: 70px;
+    margin-bottom: 70px;
 }
 .search-bar-title {
-    font-size: 1.6rem;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 1.1rem;
     font-weight: bold;
     color: #000E32;
-
     margin-bottom: 1rem;
 }
 
@@ -80,6 +85,11 @@
 }
 
 @media (max-width: 768px) {
+  .search-bar-container {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 90px;
+}
   .search-bar-title {
     font-size: 1.3rem;
     padding: 0 15px;

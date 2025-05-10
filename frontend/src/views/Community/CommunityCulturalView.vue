@@ -340,7 +340,7 @@ const recreationalIcons = [
                 font-size: 30px;
                 margin-right: 15px;
                 color:#000E32;
-
+                font-family: "Josefin Sans";
                 transition: all 0.2s ease;
             }
 
@@ -362,7 +362,7 @@ const recreationalIcons = [
         align-items: center;
         
         .avit-text-up {
-            font-family: 'Playfair Display';
+            font-family: "Josefin Sans";
             font-weight: 700;
             font-size: 35px;
             color: rgb(145, 145, 145);
@@ -371,7 +371,7 @@ const recreationalIcons = [
         }
 
         .avit-text-down {
-            font-family: 'Playfair Display';
+            font-family: 'Crimson text';
             font-weight: 700;
             font-size: 45px;
             color: rgb(145, 145, 145);

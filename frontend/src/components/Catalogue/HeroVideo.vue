@@ -35,7 +35,7 @@
 .hero-container {
   position: relative;
   width: 100%;
-  height: 220px;
+  height: 250px;
   overflow: hidden;
   display: flex;
   background-color: white;
@@ -58,7 +58,7 @@
 .hero-background, .hero-video {
   position: absolute;
   top: 10%;
-  width: 130%;
+  width: 125%;
   height: 113%;
   object-fit: cover;
   object-position: 100% 95%;
@@ -92,7 +92,7 @@
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
   letter-spacing: 0.05em;
   margin: 0 30px;
-  transform: translateY(30%);
+  transform: translateY(35%);
   width: 870px;
   height: 198px;
   max-width: 80%; 

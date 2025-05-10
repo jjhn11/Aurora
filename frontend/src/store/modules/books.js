@@ -468,7 +468,7 @@ export default {
           pages: "278",
           binding: "Tapa Blanda",
           edition: "1",
-          categories: ["Computación", "Tecnología"],
+          categories: ["Computación"],
           format: "Libro Físico",
           Ubication: "Estante A-123",
           Availability: true,

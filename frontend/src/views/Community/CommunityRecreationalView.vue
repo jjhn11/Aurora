@@ -295,7 +295,7 @@ const handleEventCreatedSuccess = async () => {
     }
 
     .hero-title {
-        font-family: 'Playfair Display';
+        font-family: 'Crimson text';
         font-weight: 700;
         font-size: 6rem;
         color: white;
@@ -362,7 +362,7 @@ const handleEventCreatedSuccess = async () => {
         align-items: center;
         
         .avit-text-up {
-            font-family: 'Playfair Display';
+            font-family: "Josefin Sans";
             font-weight: 700;
             font-size: 35px;
             color: rgb(145, 145, 145);
@@ -371,7 +371,7 @@ const handleEventCreatedSuccess = async () => {
         }
 
         .avit-text-down {
-            font-family: 'Playfair Display';
+            font-family: 'Crimson text';
             font-weight: 700;
             font-size: 45px;
             color: rgb(145, 145, 145);
