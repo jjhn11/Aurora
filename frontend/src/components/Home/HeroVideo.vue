@@ -47,7 +47,7 @@
   position: relative;
   top:auto;
   width: 100%;
-  height: 110vh;
+  height: 95vh;
   overflow: hidden;
   display: flex;
   background-color: rgba(255, 255, 255, 0); /* Cambiado a fondo transparente */
@@ -114,14 +114,14 @@
   display: none;
 }
 
-/*
+/* 
 .hero-title {
   width: 75%;
   max-width: 80%; 
   margin: 0 auto;
   transform: translate(20%, 130%); 
-}
-*/
+} */
+
 
 .hero-title {
   position: fixed;
