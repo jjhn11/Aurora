@@ -16,6 +16,7 @@ import FavoritesView from '@/views/User/FavoritesView.vue'
 import CatalogueView from '@/views/Library/CatalogueView.vue'
 import AdminEventsView from '@/views/Admin/AdminEventsView.vue'
 import ProfanityTestView from '@/views/Test/ProfanityView.vue'
+import NotFoundView from '@/views/NotFoundView.vue'
 
 const routes = [
   {
@@ -100,6 +101,12 @@ const routes = [
     meta: {
       title: 'Test de Profanidad'
     }
+  },
+
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: NotFoundView,
   }
 ]
 
