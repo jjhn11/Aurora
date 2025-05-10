@@ -535,6 +535,7 @@ const clearProfanityError = (field) => {
         align-self: end;
         margin-top: 10px;
         font-weight: 700;
+        font-family: 'Crimson text';
     }
 
     .close-button {
@@ -556,12 +557,7 @@ const clearProfanityError = (field) => {
     .form-label {
         color: rgba(0, 14, 50, 1);
         font-size: 15px;
-        font-family:
-            "Josefin Sans",
-            -apple-system,
-            Roboto,
-            Helvetica,
-            sans-serif;
+        font-family: "Josefin Sans";
         font-weight: 600;
         text-align: center;
         align-self: start;
@@ -577,8 +573,7 @@ const clearProfanityError = (field) => {
         height: 40px;
         padding: 10px;
         padding-right: 50px; /* Space for character count */
-
-        font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
+        font-family: "Nunito Sans", sans-serif;
         font-size: 16px;
         color: rgba(0, 14, 50, 1);
         transition: all 0.3s ease;
@@ -648,6 +643,7 @@ const clearProfanityError = (field) => {
     }
 
     .time-input {
+        font-family: "Nunito Sans", sans-serif;
         font-size: 16px;
         font-weight: 600;
         color: rgba(0, 14, 50, 1);
@@ -886,7 +882,7 @@ const clearProfanityError = (field) => {
 
     .icon-select-text {
         color: rgba(126, 131, 130, 1);
-        font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
+        font-family: "Nunito Sans", sans-serif;
         font-size: 16px;
         text-align: center;
         padding: 20px;

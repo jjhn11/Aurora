@@ -1,4 +1,5 @@
 <template>
+  <br><br>
     <nav class="breadcrumb-navigation" aria-label="Breadcrumb">
       <span class="breadcrumb-label">ESTAS EN:</span>
       <template v-for="(path, index) in paths" :key="index">

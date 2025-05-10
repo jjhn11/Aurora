@@ -54,14 +54,14 @@ import SearchBar from '@/components/SearchBar.vue';
 
 .title {
     font-family: Crimson Text;
-    color: #000E32;
+    color: #021E68;
     font-weight: 700;
     font-size: 37.5px;
     line-height: 100%;
 }
 
 .subtitle {
-    font-family: Josefin Sans;
+    font-family: "Nunito Sans", sans-serif;
     color: #000E32;
     font-weight: 600;
     font-size: 25.5px;
@@ -91,14 +91,14 @@ import SearchBar from '@/components/SearchBar.vue';
     height: 182px;
 }
 .text {
-    font-family: Nunito Sans;
+    font-family: "Nunito Sans", sans-serif;
     font-weight: 600;
     font-size: 37.5px;
     line-height: 100%;
     text-align: center;
 }
 .btn-access {
-    font-family: Josefin Sans;
+    font-family: "Josefin Sans";
     font-weight: 700;
     font-size: 25px;
     background-color: #000E32;

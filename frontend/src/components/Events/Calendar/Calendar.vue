@@ -337,6 +337,7 @@ onMounted(async () => {
 .custom-row >*{
   flex: 1 1 14%;
   max-width: 14%;
+  font-family: "Josefin Sans";
 }
 .calendar-grid-wrapper {
   position: relative;
@@ -369,6 +370,7 @@ onMounted(async () => {
 }
 
 .calendar-month {
+  font-family: "Josefin Sans";
   font-weight: bold;
   font-size: 1.5rem;
   text-transform: uppercase;

@@ -38,3 +38,8 @@ const bannerImage = new URL('@/assets/img/events/Banner.png', import.meta.url).h
     <br><br>
 </div>
 </template>
+<style scoped>
+.title {
+    font-family: 'Crimson text';
+}
+</style>

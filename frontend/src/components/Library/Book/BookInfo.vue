@@ -145,10 +145,11 @@ onMounted(() => {
   .book-info-section {
     margin-top: 30px;
   }
-  
+
   @media (max-width: 991px) {
     .book-info-section {
       max-width: 100%;
+      margin-top: 10px;
     }
   }
   
@@ -169,15 +170,14 @@ onMounted(() => {
   .book-cover-column {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
     line-height: normal;
     width: 28%;
     margin-left: 0px;
   }
-  
   @media (max-width: 991px) {
     .book-cover-column {
       width: 100%;
+      padding-left: 15px;
     }
   }
   
@@ -201,6 +201,8 @@ onMounted(() => {
   @media (max-width: 991px) {
     .book-cover-wrapper {
       margin-top: 21px;
+      justify-content: center;
+      align-items: center;
     }
   }
   
@@ -209,8 +211,10 @@ onMounted(() => {
     /* object-fit: contain;
     object-position: center; */
     max-width: 90%;
+    height: auto;
     border-radius: 10px;
     border: 1px solid rgba(0, 14, 50, 1);
+    object-fit:fill;
   }
   
   .favorite-button {
@@ -276,6 +280,7 @@ onMounted(() => {
   
   .book-title {
     color: rgba(0, 14, 50, 1);
+    height: auto;
     font-size: 40px;
     font-weight: 600;
     font-family:
@@ -292,7 +297,8 @@ onMounted(() => {
   @media (max-width: 991px) {
     .book-title {
       max-width: 100%;
-      font-size: 40px;
+      font-size: 20px;
+      height: 26px;
     }
   }
   
@@ -327,7 +333,13 @@ onMounted(() => {
     flex-wrap: wrap;
     margin-top: 15px;
   }
-  
+  @media (max-width: 991px) {
+    .authors-list {
+      width: 100%;
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
   .author-item {
     display: flex;
     align-items: center;
@@ -336,7 +348,11 @@ onMounted(() => {
     flex-shrink: 1;
     flex-basis: auto;
   }
-  
+  @media (max-width: 991px) {
+    .author-item {
+      max-width: 100%;
+    }
+  }
   .author-icon {
     aspect-ratio: 1;
     object-fit: contain;
@@ -351,6 +367,12 @@ onMounted(() => {
     flex-basis: auto;
     font-size: 16px;
   }
+
+  @media (max-width: 991px) {
+    .author-name {
+      font-size: 10px;
+    }
+  }
   
   .rating-stars {
     aspect-ratio: 5.88;
@@ -360,13 +382,23 @@ onMounted(() => {
     margin-top: 22px;
     max-width: 100%;
   }
+
+  @media (max-width: 991px) {
+    .rating-stars {
+      display: none;
+    }
+  }
   
   .synopsis-heading {
     font-size: 30px;
     margin-top: 34px;
     font-weight: 600;
   }
-  
+  @media (max-width: 991px) {
+    .synopsis-heading {
+      display: none;
+    }
+  }
   .synopsis-text {
     color: rgba(0, 14, 50, 1);
     font-size: 20px;
@@ -379,11 +411,13 @@ onMounted(() => {
     align-self: stretch;
     text-align: justify;
     margin-top: 9px;
+    margin-bottom: 10%;
   }
   
   @media (max-width: 991px) {
     .synopsis-text {
       max-width: 100%;
+      font-size: 14px;
     }
   }
 
@@ -408,6 +442,10 @@ onMounted(() => {
   @media (max-width: 991px) {
     .share-container {
       white-space: initial;
+      font-size: 19px;
+      gap: 5px;
+      justify-content: center;
+      align-content: center;
     }
   }
   
@@ -418,7 +456,11 @@ onMounted(() => {
     width: 50px;
     flex-shrink: 0;
   }
-  
+  @media (max-width: 991px) {
+    .share-icon {
+      width: 30px;
+    }
+  }
   .share-text {
     margin-top: auto;
     margin-bottom: auto;
@@ -439,12 +481,6 @@ onMounted(() => {
     font-size: 25px;
     color: rgba(255, 255, 255, 1);
     flex-wrap: wrap;
-  }
-  
-  @media (max-width: 991px) {
-    .action-buttons {
-      max-width: 100%;
-    }
   }
   
   .action-button {

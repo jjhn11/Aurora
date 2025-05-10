@@ -48,7 +48,7 @@ const props = defineProps({
   position: absolute;
   top: 0;
   width: 100%;
-  height: 200%;
+  height: 250%;
   object-fit:cover;
   object-position: 100% 95%;
 }

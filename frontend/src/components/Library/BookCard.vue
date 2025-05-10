@@ -45,7 +45,7 @@
     font-size: 16px;
     width: 100%;
     height: 30px;
-    font-family: "josefin sans";
+    font-family: "Josefin Sans";
     text-align: left;
 }    
 .book-description {
@@ -54,21 +54,19 @@
     font-size: 12px;
     width: 103px;
     height: 40px;
-    font-family: "Nunito sans";
+    font-family: "Nunito Sans", sans-serif;
     text-align: left;
 }
 /*BookList cards (catalogo) */
 .custom-book-style .book-card{
-    height: 95%;
-    width: 95%;
+    height: 75%;
+    width: 85%;
     background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 10px;
 }
 .custom-book-style .book-cover{
     width: 100%;
-    height: 80%;
+    height: 75%;
     object-fit: cover;
     margin-bottom: 15px;
 }
@@ -81,6 +79,7 @@
     font-weight: 400;
     font-size: 16px;
     width: auto;
+    height: auto;
     font-family: "Josefin sans";
     text-align: center;
 }    

@@ -6,7 +6,9 @@
     </div>
     
     <main v-else class="book-content">
-      <Breadcrumb :paths="breadcrumbPaths" />
+      <div class="bread">
+        <Breadcrumb :paths="breadcrumbPaths" />
+      </div>
 
       <BookInfo
         :bookId="bookId"
@@ -28,7 +30,7 @@
         :edition="book.edition || 'N/A'"
         :categories="book.categories || []"
       />
-      
+      <br><br>
       <!-- <BookReviews :reviews="book.reviews" /> -->
       <!-- <RelatedBooks :books="relatedBooks" /> -->
       
@@ -47,9 +49,7 @@ import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import Breadcrumb from "@/components/Library/Book/Breadcrumb.vue";
 import BookInfo from "@/components/Library/Book/BookInfo.vue";
-import BookActions from "@/components/Library/Book/BookActions.vue";
 import BookMetadata from "@/components/Library/Book/BookMetadata.vue";
-import CarruselBiblioteca from '@/components/Library/CarruselBiblioteca.vue';
 
 // State management
 const route = useRoute();
@@ -58,6 +58,7 @@ const loading = ref(true);
 const error = ref(null);
 const book = ref({});
 
+const wid = ref(screen.width);
 // Get the book ID from the route parameter
 const bookId = computed(() => route.params.id);
 
@@ -221,6 +222,9 @@ watch(bookId, () => {
 }
 
 @media (max-width: 991px) {
+  .bread {
+    display: none;
+  }
   .progress-bar {
     padding: 0 20px;
     margin-top: 40px;

@@ -56,12 +56,12 @@
 
 .content-bg {
   background-color: transparent;
+  height: 100%;
 }
 
 .map-container {
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
   display: flex;
   justify-content: center;
   align-items: center;

@@ -90,6 +90,20 @@ const isHomePage = computed(() => {
   max-width: 20%; 
 }
 
+@media (max-width: 991px) {
+  .footer__navigation{
+    display: none;
+  }
+  .footer__main {
+    background-color: rgba(248, 247, 247, 1);
+    display: flex;
+    width: 100%;
+    padding-top: 0px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
 .footer__contact {
   flex: 1; /* Contact gets same base space as logo */
   display: flex;
@@ -121,6 +135,12 @@ const isHomePage = computed(() => {
     max-width: 100%;
     padding: 0;
     justify-content: flex-start;
+  }
+  .footer__contact {
+    flex: 1; /* Contact gets same base space as logo */
+    display: flex;
+    padding: 0 3%; /* Add padding on both sides of contact */
+    min-width: 100%;
   }
 }
 

@@ -98,6 +98,8 @@
     .book-metadata-section {
       max-width: 100%;
       margin-top: 40px;
+      margin-left: 0px;
+      justify-content: center;
     }
   }
   
@@ -108,7 +110,6 @@
   
   @media (max-width: 991px) {
     .metadata-container {
-      flex-direction: column;
       align-items: stretch;
       gap: 0px;
     }
@@ -125,7 +126,7 @@
   
   @media (max-width: 991px) {
     .metadata-column-left {
-      width: 100%;
+      width: 50%;
     }
   }
   
@@ -163,7 +164,14 @@
     color: rgba(0, 14, 50, 1);
     margin-top: 5px;
   }
-  
+    
+  @media (max-width: 991px) {
+    .metadata-item {
+      max-width: 100%;
+      font-size: 12px;
+    }
+  }
+
   .author-info,
   .publisher-info {
     text-align: left;
@@ -189,7 +197,12 @@
     margin-top: auto;
     margin-bottom: auto;
   }
-  
+  @media (max-width: 991px) {
+    .metadata-label {
+      max-width: 100%;
+      font-size: 12px;
+    }
+  }
   .metadata-value {
     color: rgba(0, 71, 255, 1);
     font-family:
@@ -206,6 +219,7 @@
   @media (max-width: 991px) {
     .metadata-value {
       max-width: 100%;
+      font-size: 12px;
     }
   }
   
@@ -254,7 +268,7 @@
   
   @media (max-width: 991px) {
     .metadata-column-right {
-      width: 100%;
+      width: 50%;
     }
   }
   
@@ -265,7 +279,7 @@
     align-self: stretch;
     margin-top: 5px;
     padding: 5px;
-    gap: 10px;
+    gap: 20px;
     font-family:
       Nunito Sans,
       -apple-system,
@@ -304,6 +318,11 @@
     align-self: stretch;
     margin-top: auto;
     margin-bottom: auto;
+  }
+  @media (max-width: 991px) {
+    .category-info {
+      white-space: initial;
+    }
   }
   </style>
   

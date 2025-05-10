@@ -948,6 +948,9 @@
 </template>
 
 <style scoped>
+.span{
+  font-family: "Josefin Sans";
+}
 /* @@@@@@@@@@@@@@@@@@@@@@@ Navbar Style @@@@@@@@@@@@@@@@@@@@@@@ */
 
 .fixed-top {
@@ -1123,6 +1126,7 @@
         margin-right: 65px;
       }
       .db2 {
+        
         margin-left: 65px;
         margin-right: 65px;
       }
@@ -1442,7 +1446,7 @@
 
       font-size: 35px;
       font-weight: 700;
-
+      font-family: 'Crimson text';
     }
 
     .form-ac-label{

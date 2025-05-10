@@ -39,8 +39,6 @@ onUnmounted(() => {
 
   <div class="spacer-3 title-spacer"></div>
 
-      <Title class="pb-3" title="NOTICIAS"/>
-
       <Notice />
 
   <div class="spacer-4 bottom-space"></div>
