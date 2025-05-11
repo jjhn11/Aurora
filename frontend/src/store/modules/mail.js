@@ -109,6 +109,64 @@ export default {
       
       // Enviar el correo
       return dispatch('sendEmail', { subject, text, html });
+    },
+
+    // Enviar correo de reservación de cubículo
+    async sendCubicleReservation({ dispatch, rootState }, { date, checkInTime, checkOutTime, peopleCount }) {
+      // Obtener datos del usuario
+      const userName = rootState.user?.userData?.Name_user || 
+                       rootState.user?.profile?.name || 
+                       'Usuario Anónimo';
+      const userEmail = rootState.user?.userData?.Email ||
+                        rootState.user?.profile?.email ||
+                        'No disponible';
+      
+      // Formatear fecha para mostrar
+      const formattedDate = new Date(date).toLocaleDateString('es-MX');
+      
+      // Construir contenido del correo
+      const subject = `Reservación de Cubículo - ${formattedDate}`;
+      const html = `
+        <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 5px;">
+          <h2 style="color: #000E32;">Solicitud de Reservación de Cubículo</h2>
+          
+          <div style="margin-bottom: 20px;">
+            <h3 style="color: #000E32;">Información del Usuario</h3>
+            <p><strong>Nombre:</strong> ${userName}</p>
+            <p><strong>Email:</strong> ${userEmail}</p>
+          </div>
+
+          <div style="margin-bottom: 20px;">
+            <h3 style="color: #000E32;">Detalles de la Reserva</h3>
+            <p><strong>Fecha:</strong> ${formattedDate}</p>
+            <p><strong>Hora de entrada:</strong> ${checkInTime}</p>
+            <p><strong>Hora de salida:</strong> ${checkOutTime}</p>
+            <p><strong>Número de personas:</strong> ${peopleCount}</p>
+          </div>
+
+          <p style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; color: #666;">
+            Correo enviado desde el sistema de biblioteca Aurora.
+          </p>
+        </div>
+      `;
+      
+      // Versión en texto plano como respaldo
+      const text = `
+        Solicitud de Reservación de Cubículo\n
+        \nInformación del Usuario:
+        Nombre: ${userName}
+        Email: ${userEmail}
+        \nDetalles de la Reserva:
+        Fecha: ${formattedDate}
+        Hora de entrada: ${checkInTime}
+        Hora de salida: ${checkOutTime}
+        Número de personas: ${peopleCount}
+        \n
+        Correo enviado desde el sistema de biblioteca Aurora.
+      `;
+      
+      // Enviar el correo
+      return dispatch('sendEmail', { subject, text, html });
     }
   }
 };

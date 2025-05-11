@@ -2,25 +2,38 @@
 import HeroVideo from '@/components/Events/HeroVideo.vue';
 import CubicleCard from '@/components/Library/CubicleCard.vue';
 import CubicleCard2 from '@/components/Library/CubicleCard2.vue';
+import CubicleForm from '@/components/Library/CubicleForm.vue';
+import { ref } from 'vue';
 
 const bannerImage = new URL('@/assets/img/library/cubiclesImage.jpg', import.meta.url).href;
+const showForm = ref(false);
 </script>
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Josefin+Sans:wght@400;600&display=swap');
 </style>
+
 <template>
     <HeroVideo :img="bannerImage" title="CUBICULOS" />
     <br><br>
-    <h1 class="text">HORARIO DISPONIBLE:      7 a.m. - 9 p.m.</h1>
+    <h1 class="text">HORARIO DISPONIBLE: 7 a.m. - 9 p.m.</h1>
     <br>
     <CubicleCard />
     <br><br>
     <CubicleCard2 />
     <br><br>
     <div class="button-container">
-      <button class="outline-button">RESERVAR CUBÍCULO</button>
+        <button class="outline-button" @click="showForm = true">
+            RESERVAR CUBÍCULO
+        </button>
     </div>
+
+    <!-- Cubicle Reservation Form -->
+    <CubicleForm 
+        v-model="showForm"
+    />
 </template>
+
 <style scoped>
 .text {
     margin-top: 5%;
@@ -30,6 +43,7 @@ const bannerImage = new URL('@/assets/img/library/cubiclesImage.jpg', import.met
     size: 64px;
     font-family: "crimson text";
 }
+
 .button-container {
     display: flex;
     justify-content: center;
@@ -49,6 +63,12 @@ const bannerImage = new URL('@/assets/img/library/cubiclesImage.jpg', import.met
     font-size: 35px;
     font-weight: 700;
     font-family: "nunito sans";
+    transition: all 0.3s ease;
+}
+
+.outline-button:hover {
+    background-color: #000;
+    color: #fff;
 }
 
 @media (max-width:576px) {
@@ -61,5 +81,4 @@ const bannerImage = new URL('@/assets/img/library/cubiclesImage.jpg', import.met
         font-size: 20px;
     }
 }
-
 </style>
