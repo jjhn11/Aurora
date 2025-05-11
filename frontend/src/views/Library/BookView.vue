@@ -124,7 +124,7 @@ watch(bookId, () => {
   align-self: center;
   display: flex;
   margin-top: 31px;
-  width: 92%;
+  width: 90%;
   max-width: 95vw;
   flex-direction: column;
   align-items: stretch;

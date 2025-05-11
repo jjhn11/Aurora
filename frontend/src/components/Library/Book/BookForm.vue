@@ -139,6 +139,7 @@ onMounted(() => {
 });
 </script>
 
+
 <template>
     <Transition name="fade">
         <div v-if="modelValue" class="form-overlay" @click.self="closeForm">
@@ -411,6 +412,77 @@ onMounted(() => {
     
     .info-group p {
         white-space: normal;
+    }
+}
+
+/* Add new responsive styles */
+@media (max-width: 768px) {
+    .reservation-form {
+        width: 95%;
+        min-width: auto;
+        padding: 1rem;
+        margin: 1rem;
+        max-height: 90vh;
+    }
+
+    .form-title {
+        font-size: 1.5rem;
+    }
+
+    .info-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .info-section {
+        width: 100%;
+    }
+
+    .reservation-inputs {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .form-group {
+        width: 100%;
+    }
+
+    .form-input {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .submit-button {
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+
+    .info-group p {
+        white-space: normal;
+        font-size: 0.9rem;
+    }
+
+    .section-title {
+        font-size: 0.9rem;
+    }
+
+    .close-button {
+        font-size: 24px;
+    }
+}
+
+/* Further adjustments for very small screens */
+@media (max-width: 380px) {
+    .reservation-form {
+        padding: 0.75rem;
+    }
+
+    .form-title {
+        font-size: 1.25rem;
+    }
+
+    .info-group p {
+        font-size: 0.85rem;
     }
 }
 </style>
