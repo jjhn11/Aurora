@@ -38,7 +38,7 @@
 
 .map-img {
   cursor: pointer;
-  border:  1px solid rgba(0, 14, 50, 1);
+  border:  1px solid rgba(180, 180, 180, 1);
 }
 
 .custom-fullscreen-modal {

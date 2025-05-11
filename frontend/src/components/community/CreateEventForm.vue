@@ -318,7 +318,7 @@ const clearProfanityError = (field) => {
                             
                             <select v-model="activityType" class="form-input" required @focus="resetIconError" @change="console.log('Tipo seleccionado:', activityType)">
                                 <option value="" disabled class="placeholder-option">
-                                    Selecciona una Actividad
+                                    SELECCIONA UNA ACTIVIDAD
                                 </option>
                                 <option v-for="type in availableActivityTypes" :key="type.Id_type" :value="type.Type_name">
                                     {{ type.Type_name }}
@@ -358,7 +358,7 @@ const clearProfanityError = (field) => {
                             <select v-model="location" class="form-input" required @focus="resetIconError">
 
                                 <option value="" disabled selected class="placeholder-option">
-                                    Selecciona una Ubicación
+                                    SELECCIONA UNA UBICACIÓN
                                 </option>
 
                                 <option v-for="loc in availableLocations" :key="loc.Id_Location" :value="loc.Location_">
@@ -481,7 +481,7 @@ const clearProfanityError = (field) => {
     }
 
     .form-textarea {
-        font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
+        font-family: "Nunito Sans", sans-serif;
         font-size: 16px;
         color: rgba(0, 14, 50, 1);
         border-radius: 10px;
@@ -567,6 +567,8 @@ const clearProfanityError = (field) => {
     .form-input {
         display: flex;
         justify-content: center;
+        align-items: center;
+        text-align: start;
         border-radius: 10px;
         border: 1px solid rgba(126, 131, 130, 1);
         width: 100%;
@@ -584,18 +586,17 @@ const clearProfanityError = (field) => {
 
         option[value=""][disabled] {
             color: rgba(0, 14, 50, 1);
-            font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
+            font-family: "Nunito Sans", sans-serif;
             font-size: 16px;
             font-weight: 500;
-            padding: 10px;
+            transition: background-color 0.3s ease;
         }
 
         option {
             color: rgba(0, 14, 50, 1);
-            font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
+            font-family: "Nunito Sans", sans-serif;
             font-size: 16px;
             font-weight: 500;
-            padding: 15px;
             background-color: white;
             transition: background-color 0.3s ease;
         }  
@@ -645,11 +646,10 @@ const clearProfanityError = (field) => {
     .time-input {
         font-family: "Nunito Sans", sans-serif;
         font-size: 16px;
-        font-weight: 600;
         color: rgba(0, 14, 50, 1);
         border-radius: 10px;
         border: 1px solid rgba(126, 131, 130, 1);
-        height: 54px;
+        height: 45px;
         width: 100%;
         padding: 10px;
         transition: all 0.3s ease;

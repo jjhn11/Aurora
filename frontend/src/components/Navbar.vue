@@ -20,7 +20,7 @@
   import C4V from '../assets/img/navbar/C4 VIDEOJUEGOS.png'
   import DDMV from '../assets/img/navbar/DDM VACIO.png';
 
-  import INV from '../assets/img/navbar/INVITADO.png';
+  import INV from '../assets/img/navbar/CUENTA INVITADO.png';
   import ZEN from '../assets/img/navbar/ZENY PERFIL.png';
 
   // [JavaScript]
@@ -948,9 +948,7 @@
 </template>
 
 <style scoped>
-.span{
-  font-family: "Josefin Sans";
-}
+
 /* @@@@@@@@@@@@@@@@@@@@@@@ Navbar Style @@@@@@@@@@@@@@@@@@@@@@@ */
 
 .fixed-top {
@@ -967,7 +965,7 @@
 
   background-color: white;
 
-  font-family: 'Anek Odia';
+  font-family: 'Josefin Sans';
   font-weight: bold;
 
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);

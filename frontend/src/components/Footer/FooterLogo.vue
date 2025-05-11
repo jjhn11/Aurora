@@ -26,18 +26,12 @@
   .footer-logo {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: stretch;
-    margin-top: 20px;
-    line-height: normal;
-    width: 47%;
-    margin-left: 0px;
+    align-items: center;
   }
   
   .footer-logo__content {
-    width: 100%;
-    color: rgba(0, 14, 50, 1);
-    font-weight: 700;
+    margin-bottom: auto;
+    align-self: center;
   }
   
   .footer-logo__header {
