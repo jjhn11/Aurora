@@ -116,7 +116,7 @@ watch(bookId, () => {
   flex-direction: column;
   overflow: hidden;
   align-items: stretch;
-  margin-top: 20px;
+  /* margin-top: 10px; */
   min-height: 100vh; /* Ensure full height even when loading */
 }
 
@@ -124,7 +124,7 @@ watch(bookId, () => {
   align-self: center;
   display: flex;
   margin-top: 31px;
-  width: 92%;
+  width: 90%;
   max-width: 95vw;
   flex-direction: column;
   align-items: stretch;
