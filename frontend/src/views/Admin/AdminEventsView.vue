@@ -256,11 +256,12 @@
                 </div>
 
                 <!-- Image preview -->
-                <div v-if="eventForm.isComing && (eventForm.image || eventForm.imageUrl)" class="mb-3">
+                <div v-if="eventForm.isComing && eventForm.imageUrl" class="mb-3">
                   <img 
-                    :src="getImagePreviewUrl(eventForm.image, eventForm.imageUrl)" 
+                    :src="getImageUrl(eventForm.imageUrl)" 
                     class="img-thumbnail" 
-                    style="max-height: 200px"
+                    alt="Imagen del evento"
+                    style="max-height: 200px;"
                   >
                 </div>
   
@@ -306,14 +307,6 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-              <button 
-                type="button" 
-                class="btn btn-warning" 
-                @click="showEventForm(selectedEvent)"
-                data-bs-dismiss="modal"
-              >
-                <i class="fas fa-edit"></i> Editar
-              </button>
             </div>
           </div>
         </div>
