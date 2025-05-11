@@ -13,6 +13,8 @@ import userRoutes from './routes/user.js';
 import { runAssociations } from './models/associations.js'
 import { loadSampleData } from './scripts/loadSampleData.js'
 import { cleanupData } from './scripts/cleanupData.js';
+import fs from 'fs';
+import path from 'path';
 
 dotenv.config();
 const open = (...args) => import('open').then(m => m.default(...args));
@@ -22,6 +24,15 @@ import { isProfane } from './middlewares/checkProfane.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Create uploads directory if it doesn't exist
+const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'events');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+// Serve static files
+app.use('/uploads', express.static(path.join(process.cwd(), 'public/uploads')));
 
 // Middleware
 // CUANDO ESTE EN PRODUCCION, BORREN EL DE localhost:5173

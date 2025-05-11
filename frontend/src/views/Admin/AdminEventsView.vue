@@ -239,16 +239,28 @@
                   ></textarea>
                 </div>
   
-                <!-- Image URL (only if isComing) -->
+                <!-- Image (only if isComing) -->
                 <div class="mb-3" v-if="eventForm.isComing">
-                  <label for="eventImage" class="form-label">URL de Imagen *</label>
+                  <label for="eventImage" class="form-label">Imagen del Evento *</label>
                   <input 
-                    type="url" 
+                    type="file" 
                     class="form-control" 
                     id="eventImage" 
-                    v-model="eventForm.imageUrl"
-                    placeholder="https://ejemplo.com/imagen.jpg"
-                    required
+                    @change="handleImageChange"
+                    accept="image/*"
+                    :required="eventForm.isComing"
+                  >
+                  <small class="text-muted">
+                    Seleccione una imagen para el evento (máximo 5MB)
+                  </small>
+                </div>
+
+                <!-- Image preview -->
+                <div v-if="eventForm.isComing && (eventForm.image || eventForm.imageUrl)" class="mb-3">
+                  <img 
+                    :src="getImagePreviewUrl(eventForm.image, eventForm.imageUrl)" 
+                    class="img-thumbnail" 
+                    style="max-height: 200px"
                   >
                 </div>
   
@@ -282,28 +294,13 @@
                   </div>
                   <p class="card-text">{{ selectedEvent.description }}</p>
                 </div>
-              </div>
-              
-              <!-- Calendar info if available -->
-              <div class="card" v-if="hasCalendarInfo">
-                <div class="card-header">
-                  Información de Calendario
-                </div>
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <p><strong>Fecha Calendario:</strong> {{ formatDate(selectedEvent.calendarDate) }}</p>
-                    </div>
-                    <div class="col-md-6">
-                      <p><strong>Fecha Inicio:</strong> {{ formatDate(selectedEvent.startDate) }}</p>
-                    </div>
-                    <div class="col-md-6">
-                      <p><strong>Fecha Fin:</strong> {{ formatDate(selectedEvent.endDate) }}</p>
-                    </div>
-                    <div class="col-md-12" v-if="selectedEvent.notes">
-                      <p><strong>Notas:</strong> {{ selectedEvent.notes }}</p>
-                    </div>
-                  </div>
+                <div v-if="selectedEvent.imageUrl" class="card-img-top-wrapper">
+                  <img 
+                    :src="getImageUrl(selectedEvent.imageUrl)" 
+                    class="card-img-top" 
+                    alt="Imagen del evento"
+                    style="max-height: 300px; object-fit: contain;"
+                  >
                 </div>
               </div>
             </div>
@@ -362,8 +359,14 @@
 import { ref, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { Modal } from 'bootstrap';
+import axios from 'axios';
 
 const store = useStore();
+const getImageUrl = (imagePath) => {
+  if (!imagePath) return '';
+  if (imagePath.startsWith('http')) return imagePath;
+  return `${axios.defaults.baseURL}${imagePath}`; // Remove /public/ since it's already in the path
+}
 
 // Refs for DOM elements
 const eventModal = ref(null);
@@ -401,6 +404,7 @@ const eventForm = ref({
   category: '',
   date: '',
   isComing: true,
+  image: null, // Changed from imageUrl to image
   imageUrl: ''
 });
 
@@ -553,7 +557,8 @@ const showEventForm = (event = null) => {
       category: event.Id_category,
       date: new Date(event.Event_date).toISOString().split('T')[0],
       isComing: event.Is_coming === 1,
-      imageUrl: event.Image_url || ''
+      image: null, // Reset image file
+      imageUrl: event.Image_url || '' // Keep existing image URL for preview
     };
   } else {
     eventForm.value = {
@@ -563,6 +568,7 @@ const showEventForm = (event = null) => {
       category: '',
       date: new Date().toISOString().split('T')[0],
       isComing: true,
+      image: null,
       imageUrl: ''
     };
   }
@@ -577,10 +583,7 @@ const viewEventDetails = (event) => {
     category: event.category?.Category_event_name,
     date: event.Event_date,
     description: event.Description,
-    calendarDate: event.Event_date,
-    startDate: event.Start_date,
-    endDate: event.End_date,
-    notes: event.Notes
+    imageUrl: event.Image_url // Add this line
   };
   const modal = new Modal(eventDetailsModal.value);
   modal.show();
@@ -600,23 +603,30 @@ const saveEvent = async () => {
   }
   
   try {
-    const eventData = {
+    const formData = {
       Title: eventForm.value.title,
-      Id_category: parseInt(eventForm.value.category),
+      Id_category: Number(eventForm.value.category), // Convert to number
       Event_date: eventForm.value.date,
-      Is_coming: eventForm.value.isComing ? 1 : 0,
-      Description: eventForm.value.isComing ? eventForm.value.description : null,
-      Image_url: eventForm.value.isComing ? eventForm.value.imageUrl : null
+      Is_coming: eventForm.value.isComing ? '1' : '0',
+      Description: eventForm.value.isComing ? eventForm.value.description : ''
     };
     
+    // Add image if event is upcoming and there's a file
+    if (eventForm.value.isComing && eventForm.value.image) {
+      formData.image = eventForm.value.image;
+    }
+    
+    // Debug log
+    console.log('Form data being sent:', formData);
+
     if (isEditing.value) {
       await store.dispatch('events/updateEvent', {
         eventId: eventForm.value.id,
-        eventData
+        eventData: formData
       });
       alert('Evento actualizado correctamente');
     } else {
-      await store.dispatch('events/createEvent', eventData);
+      await store.dispatch('events/createEvent', formData);
       alert('Evento creado correctamente');
     }
     
@@ -626,7 +636,8 @@ const saveEvent = async () => {
     await store.dispatch('events/fetchEvents');
   } catch (err) {
     console.error('Error saving event:', err);
-    alert('Error al guardar el evento: ' + err.message);
+    const errorMessage = err.response?.data?.error || err.message;
+    alert(`Error al guardar el evento: ${errorMessage}`);
   }
 };
 
@@ -645,6 +656,22 @@ const deleteEvent = async () => {
   }
 };
 
+// Handle image change
+const handleImageChange = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    if (file.size > 5 * 1024 * 1024) { // 5MB limit
+      alert('La imagen es demasiado grande. El tamaño máximo es 5MB.');
+      event.target.value = ''; // Clear the input
+      eventForm.value.image = null;
+      return;
+    }
+    eventForm.value.image = file;
+  } else {
+    eventForm.value.image = null;
+  }
+};
+
 // Filter methods
 const applyFilters = () => {
   currentPage.value = 1; // Reset to first page when filters change
@@ -658,11 +685,26 @@ const resetFilters = () => {
   };
   currentPage.value = 1;
 };
+
+// Get image preview URL
+const getImagePreviewUrl = (image, imageUrl) => {
+  if (image) {
+    return URL.createObjectURL(image);
+  }
+  if (imageUrl) {
+    return imageUrl;
+  }
+  return ''; // Return empty string if no image available
+};
 </script>
   
   <style scoped>
   .admin-events-container {
     padding: 2rem;
+  }
+
+  .modal-content {
+    border-radius: 0.5rem;
   }
   
   .header-section {
@@ -726,5 +768,19 @@ const resetFilters = () => {
     .header-section .actions button {
       width: 100%;
     }
+  }
+
+  /* Add these styles to your existing scoped styles */
+  .card-img-top-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.125);
+    padding: 1rem;
+  }
+
+  .card-img-top {
+    max-width: 100%;
+    height: auto;
   }
   </style>
