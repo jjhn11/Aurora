@@ -139,6 +139,7 @@ const store = useStore();
 const loading = ref(false);
 const sending = ref(false);
 const error = ref(null);
+const formSubmitted = ref(false);
 const success = ref(false);
 
 // Form data
@@ -149,7 +150,12 @@ const peopleCount = ref(4);
 const notes = ref('');
 
 // User data
-const user = computed(() => store.getters['user/getUserData']);
+const user = computed(() => {
+  if (!store.state.isAuthenticated) {
+    return null;
+  }
+  return store.getters['user/getUserData'];
+});
 
 // Computed
 const availableHours = computed(() => {
@@ -206,10 +212,16 @@ const closeForm = () => {
 };
 
 const handleSubmit = async () => {
-    sending.value = true;
-    error.value = null;
-    success.value = false;
+    if (success.value || sending.value) return; // Prevent multiple submissions
 
+    // Check for user authentication first
+    if (!user.value) {
+        error.value = 'Debes iniciar sesión para reservar un libro.';
+        return;
+    }
+    
+    formSubmitted.value = true;
+    sending.value = true;
     try {
         await store.dispatch('mail/sendCubicleReservation', {
             date: date.value,
@@ -219,14 +231,36 @@ const handleSubmit = async () => {
         });
         
         success.value = true;
-        emit('form-sent-success');
     } catch (err) {
         console.error("Error al crear reserva:", err);
+        alert('Error al procesar la reserva');
         error.value = 'Error al procesar la reserva';
     } finally {
         sending.value = false;
     }
 };
+
+// Watch for both user and book data changes
+watch([user], ([newUser]) => {
+    if (!newUser) {
+        'Debes iniciar sesión para reservar un libro.';
+    } else {
+        error.value = null;
+    }
+});
+
+// Watch for modal visibility
+watch(() => props.modelValue, (isOpen) => {
+    if (isOpen) {
+    }
+});
+
+// Add a watch for authentication state
+watch(() => store.state.isAuthenticated, (isAuthenticated) => {
+  if (!isAuthenticated) {
+    closeForm();
+  }
+});
 
 onMounted(() => {
     loading.value = true;

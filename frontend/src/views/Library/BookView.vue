@@ -20,7 +20,7 @@
 
       <BookMetadata
         :format="book.format || 'N/A'"
-        :authors="book.authorText || ''"
+        :authors="book.authors || ''"
         :publisher="book.publisher || 'N/A'"
         :year="book.year || 'N/A'"
         :pages="book.pages || 'N/A'"
@@ -31,12 +31,6 @@
         :categories="book.categories || []"
       />
       <br><br>
-      <!-- <BookReviews :reviews="book.reviews" /> -->
-      <!-- <RelatedBooks :books="relatedBooks" /> -->
-      
-      <!-- <div class="progress-bar">
-        <div class="progress-bar-blue"></div>
-      </div> -->
     </main>
 
     
