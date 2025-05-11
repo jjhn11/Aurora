@@ -470,10 +470,7 @@ export default {
           edition: "1",
           categories: ["Computación"],
           format: "Libro Físico",
-          Ubication: "Estante A-123",
-          Availability: true,
-          synopsis: "Qué color de pintura es más probable que le diga si un vehículo de segunda mano está en buen estado. Cómo puede identificar un ayuntamiento cuáles son los baches más peligrosos de una ciudad. La clave para responder a todas estas preguntas son los datos masivos, los big data. Este término hace referencia a la ingente cantidad de información que proviene de la red, una información que hoy estamos en condiciones de procesar, analizar, tabular y utilizar, para bien o para mal.",
-          fullDetails: true
+          synopsis: "Qué color de pintura es más probable que le diga si un vehículo de segunda mano está en buen estado. Cómo puede identificar un ayuntamiento cuáles son los baches más peligrosos de una ciudad. La clave para responder a todas estas preguntas son los datos masivos, los big data. Este término hace referencia a la ingente cantidad de información que proviene de la red, una información que hoy estamos en condiciones de procesar, analizar, tabular y utilizar, para bien o para mal."
         },
         
         "9788420674711": {
@@ -490,10 +487,7 @@ export default {
           edition: "2",
           categories: ["Física", "Ciencias"],
           format: "Libro Físico",
-          Ubication: "Estante B-045",
-          Availability: true,
-          synopsis: "En este libro, Hawking nos conduce hasta las fronteras mismas de la física teórica para explicarnos en términos sencillos los principios que gobiernan el universo. Este es un paseo fascinante por los misterios del cosmos, una extraordinaria aventura intelectual al alcance de todos.",
-          fullDetails: true
+          synopsis: "En este libro, Hawking nos conduce hasta las fronteras mismas de la física teórica para explicarnos en términos sencillos los principios que gobiernan el universo. Este es un paseo fascinante por los misterios del cosmos, una extraordinaria aventura intelectual al alcance de todos."
         },
         
         "9788499924212": {
@@ -510,10 +504,7 @@ export default {
           edition: "1",
           categories: ["Historia", "Ciencias Sociales", "Antropología"],
           format: "Libro Físico",
-          Ubication: "Estante C-078",
-          Availability: true,
-          synopsis: "Hace 100.000 años al menos seis especies de humanos habitaban la Tierra. Hoy solo queda una, la nuestra: Homo sapiens. ¿Cómo logró nuestra especie imponerse en la lucha por la existencia? ¿Por qué nuestros ancestros recolectores se unieron para crear ciudades y reinos? ¿Cómo llegamos a creer en dioses, en naciones o en los derechos humanos; a confiar en el dinero, en los libros o en las leyes?",
-          fullDetails: true
+          synopsis: "Hace 100.000 años al menos seis especies de humanos habitaban la Tierra. Hoy solo queda una, la nuestra: Homo sapiens. ¿Cómo logró nuestra especie imponerse en la lucha por la existencia? ¿Por qué nuestros ancestros recolectores se unieron para crear ciudades y reinos? ¿Cómo llegamos a creer en dioses, en naciones o en los derechos humanos; a confiar en el dinero, en los libros o en las leyes?"
         },
         
         "9788493464257": {
@@ -530,10 +521,7 @@ export default {
           edition: "4",
           categories: ["Ciencias Sociales", "Psicología"],
           format: "Libro Físico",
-          Ubication: "Estante B-120",
-          Availability: true,
-          synopsis: "Dale Carnegie nos enseña con su característico tono ameno y práctico cómo relacionarse mejor con otras personas tanto en el ámbito personal como en el profesional. Este clásico del desarrollo personal proporciona consejos que nunca pasan de moda sobre el arte de lograr que los demás se sientan importantes.",
-          fullDetails: true
+          synopsis: "Dale Carnegie nos enseña con su característico tono ameno y práctico cómo relacionarse mejor con otras personas tanto en el ámbito personal como en el profesional. Este clásico del desarrollo personal proporciona consejos que nunca pasan de moda sobre el arte de lograr que los demás se sientan importantes."
         },
         
         "9788483068915": {
@@ -550,10 +538,7 @@ export default {
           edition: "3",
           categories: ["Psicología", "Ciencias Sociales", "Economía"],
           format: "Libro Físico",
-          Ubication: "Estante D-015",
-          Availability: true,
-          synopsis: "Daniel Kahneman, uno de los pensadores más importantes del mundo, recibió el premio Nobel de Economía por su trabajo pionero en psicología sobre el modelo racional de la toma de decisiones. En este libro, el autor expone las dos formas de pensar: el pensamiento rápido, intuitivo y emocional y el pensamiento lento, deliberativo y lógico.",
-          fullDetails: true
+          synopsis: "Daniel Kahneman, uno de los pensadores más importantes del mundo, recibió el premio Nobel de Economía por su trabajo pionero en psicología sobre el modelo racional de la toma de decisiones. En este libro, el autor expone las dos formas de pensar: el pensamiento rápido, intuitivo y emocional y el pensamiento lento, deliberativo y lógico."
         },
         
         "9788441532106": {
@@ -570,10 +555,7 @@ export default {
           edition: "1",
           categories: ["Computación", "Tecnología", "Programación"],
           format: "Libro Físico",
-          Ubication: "Estante A-234",
-          Availability: true,
-          synopsis: "Cada año, se invierten innumerables horas y se pierden importantes recursos debido a código mal escrito. Este libro se ha convertido en un clásico para los programadores profesionales que quieren escribir código limpio y eficiente. Martin nos muestra cómo escribir código que podamos leer y entender fácilmente.",
-          fullDetails: true
+          synopsis: "Cada año, se invierten innumerables horas y se pierden importantes recursos debido a código mal escrito. Este libro se ha convertido en un clásico para los programadores profesionales que quieren escribir código limpio y eficiente. Martin nos muestra cómo escribir código que podamos leer y entender fácilmente."
         },
         
         "9788434501621": {
@@ -590,10 +572,7 @@ export default {
           edition: "2",
           categories: ["Ciencias", "Astronomía", "Divulgación científica"],
           format: "Libro Físico",
-          Ubication: "Estante C-100",
-          Availability: true,
-          synopsis: "Carl Sagan trata de explicar la ciencia del universo a los profanos. Es un libro para divulgar la astronomía, la astrofísica y la cosmología a todo el mundo, con un lenguaje claro y comprensible para aquellos que no tienen una formación científica, pero que están interesados en comprender el mundo que nos rodea.",
-          fullDetails: true
+          synopsis: "Carl Sagan trata de explicar la ciencia del universo a los profanos. Es un libro para divulgar la astronomía, la astrofísica y la cosmología a todo el mundo, con un lenguaje claro y comprensible para aquellos que no tienen una formación científica, pero que están interesados en comprender el mundo que nos rodea."
         },
         
         "9788499420047": {
@@ -610,10 +589,7 @@ export default {
           edition: "1",
           categories: ["Historia", "Tecnología", "Biografías"],
           format: "Libro Físico",
-          Ubication: "Estante B-300",
-          Availability: true,
-          synopsis: "La biografía definitiva de Steve Jobs, el fundador de Apple, escrita a partir de cuarenta entrevistas mantenidas con él a lo largo de dos años, y de más de cien entrevistas con familiares, amigos, adversarios y colegas. La muerte de Steve Jobs conmocionó al mundo. Tras entrevistarlo en más de cuarenta ocasiones en los últimos dos años, y a un centenar de personas de su entorno, familiares, amigos, adversarios y colegas, Walter Isaacson nos presenta la única biografía escrita con la colaboración de Jobs.",
-          fullDetails: true
+          synopsis: "La biografía definitiva de Steve Jobs, el fundador de Apple, escrita a partir de cuarenta entrevistas mantenidas con él a lo largo de dos años, y de más de cien entrevistas con familiares, amigos, adversarios y colegas. La muerte de Steve Jobs conmocionó al mundo. Tras entrevistarlo en más de cuarenta ocasiones en los últimos dos años, y a un centenar de personas de su entorno, familiares, amigos, adversarios y colegas, Walter Isaacson nos presenta la única biografía escrita con la colaboración de Jobs."
         },
         
         "9786071128379": {
@@ -630,10 +606,7 @@ export default {
           edition: "2",
           categories: ["Ciencias Sociales", "Psicología", "Sociología"],
           format: "Libro Físico",
-          Ubication: "Estante D-145",
-          Availability: true,
-          synopsis: "Malcolm Gladwell explora por qué algunas personas tienen éxito y otras no. ¿Es el talento natural? ¿La inteligencia? No, según Gladwell. Para entender a los fuera de serie, debemos mirar el contexto en el que se crían, la cultura de la que provienen, y las experiencias particulares que contribuyen a su desarrollo.",
-          fullDetails: true
+          synopsis: "Malcolm Gladwell explora por qué algunas personas tienen éxito y otras no. ¿Es el talento natural? ¿La inteligencia? No, según Gladwell. Para entender a los fuera de serie, debemos mirar el contexto en el que se crían, la cultura de la que provienen, y las experiencias particulares que contribuyen a su desarrollo."
         },
         
         "9789584102881": {
@@ -650,11 +623,11 @@ export default {
           edition: "4",
           categories: ["Computación", "Programación", "Tecnología"],
           format: "Libro Físico",
-          Ubication: "Estante A-111",
-          Availability: true,
-          synopsis: "Este libro constituye una guía completa para el estudio de los algoritmos, estructuras de datos y metodologías de la programación orientada a objetos. En esta cuarta edición, revisada y actualizada, se han incorporado las últimas versiones y avances de los lenguajes de programación Java, C++ y C#, se explica la metodología de programación orientada a objetos y se presenta una amplia colección de algoritmos y estructuras de datos.",
-          fullDetails: true
+          synopsis: "Este libro constituye una guía completa para el estudio de los algoritmos, estructuras de datos y metodologías de la programación orientada a objetos. En esta cuarta edición, revisada y actualizada, se han incorporado las últimas versiones y avances de los lenguajes de programación Java, C++ y C#, se explica la metodología de programación orientada a objetos y se presenta una amplia colección de algoritmos y estructuras de datos."
         }
+
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        // A PARTIR DE AQUÍ AÑADIR MÁS LIBROS CON SU INFORMACIÓN RESPECTIVA
       },
       loading: {
         popular: false,
@@ -680,8 +653,8 @@ export default {
     mutations: {
       SET_BOOK_DETAILS(state, { id, details }) {
         state.bookDetails = {
-          ...state.bookDetails,
-          [id]: { ...details, fullDetails: true }
+            ...state.bookDetails,
+            [id]: { ...details }
         };
       },
       SET_LOADING(state, { type, value }) {
@@ -720,7 +693,7 @@ export default {
       
       fetchBookDetails({ commit, state }, id) {
         // If we already have this book's data, just return it
-        if (state.bookDetails[id] && state.bookDetails[id].fullDetails) {
+        if (state.bookDetails[id]) { 
           return Promise.resolve(state.bookDetails[id]);
         }
         
@@ -737,17 +710,14 @@ export default {
               const bookDetails = {
                 ...bookData,
                 authors: [bookData.author],
-                publisher: "Editorial Aurora",
+                publisher: "Editorial Aurora", 
                 year: "2023",
                 pages: "350",
                 binding: "Tapa dura",
-                edition: "1",
+                edition: "1", 
                 categories: [bookData.category, "General"],
                 format: "Libro Físico",
-                Ubication: "Estante AA-123",
-                Availability: true,
-                synopsis: `Una fascinante historia sobre ${bookData.Title.toLowerCase()}, escrita por el reconocido autor ${bookData.author}.`,
-                fullDetails: true
+                synopsis: `Una fascinante historia sobre ${bookData.Title.toLowerCase()}, escrita por el reconocido autor ${bookData.author}.`
               };
               
               commit('SET_BOOK_DETAILS', { id, details: bookDetails });
@@ -769,10 +739,7 @@ export default {
                 edition: "1",
                 categories: ["Desconocido"],
                 format: "Libro Físico",
-                Ubication: "N/A",
-                Availability: false,
-                synopsis: "No hay información disponible para este libro.",
-                fullDetails: true
+                synopsis: "No hay información disponible para este libro."
               };
               
               commit('SET_BOOK_DETAILS', { id, details: placeholderDetails });
