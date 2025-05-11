@@ -6,7 +6,13 @@
             <div class="metadata-item format">FORMATO: {{ format }}</div>
             <div class="metadata-item author-info">
               <span class="metadata-label">AUTOR:</span>
-              <span class="metadata-value">{{ authors }}</span>
+              <span
+                v-for="(author, index) in authors"
+                :key="index"
+                class="metadata-value author"
+              >
+                {{ author }}{{ index < authors.length - 1 ? ', ' : '' }}
+              </span>
             </div>
             <div class="metadata-item publisher-info">
               <span class="metadata-label">EDITORIAL:</span>
@@ -47,7 +53,7 @@
         required: true,
       },
       authors: {
-        type: String,
+        type: Array, // Changed from String to Array
         required: true,
       },
       publisher: {
@@ -324,5 +330,16 @@
       white-space: initial;
     }
   }
+
+  .author {
+    display: inline;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  @media (max-width: 991px) {
+    .author {
+      font-size: 12px;
+    }
+  }
   </style>
-  

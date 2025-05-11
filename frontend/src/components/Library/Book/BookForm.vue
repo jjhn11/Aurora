@@ -160,9 +160,11 @@ onMounted(() => {
                 </div>
 
                 <div v-else-if="success" class="success-message">
-                    <i class="fas fa-check-circle"></i>
+                    <i class="fas fa-check-circle success-icon"></i>
                     <p>¡Reservación solicitada con éxito! Te contactaremos pronto.</p>
-                    <button @click="closeForm" class="btn-primary">Cerrar</button>
+                    <button @click="closeForm" class="success-close-button">
+                        CERRAR
+                    </button>
                 </div>
 
                 <div v-else class="form-content">
@@ -369,7 +371,42 @@ onMounted(() => {
 .success-message {
     text-align: center;
     padding: 2rem;
-    color: green;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.success-icon {
+    font-size: 48px;
+    color: #28a745;
+    margin-bottom: 0.5rem;
+}
+
+.success-message p {
+    color: #000E32;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.success-close-button {
+    background-color: rgba(0, 71, 255, 1);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 0.75rem 2rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.success-close-button:hover {
+    background-color: #FBE326;
+    color: #000E32;
+    transform: translateY(-2px);
 }
 
 .fade-enter-active,
@@ -468,6 +505,19 @@ onMounted(() => {
 
     .close-button {
         font-size: 24px;
+    }
+
+    .success-icon {
+        font-size: 36px;
+    }
+
+    .success-message p {
+        font-size: 1rem;
+    }
+
+    .success-close-button {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
     }
 }
 
