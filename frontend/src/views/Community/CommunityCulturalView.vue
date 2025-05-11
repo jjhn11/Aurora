@@ -196,7 +196,7 @@ const recreationalIcons = [
             v-model="showForm"
             :icons="recreationalIcons"
             :useBackendSubmit="true"
-            :categoryId="recreationalCategoryId" 
+            :categoryId="culturalCategoryId" 
             @event-created="handleEventCreated"
             @event-created-success="handleEventCreatedSuccess"
         />

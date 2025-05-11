@@ -174,7 +174,7 @@ const handleEventCreatedSuccess = async () => {
             v-model="showForm"
             :icons="recreationalIcons"
             :useBackendSubmit="true"
-            :categoryId="recreationalCategoryId" 
+            :categoryId="sportsCategoryId" 
             @event-created="handleEventCreated"
             @event-created-success="handleEventCreatedSuccess"
         />
