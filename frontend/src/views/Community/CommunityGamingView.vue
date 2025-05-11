@@ -4,6 +4,8 @@ import { useStore } from 'vuex';
 import CreateEventForm from '@/components/community/CreateEventForm.vue';
 import EventCard from '@/components/community/EventCard.vue';
 
+import FLECHA from '@/assets/img/community/FLECHA EVENTO.png';
+
 // Importación de iconos para videojuegos
 import I1LA from '@/assets/img/community/icons/recreational/ICONO LECTURA.png' // Usa iconos recreativos temporalmente
 import I2BA from '@/assets/img/community/icons/recreational/ICONO BANDA.png'
@@ -22,6 +24,8 @@ import CARRERA from '@/assets/img/community/icons/videogames/ICONO CARRERA.png'
 import PUZZLE from '@/assets/img/community/icons/videogames/ICONO PUZZLE.png'
 import TERROR from '@/assets/img/community/icons/videogames/ICONO TERROR.png'
 import MUSICA from '@/assets/img/community/icons/videogames/ICONO MUSICA.png'
+import CHICAS from '@/assets/img/community/icons/videogames 2/ICONO CHICAS.png'
+import OTROSV from '@/assets/img/community/icons/videogames/ICONO OTROS V.png'
     
 const store = useStore();
 const showForm = ref(false);
@@ -160,12 +164,24 @@ const handleEventCreatedSuccess = async () => {
             image: MUSICA,
             bgColor: 'rgba(160, 120, 190, 1)'
         },
+        {
+            title: 'CHICAS',
+            image: CHICAS,
+            bgColor: 'rgba(254, 187, 205, 1)'
+        },
+        {
+            title: 'OTROS',
+            image: OTROSV,
+            bgColor: 'rgba(241, 241, 241, 1)'
+        },
     ];
 
 </script>
 
 <template>
+
     <!-- ### Hero ### -->
+
     <div>
         <section class="hero-container">
             <div class="hero-overlay">
@@ -174,66 +190,74 @@ const handleEventCreatedSuccess = async () => {
         </section>
     </div>
 
-    <!-- ### Botón Crear Evento ### -->
-    <div class="container-fluid justify-content-center">
-        <div class="cre-cont col-12 d-flex justify-content-end text-center pe-4">
+    <div class="container-fluid">
+
+        <!-- ### Botón Crear Evento ### -->
+        
+        <div class="cre-cont">
             <button class="cre-button btn btn-primary" type="button" @click="showForm = true">
                 <i class="cre-icon fa-solid fa-circle-plus"></i>
                 <span> CREAR EVENTO</span>
             </button>
         </div>
-    </div>
 
-    <CreateEventForm 
-        v-model="showForm"
-        :icons="recreationalIcons"
-        :useBackendSubmit="true"
-        :categoryId="gamingCategoryId" 
-        @event-created="handleEventCreated"
-        @event-created-success="handleEventCreatedSuccess"
-    />
-    
-    <!-- Estado de carga -->
-    <div v-if="isLoading" class="loading-container">
-        <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Cargando...</span>
-        </div>
-    </div>
-    
-    <!-- Mostrar mensaje de error -->
-    <div v-else-if="error" class="error-container alert alert-danger">
-        {{ error }}
-    </div>
 
-    <!-- Lista de Eventos -->
-    <div v-else-if="events.length > 0" class="events-container">
-        <EventCard 
-            v-for="(event, index) in events" 
-            :key="index"
-            :activityId="event.activityId"
-            :title="event.title"
-            :description="event.description"
-            :organizer="event.organizer"
-            :startTime="event.startTime"
-            :endTime="event.endTime"
-            :location="event.location"
-            :category="event.category"
-            :imageSrc="event.imageSrc"
-            :backgroundColor="event.backgroundColor"
-            :date="event.date"
+        <CreateEventForm 
+            v-model="showForm"
+            :icons="recreationalIcons"
+            :useBackendSubmit="true"
+            :categoryId="gamingCategoryId" 
+            @event-created="handleEventCreated"
+            @event-created-success="handleEventCreatedSuccess"
         />
-    </div>
 
-    <!-- ### Aviso de "Ningún Evento" ### -->
-    <div v-else class="container-fluid justify-content-center">
-        <div class="avit-cont col-12 text-center">
-            <p class="avit-text-up">¡CREA TU EVENTO!</p>
-            <img class="avit-img" :src="NOEVE">
-            <p class="avit-text-down">No hay ningún evento de la comunidad, por favor regrese en un momento.</p>
-            <RouterLink to="/" class="avit-button btn btn-primary mt-2">
-                <span>Regresar a Inicio</span>
-            </RouterLink>
+        <!-- Estado de carga -->
+        <div v-if="isLoading" class="loading-container">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Cargando...</span>
+            </div>
         </div>
+        
+        <!-- Mostrar mensaje de error -->
+        <div v-else-if="error" class="error-container alert alert-danger">
+            {{ error }}
+        </div>
+
+        <!-- Lista de Eventos -->
+        
+        <div v-else-if="events.length > 0" class="events-container">
+            <EventCard 
+                v-for="(event, index) in events" 
+                :key="index"
+                :activityId="event.activityId"
+                :title="event.title"
+                :description="event.description"
+                :organizer="event.organizer"
+                :startTime="event.startTime"
+                :endTime="event.endTime"
+                :location="event.location"
+                :category="event.category"
+                :imageSrc="event.imageSrc"
+                :backgroundColor="event.backgroundColor"
+                :date="event.date"
+            />
+        </div>
+
+        <!-- ### Aviso de "Ningún Evento" ### -->
+        
+        <div v-else class="avit row">
+            <div class="avit-cont-1">
+                <img class="avit-img" :src="FLECHA">
+                <p class="avit-text-but">¡Crea el tuyo!</p>
+            </div>
+
+            <div class="avit-cont-2">
+                <p class="avit-text-up">¡CREA TU EVENTO!</p>
+                <img class="avit-img" :src="NOEVE">
+                <p class="avit-text-down">NO HAY NINGÚN EVENTO DE LA COMUNIDAD, POR FAVOR REGRESE MÁS TARDE.</p>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -295,7 +319,7 @@ const handleEventCreatedSuccess = async () => {
     }
 
     .hero-title {
-        font-family: 'Playfair Display';
+        font-family: 'Crimson text';
         font-weight: 700;
         font-size: 6rem;
         color: white;
@@ -309,7 +333,11 @@ const handleEventCreatedSuccess = async () => {
     }
 
     .cre-cont {
-        margin-top: 30px;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        text-align: end;
+        margin: 30px 22.5px 0px 0px;
 
         .cre-button {
             display: flex;
@@ -317,9 +345,10 @@ const handleEventCreatedSuccess = async () => {
             justify-content: center; /* Centra horizontalmente */
             text-align: center;
 
+
+
             background-color: rgba(0, 0, 0, 0);
             border-color: rgba(0, 0, 0, 0); /* Updated border color */
-
 
             width: 225px;
             height: 50px;
@@ -352,77 +381,105 @@ const handleEventCreatedSuccess = async () => {
         }
     }
 
-    .avit-cont {
-        margin-top: 30px;
-        margin-bottom: 35px;
+    .avit {
+        margin: 0;
 
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        
-        .avit-text-up {
-            font-family: "Josefin Sans";
-            font-weight: 700;
-            font-size: 35px;
-            color: rgb(145, 145, 145);
-            letter-spacing: 0.05em;
-            width: 900px;
-        }
-
-        .avit-text-down {
-            font-family: 'Crimson text';
-            font-weight: 700;
-            font-size: 45px;
-            color: rgb(145, 145, 145);
-            letter-spacing: 0.05em;
-            width: 900px;
-        }
-
-        .avit-img {
-            width: auto;
-            height: 300px;
-            margin: 20px 0;
-        }
-
-        .avit-button {
+        .avit-cont-1 {
             display: flex;
-            align-items: center; /* Centra verticalmente */
-            justify-content: center; /* Centra horizontalmente */
+            justify-content: end;
+            align-items: end;
+            text-align: end;
+            
+
+            .avit-img {
+                width: auto;
+                height: 40px;
+                margin: 0px 6px 15.5px 0;
+            }
+
+            .avit-text-but {
+                font-family: 'Josefin Sans';
+                font-weight: 700;
+                font-size: 22px;
+                color: rgb(217, 217, 217);
+                letter-spacing: 0.025em;
+                margin: 0px 0px;
+            }
+        }
+
+        .avit-cont-2 {
+            margin: 30px 0px 35px 0px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
 
-            background-color: white;
-            border-radius: 50px;
-            border-color:#000E32;
-
-            width: 150px;
-            height: 50px;
-
-            transition: all 0.5s ease;
-
-            span {
-                height: 22.5px;
-                color:#000E32;
-                font-family: 'Anek Odia';
+            .avit-text-up {
+                display: none;
+                font-family: "Josefin Sans";
                 font-weight: 700;
-                font-size: 18px;
+                font-size: 35px;
+                color: rgb(145, 145, 145);
+                letter-spacing: 0.05em;
+                width: 900px;
             }
 
-            i {
-                color:#000E32;
+            .avit-text-down {
+                font-family: 'Crimson text';
+                font-weight: 700;
+                font-size: 45px;
+                color: rgb(145, 145, 145);
+                letter-spacing: 0.05em;
+                width: 900px;
             }
 
-            &:hover {
-                background-color:#000E32;
+            .avit-img {
+                width: auto;
+                height: 300px;
+                margin: 20px 0;
+            }
 
-                span,i {
-                    color:white;
+            .avit-button {
+                display: flex;
+                align-items: center; /* Centra verticalmente */
+                justify-content: center; /* Centra horizontalmente */
+                text-align: center;
+
+                background-color: white;
+                border-radius: 50px;
+                border-color:#000E32;
+
+                width: 150px;
+                height: 50px;
+
+                transition: all 0.5s ease;
+
+                span {
+                    height: 22.5px;
+                    color:#000E32;
+                    font-family: 'Anek Odia';
+                    font-weight: 700;
+                    font-size: 18px;
                 }
-            }
-            
-            
-        }
 
+                i {
+                    color:#000E32;
+                }
+
+                &:hover {
+                    background-color:#000E32;
+
+                    span,i {
+                        color:white;
+                    }
+                }
+                
+                
+            }
+
+        }
     }
 
         /* Agregar estilos para el contenedor de eventos */
@@ -455,8 +512,8 @@ const handleEventCreatedSuccess = async () => {
         /* Botón Crear Evento */
         .cre-cont {
             display: flex;
-            justify-content: center !important;
-            padding-right: 0 !important;
+            justify-content: end;
+            padding: 0;
             
             .cre-button {
                 border-color: rgba(126, 131, 130, 1);
@@ -480,35 +537,52 @@ const handleEventCreatedSuccess = async () => {
         }
 
         /* Mensaje sin eventos */
-        .avit-cont {
-            padding: 0 15px;
 
-            .avit-text-up {
-                width: 100%;
-                font-size: 22px;
-                text-align: center;
-                padding: 0 10px;
-            }
-            
-            .avit-text-down {
-                width: 100%;
-                font-size: 28px;
-                text-align: center;
-                padding: 0 10px;
+        .avit {
+
+            .avit-cont-1 {
+                display: none;
             }
 
-            .avit-img {
-                width: auto;
-                height: 250px;
-                margin: 10px 0;
-            }
+            .avit-cont-2 {
+                padding: 0 15px;
 
-            .avit-button {
-                border-color: rgba(126, 131, 130, 1);
-                background-color: rgba(242, 242, 242, 1);
-                width: 200px;
-                margin-top: 20px;
+                .avit-text-up {
+                    display: block;
+                    width: 100%;
+                    font-size: 22px;
+                    text-align: center;
+                    padding: 0 10px;
+                }
+                
+                .avit-text-down {
+                    width: 100%;
+                    font-size: 28px;
+                    text-align: center;
+                    padding: 0 10px;
+                }
+
+                .avit-img {
+                    width: auto;
+                    height: 250px;
+                    margin: 10px 0;
+                }
+
+                .avit-button {
+                    border-color: rgba(126, 131, 130, 1);
+                    background-color: rgba(242, 242, 242, 1);
+                    width: 200px;
+                    margin-top: 20px;
+                }
             }
+        }
+    }
+
+    /* Contenedor de eventos responsive */
+    @media screen and (max-width: 768px) {
+        .events-container {
+            padding: 30px 10px;
+            width: 100%;
         }
     }
 
@@ -552,40 +626,35 @@ const handleEventCreatedSuccess = async () => {
         }
 
         /* Mensaje sin eventos ajustes */
-        .avit-cont {
+        .avit {
 
-            .avit-text-up {
-                font-size: 20px;
-            }
+            .avit-cont-2 {
 
-            .avit-text-down {
-                font-size: 24px;
-            }
+                .avit-text-up {
+                    font-size: 20px;
+                }
 
-            .avit-img {
-                width: auto;
-                height: 200px;
-                margin: 5px 0;
-            }
+                .avit-text-down {
+                    font-size: 24px;
+                }
 
-            .avit-button {
-                border-color: rgba(126, 131, 130, 1);
-                background-color: rgba(242, 242, 242, 1);
-                width: 180px;
-                height: 45px;
-                
-                span {
-                    font-size: 16px;
+                .avit-img {
+                    width: auto;
+                    height: 200px;
+                    margin: 5px 0;
+                }
+
+                .avit-button {
+                    border-color: rgba(126, 131, 130, 1);
+                    background-color: rgba(242, 242, 242, 1);
+                    width: 180px;
+                    height: 45px;
+                    
+                    span {
+                        font-size: 16px;
+                    }
                 }
             }
-        }
-    }
-
-    /* Contenedor de eventos responsive */
-    @media screen and (max-width: 768px) {
-        .events-container {
-            padding: 30px 10px;
-            width: 100%;
         }
     }
 

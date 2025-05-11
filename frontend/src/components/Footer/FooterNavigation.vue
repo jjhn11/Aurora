@@ -51,15 +51,14 @@
   .footer-nav {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    margin-top: 40px;
+    align-items: center;
     line-height: normal;
     width: 17%;
   }
   
   .footer-nav__content {
     margin-bottom: auto;
-    align-self: stretch;
+    align-self: center;
   }
   
   .footer-nav__title {

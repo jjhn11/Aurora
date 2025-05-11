@@ -1,7 +1,7 @@
 <script setup>
 import Navbar from './components/Navbar.vue';
 import NavbarMobile from './components/NavbarMobile.vue';
-import Foot from './components/Footer/Footer.vue';
+import Foot from './components/Footer.vue';
 import { RouterView } from 'vue-router';
 import { ref, onMounted, onUnmounted, watch } from 'vue';
 
