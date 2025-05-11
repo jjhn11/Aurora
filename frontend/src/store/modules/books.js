@@ -455,6 +455,51 @@ export default {
           author: "Luis Joyanes Aguilar"
         }
       ],
+      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      industrialBooks: [
+        {
+          id: "9788436273298",
+          ISBN: "9788436273298",
+          Title: "Gestión de la Producción Industrial",
+          coverImage: libroBigData,
+          category: "Ingeniería Industrial",
+          author: "Manuel García Sánchez"
+        }
+      ],
+      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      systemsBooks: [
+        {
+          id: "9788441541332",
+          ISBN: "9788441541332",
+          Title: "Sistemas Distribuidos: Conceptos y Diseño",
+          coverImage: libroBigData,
+          category: "Sistemas",
+          author: "George Coulouris"
+        }
+      ],
+      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      administrativeBooks: [
+        {
+          id: "9788416583569",
+          ISBN: "9788416583569",
+          Title: "Administración de Empresas: Un Enfoque Moderno",
+          coverImage: libroBigData,
+          category: "Administración",
+          author: "María Pérez Gómez"
+        }
+      ],
+      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      bookLovers: [
+        {
+          id: "9788415832102",
+          ISBN: "9788415832102",
+          Title: "Big Data: La Revolución de los Datos Masivos",
+          coverImage: libroBigData,
+          category: "Computación",
+          author: "Viktor Mayer-Schönberger"
+        }
+      ],
+      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       bookDetails: {
         "9788415832102": {
           id: "9788415832102",
@@ -645,7 +690,11 @@ export default {
       getBookById: (state) => (id) => {
         return state.bookDetails[id] || 
                state.popularBooks.find(book => book.id === id) || 
-               state.newBooks.find(book => book.id === id) || 
+               state.newBooks.find(book => book.id === id) ||
+               state.industrialBooks.find(book => book.id === id) ||
+               state.systemsBooks.find(book => book.id === id) ||
+               state.administrativeBooks.find(book => book.id === id) ||
+               state.bookLovers.find(book => book.id === id) ||
                null;
       }
     },
@@ -704,7 +753,11 @@ export default {
           setTimeout(() => {
             // If we don't have detailed data, generate some from basic data
             let bookData = state.popularBooks.find(b => b.id === id) || 
-                           state.newBooks.find(b => b.id === id);
+                           state.newBooks.find(b => b.id === id) ||
+                           state.industrialBooks.find(b => b.id === id) ||
+                           state.systemsBooks.find(b => b.id === id) ||
+                           state.administrativeBooks.find(b => b.id === id) ||
+                           state.bookLovers.find(b => b.id === id);
             
             if (bookData) {
               const bookDetails = {
