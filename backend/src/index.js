@@ -14,6 +14,7 @@ import communityRoutes from './routes/community.js';
 import eventsRoutes from './routes/events.js';
 import mailRoutes from './routes/mail.js';
 import userRoutes from './routes/user.js';
+import { loadSampleData } from './scripts/loadSampleData.js';
 
 
 
