@@ -11,6 +11,5 @@ const bannerImage = new URL('@/assets/img/events/Banner.png', import.meta.url).h
         category="Escolar"
         :imageField="'Image_url'"
     />
-    <br><br>
     <Calendar nombre="eventsSchool" category="Escolar"/>
 </template>
