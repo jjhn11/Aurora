@@ -21,7 +21,7 @@ onMounted(async () => {
 
 // Obtener solo eventos escolares usando el getter
 const schoolEvents = computed(() => 
-  store.getters['events/getEventsByCategory'](schoolCategoryId) || []
+  store.getters['events/getEventsByCategory'](schoolCategoryId)?.filter(event => event.Is_coming === 1) || []
 );
 
 // Setup carousel events handling
@@ -54,7 +54,7 @@ const closeModal = () => {
             <i class="bi bi-chevron-left fs-4"></i>
         </button>
         <div id="carrusel2" class="carousel slide">
-            <div class="carousel-inner" v-if="schoolEvents.length >= 3">
+            <div class="carousel-inner" v-if="schoolEvents.length > 0">
                 <div class="carousel-item active">
                     <div class="slide-row">
                         <Card

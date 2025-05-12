@@ -30,22 +30,23 @@ export default {
     },
     methods: {
         getImageUrl(imagePath) {
-            if (!imagePath) {
-                console.warn('No image path provided');
-                return `${axios.defaults.baseURL}/public/uploads/events/default-event.jpg`;
-            }
-            if (imagePath.startsWith('http')) return imagePath;
-            return `${axios.defaults.baseURL}${imagePath}`;
+            // if (!imagePath) {
+            //     console.warn('No image path provided');
+            //     return `${axios.defaults.baseURL}/uploads/events/default-event.jpg`; // Removed /public
+            // }
+            // if (imagePath.startsWith('http')) return imagePath;
+            // Si la ruta ya comienza con /uploads, no añadir de nuevo
+            return `${axios.defaults.baseURL}${imagePath.startsWith('/uploads') ? '' : '/uploads'}${imagePath}`;
         },
         handleImageError(e) {
             console.error('Error loading image:', {
-                src: e.target,
+                src: e.target.src,
                 error: e.error,
                 timestamp: new Date().toISOString()
             });
                 
             // Intentar cargar la imagen por defecto desde el backend
-            const defaultImageUrl = `${axios.defaults.baseURL}/public/uploads/events/default-event.jpg`;
+            const defaultImageUrl = `${axios.defaults.baseURL}/uploads/events/default-event.jpg`; // Removed /public
             console.log('Attempting to load default image:', defaultImageUrl);
             
             e.target.src = defaultImageUrl;
@@ -58,7 +59,7 @@ export default {
                     timestamp: new Date().toISOString()
                 });
                 // Si falla la imagen por defecto del backend, usar la local
-                e.target.src = '/src/assets/img/events/default-event.jpg';
+                e.target.src = new URL('@/assets/img/events/default-event.jpg', import.meta.url).href;
                 e.target.onerror = null; // Prevenir loop infinito
             };
         }
@@ -111,7 +112,7 @@ export default {
     font-weight: 400;
     font-size: 26px;
     width: 100%;
-    height: 40px;
+    height: auto;
     font-family: "freeman";
     text-align:center;
 }    

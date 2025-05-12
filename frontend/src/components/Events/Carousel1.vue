@@ -21,7 +21,7 @@ onMounted(async () => {
 
 // Obtener solo eventos culturales usando el getter
 const culturalEvents = computed(() => 
-  store.getters['events/getEventsByCategory'](culturalCategoryId) || []
+  store.getters['events/getEventsByCategory'](culturalCategoryId)?.filter(event => event.Is_coming === 1) || []
 );
 
 // Setup carousel events handling
@@ -59,7 +59,7 @@ const closeModal = () => {
             <i class="bi bi-chevron-left fs-4"></i>
         </button>
         <div id="carrusel1" class="carousel slide">
-            <div class="carousel-inner" v-if="culturalEvents.length >= 9">
+            <div class="carousel-inner" v-if="culturalEvents.length > 0">
                 <div class="carousel-item active">
                     <div class="slide-row">
                         <Card
