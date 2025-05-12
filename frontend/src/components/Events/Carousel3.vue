@@ -22,7 +22,7 @@ onMounted(async () => {
 
 // Obtener solo eventos deportivos usando el getter
 const sportsEvents = computed(() => 
-  store.getters['events/getEventsByCategory'](sportsCategoryId) || []
+  store.getters['events/getEventsByCategory'](sportsCategoryId)?.filter(event => event.Is_coming === 1) || []
 );
 
 // Setup carousel events handling
@@ -55,14 +55,14 @@ const closeModal = () => {
             <i class="bi bi-chevron-left fs-4"></i>
         </button>
         <div id="carrusel3" class="carousel slide">
-            <div class="carousel-inner" v-if="sportsEvents.length >= 9">
+            <div class="carousel-inner" v-if="sportsEvents.length > 0">
                 <div class="carousel-item active">
                     <div class="slide-row">
                         <Card
-                          v-for="(event, index) in sportsEvents.slice(0, 3)"
+                          v-for="event in sportsEvents.slice(0, 3)"
                           :key="event.Id_event"
                           :id="event.Id_event"
-                          :image="'/src/assets/img/events/sports-event-2.jpg'"
+                          :image="event.Image_url"
                           :title="event.Title"
                           :description="event.Description"
                           @click="openModal(event)"
@@ -72,10 +72,10 @@ const closeModal = () => {
                 <div class="carousel-item">
                     <div class="slide-row">
                         <Card
-                          v-for="(event, index) in sportsEvents.slice(3, 6)"
+                          v-for="event in sportsEvents.slice(3, 6)"
                           :key="event.Id_event"
                           :id="event.Id_event"
-                          :image="'/src/assets/img/events/sports-event-2.jpg'"
+                          :image="event.Image_url"
                           :title="event.Title"
                           :description="event.Description"
                           @click="openModal(event)"
@@ -85,10 +85,10 @@ const closeModal = () => {
                 <div class="carousel-item">
                     <div class="slide-row">
                         <Card
-                          v-for="(event, index) in sportsEvents.slice(6, 9)"
+                          v-for="event in sportsEvents.slice(6, 9)"
                           :key="event.Id_event"
                           :id="event.Id_event"
-                          :image="'/src/assets/img/events/sports-event-2.jpg'"
+                          :image="event.Image_url"
                           :title="event.Title"
                           :description="event.Description"
                           @click="openModal(event)"

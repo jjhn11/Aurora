@@ -1,20 +1,5 @@
 import axios from 'axios';
 
-// Importar imágenes de fallback para categorías
-import eventImageCultural from '@/assets/img/events/cultural-event-1.jpg';
-import eventImageSports from '@/assets/img/events/sports-event-1.jpg';
-import eventImageSchool from '@/assets/img/events/school-event-1.jpg';
-// import eventImageDefault from '@/assets/img/events/default.jpg';
-import eventImage1 from '@/assets/img/events/cultural-event-1.jpg';
-import eventImage2 from '@/assets/img/events/cultural-event-2.jpg';
-import eventImage3 from '@/assets/img/events/cultural-event-2.jpg';
-import eventImage4 from '@/assets/img/events/sports-event-1.jpg';
-import eventImage5 from '@/assets/img/events/sports-event-2.jpg';
-import eventImage6 from '@/assets/img/events/sports-event-2.jpg';
-import eventImage7 from '@/assets/img/events/school-event-1.jpg';
-import eventImage8 from '@/assets/img/events/school-event-1.jpg';
-import eventImage9 from '@/assets/img/events/school-event-1.jpg';
-
 export default {
   namespaced: true,
   
@@ -105,11 +90,7 @@ export default {
   
   mutations: {
     SET_EVENTS(state, events) {
-      // Enriquecer eventos con imágenes basadas en categoría
-      state.events = events.map(event => ({
-        ...event,
-        image: getImageByCategory(event.Id_category)
-      }));
+      state.events = events;
     },
     
     SET_CATEGORIES(state, categories) {
@@ -129,23 +110,13 @@ export default {
     },
     
     ADD_EVENT(state, event) {
-      const enrichedEvent = {
-        ...event,
-        image: getImageByCategory(event.Id_category)
-      };
-      state.events.unshift(enrichedEvent); // Añadir al principio para mostrar los más recientes primero
+      state.events.unshift(event); // Añadir al principio para mostrar los más recientes primero
     },
     
     UPDATE_EVENT(state, updatedEvent) {
       const index = state.events.findIndex(event => event.Id_event === updatedEvent.Id_event);
       if (index !== -1) {
-        // Mantener la imagen si el evento ya tiene una
-        const existingImage = state.events[index].image;
-        const enrichedEvent = {
-          ...updatedEvent,
-          image: existingImage || getImageByCategory(updatedEvent.Id_category)
-        };
-        state.events.splice(index, 1, enrichedEvent);
+        state.events.splice(index, 1, updatedEvent);
       }
     },
     
@@ -203,14 +174,9 @@ export default {
       // Si no existe, lo buscamos en el API
       try {
         const response = await axios.get(`/events/${eventId}`);
-        const event = {
-          ...response.data,
-          image: getImageByCategory(response.data.Id_category)
-        };
-        
-        commit('SET_CURRENT_EVENT', event);
+        commit('SET_CURRENT_EVENT', response.data);
         commit('SET_LOADING', { type: 'currentEvent', value: false });
-        return event;
+        return response.data;
       } catch (error) {
         const errorMessage = error.response?.data?.error || 'Error al obtener evento';
         commit('SET_ERROR', { type: 'currentEvent', value: errorMessage });
@@ -289,7 +255,26 @@ export default {
       commit('SET_ERROR', { type: 'events', value: null });
       
       try {
-        const response = await axios.post('/events', eventData);
+        const formData = new FormData();
+        
+        // Append all text fields
+        Object.keys(eventData).forEach(key => {
+          if (key !== 'image') {
+            formData.append(key, eventData[key]);
+          }
+        });
+        
+        // Append image if it exists
+        if (eventData.image) {
+          formData.append('image', eventData.image);
+        }
+
+        const response = await axios.post('/events', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+
         commit('ADD_EVENT', response.data);
         commit('SET_LOADING', { type: 'events', value: false });
         return response.data;
@@ -305,19 +290,32 @@ export default {
     // Actualizar un evento existente
     async updateEvent({ commit }, { eventId, eventData }) {
       commit('SET_LOADING', { type: 'currentEvent', value: true });
-      commit('SET_ERROR', { type: 'currentEvent', value: null });
       
       try {
-        const response = await axios.put(`/events/${eventId}`, eventData);
+        const formData = new FormData();
+        
+        Object.keys(eventData).forEach(key => {
+          if (key !== 'image') {
+            formData.append(key, eventData[key]);
+          }
+        });
+        
+        if (eventData.image) {
+          formData.append('image', eventData.image);
+        }
+
+        const response = await axios.put(`/events/${eventId}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+
         commit('UPDATE_EVENT', response.data);
-        commit('SET_CURRENT_EVENT', response.data);
         commit('SET_LOADING', { type: 'currentEvent', value: false });
         return response.data;
       } catch (error) {
         const errorMessage = error.response?.data?.error || 'Error al actualizar evento';
         commit('SET_ERROR', { type: 'currentEvent', value: errorMessage });
-        commit('SET_LOADING', { type: 'currentEvent', value: false });
-        console.error('Error en updateEvent:', error);
         throw error;
       }
     },
@@ -376,16 +374,3 @@ export default {
     }
   }
 };
-
-// Función auxiliar para asignar una imagen según la categoría del evento
-function getImageByCategory(categoryId) {
-  // Valores predeterminados según la categoría
-  const categoryImages = {
-    1: eventImageCultural,  // Cultural
-    2: eventImageSports,    // Deportivo
-    3: eventImageSchool,    // Escolar
-    4: eventImageCultural    // Por defecto
-  };
-  
-  return categoryImages[categoryId] || eventImageDefault;
-}

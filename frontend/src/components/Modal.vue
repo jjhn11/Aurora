@@ -6,7 +6,7 @@
   <div v-if="isOpen" class="modal-overlay" @click.self="close">
     <div class="modal-content">
       <button class="close-button" @click="close">✖</button>
-      <img :src="event.image" alt="Event Image" class="modal-image" v-if="event.image" />
+      <img :src="getImageUrl(event.Image_url)" alt="Event Image" class="modal-image" v-if="event.Image_url" />
       <div class="modal-body">
         <h2>{{ event.Title }}</h2>
         <p>{{ event.Description }}</p>
@@ -18,6 +18,7 @@
   
 <script setup>
   import { defineProps, defineEmits } from 'vue';
+  import axios from 'axios';
   
   const props = defineProps({
     isOpen: Boolean,
@@ -32,6 +33,10 @@
   const close = () => {
     emit('close');
   };
+
+  const getImageUrl = (imagePath) => {
+    return `${axios.defaults.baseURL}${imagePath.startsWith('/uploads') ? '' : '/uploads'}${imagePath}`;
+};
 </script>
   
 <style scoped>

@@ -3,25 +3,37 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import session from 'express-session';
+import fs from 'fs';
+import path from 'path';
 import { sequelize } from './config/db.js';
 import passport from './config/passport.js';
 import checkAuth from './middlewares/checkAuth.js';
+import { runAssociations } from './models/associations.js';
 import authRoutes from './routes/auth.js';
 import communityRoutes from './routes/community.js';
 import eventsRoutes from './routes/events.js';
+import mailRoutes from './routes/mail.js';
 import userRoutes from './routes/user.js';
-import { runAssociations } from './models/associations.js'
-import { loadSampleData } from './scripts/loadSampleData.js'
-import { cleanupData } from './scripts/cleanupData.js';
+import { loadSampleData } from './scripts/loadSampleData.js';
+
+
 
 dotenv.config();
 const open = (...args) => import('open').then(m => m.default(...args));
-import mailRoutes from './routes/mail.js';
 
 import { isProfane } from './middlewares/checkProfane.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Create uploads directory if it doesn't exist
+const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'events');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+// Serve static files
+app.use('/uploads', express.static(path.join(process.cwd(), 'public/uploads')));
 
 // Middleware
 // CUANDO ESTE EN PRODUCCION, BORREN EL DE localhost:5173

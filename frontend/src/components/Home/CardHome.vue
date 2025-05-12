@@ -87,6 +87,7 @@ defineProps({
   font-size: 23px;
   color: #1a1a1a;
   margin: 8px 0;
+  height: auto;
 }
 
 .card-description {
