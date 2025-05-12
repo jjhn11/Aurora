@@ -5,6 +5,11 @@
   import { useStore } from 'vuex';
   const store = useStore();
   
+  const isAdmin = computed(() => {
+    if (!isAuthenticated.value) return false;
+    return user.value.email === "a22490388@itmexicali.edu.mx";
+  });
+
   // [Imagenes]
   import logo from '../assets/img/navbar/LogoAurora.png';
   import tec from '../assets/img/navbar/tec.png';
@@ -541,6 +546,27 @@
                     </span>
 
                   </button>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- ------------------------------------------- -->
+
+            <div v-if="isAdmin" class="container">
+
+              <div class="row">
+
+                <div class="col-9 mb-3 ps-5 ms-5">
+                  <RouterLink to="/admin-eventos" class="button-container btn" type="button">
+
+                    <i class="button-ac-icon fa-solid fa-user-shield"></i>
+                    <span class="button-ac-text">
+                      EVENTOS
+                    </span>
+
+                  </RouterLink>
                 </div>
 
               </div>
