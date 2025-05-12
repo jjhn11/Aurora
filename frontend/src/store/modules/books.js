@@ -3,6 +3,7 @@ import libroFisicoquimica from '@/assets/img/library/LibroFisicoquimica.png';
 import libroMarxismo from '@/assets/img/library/LibroMarxismo.jpg';
 import libroPsicologia from '@/assets/img/library/LibroPsicologia.jpg';
 
+
 //rutas de importacin de imagenes de libros
 import GuiaDesarrolloProductos from '@C:/assets/img/library/CoverImage/42- Guía para el desarrollo de productos un enfoque práctico.jpg';
 import controlEstadisticoCalidad from '@/assets/img/library/CoverImage/1-Control estadístico de la calidad.jpg';
@@ -15,9 +16,9 @@ import cobolEstructurado from '@/assets/img/library/CoverImage/19- COBOL estruct
 import metodosAlgebra from '@/assets/img/library/CoverImage/Metodos computacionales de algebra.png';
 import emprendedorExito from '@/assets/img/library/CoverImage/El emprendedor exitoso.png';
 import comercioIndias from '@/assets/img/library/CoverImage/Comercio y navegacion.png';
-import economiaInternacional from '@/assets/img/library/CoverImage/economia_internacional.jpg';
-import introduccionContaduria from '@/assets/img/library/CoverImage/Introduccion a la contaduria.jpg';
-import principiosContabilidad from '@/assets/img/library/CoverImage/principios_contabilidad.jpg';
+import economiaInternacional from '@/assets/img/library/CoverImage/Economia internacional.png';
+import introduccionContaduria from '@/assets/img/library/CoverImage/Introduccion a la Contaduria.PNG';
+import principiosContabilidad from '@/assets/img/library/CoverImage/Principios fundamentales de contabilidad.jpg';
 import hannibal from '@/assets/img/library/CoverImage/hannibal.png';
 import bajoMismaEstrella from '@/assets/img/library/CoverImage/Bajo la misma estrella.png';
 import vueltaMundo80Dias from '@/assets/img/library/CoverImage/La vuelta en 80.png';
