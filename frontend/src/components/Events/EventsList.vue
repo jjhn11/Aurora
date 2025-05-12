@@ -105,11 +105,9 @@ const closeModal = () => {
   
   <div v-else>
     <div v-if="filteredEvents.length === 0" class="empty-state-container">
-      <img src="@/assets/img/events/school-event-1.jpg" alt="Sin eventos" class="empty-state-image">
-      <h2 class="empty-state-title">No hay eventos disponibles</h2>
+      <h2 class="empty-state-title">NO HAY EVENTOS DISPONIBLES</h2>
       <p class="empty-state-text">No encontramos eventos para mostrar en esta categoría.</p>
-      <p class="empty-state-suggestion">Intenta buscar en otra categoría o vuelve más tarde.</p>
-      <router-link to="/" class="btn btn-primary mt-4">Regresar al inicio</router-link>
+      <p class="empty-state-text">Intenta buscar en otra categoría o vuelve más tarde.</p>
     </div>
     
     <div v-else class="container py-4">
@@ -123,7 +121,7 @@ const closeModal = () => {
             :key="event.Id_event"
             :id="event.Id_event"
             :date="event.date"
-             :image="event.Image_url"
+            :image="event.Image_url"
             :title="event.Title"
             :description="event.Description"
             @click="openModal(event)"
@@ -169,98 +167,121 @@ const closeModal = () => {
   
 
 <style scoped>
-.pagination {
-  display: flex;
-  justify-content: center;
-  gap: 0px;
-  flex-wrap: wrap;
-}
 
-.page-btn {
-  background-color: #0047FF;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  font-size: 16px;
-  font-family: 'Nunito Sans';
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
+  .empty-state-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 40px 0 20px 0;
 
-.page-btn:hover:not(.active):not(:disabled) {
-  background-color: #0031cc;
-}
+    .empty-state-title {
+      font-size: 32px;
+      font-weight: bold;
+      font-family: 'Crimson text';
+      margin-bottom: 10px;
+    }
 
-.page-btn.active {
-  background-color: #001f99;
-  font-weight: bold;
-}
+    .empty-state-text {
+      font-family: "Nunito Sans", sans-serif;
+      font-size: 20px;
+      margin-bottom: 0px;
+    }
+  }
 
-.page-btn:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0px;
+    flex-wrap: wrap;
+  }
 
-.modal-content {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  max-width: 600px;
-  width: 90%;
-  position: relative;
-  text-align: center;
-}
+  .page-btn {
+    background-color: #0047FF;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    font-size: 16px;
+    font-family: 'Nunito Sans';
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
 
-.modal-image {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-}
+  .page-btn:hover:not(.active):not(:disabled) {
+    background-color: #0031cc;
+  }
 
-.close-button {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-.event-column {
-  width: 100%;
-}
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: -0.5rem;
-  margin-right: -0.5rem;
-  align-items: stretch;
-}
+  .page-btn.active {
+    background-color: #001f99;
+    font-weight: bold;
+  }
 
-.event-column {
-  width: 33.3333%;
-  padding: 0 0.5rem;
-  display: flex;
-}
+  .page-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
 
-@media (max-width: 776px) {
+  .modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 90%;
+    position: relative;
+    text-align: center;
+  }
+
+  .modal-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  .event-column {
+    width: 100%;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    align-items: stretch;
+  }
+
   .event-column {
     width: 33.3333%;
-    padding: 0 3.5%;
+    padding: 0 0.5rem;
+    display: flex;
   }
-}
+
+  @media (max-width: 776px) {
+    .event-column {
+      width: 33.3333%;
+      padding: 0 3.5%;
+    }
+  }
+
 </style>

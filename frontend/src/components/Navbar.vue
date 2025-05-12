@@ -533,6 +533,27 @@
 
             <!-- ------------------------------------------- -->
 
+            <div v-if="isAdmin" class="container">
+
+              <div class="row">
+
+                <div class="col-9 mb-2 ps-5 ms-5">
+                  <RouterLink to="/admin-eventos" class="button-container btn" type="button">
+
+                    <i class="button-ac-icon fa-solid fa-calendar-days"></i>
+                    <span class="button-ac-text">
+                      EVENTOS
+                    </span>
+
+                  </RouterLink>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- ------------------------------------------- -->
+
             <div class="container">
 
               <div class="row">
@@ -546,27 +567,6 @@
                     </span>
 
                   </button>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-
-            <div v-if="isAdmin" class="container">
-
-              <div class="row">
-
-                <div class="col-9 mb-3 ps-5 ms-5">
-                  <RouterLink to="/admin-eventos" class="button-container btn" type="button">
-
-                    <i class="button-ac-icon fa-solid fa-user-shield"></i>
-                    <span class="button-ac-text">
-                      EVENTOS
-                    </span>
-
-                  </RouterLink>
                 </div>
 
               </div>
@@ -756,7 +756,7 @@
               <div class="row">
 
                 <div class="col-2 mb-3 ps-5 d-flex justify-content-center align-items-center">
-                  <i class="form-menu-label fa-solid fa-gear" id="labi"></i>
+                  <i class="form-menu-icon fa-solid fa-gear" id="labi"></i>
                 </div>
 
                 <div class="col-10 mb-3 d-flex justify-content-center align-items-center">
@@ -825,8 +825,8 @@
 
               <div class="row">
 
-                <div class="col-2 ps-5 mb-3 d-flex justify-content-center align-items-center">
-                  <i class="form-menu-label bi bi-brush" id="labi"></i>
+                <div class="col-2 mb-3 d-flex justify-content-center align-items-center">
+                  <i class="form-menu-icon bi bi-brush" id="labi"></i>
                 </div>
 
                 <div class="col-10 mb-3 d-flex justify-content-center align-items-center">
@@ -896,7 +896,7 @@
               <div class="row">
 
                 <div class="col-3 mb-3 ps-5 d-flex justify-content-center align-items-center">
-                  <i class="form-menu-label fa-solid fa-language" id="labi"></i>
+                  <i class="form-menu-icon fa-solid fa-language" id="labi"></i>
                 </div>
 
                 <div class="col-9 mb-3 d-flex justify-content-center align-items-center">
@@ -1471,6 +1471,20 @@
       font-size: 35px;
       font-weight: 700;
       font-family: 'Crimson text';
+    }
+
+    
+    .form-menu-icon{
+
+      white-space: normal; /* Permite que el texto se divida en varias líneas */
+      word-wrap: break-word; /* Divide palabras largas si es necesario */
+      text-align: center; /* Centra el texto dentro del label */
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 35px;
     }
 
     .form-ac-label{
