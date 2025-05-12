@@ -59,8 +59,8 @@ const bookId = computed(() => route.params.id);
 // Create breadcrumb paths
 const breadcrumbPaths = computed(() => [
   { name: 'INICIO', path: '/' },
-  { name: 'BIBLIOTECA', path: '/library' },
-  { name: book.value.Title || 'Cargando...', path: `/library/book/${bookId.value}`, active: true }
+  { name: 'BIBLIOTECA', path: '/biblioteca' },
+  { name: book.value.Title || 'Cargando...', path: `/biblioteca/libro/${bookId.value}`, active: true }
 ]);
 
 // Fetch the book data
