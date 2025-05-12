@@ -247,8 +247,7 @@ export default {
               case 'deportes':
                 categoryFolder = 'sports';
                 break;
-              case 'recreativa':
-              case 'recreacional':
+              case 'recreativas':
                 categoryFolder = 'recreational';
                 break;
               case 'videojuegos':

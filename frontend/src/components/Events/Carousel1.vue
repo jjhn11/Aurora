@@ -32,6 +32,8 @@ onMounted(() => {
       activeSlide.value = e.to;
     });
   }
+  // console.log(JSON.stringify(culturalEvents.value));
+  //  console.log(JSON.stringify(culturalEvents));
 });
 
 // Estado del Modal
@@ -61,10 +63,10 @@ const closeModal = () => {
                 <div class="carousel-item active">
                     <div class="slide-row">
                         <Card
-                          v-for="(event, index) in culturalEvents.slice(0, 3)"
+                          v-for="event in culturalEvents.slice(0, 3)"
                           :key="event.Id_event"
                           :id="event.Id_event"
-                          :image="'/src/assets/img/events/sports-event-2.jpg'"
+                          :image="event.Image_url"
                           :title="event.Title"
                           :description="event.Description"
                           @click="openModal(event)"
@@ -74,10 +76,10 @@ const closeModal = () => {
                 <div class="carousel-item">
                     <div class="slide-row">
                         <Card
-                          v-for="(event, index) in culturalEvents.slice(3, 6)"
+                          v-for="event in culturalEvents.slice(3, 6)"
                           :key="event.Id_event"
                           :id="event.Id_event"
-                          :image="'/src/assets/img/events/sports-event-2.jpg'"
+                          :image="event.Image_url"
                           :title="event.Title"
                           :description="event.Description"
                           @click="openModal(event)"
@@ -87,10 +89,10 @@ const closeModal = () => {
                 <div class="carousel-item">
                     <div class="slide-row">
                         <Card
-                          v-for="(event, index) in culturalEvents.slice(6, 9)"
+                          v-for="event in culturalEvents.slice(6, 9)"
                           :key="event.Id_event"
                           :id="event.Id_event"
-                          :image="'/src/assets/img/events/sports-event-2.jpg'"
+                          :image="event.Image_url"
                           :title="event.Title"
                           :description="event.Description"
                           @click="openModal(event)"

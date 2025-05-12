@@ -27,19 +27,19 @@ INSERT INTO Event_categories_ (Category_event_name) VALUES
 
 -- Community tables
 INSERT INTO Community_categories_ (Category_name) VALUES 
-('Recreativas'), ('Deportes'), ('Cultural'), ('Videojuegos');
+ ('Cultural'), ('Deportes'),('Recreativas'), ('Videojuegos');
 
 INSERT INTO Community_activity_types_ (Type_name, Id_category) VALUES 
-('DANZA', 3),('CELEBRACIONES INTERNACIONALES',3),('MÚSICA', 3),
-('ARTES PLÁSTICAS', 3),('PIANO', 3),('DEBATE', 3),('OTRA ACTIVIDAD CULTURAL', 3),
+('DANZA', 1),('CELEBRACIONES INTERNACIONALES',1),('MÚSICA', 1),
+('ARTES PLÁSTICAS', 1),('PIANO', 1),('DEBATE', 1),('OTRA ACTIVIDAD CULTURAL', 1),
 
 ('VOLLEYBALL SALA', 2),('VOLLEYBALL PLAYA', 2),('SOFTBOL', 2),
 ('BEISBOL', 2),('BASQUETBOL', 2),('ATLETISMO', 2),('PORRA', 2),
 ('BOX', 2),('FUTBOL', 2),('OTRO DEPORTE', 2),
 
-('BANDA DE GUERRA', 1),('ESCOLTA', 1),('LECTURAS', 1),('AJEDREZ', 1),('RALLYS', 1),
-('BATALLAS DE FREESTYLE - RAP', 1),('JUEGOS DE MESA', 1),('BAZAR', 1),
-('CONCURSO', 1),('TUTORÍAS', 1),('OTRA ACTIVIDAD RECREATIVA', 1),
+('BANDA DE GUERRA', 3),('ESCOLTA', 3),('LECTURAS', 3),('AJEDREZ', 3),('RALLYS', 3),
+('BATALLAS DE FREESTYLE - RAP', 3),('JUEGOS DE MESA', 3),('BAZAR', 3),
+('CONCURSO', 3),('TUTORÍAS', 3),('OTRA ACTIVIDAD RECREATIVA', 3),
 
 ('ACCIÓN', 4),('ROL', 4),('ESTRATEGIA', 4),
 ('AVENTURA', 4),('SIMULACION', 4),('DEPORTES', 4),('CARRERAS', 4),
@@ -131,14 +131,14 @@ INSERT INTO Events_ (Title, Description, Image_url, Id_category, Event_date, Id_
 ('Conferencia de Sostenibilidad', 'Tecnologías verdes y medio ambiente', '/images/events/sustainability.jpg', 2, '2025-04-26', 1, 1),
 ('Hackathon Educativo', 'Desarrollo de soluciones educativas', '/images/events/edu-hackathon.jpg', 2, '2025-12-05', 1, 1),
 ('Feria de Proyectos', 'Exhibición de proyectos finales', '/images/events/projects-fair.jpg', 2, '2025-06-10', 1, 1),
-('INNOVATEC 2025', 'Te esperamos de 9am a 3pm para que seas parte de este importante evento.', '/images/events/12 de Mayo  INNOVATEC 2025.jpg', 2, '2025-05-12', 1, 1),
-('FERIA DEL EMPLEO', 'Te esperamos en biblioteca planta alta de 9 am a 1 pm y de 4 a 6 pm con reclutadores de más de 15 empresas. No olvides tu CV.', '/images/events/13 de Mayo  FERIA DEL EMPLEO.jpg', 2, '2025-05-13', 1, 1),
-('Jornada Nacional de Tequios por La Paz y contra las adicciones', 'Súmate a esta jornada para cambiar nuestro entorno. Registra tu lugar en https://forms.gle/bhJW1saFhBQ5kzQq5', '/images/events/14 de Mayo  Jornada Nacional de Tequios por La Paz y contra las adicciones.jpg', 2, '2025-05-14', 1, 1),
-('TORNEO DESMOS', 'Concurso que hace uso de la calculadora gráfica DESMOS para resolver problemas creativos matemáticos con ecuaciones.', '/images/events/14 de Mayo TORNEO DESMOS.jpg', 2, '2025-05-14', 1, 1),
-('4to CONCURSO DE TERMODINAMICA', 'Concurso entre alumnos del tecnológico de la carrera de termodinámica.', '/images/events/21 de Mayo  4to CONCURSO DE TERMODINAMICA.jpg', 2, '2025-05-21', 1, 1),
-('DIA DEL ESTUDIANTE', 'Festejo por el día del estudiante.', '/images/events/23 de Mayo  DIA DEL ESTUDIANTE.jpg', 2, '2025-05-23', 1, 1),
-('DIA DEL CONTADOR', 'Festejo por el día del contador.', '/images/events/26 de Mayo  DIA DEL CONTADOR.jpg', 2, '2025-05-26', 1, 1),
-('XXX FORO DE ERGONOMÍA Y EXPO INDUSTRIAL', 'Presentaciones y talleres enfocados en la ergonomía y seguridad industrial.', '/images/events/27 al 29 de Mayo  XXX FORO DE ERGONOMIA Y EXPO INDUSTRIAL.jpg', 2, '2025-05-27', 1, 1),
+('INNOVATEC 2025', 'Te esperamos de 9am a 3pm para que seas parte de este importante evento.', '/public/uploads/events/12 de Mayo  INNOVATEC 2025.jpg', 2, '2025-05-12', 1, 1),
+('FERIA DEL EMPLEO', 'Te esperamos en biblioteca planta alta de 9 am a 1 pm y de 4 a 6 pm con reclutadores de más de 15 empresas. No olvides tu CV.', '/public/uploads/events/13 de Mayo  FERIA DEL EMPLEO.jpg', 2, '2025-05-13', 1, 1),
+('Jornada Nacional de Tequios por La Paz y contra las adicciones', 'Súmate a esta jornada para cambiar nuestro entorno. Registra tu lugar en https://forms.gle/bhJW1saFhBQ5kzQq5', '/public/uploads/events/14 de Mayo  Jornada Nacional de Tequios por La Paz y contra las adicciones.jpg', 2, '2025-05-14', 1, 1),
+('TORNEO DESMOS', 'Concurso que hace uso de la calculadora gráfica DESMOS para resolver problemas creativos matemáticos con ecuaciones.', '/public/uploads/events/14 de Mayo TORNEO DESMOS.jpg', 2, '2025-05-14', 1, 1),
+('4to CONCURSO DE TERMODINAMICA', 'Concurso entre alumnos del tecnológico de la carrera de termodinámica.', '/public/uploads/events/21 de Mayo  4to CONCURSO DE TERMODINAMICA.jpg', 2, '2025-05-21', 1, 1),
+('DIA DEL ESTUDIANTE', 'Festejo por el día del estudiante.', '/public/uploads/events/23 de Mayo  DIA DEL ESTUDIANTE.jpg', 2, '2025-05-23', 1, 1),
+('DIA DEL CONTADOR', 'Festejo por el día del contador.', '/public/uploads/events/16 de Mayo  DIA DEL CONTADOR.jpg', 2, '2025-05-26', 1, 1),
+('XXX FORO DE ERGONOMÍA Y EXPO INDUSTRIAL', 'Presentaciones y talleres enfocados en la ergonomía y seguridad industrial.', '/public/uploads/events/27 al 29 de Mayo  XXX FORO DE ERGONOMIA Y EXPO INDUSTRIAL.jpg', 2, '2025-05-27', 1, 1),
 
 ('CONCURSO DE ROBOTICA', 'Concurso de robótica entre alumnos del tecnológico.', '/images/events/robotica.jpg', 2, '2025-05-28', 1, 0),
 ('DIA DEL INGENIERO', 'Festejo por el día del ingeniero.', '/images/events/ingeniero.jpg', 2, '2025-07-01', 1, 0),

@@ -3,6 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import session from 'express-session';
+import fs from 'fs';
+import path from 'path';
 import { sequelize } from './config/db.js';
 import passport from './config/passport.js';
 import checkAuth from './middlewares/checkAuth.js';
@@ -12,6 +14,9 @@ import communityRoutes from './routes/community.js';
 import eventsRoutes from './routes/events.js';
 import mailRoutes from './routes/mail.js';
 import userRoutes from './routes/user.js';
+import { loadSampleData } from './scripts/LoadSampleData.js';
+
+
 
 dotenv.config();
 const open = (...args) => import('open').then(m => m.default(...args));

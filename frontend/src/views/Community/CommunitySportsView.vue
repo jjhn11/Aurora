@@ -1,21 +1,12 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useStore } from 'vuex';
 import CreateEventForm from '@/components/community/CreateEventForm.vue';
 import EventCard from '@/components/community/EventCard.vue';
+import { onMounted, ref } from 'vue';
+import { useStore } from 'vuex';
 
 import FLECHA from '@/assets/img/community/FLECHA EVENTO.png';
 
 import NOEVE from '@/assets/img/community/IMAGEN SIN EVENTOS.png';
-import VOLLEY from '@/assets/img/community/icons/sports/ICONO VOLLEYBALL.png'
-import BEIS from '@/assets/img/community/icons/sports/ICONO BEISBOL.png'
-import ATLET from '@/assets/img/community/icons/sports/ICONO ATLETISMO.png'
-import FUTB from '@/assets/img/community/icons/sports/ICONO FUTBOL.png'
-import BASKET from '@/assets/img/community/icons/sports/ICONO BASQUETBOL.png'
-import SOFT from '@/assets/img/community/icons/sports/ICONO SOFTBOL.png'
-import PORRA from '@/assets/img/community/icons/sports/ICONO PORRA.png'
-import BOX from '@/assets/img/community/icons/sports/ICONO BOX.png'
-import OTROSD from '@/assets/img/community/icons/sports/ICONO OTROS D.png';
 
 const store = useStore();
 const showForm = ref(false);
@@ -102,48 +93,7 @@ const handleEventCreatedSuccess = async () => {
     }
 };
 
-    const recreationalIcons = [
-        {
-            title: 'VOLLEYBALL',
-            image: VOLLEY,
-            bgColor: 'rgba(255, 226, 0, 1)'
-        },
-        {
-            title: 'BASEBALL',
-            image: BEIS,
-            bgColor: 'rgba(168, 56, 59, 1)'
-        },
-        {
-            title: 'ATLETISMO',
-            image: ATLET,
-            bgColor: 'rgba(107, 183, 83, 1)'
-        },
-        {
-            title: 'FUTBALL',
-            image: FUTB,
-            bgColor: 'rgba(92, 119, 186, 1)'
-        },
-        {
-            title: 'BASKETBALL',
-            image: BASKET,
-            bgColor: 'rgba(240, 138, 57, 1)'
-        },
-        {
-            title: 'SOFTBALL',
-            image: SOFT,
-            bgColor: 'rgba(193, 15, 2, 1)'
-        },
-        {
-            title: 'PORRA',
-            image: PORRA,
-            bgColor: 'rgba(255, 177, 229, 1)'
-        },
-        {
-            title: 'OTROS',
-            image: OTROSD,
-            bgColor: 'rgba(77, 99, 35, 1)'
-        }
-    ];
+    
 </script>
 
 <template>

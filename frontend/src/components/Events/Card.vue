@@ -4,44 +4,82 @@
   @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 </style>
 <script>
-  
-  export default {
+import axios from 'axios';
+
+export default {
     name: 'Card',
     props: {
-      id: {
-        type: [String, Number],
-        required: true
-      },
-      image: {
-        type: String,
-        required: true,
-        default: 'https://t4.ftcdn.net/jpg/01/15/20/75/360_F_115207580_US2etunH78I7iMYHOoNVvxQTCIdoPdRj.jpg'
-      },
-      title: {
-        type: String,
-        required: true,
-        default: 'Título desconocido'
-      },
-      description: {
-        type: String,
-        required: false,
-        default: ''
-      }
+        id: {
+            type: [String, Number],
+            required: true
+        },
+        image: {
+            type: String,
+            required: true
+        },
+        title: {
+            type: String,
+            required: true,
+            default: 'Título desconocido'
+        },
+        description: {
+            type: String,
+            required: false,
+            default: ''
+        }
+    },
+    methods: {
+        getImageUrl(imagePath) {
+            if (!imagePath) {
+                console.warn('No image path provided');
+                return `${axios.defaults.baseURL}/public/uploads/events/default-event.jpg`;
+            }
+            if (imagePath.startsWith('http')) return imagePath;
+            return `${axios.defaults.baseURL}${imagePath}`;
+        },
+        handleImageError(e) {
+            console.error('Error loading image:', {
+                src: e.target,
+                error: e.error,
+                timestamp: new Date().toISOString()
+            });
+                
+            // Intentar cargar la imagen por defecto desde el backend
+            const defaultImageUrl = `${axios.defaults.baseURL}/public/uploads/events/default-event.jpg`;
+            console.log('Attempting to load default image:', defaultImageUrl);
+            
+            e.target.src = defaultImageUrl;
+            
+            // Agregar un segundo handler para la imagen por defecto
+            e.target.onerror = (secondError) => {
+                console.error('Error loading default image:', {
+                    src: secondError.target.src,
+                    error: secondError.error,
+                    timestamp: new Date().toISOString()
+                });
+                // Si falla la imagen por defecto del backend, usar la local
+                e.target.src = '/src/assets/img/events/default-event.jpg';
+                e.target.onerror = null; // Prevenir loop infinito
+            };
+        }
     }
-  }
+}
 </script>
 
 <template>
     <div class="card">
-      <!--<RouterLink to="/library/book" class="book-link"> -->
         <div class="card-cover">
-            <img :src="image" :alt="title" class="card-image" />
+            <img 
+                :src="getImageUrl(image)" 
+                :alt="title" 
+                class="card-image"
+                @error="handleImageError" 
+            />
         </div>
         <div class="card-info">
             <h3 class="card-title">{{ title }}</h3>
             <p class="card-description">{{ description }}</p>
         </div>
-     <!-- </RouterLink> -->
     </div>
 </template>
 
