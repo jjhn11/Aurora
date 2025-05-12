@@ -12,26 +12,26 @@ import SearchBar from '@/components/SearchBar.vue';
     <div class="container">
         <h1 class="title">INDUSTRIAL</h1>
         <h2 class="subtitle">Conozca el contenido más popular</h2>
-        <CarruselBiblioteca bookSource="popularBooks" carouselId="carousel-popular" :showSlider="false"/>
+        <CarruselBiblioteca bookSource="industrialBooks" carouselId="carousel-popular" :showSlider="false"/>
     </div>
     <div class="container">
         <h1 class="title">SISTEMAS COMPUTACIONALES</h1>
         <h2 class="subtitle">Lo nuevo en Aurora</h2>
-        <CarruselBiblioteca bookSource="newBooks" carouselId="carousel-new" :showSlider="false"/>
+        <CarruselBiblioteca bookSource="systemsBooks" carouselId="carousel-new" :showSlider="false"/>
     </div>
 
     <div class="container">
         <h1 class="title">ADMINISTRACION</h1>
         <h2 class="subtitle">Contenido recomendado del mes</h2>
-        <CarruselBiblioteca bookSource="popularBooksMonth" carouselId="carousel-month" :showSlider="false"/>
+        <CarruselBiblioteca bookSource="administrativeBooks" carouselId="carousel-month" :showSlider="false"/>
     </div>
     <div class="container">
         <h1 class="title">AMANTES DE LOS LIBROS</h1>
         <h2 class="subtitle">Novelas variadas, para todo tipo</h2>
-        <CarruselBiblioteca bookSource="novels" carouselId="carousel-novels" :showSlider="false"/>
+        <CarruselBiblioteca bookSource="bookLovers" carouselId="carousel-novels" :showSlider="false"/>
     </div>
     <div class="container text-center">
-        <img src="@/assets/img/library/bufalito.png" class="img-bufalito" alt="Bufalo chiquito">
+        <img src="@/assets/img/library/bufalito2.png" class="img-bufalito" alt="Bufalo chiquito">
         <div class="text mt-3 mb-5">
             <p >
                 ¿Sigues buscando algo que ver? 
@@ -87,7 +87,7 @@ import SearchBar from '@/components/SearchBar.vue';
 }
 
 .img-bufalito{
-    width: 273px;
+    width: 182px;
     height: 182px;
 }
 .text {
