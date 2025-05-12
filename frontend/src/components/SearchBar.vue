@@ -135,7 +135,7 @@ const handleClickOutside = (event) => {
 .search-container {
     position: relative;
     width: 100%;
-    z-index: 1000;
+    z-index: 3;
 }
 
 .search-results {
