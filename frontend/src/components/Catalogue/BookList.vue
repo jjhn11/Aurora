@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import BookCard from '../Library/BookCard.vue';
 import Modal from '../Modal.vue';
@@ -12,26 +12,38 @@ const props = defineProps({
   }
 });
 
+// Add at the start of the component
+const loading = ref(true);
+
+onMounted(async () => {
+  try {
+    // Fetch books if needed
+    await store.dispatch('books/fetchBookDetails');
+  } catch (error) {
+    console.error('Error loading books:', error);
+  } finally {
+    loading.value = false;
+  }
+});
+
 // Store
 const store = useStore();
 
-// arreglo que combina ambas categorias
+// Get all books from bookDetails state
 const books = computed(() => {
-  return [
-    ...store.state.books.popularBooks,
-    ...store.state.books.newBooks
-  ];
+  const bookDetails = store.state.books.bookDetails;
+  return Object.values(bookDetails);
 });
 
-
-// Filtrar libros por categoría si se especifica
+// Filter books by category if specified
 const filteredBooks = computed(() => {
   if (!props.category) return books.value;
-  return books.value.filter(book => book.category === props.category);
+  return books.value.filter(book => 
+    book.categories?.includes(props.category)
+  );
 });
 
-
-// Paginación
+// Pagination
 const currentPage = ref(1);
 const itemsPerPage = 20;
 
@@ -39,19 +51,36 @@ const totalPages = computed(() => Math.ceil(filteredBooks.value.length / itemsPe
 
 const paginatedBooks = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage;
-  return filteredBooks.value.slice(start, start + itemsPerPage);
+  // Create a new array, reverse it, then slice for pagination
+  return [...filteredBooks.value]
+    .reverse()
+    .slice(start, start + itemsPerPage);
 });
 
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+};
+
 const prevPage = () => {
-  if (currentPage.value > 1) currentPage.value--;
+  if (currentPage.value > 1) {
+    currentPage.value--;
+    scrollToTop();
+  }
 };
 
 const nextPage = () => {
-  if (currentPage.value < totalPages.value) currentPage.value++;
+  if (currentPage.value < totalPages.value) {
+    currentPage.value++;
+    scrollToTop();
+  }
 };
 
 const goToPage = (page) => {
   currentPage.value = page;
+  scrollToTop();
 };
 
 // Modal
@@ -71,7 +100,13 @@ const closeModal = () => {
 
 <template>
   <div class="container py-4">
-    <div class="row">
+    <div v-if="loading" class="text-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+    
+    <div v-else class="row">
       <div
         class="book-column custom-book-style"
         v-for="book in paginatedBooks"
@@ -115,8 +150,6 @@ const closeModal = () => {
     <Modal :isOpen="isModalOpen" :event="selectedBook" @close="closeModal" />
   </div>
 </template>
-
-  
 
 <style scoped>
 .book-column {
