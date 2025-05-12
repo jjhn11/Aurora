@@ -1,19 +1,12 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useStore } from 'vuex';
 import CreateEventForm from '@/components/community/CreateEventForm.vue';
 import EventCard from '@/components/community/EventCard.vue';
+import { onMounted, ref } from 'vue';
+import { useStore } from 'vuex';
 
 import FLECHA from '@/assets/img/community/FLECHA EVENTO.png';
 
 import NOEVE from '@/assets/img/community/IMAGEN SIN EVENTOS.png';
-import PIANO from '@/assets/img/community/icons/cultural/ICONO PIANO.png'
-import INTER from '@/assets/img/community/icons/cultural/ICONO INTERNACIONALES.png'
-import DANZA from '@/assets/img/community/icons/cultural/ICONO DANZA.png'
-import MUSICA from '@/assets/img/community/icons/cultural/ICONO MUSICA.png'
-import DEBATE from '@/assets/img/community/icons/cultural/ICONO DEBATE.png'
-import ARTES from '@/assets/img/community/icons/cultural/ICONO ARTES PLASTICAS.png'
-import OTROSC from '@/assets/img/community/icons/cultural/ICONO OTROS C.png'
 
 
 const store = useStore();
@@ -103,68 +96,9 @@ const handleEventCreatedSuccess = async () => {
     }
 };
 
-    const recreationalActivities = [
-        'Danza',
-        'Celebraciones Internacionales',
-        'Musica',
-        'Artes Plasticas',
-        'Piano',
-        'Debate'
-    ];
+  
 
-    const recreationalLocations = [
-        'Aula Extraescolares',
-        'Jardin Edificio U',
-        'Biblioteca Planta Alta',
-        'Biblioteca Planta Baja',
-        'Plaza C-Bufalo',
-        'Plaza Bicentenario',
-        'Audiovisual Edificio U Planta Alta',
-        'Audiovisual Edificio U Planta Baja',
-        'Audiovisual Edificio D',
-        'Cubiculo de Estudio',
-        'Zona Libre',
-        'Biblioteca Sala Circulos de Lectura',
-        'Cancha Extraescolares'
-    ];
-
-const recreationalIcons = [
-    {
-        title: 'PIANO',
-        image: PIANO,
-        bgColor: 'rgba(255, 196, 156, 1)'
-    },
-    {
-        title: 'INTERNACIONAL',
-        image: INTER,
-        bgColor: 'rgba(239, 230, 224, 1)'
-    },
-    {
-        title: 'DANZA',
-        image: DANZA,
-        bgColor: 'rgba(150, 199, 135, 1)'
-    },
-    {
-        title: 'MUSICA',
-        image: MUSICA,
-        bgColor: 'rgba(124, 147, 207, 1)'
-    },
-    {
-        title: 'DEBATE',
-        image: DEBATE,
-        bgColor: 'rgba(255, 150, 190, 1)'
-    },
-    {
-        title: 'ARTES PLASTICAS',
-        image: ARTES,
-        bgColor: 'rgba(193, 15, 2, 1)'
-    },
-    {
-        title: 'OTROS',
-        image: OTROSC,
-        bgColor: 'rgba(173, 207, 255, 1)'
-    },
-];
+    
 
 </script>
 

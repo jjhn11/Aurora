@@ -41,11 +41,14 @@ const categoryId = computed(() => {
 
 // Eventos filtrados por categoría pasada como prop
 const filteredEvents = computed(() => {
+  let events = [];
   if (categoryId.value) {
-    return store.getters['events/getEventsByCategory'](categoryId.value);
+    events = store.getters['events/getEventsByCategory'](categoryId.value);
   } else {
-    return store.getters['events/getAllEvents'];
+    events = store.getters['events/getAllEvents'];
   }
+  // Filtrar solo eventos con Is_coming = 1
+  return events.filter(event => event.Is_coming === 1);
 });
 
 //Paginación
@@ -120,7 +123,7 @@ const closeModal = () => {
             :key="event.Id_event"
             :id="event.Id_event"
             :date="event.date"
-            :image="'/src/assets/img/events/sports-event-2.jpg'"
+             :image="event.Image_url"
             :title="event.Title"
             :description="event.Description"
             @click="openModal(event)"

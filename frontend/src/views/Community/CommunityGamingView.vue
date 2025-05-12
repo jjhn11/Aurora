@@ -1,31 +1,14 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useStore } from 'vuex';
 import CreateEventForm from '@/components/community/CreateEventForm.vue';
 import EventCard from '@/components/community/EventCard.vue';
+import { onMounted, ref } from 'vue';
+import { useStore } from 'vuex';
 
 import FLECHA from '@/assets/img/community/FLECHA EVENTO.png';
 
 // Importación de iconos para videojuegos
-import I1LA from '@/assets/img/community/icons/recreational/ICONO LECTURA.png' // Usa iconos recreativos temporalmente
-import I2BA from '@/assets/img/community/icons/recreational/ICONO BANDA.png'
-import I3EA from '@/assets/img/community/icons/recreational/ICONO ESCOLTA.png'
-import I4TS from '@/assets/img/community/icons/recreational/ICONO TUTORIAS.png'
-import I5AZ from '@/assets/img/community/icons/recreational/ICONO AJEDREZ.png'
 
 import NOEVE from '@/assets/img/community/IMAGEN SIN EVENTOS.png';
-import ACCION from '@/assets/img/community/icons/videogames/ICONO ACCION.png'
-import AVENTURA from '@/assets/img/community/icons/videogames/ICONO AVENTURA.png'
-import ROL from '@/assets/img/community/icons/videogames/ICONO ROL.png'
-import ESTRATEGIA from '@/assets/img/community/icons/videogames/ICONO ESTRATEGIA.png'
-import SIMULACION from '@/assets/img/community/icons/videogames/ICONO SIMULACION.png'
-import DEPORTE from '@/assets/img/community/icons/videogames/ICONO DEPORTE.png'
-import CARRERA from '@/assets/img/community/icons/videogames/ICONO CARRERA.png'
-import PUZZLE from '@/assets/img/community/icons/videogames/ICONO PUZZLE.png'
-import TERROR from '@/assets/img/community/icons/videogames/ICONO TERROR.png'
-import MUSICA from '@/assets/img/community/icons/videogames/ICONO MUSICA.png'
-import CHICAS from '@/assets/img/community/icons/videogames 2/ICONO CHICAS.png'
-import OTROSV from '@/assets/img/community/icons/videogames/ICONO OTROS V.png'
     
 const store = useStore();
 const showForm = ref(false);
@@ -113,68 +96,7 @@ const handleEventCreatedSuccess = async () => {
     }
 };
 
-    const recreationalIcons = [
-        {
-            title: 'ACCION',
-            image: ACCION,
-            bgColor: 'rgba(225, 50, 50, 1)'
-        },
-        {
-            title: 'AVENTURA',
-            image: AVENTURA,
-            bgColor: 'rgba(115, 225, 255, 1)'
-        },
-        {
-            title: 'ROL (RPG)',
-            image: ROL,
-            bgColor: 'rgba(215, 155, 125, 1)'
-        },
-        {
-            title: 'ESTRATEGIA',
-            image: ESTRATEGIA,
-            bgColor: 'rgba(115, 255, 110, 1)'
-        },
-        {
-            title: 'SIMULACION',
-            image: SIMULACION,
-            bgColor: 'rgba(255, 100, 55, 1)'
-        },
-        {
-            title: 'DEPORTES',
-            image: DEPORTE,
-            bgColor: 'rgba(210, 210, 210, 1)'
-        },
-        {
-            title: 'CARRERAS',
-            image: CARRERA,
-            bgColor: 'rgba(255, 200, 50, 1)'
-        },
-        {
-            title: 'PUZZLES',
-            image: PUZZLE,
-            bgColor: 'rgba(255, 115, 160, 1)'
-        },
-        {
-            title: 'TERROR',
-            image: TERROR,
-            bgColor: 'rgba(15, 15, 15, 1)'
-        },
-        {
-            title: 'MUSICA Y RITMO',
-            image: MUSICA,
-            bgColor: 'rgba(160, 120, 190, 1)'
-        },
-        {
-            title: 'CHICAS',
-            image: CHICAS,
-            bgColor: 'rgba(254, 187, 205, 1)'
-        },
-        {
-            title: 'OTROS',
-            image: OTROSV,
-            bgColor: 'rgba(241, 241, 241, 1)'
-        },
-    ];
+    
 
 </script>
 

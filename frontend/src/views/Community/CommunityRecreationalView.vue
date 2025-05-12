@@ -1,23 +1,12 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useStore } from 'vuex';
 import CreateEventForm from '@/components/community/CreateEventForm.vue';
 import EventCard from '@/components/community/EventCard.vue';
+import { onMounted, ref } from 'vue';
+import { useStore } from 'vuex';
 
 import FLECHA from '@/assets/img/community/FLECHA EVENTO.png';
 
 import NOEVE from '@/assets/img/community/IMAGEN SIN EVENTOS.png';
-import LECTURA from '@/assets/img/community/icons/recreational/ICONO LECTURA.png';
-import BANDA from '@/assets/img/community/icons/recreational/ICONO BANDA.png';
-import ESCOLTA from '@/assets/img/community/icons/recreational/ICONO ESCOLTA.png';
-import TUTORIAS from '@/assets/img/community/icons/recreational/ICONO TUTORIAS.png';
-import AJEDREZ from '@/assets/img/community/icons/recreational/ICONO AJEDREZ.png';
-import RALLYS from '@/assets/img/community/icons/recreational/ICONO RALLYS.png';
-import FREESTYLE from '@/assets/img/community/icons/recreational/ICONO FREESTYLE.png';
-import JUEGOM from '@/assets/img/community/icons/recreational/ICONO JUEGOS DE MESA.png';
-import BAZAR from '@/assets/img/community/icons/recreational/ICONO BAZAR.png';
-import CONCURSO from '@/assets/img/community/icons/recreational/ICONO CONCURSO.png';
-import OTROSR from '@/assets/img/community/icons/recreational/ICONO OTROS R.png';
 
 const store = useStore();
 const showForm = ref(false);
@@ -106,63 +95,7 @@ const handleEventCreatedSuccess = async () => {
     }
 };
 
-    const recreationalIcons = [
-        {
-            title: 'LECTURA',
-            image: LECTURA,
-            bgColor: 'rgba(248, 237, 156, 1)'
-        },
-        {
-            title: 'BANDA DE GUERRA',
-            image: BANDA,
-            bgColor: 'rgba(197, 237, 232, 1)'
-        },
-        {
-            title: 'ESCOLTA',
-            image: ESCOLTA,
-            bgColor: 'rgba(255, 175, 146, 1)'
-        },
-        {
-            title: 'TUTORÍAS',
-            image: TUTORIAS,
-            bgColor: 'rgba(189, 238, 166, 1)'
-        },
-        {
-            title: 'AJEDREZ',
-            image: AJEDREZ,
-            bgColor: 'rgba(245, 91, 75, 1)'
-        },
-        {
-            title: 'RALLYS',
-            image: RALLYS,
-            bgColor: 'rgba(109, 206, 255, 1)'
-        },
-        {
-            title: 'FREESTYLE / RAP',
-            image: FREESTYLE,
-            bgColor: 'rgba(97, 255, 210, 1)'
-        },
-        {
-            title: 'JUEGOS DE MESA',
-            image: JUEGOM,
-            bgColor: 'rgba(89, 44, 132, 1)'
-        },
-        {
-            title: 'BAZAR',
-            image: BAZAR,
-            bgColor: 'rgba(187, 209, 209, 1)'
-        },
-        {
-            title: 'CONCURSO',
-            image: CONCURSO,
-            bgColor: 'rgba(255, 167, 80, 1)'
-        },
-        {
-            title: 'OTROS',
-            image: OTROSR,
-            bgColor: 'rgba(215, 238, 113, 1)'
-        },
-    ];
+   
 </script>
 
 <template>
