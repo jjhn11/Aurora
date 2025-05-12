@@ -4,8 +4,8 @@ import libroMarxismo from '@/assets/img/library/LibroMarxismo.jpg';
 import libroPsicologia from '@/assets/img/library/LibroPsicologia.jpg';
 
 //rutas de importacin de imagenes de libros
-import GuiaDesarrolloProductos from '@C:/assets/img/library/CoverImage/42- Guía para el desarrollo de productos un enfoque práctico.jpg';
-import controlEstadisticoCalidad from '@/assets/img/library/CoverImage/1-Control estadístico de la calidad.jpg';
+import GuiaDesarrolloProductos from '@/assets/img/library/CoverImage/42- Guía para el desarrollo de productos un enfoque práctico.jpg';
+import controlEstadisticoCalidad from '@/assets/img/library/CoverImage/1- Control estadístico de la calidad.jpg';
 import controlCalidadVaughn from '@/assets/img/library/CoverImage/2- Control de calidad.jpg';
 import procesosManufactura from '@/assets/img/library/CoverImage/3- Procesos de manufactura.jpg';
 import coreJava from '@/assets/img/library/CoverImage/16- Core Java 2 fundamentos.jpg';
@@ -16,7 +16,7 @@ import metodosAlgebra from '@/assets/img/library/CoverImage/Metodos computaciona
 import emprendedorExito from '@/assets/img/library/CoverImage/El emprendedor exitoso.png';
 import comercioIndias from '@/assets/img/library/CoverImage/Comercio y navegacion.png';
 import economiaInternacional from '@/assets/img/library/CoverImage/economia_internacional.jpg';
-import introduccionContaduria from '@/assets/img/library/CoverImage/Introduccion a la contaduria.jpg';
+import introduccionContaduria from '@/assets/img/library/CoverImage/Introduccion a la Contaduria.jpg';
 import principiosContabilidad from '@/assets/img/library/CoverImage/principios_contabilidad.jpg';
 import hannibal from '@/assets/img/library/CoverImage/hannibal.png';
 import bajoMismaEstrella from '@/assets/img/library/CoverImage/Bajo la misma estrella.png';
@@ -498,46 +498,314 @@ export default {
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       industrialBooks: [
         {
-          id: "9788436273298",
-          ISBN: "9788436273298",
-          Title: "Gestión de la Producción Industrial",
-          coverImage: libroBigData,
-          category: "Ingeniería Industrial",
-          author: "Manuel García Sánchez"
+          id: "9686863836",
+          ISBN: "9686863836",
+          Title: "Guía para el desarrollo de productos: un enfoque práctico",
+          coverImage: GuiaDesarrolloProductos,
+          author: "Alejandro Eugenio Lerma Kirchner",
+          authors: ["Alejandro Eugenio Lerma Kirchner"],
+          publisher: "Ediciones Paraninfo",
+          year: "2005",
+          pages: "208",
+          binding: "Tapa Blanda",
+          edition: "3",
+          categories: ["Ingeniería industrial", "Desarrollo de productos"],
+          format: "Libro Físico"
+        },
+        {
+          id: "9701506626",
+          ISBN: "970-15-0662-6",
+          Title: "Control estadístico de la calidad",
+          coverImage: controlEstadisticoCalidad,
+          author: "Vicente Carot Alonso",
+          authors: ["Vicente Carot Alonso"],
+          publisher: "Alfaomega",
+          year: "2001",
+          pages: "614",
+          binding: "Tapa Dura",
+          edition: "1",
+          categories: ["Ingeniería", "Control de calidad", "Estadística aplicada"],
+          format: "Libro Físico"
+        },
+        {
+          id: "9681813154",
+          ISBN: "9681813154",
+          Title: "Control de calidad",
+          coverImage: controlCalidadVaughn,
+          author: "Richard C. Vaughn",
+          authors: ["Richard C. Vaughn"],
+          publisher: "Limusa",
+          year: "2001",
+          pages: "293",
+          binding: "Tapa Blanda",
+          edition: "1",
+          categories: ["Ingeniería", "Gestión de calidad"],
+          format: "Libro Físico"
+        },
+        {
+          id: "9701061284",
+          ISBN: "9701061284",
+          Title: "Procesos de manufactura",
+          coverImage: procesosManufactura,
+          author: "H.S. Bawa",
+          authors: ["H.S. Bawa"],
+          publisher: "McGraw-Hill",
+          year: "2007",
+          pages: "597",
+          binding: "Tapa Dura",
+          edition: "1",
+          categories: ["Ingeniería", "Manufactura"],
+          format: "Libro Físico"
         }
       ],
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       systemsBooks: [
         {
-          id: "9788441541332",
-          ISBN: "9788441541332",
-          Title: "Sistemas Distribuidos: Conceptos y Diseño",
-          coverImage: libroBigData,
-          category: "Sistemas",
-          author: "George Coulouris"
-        }
+          id: "8483223104",
+          ISBN: "8483223104",
+          Title: "Core Java 2: fundamentos",
+          coverImage: coreJava,
+          author: "Cay S. Horstmann, Gary Cornell",
+          authors: ["Cay S. Horstmann", "Gary Cornell"],
+          publisher: "Pearson",
+          year: "2006",
+          pages: "1060",
+          binding: "Tapa Blanda",
+          edition: "7",
+          categories: ["Programación", "Java"],
+          format: "Libro Físico",
+          synopsis: "Guía detallada de programación en Java, desde sintaxis hasta estructuras de datos y POO."
+        },
+        {
+          id: "764576593",
+          ISBN: "764576593",
+          Title: "JavaScript for Dummies",
+          coverImage: javascriptDummies,
+          author: "Emily Vander Veer",
+          authors: ["Emily Vander Veer"],
+          publisher: "Wiley",
+          year: "2005",
+          pages: "358",
+          binding: "Tapa Blanda",
+          edition: "4",
+          categories: ["Programación", "JavaScript"],
+          format: "Libro Físico",
+          synopsis: "Introducción práctica a JavaScript con ejemplos para desarrollo web."
+        },
+        {
+          id: "8478290672",
+          ISBN: "8478290672",
+          Title: "Sistemas operativos",
+          coverImage: sistemasOperativos,
+          author: "Gary Nutt",
+          authors: ["Gary Nutt"],
+          publisher: "Pearson",
+          year: "2004",
+          pages: "832",
+          binding: "Tapa Dura",
+          edition: "3",
+          categories: ["Informática", "Sistemas operativos"],
+          format: "Libro Físico",
+          synopsis: "Principios de diseño y gestión de sistemas operativos, incluyendo seguridad y procesos."
+        },
+        {
+          id: "968880004X",
+          ISBN: "968880004X",
+          Title: "COBOL estructurado",
+          coverImage: cobolEstructurado,
+          author: "Robert T. Grauer",
+          authors: ["Robert T. Grauer"],
+          publisher: "Prentice-Hall",
+          year: "1983",
+          pages: "397",
+          binding: "Tapa Blanda",
+          edition: "1",
+          categories: ["Programación", "COBOL"],
+          format: "Libro Físico",
+          synopsis: "Guía para programación estructurada en COBOL con ejemplos prácticos."
+        },
+        {
+          id: "8437604947",
+          ISBN: "8437604947",
+          Title: "Métodos Computacionales en Álgebra para Informáticos: Matemática Discreta y Lógica",
+          coverImage: metodosAlgebra,
+          author: "Manuel Alcázar López",
+          authors: ["Manuel Alcázar López"],
+          publisher: "Ediciones Paraninfo",
+          year: "2010",
+          pages: "350",
+          binding: "Tapa Blanda",
+          edition: "1",
+          categories: ["Matemáticas discretas", "Lógica computacional"],
+          format: "Libro Físico",
+          synopsis: "Integra álgebra computacional con aplicaciones en informática, incluyendo problemas resueltos y algoritmos para matemática discreta."
+        },
       ],
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       administrativeBooks: [
         {
-          id: "9788416583569",
-          ISBN: "9788416583569",
-          Title: "Administración de Empresas: Un Enfoque Moderno",
-          coverImage: libroBigData,
-          category: "Administración",
-          author: "María Pérez Gómez"
-        }
+          id: "970105914X",
+          ISBN: "970105914X",
+          Title: "El emprendedor de éxito",
+          coverImage: emprendedorExito,
+          author: "Rafael E. Alcaraz Rodríguez",
+          authors: ["Rafael E. Alcaraz Rodríguez"],
+          publisher: "McGraw-Hill",
+          year: "2006",
+          pages: "312",
+          binding: "Tapa Blanda",
+          edition: "3",
+          categories: ["Emprendimiento", "Plan de negocios"],
+          format: "Libro Físico",
+          synopsis: "Guía práctica para estructurar planes de negocios y materializar ideas empresariales con enfoque estratégico."
+        },
+        {
+          id: "9681601025",
+          ISBN: "9681601025",
+          Title: "Comercio y navegación entre España y las Indias",
+          coverImage: comercioIndias,
+          author: "Clarence H. Haring",
+          authors: ["Clarence H. Haring"],
+          publisher: "Fondo de Cultura Económica",
+          year: "1979",
+          pages: "460",
+          binding: "Tapa Dura",
+          edition: "1",
+          categories: ["Historia económica", "Comercio colonial"],
+          format: "Libro Físico",
+          synopsis: "Análisis histórico del comercio transatlántico y su impacto en la economía global durante el periodo de los Habsburgo."
+        },
+  {
+          id: "9687529660",
+          ISBN: "9687529660",
+          Title: "Economía Internacional",
+          coverImage: economiaInternacional,
+          author: "Robert J. Carbaugh",
+          authors: ["Robert J. Carbaugh"],
+          publisher: "International Thomson",
+          year: "1999",
+          pages: "499",
+          binding: "Tapa Blanda",
+          edition: "6",
+          categories: ["Economía", "Comercio internacional"],
+          format: "Libro Físico",
+          synopsis: "Teorías actualizadas de comercio y finanzas globales con casos prácticos y enfoque en problemas económicos reales."
+        },
+        { // ISBN incompleto en Excel
+          id: "2295992",
+          ISBN: "22959/92",
+          Title: "Introducción a la contaduría",
+          coverImage: introduccionContaduria,
+          author: "Oscar E. Sánchez L., María Elena Sotelo S., Martha I. Mata Parra",
+          authors: ["Oscar E. Sánchez L.", "María Elena Sotelo S.", "Martha I. Mata Parra"],
+          publisher: "Cárdenas Editor",
+          year: "1996",
+          pages: "301",
+          binding: "Tapa Blanda",
+          edition: "1",
+          categories: ["Contabilidad básica", "Finanzas"],
+          format: "Libro Físico",
+          synopsis: "Fundamentos de contabilidad con ejercicios prácticos para el registro y análisis de operaciones financieras."
+        },
+        {
+          id: "9682602688",
+          ISBN: "9682602688",
+          Title: "Principios fundamentales de contabilidad",
+          coverImage: principiosContabilidad,
+          author: "William W. Pyle, John Arch White, Kermit D. Larson",
+          authors: ["William W. Pyle", "John Arch White", "Kermit D. Larson"],
+          publisher: "CECSA",
+          year: "1998",
+          pages: "1117",
+          binding: "Tapa Dura",
+          edition: "16",
+          categories: ["Contabilidad", "Estados financieros"],
+          format: "Libro Físico",
+          synopsis: "Obra de referencia completa sobre principios contables, incluyendo gestión de activos, pasivos y costos."
+        },
       ],
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       bookLovers: [
         {
-          id: "9788415832102",
-          ISBN: "9788415832102",
-          Title: "Big Data: La Revolución de los Datos Masivos",
-          coverImage: libroBigData,
-          category: "Computación",
-          author: "Viktor Mayer-Schönberger"
-        }
+          id: "842533411X",
+          ISBN: "842533411X",
+          Title: "Hannibal",
+          coverImage: hannibal,
+          author: "Thomas Harris",
+          authors: ["Thomas Harris"],
+          publisher: "Grijalbo",
+          year: "1999",
+          pages: "558",
+          binding: "Tapa Blanda",
+          edition: "1",
+          categories: ["Thriller", "Suspense"],
+          format: "Libro Físico",
+          synopsis: "Tercera entrega de la saga del Dr. Hannibal Lecter, explorando su vida en Italia y su relación con Clarice Starling."
+        },
+        {
+          id: "6073114233",
+          ISBN: "978-6073114233",
+          Title: "Bajo la misma estrella",
+          coverImage: bajoMismaEstrella,
+          author: "John Green",
+          authors: ["John Green"],
+          publisher: "Nube de Tinta",
+          year: "2013",
+          pages: "304",
+          binding: "Tapa Blanda",
+          edition: "10",
+          categories: ["Ficción juvenil", "Drama"],
+          format: "Libro Físico",
+          synopsis: "Conmovedora historia de amor entre Hazel y Augustus, dos adolescentes que enfrentan el cáncer con humor y valentía."
+        },
+        {
+          id: "8497645077",
+          ISBN: "9788497645079",
+          Title: "La vuelta al mundo en 80 días",
+          coverImage: vueltaMundo80Dias,
+          author: "Julio Verne",
+          authors: ["Julio Verne"],
+          publisher: "Alianza Editorial",
+          year: "2010",
+          pages: "320",
+          binding: "Tapa Blanda",
+          edition: "1",
+          categories: ["Aventuras", "Clásicos"],
+          format: "Libro Físico",
+          synopsis: "Aventura épica de Phileas Fogg y su mayordomo Passepartout en su intento por circunnavegar el globo en 80 días."
+        },
+        {
+          id: "6070712739",
+          ISBN: "978-6070712739",
+          Title: "El señor de los anillos: Las dos torres",
+          coverImage: dosTorres,
+          author: "J.R.R. Tolkien",
+          authors: ["J.R.R. Tolkien"],
+          publisher: "Planeta",
+          year: "2012",
+          pages: "336",
+          binding: "Tapa Dura",
+          edition: "19",
+          categories: ["Fantasía", "Aventura"],
+          format: "Libro Físico",
+          synopsis: "Segunda parte de la trilogía, donde la Comunidad del Anillo se separa y enfrenta nuevos peligros en la Tierra Media."
+        },
+        {
+          id: "9707809567",
+          ISBN: "978-9707809567",
+          Title: "La historia de Lisey",
+          coverImage: historiaLisey,
+          author: "Stephen King",
+          authors: ["Stephen King"],
+          publisher: "Plaza & Janés",
+          year: "2007",
+          pages: "599",
+          binding: "Tapa Blanda",
+          edition: "1",
+          categories: ["Terror psicológico", "Drama"],
+          format: "Libro Físico",
+          synopsis: "Lisey descubre secretos oscuros de su difunto esposo mientras revisa sus pertenencias, enfrentando traumas del pasado."
+        },
       ],
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       bookDetails: {
