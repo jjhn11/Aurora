@@ -229,7 +229,7 @@ export default {
               case 'deportes':
                 bgColor = "#5C77BA"; // Azul
                 break;
-              case 'recreativa':
+              case 'recreativas':
               case 'recreacional':
                 bgColor = "#6DCEff"; // Celeste
                 break;
