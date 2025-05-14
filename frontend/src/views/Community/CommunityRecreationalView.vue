@@ -36,7 +36,7 @@ onMounted(async () => {
             location: activity.location_name,
             category: "Recreativo", // Texto mostrado
             // Usar los metadatos para el ícono y color
-            imageSrc: activity._metadata?.iconPath || "/src/assets/img/community/icons/recreational/ICONO LECTURA.png", 
+            imageSrc: activity._metadata?.iconPath, 
             backgroundColor: activity._metadata?.backgroundColor || "#6DCEff",
             date: activity.Event_date
         }));
@@ -83,7 +83,7 @@ const handleEventCreatedSuccess = async () => {
             endTime: activity.End_time,
             location: activity.location_name,
             category: "Recreativas", // Texto mostrado
-            imageSrc: activity._metadata?.iconPath || "/src/assets/img/community/icons/recreational/ICONO LECTURA.png", 
+            imageSrc: activity._metadata?.iconPath, 
             backgroundColor: activity._metadata?.backgroundColor || "#6DCEff",
             date: activity.Event_date
         }));
