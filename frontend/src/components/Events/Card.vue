@@ -88,6 +88,7 @@ export default {
 .card{
     background-color: #F8F7F7;
     width: 100%;
+    max-height: 500px;
     height: auto;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -109,12 +110,12 @@ export default {
 }
 .card-title {
     margin-bottom: 5px;
-    font-weight: 400;
-    font-size: 26px;
+    font-weight: 600;
+    font-size: 25px;
     width: 100%;
     height: auto;
-    font-family: "freeman";
-    text-align:center;
+    font-family: "Josefin Sans";
+    text-align: center;
 }    
 .card-description {
     font-weight: 400;
@@ -122,7 +123,7 @@ export default {
     padding-left: 5%;
     padding-right: 5%;
     width: 100%;
-    height: 124px;
+    height: auto;
     color: #0047FF;
     text-align: justify;
     font-family: "Nunito sans";

@@ -3,9 +3,9 @@ import { ref, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import Card from './Card.vue';
 import Modal from '../Modal.vue';
+
 // Setup reactive state
 const activeSlide = ref(0);
-const totalSlides = ref(3);
 const showSlider = ref(false);
 const store = useStore();
 
@@ -24,6 +24,9 @@ const culturalEvents = computed(() =>
   store.getters['events/getEventsByCategory'](culturalCategoryId)?.filter(event => event.Is_coming === 1) || []
 );
 
+// Calcular el número total de slides necesarios
+const totalSlides = computed(() => Math.ceil(culturalEvents.value.length / 3));
+
 // Setup carousel events handling
 onMounted(() => {
   const carousel = document.querySelector('#carrusel1');
@@ -32,8 +35,15 @@ onMounted(() => {
       activeSlide.value = e.to;
     });
   }
-  // console.log(JSON.stringify(culturalEvents.value));
-  //  console.log(JSON.stringify(culturalEvents));
+});
+
+// Divide eventos en grupos de 3 para cada slide
+const eventGroups = computed(() => {
+  const groups = [];
+  for (let i = 0; i < culturalEvents.value.length; i += 3) {
+    groups.push(culturalEvents.value.slice(i, i + 3));
+  }
+  return groups;
 });
 
 // Estado del Modal
@@ -49,47 +59,31 @@ const closeModal = () => {
   selectedEvent.value = {};
   isModalOpen.value = false;
 };
-
 </script>
 
 <template>
     <div class="contenedor-carrusel container-fluid d-flex justify-content-center px-0">
-        <!-- Botones laterales (visibles en pantallas grandes) -->
-        <button class="btn btn-link carousel-control-prev-bottom d-none d-md-block" type="button" data-bs-target="#carrusel1" data-bs-slide="prev">
-            <i class="bi bi-chevron-left fs-4"></i>
+        <!-- Botones laterales (pantallas grandes) -->
+        <button
+          class="btn btn-link carousel-control-prev-bottom d-none d-md-block"
+          :class="{ 'invisible': totalSlides <= 1 }"
+          type="button"
+          data-bs-target="#carrusel1"
+          data-bs-slide="prev"
+        >
+          <i class="bi bi-chevron-left fs-4"></i>
         </button>
-        <div id="carrusel1" class="carousel slide">
+        <div id="carrusel1" class="carousel slide" data-bs-touch="true">
             <div class="carousel-inner" v-if="culturalEvents.length > 0">
-                <div class="carousel-item active">
+                <div 
+                  class="carousel-item"
+                  :class="{ 'active': index === 0 }"
+                  v-for="(group, index) in eventGroups"
+                  :key="index"
+                >
                     <div class="slide-row">
                         <Card
-                          v-for="event in culturalEvents.slice(0, 3)"
-                          :key="event.Id_event"
-                          :id="event.Id_event"
-                          :image="event.Image_url"
-                          :title="event.Title"
-                          :description="event.Description"
-                          @click="openModal(event)"
-                        />
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="slide-row">
-                        <Card
-                          v-for="event in culturalEvents.slice(3, 6)"
-                          :key="event.Id_event"
-                          :id="event.Id_event"
-                          :image="event.Image_url"
-                          :title="event.Title"
-                          :description="event.Description"
-                          @click="openModal(event)"
-                        />
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="slide-row">
-                        <Card
-                          v-for="event in culturalEvents.slice(6, 9)"
+                          v-for="event in group"
                           :key="event.Id_event"
                           :id="event.Id_event"
                           :image="event.Image_url"
@@ -104,18 +98,25 @@ const closeModal = () => {
                 <p>No hay eventos culturales disponibles</p>
             </div>
         </div>
-        <button class="btn btn-link carousel-control-next-bottom d-none d-md-block" type="button" data-bs-target="#carrusel1" data-bs-slide="next">
-            <i class="bi bi-chevron-right fs-4"></i>
+        <button
+          class="btn btn-link carousel-control-next-bottom d-none d-md-block"
+          :class="{ 'invisible': totalSlides <= 1 }"
+          type="button"
+          data-bs-target="#carrusel1"
+          data-bs-slide="next"
+        >
+          <i class="bi bi-chevron-right fs-4"></i>
         </button>
     </div>
     
-    <!-- Botones inferiores (solo visibles en móviles) -->
-    <div class="text-center mobile-controls">
-        <button class="btn btn-outline-primary mx-2" type="button" data-bs-target="#carrusel1" data-bs-slide="prev">
-            <i class="bi bi-chevron-left"></i>
-        </button>
-        <button class="btn btn-outline-primary mx-2" type="button" data-bs-target="#carrusel1" data-bs-slide="next"><i class="bi bi-chevron-right"></i>
-        </button>
+    <!-- Botones móviles (también modificados) -->
+    <div class="text-center mobile-controls" :class="{ 'invisible': totalSlides <= 1 }">
+      <button class="btn btn-outline-primary mx-2" type="button" data-bs-target="#carrusel1" data-bs-slide="prev">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      <button class="btn btn-outline-primary mx-2" type="button" data-bs-target="#carrusel1" data-bs-slide="next">
+        <i class="bi bi-chevron-right"></i>
+      </button>
     </div>
     
     <div class="custom-slider-bar" v-if="showSlider">
@@ -140,7 +141,6 @@ const closeModal = () => {
 body {
   overflow-x: hidden;
 }
-
 
 .mobile-controls button {
   min-width: 10px;
@@ -177,11 +177,24 @@ body {
 
 .carousel {
     position: relative;
+    padding-bottom: 10px;
 }
-
+.carousel-item .row {
+    flex-wrap: nowrap;
+    max-width: 1600px;
+    justify-content: center;
+    margin: 15px auto;
+}
 .carousel-control-prev,
 .carousel-control-next {
     display: none;
+}
+
+.carousel-control-prev-bottom.invisible,
+.carousel-control-next-bottom.invisible {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* Estilos para los botones en móvil */

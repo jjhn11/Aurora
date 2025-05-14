@@ -74,7 +74,7 @@ const props = defineProps({
 }
 
 .hero-title {
-  font-family: 'Playfair Display';
+  font-family: "Josefin Sans";
   font-weight: 700;
   font-size: 6rem;
   color: white;
@@ -88,7 +88,6 @@ const props = defineProps({
 }  
 @media (max-width: 1076px) {
   .hero-title {
-  font-family: 'Playfair Display';
   font-weight: 700;
   font-size: 50px;
   color: white;

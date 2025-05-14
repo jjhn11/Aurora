@@ -6,7 +6,6 @@ import Modal from '../Modal.vue';
 
 // Setup reactive state
 const activeSlide = ref(0);
-const totalSlides = ref(3);
 const showSlider = ref(false);
 const store = useStore();
 
@@ -25,6 +24,9 @@ const sportsEvents = computed(() =>
   store.getters['events/getEventsByCategory'](sportsCategoryId)?.filter(event => event.Is_coming === 1) || []
 );
 
+// Calcular el número total de slides necesarios
+const totalSlides = computed(() => Math.ceil(sportsEvents.value.length / 3));
+
 // Setup carousel events handling
 onMounted(() => {
   const carousel = document.querySelector('#carrusel3');
@@ -34,6 +36,16 @@ onMounted(() => {
     });
   }
 });
+
+// Divide eventos en grupos de 3 para cada slide
+const eventGroups = computed(() => {
+  const groups = [];
+  for (let i = 0; i < sportsEvents.value.length; i += 3) {
+    groups.push(sportsEvents.value.slice(i, i + 3));
+  }
+  return groups;
+});
+
 // Modal
 const selectedEvent = ref({});
 const isModalOpen = ref(false);
@@ -51,41 +63,26 @@ const closeModal = () => {
 
 <template>
     <div class="contenedor-carrusel container-fluid d-flex justify-content-center">
-        <button class="btn btn-link carousel-control-prev-bottom" type="button" data-bs-target="#carrusel3" data-bs-slide="prev">
-            <i class="bi bi-chevron-left fs-4"></i>
+        <button
+          class="btn btn-link carousel-control-prev-bottom d-none d-md-block"
+          :class="{ 'invisible': totalSlides <= 1 }"
+          type="button"
+          data-bs-target="#carrusel3"
+          data-bs-slide="prev"
+        >
+          <i class="bi bi-chevron-left fs-4"></i>
         </button>
-        <div id="carrusel3" class="carousel slide">
+        <div id="carrusel3" class="carousel slide" data-bs-touch="true">
             <div class="carousel-inner" v-if="sportsEvents.length > 0">
-                <div class="carousel-item active">
+                <div 
+                  class="carousel-item"
+                  :class="{ 'active': index === 0 }"
+                  v-for="(group, index) in eventGroups"
+                  :key="index"
+                >
                     <div class="slide-row">
                         <Card
-                          v-for="event in sportsEvents.slice(0, 3)"
-                          :key="event.Id_event"
-                          :id="event.Id_event"
-                          :image="event.Image_url"
-                          :title="event.Title"
-                          :description="event.Description"
-                          @click="openModal(event)"
-                        />
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="slide-row">
-                        <Card
-                          v-for="event in sportsEvents.slice(3, 6)"
-                          :key="event.Id_event"
-                          :id="event.Id_event"
-                          :image="event.Image_url"
-                          :title="event.Title"
-                          :description="event.Description"
-                          @click="openModal(event)"
-                        />
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="slide-row">
-                        <Card
-                          v-for="event in sportsEvents.slice(6, 9)"
+                          v-for="event in group"
                           :key="event.Id_event"
                           :id="event.Id_event"
                           :image="event.Image_url"
@@ -100,17 +97,25 @@ const closeModal = () => {
                 <p>No hay eventos deportivos disponibles</p>
             </div>
         </div>
-        <button class="btn btn-link carousel-control-next-bottom" type="button" data-bs-target="#carrusel3" data-bs-slide="next">
-            <i class="bi bi-chevron-right fs-4"></i>
+        <button
+          class="btn btn-link carousel-control-next-bottom d-none d-md-block"
+          :class="{ 'invisible': totalSlides <= 1 }"
+          type="button"
+          data-bs-target="#carrusel3"
+          data-bs-slide="next"
+        >
+          <i class="bi bi-chevron-right fs-4"></i>
         </button>
     </div>
-    <!-- Botones inferiores (solo visibles en móviles) -->
-    <div class="text-center mobile-controls">
-        <button class="btn btn-outline-primary mx-2" type="button" data-bs-target="#carrusel3" data-bs-slide="prev">
-            <i class="bi bi-chevron-left"></i>
-        </button>
-        <button class="btn btn-outline-primary mx-2" type="button" data-bs-target="#carrusel3" data-bs-slide="next"><i class="bi bi-chevron-right"></i>
-        </button>
+    
+    <!-- Botones inferiores (móviles) -->
+    <div class="text-center mobile-controls" :class="{ 'invisible': totalSlides <= 1 }">
+      <button class="btn btn-outline-primary mx-2" type="button" data-bs-target="#carrusel3" data-bs-slide="prev">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      <button class="btn btn-outline-primary mx-2" type="button" data-bs-target="#carrusel3" data-bs-slide="next">
+        <i class="bi bi-chevron-right"></i>
+      </button>
     </div>
     
     <div class="custom-slider-bar" v-if="showSlider">
@@ -135,7 +140,6 @@ const closeModal = () => {
 body {
   overflow-x: hidden;
 }
-
 
 .mobile-controls button {
   min-width: 10px;
@@ -187,6 +191,12 @@ body {
     display: none;
 }
 
+.carousel-control-prev-bottom.invisible,
+.carousel-control-next-bottom.invisible {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
 /* Estilos para los botones en móvil */
 @media (max-width: 776px) {
     .carousel-control-prev-bottom,
