@@ -3,6 +3,7 @@ import { ref, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import BookCard from '../Library/BookCard.vue';
 import Modal from '../Modal.vue';
+import FilterBar from './FilterBar.vue';
 
 const props = defineProps({
   category: String,
@@ -35,12 +36,54 @@ const books = computed(() => {
   return Object.values(bookDetails);
 });
 
-// Filter books by category if specified
+// Add new refs for filtering
+const searchQuery = ref('');
+const selectedCategory = ref('');
+const sortOrder = ref('');
+
+// Modify filteredBooks computed property
 const filteredBooks = computed(() => {
-  if (!props.category) return books.value;
-  return books.value.filter(book => 
-    book.categories?.includes(props.category)
-  );
+  let result = books.value;
+
+  // Filter by search query
+  if (searchQuery.value) {
+    const query = searchQuery.value.toLowerCase();
+    result = result.filter(book => 
+      book.Title?.toLowerCase().includes(query) ||
+      book.author?.toLowerCase().includes(query)
+    );
+  }
+
+  // Filter by category
+  if (selectedCategory.value) {
+    result = result.filter(book => 
+      book.categories?.includes(selectedCategory.value)
+    );
+  }
+
+  // Sort books
+  if (sortOrder.value) {
+    result = [...result].sort((a, b) => {
+      switch (sortOrder.value) {
+        case 'title-asc':
+          return a.Title.localeCompare(b.Title);
+        case 'title-desc':
+          return b.Title.localeCompare(a.Title);
+        case 'author-asc':
+          return a.author.localeCompare(b.author);
+        case 'author-desc':
+          return b.author.localeCompare(a.author);
+        case 'year-desc':
+          return Number(b.year) - Number(a.year);
+        case 'year-asc':
+          return Number(a.year) - Number(b.year);
+        default:
+          return 0;
+      }
+    });
+  }
+
+  return result;
 });
 
 // Pagination
@@ -96,10 +139,33 @@ const closeModal = () => {
   selectedBook.value = {};
   isModalOpen.value = false;
 };
+
+// Filter handlers
+const handleSearch = (query) => {
+  searchQuery.value = query;
+  currentPage.value = 1; // Reset to first page
+};
+
+const handleCategoryFilter = (category) => {
+  selectedCategory.value = category;
+  currentPage.value = 1;
+};
+
+const handleSort = (sortType) => {
+  sortOrder.value = sortType;
+  currentPage.value = 1;
+};
 </script>
 
 <template>
   <div class="container py-4">
+    <!-- Add FilterBar component -->
+    <FilterBar
+      @search="handleSearch"
+      @filter-category="handleCategoryFilter"
+      @sort="handleSort"
+    />
+
     <div v-if="loading" class="text-center">
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
