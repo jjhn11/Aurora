@@ -40,7 +40,7 @@ onMounted(() => {
     } else if(window.innerWidth >= 768 && window.innerWidth <= 1068){
       itemsPerSlide.value = 3;
     }else{
-      itemsPerSlide.value = 5;
+      itemsPerSlide.value = 4;
     }
   };
 
@@ -69,7 +69,7 @@ const chunkedBooks = computed(() => {
 
 
 <template>
-  <div class="contenedor-carrusel container-fluid d-flex justify-content-center">
+  <div class="contenedor-carrusel container-fluid d-flex justify-content-start">
     <button class="custom-btn-l d-flex btn btn-link carousel-control-prev-bottom" type="button" :data-bs-target="`#${carouselId}`" data-bs-slide="prev">
       <i class="bi bi-chevron-left fs-4"></i>
     </button>
@@ -77,7 +77,7 @@ const chunkedBooks = computed(() => {
     <div :id="carouselId" class="carousel slide" data-bs-touch="true" data-bs-interval="false">
       <div class="carousel-inner">
         <div v-for="(group, index) in chunkedBooks" :key="index" class="carousel-item" :class="index === 0 ? 'active' : ''">
-          <div class="row justify-content-center">
+          <div class="row justify-content-start">
             <div v-for="book in group" :key="book.ISBN" class="custom-col col-sm-6 col-md-4">
               <BookCard
                 :id="book.ISBN"
@@ -123,7 +123,7 @@ const chunkedBooks = computed(() => {
   right: -3%;
 }
 .custom-col {
-  width: 20%;
+  width: 25%;
   padding: 0 10px;
 }
 .custom-slider-bar {
@@ -150,9 +150,11 @@ const chunkedBooks = computed(() => {
 
 .contenedor-carrusel {
   position: relative;
-  width: 100%;
+  width: 85%;
   max-width: 1300px;
   height: auto;
+  margin: 0;
+  /* margin-left: 0%; */
   margin-bottom: 30px;
   padding: 0 20px;
 }
@@ -164,7 +166,7 @@ const chunkedBooks = computed(() => {
 
 .carousel-item .row {
   flex-wrap: nowrap;
-  width: 100%;
+  width: auto;
   justify-content: center;
   margin: 15px auto;
 }
