@@ -47,454 +47,6 @@ import contabilidadAvanzada from '@/assets/img/library/CoverImage/CONADV.webp';
 export default {
     namespaced: true,
     state: {
-      popularBooks: [
-        {
-          id: "9788415832102",
-          ISBN: "9788415832102",
-          Title: "Big Data: La Revolución de los Datos Masivos",
-          coverImage: libroBigData,
-          category: "Computación",
-          author: "Viktor Mayer-Schönberger"
-        },
-        {
-          id: "9788415832102",
-          ISBN: "9788415832102",
-          Title: "Big Data: La Revolución de los Datos Masivos",
-          coverImage: libroBigData,
-          category: "Computación",
-          author: "Viktor Mayer-Schönberger"
-        },
-        {
-          id: "9788420674711",
-          ISBN: "9788420674711",
-          Title: "Breve Historia del Tiempo",
-          coverImage: libroFisicoquimica,
-          category: "Física",
-          author: "Stephen Hawking"
-        },
-        {
-          id: "9788499924212",
-          ISBN: "9788499924212",
-          Title: "Sapiens: De Animales a Dioses",
-          coverImage: libroMarxismo,
-          category: "Historia",
-          author: "Yuval Noah Harari"
-        },
-        {
-          id: "9788493464257",
-          ISBN: "9788493464257",
-          Title: "Cómo Ganar Amigos e Influir sobre las Personas",
-          coverImage: libroPsicologia,
-          category: "Ciencias Sociales",
-          author: "Dale Carnegie"
-        },
-        {
-          id: "9788483068915",
-          ISBN: "9788483068915",
-          Title: "Pensar Rápido, Pensar Despacio",
-          coverImage: libroBigData,
-          category: "Psicología",
-          author: "Daniel Kahneman"
-        },
-        {
-            id: "9788441532106",
-            ISBN: "9788441532106",
-            Title: "Clean Code: Manual de Desarrollo Ágil de Software",
-            coverImage: libroFisicoquimica,
-            category: "Computación",
-            author: "Robert C. Martin"
-        },
-        {
-            id: "9788499924212",
-            ISBN: "9788499924212",
-            Title: "Sapiens: De Animales a Dioses",
-            coverImage: libroMarxismo,
-            category: "Historia",
-            author: "Yuval Noah Harari"
-        },
-        {
-            id: "9788420674711",
-            ISBN: "9788420674711",
-            Title: "Breve Historia del Tiempo",
-            coverImage: libroFisicoquimica,
-            category: "Física",
-            author: "Stephen Hawking"
-        },
-        {
-            id: "9788415832102",
-            ISBN: "9788415832102",
-            Title: "Big Data: La Revolución de los Datos Masivos",
-            coverImage: libroBigData,
-            category: "Computación",
-            author: "Viktor Mayer-Schönberger"
-        },
-      ],
-      newBooks: [
-        {
-          id: "9788441532106",
-          ISBN: "9788441532106",
-          Title: "Clean Code: Manual de Desarrollo Ágil de Software",
-          coverImage: libroBigData,
-          category: "Computación",
-          author: "Robert C. Martin"
-        },
-        {
-          id: "9788434501621",
-          ISBN: "9788434501621",
-          Title: "Cosmos",
-          coverImage: libroBigData,
-          category: "Ciencias",
-          author: "Carl Sagan"
-        },
-        {
-          id: "9788499420047",
-          ISBN: "9788499420047",
-          Title: "Steve Jobs: La Biografía",
-          coverImage: libroBigData,
-          category: "Historia",
-          author: "Walter Isaacson"
-        },
-        {
-          id: "9786071128379",
-          ISBN: "9786071128379",
-          Title: "Outliers: Los Fuera de Serie",
-          coverImage: libroBigData,
-          category: "Ciencias Sociales",
-          author: "Malcolm Gladwell"
-        },
-        {
-          id: "9789584102881",
-          ISBN: "9789584102881",
-          Title: "Fundamentos de Programación",
-          coverImage: libroBigData,
-          category: "Computación",
-          author: "Luis Joyanes Aguilar"
-        },
-        {
-          id: "9788441532106",
-          ISBN: "9788441532106",
-          Title: "Clean Code: Manual de Desarrollo Ágil de Software",
-          coverImage: libroBigData,
-          category: "Computación",
-          author: "Robert C. Martin"
-        },
-        {
-          id: "9788434501621",
-          ISBN: "9788434501621",
-          Title: "Cosmos",
-          coverImage: libroBigData,
-          category: "Ciencias",
-          author: "Carl Sagan"
-        },
-        {
-          id: "9788499420047",
-          ISBN: "9788499420047",
-          Title: "Steve Jobs: La Biografía",
-          coverImage: libroBigData,
-          category: "Historia",
-          author: "Walter Isaacson"
-        },
-        {
-          id: "9786071128379",
-          ISBN: "9786071128379",
-          Title: "Outliers: Los Fuera de Serie",
-          coverImage: libroBigData,
-          category: "Ciencias Sociales",
-          author: "Malcolm Gladwell"
-        },
-        {
-          id: "9789584102881",
-          ISBN: "9789584102881",
-          Title: "Fundamentos de Programación",
-          coverImage: libroBigData,
-          category: "Computación",
-          author: "Luis Joyanes Aguilar"
-        },
-        {
-          id: "9788441532106",
-          ISBN: "9788441532106",
-          Title: "Clean Code: Manual de Desarrollo Ágil de Software",
-          coverImage: libroBigData,
-          category: "Computación",
-          author: "Robert C. Martin"
-        },
-        {
-          id: "9788434501621",
-          ISBN: "9788434501621",
-          Title: "Cosmos",
-          coverImage: libroBigData,
-          category: "Ciencias",
-          author: "Carl Sagan"
-        },
-        {
-          id: "9788499420047",
-          ISBN: "9788499420047",
-          Title: "Steve Jobs: La Biografía",
-          coverImage: libroBigData,
-          category: "Historia",
-          author: "Walter Isaacson"
-        },
-        {
-          id: "9786071128379",
-          ISBN: "9786071128379",
-          Title: "Outliers: Los Fuera de Serie",
-          coverImage: libroBigData,
-          category: "Ciencias Sociales",
-          author: "Malcolm Gladwell"
-        },
-        {
-          id: "9789584102881",
-          ISBN: "9789584102881",
-          Title: "Fundamentos de Programación",
-          coverImage: libroBigData,
-          category: "Computación",
-          author: "Luis Joyanes Aguilar"
-        }
-      ],
-      popularBooksMonth: [
-        {
-          id: "9788441532106",
-          ISBN: "9788441532106",
-          Title: "Clean: Manual de Desarrollo Ágil de Software",
-          coverImage: libroBigData,
-          category: "Computación",
-          author: "Robert C. Martin"
-        },
-        {
-          id: "9788434501621",
-          ISBN: "9788434501621",
-          Title: "Cosmos",
-          coverImage: libroBigData,
-          category: "Ciencias",
-          author: "Carl Sagan"
-        },
-        {
-          id: "9788499420047",
-          ISBN: "9788499420047",
-          Title: "Steve Jobs: La Biografía",
-          coverImage: libroBigData,
-          category: "Historia",
-          author: "Walter Isaacson"
-        },
-        {
-          id: "9786071128379",
-          ISBN: "9786071128379",
-          Title: "Outliers: Los Fuera de Serie",
-          coverImage: libroBigData,
-          category: "Ciencias Sociales",
-          author: "Malcolm Gladwell"
-        },
-        {
-          id: "9789584102881",
-          ISBN: "9789584102881",
-          Title: "Fundamentos de Programación",
-          coverImage: libroBigData,
-          category: "Computación",
-          author: "Luis Joyanes Aguilar"
-        },
-        {
-          id: "9788441532106",
-          ISBN: "9788441532106",
-          Title: "Clean Code: Manual de Desarrollo Ágil de Software",
-          coverImage: libroBigData,
-          category: "Computación",
-          author: "Robert C. Martin"
-        },
-        {
-          id: "9788434501621",
-          ISBN: "9788434501621",
-          Title: "Cosmos",
-          coverImage: libroBigData,
-          category: "Ciencias",
-          author: "Carl Sagan"
-        },
-        {
-          id: "9788499420047",
-          ISBN: "9788499420047",
-          Title: "Steve Jobs: La Biografía",
-          coverImage: libroBigData,
-          category: "Historia",
-          author: "Walter Isaacson"
-        },
-        {
-          id: "9786071128379",
-          ISBN: "9786071128379",
-          Title: "Outliers: Los Fuera de Serie",
-          coverImage: libroBigData,
-          category: "Ciencias Sociales",
-          author: "Malcolm Gladwell"
-        },
-        {
-          id: "9789584102881",
-          ISBN: "9789584102881",
-          Title: "Fundamentos de Programación",
-          coverImage: libroBigData,
-          category: "Computación",
-          author: "Luis Joyanes Aguilar"
-        },
-        {
-          id: "9788441532106",
-          ISBN: "9788441532106",
-          Title: "Clean Code: Manual de Desarrollo Ágil de Software",
-          coverImage: libroBigData,
-          category: "Computación",
-          author: "Robert C. Martin"
-        },
-        {
-          id: "9788434501621",
-          ISBN: "9788434501621",
-          Title: "Cosmos",
-          coverImage: libroBigData,
-          category: "Ciencias",
-          author: "Carl Sagan"
-        },
-        {
-          id: "9788499420047",
-          ISBN: "9788499420047",
-          Title: "Steve Jobs: La Biografía",
-          coverImage: libroBigData,
-          category: "Historia",
-          author: "Walter Isaacson"
-        },
-        {
-          id: "9786071128379",
-          ISBN: "9786071128379",
-          Title: "Outliers: Los Fuera de Serie",
-          coverImage: libroBigData,
-          category: "Ciencias Sociales",
-          author: "Malcolm Gladwell"
-        },
-        {
-          id: "9789584102881",
-          ISBN: "9789584102881",
-          Title: "Fundamentos de Programación",
-          coverImage: libroBigData,
-          category: "Computación",
-          author: "Luis Joyanes Aguilar"
-        }
-      ],
-      novels: [
-        {
-          id: "9788441532106",
-          ISBN: "9788441532106",
-          Title: "Clean: Manual de Desarrollo Ágil de Software",
-          coverImage: libroBigData,
-          category: "Computación",
-          author: "Robert C. Martin"
-        },
-        {
-          id: "9788434501621",
-          ISBN: "9788434501621",
-          Title: "Cosmos",
-          coverImage: libroBigData,
-          category: "Ciencias",
-          author: "Carl Sagan"
-        },
-        {
-          id: "9788499420047",
-          ISBN: "9788499420047",
-          Title: "Steve Jobs: La Biografía",
-          coverImage: libroBigData,
-          category: "Historia",
-          author: "Walter Isaacson"
-        },
-        {
-          id: "9786071128379",
-          ISBN: "9786071128379",
-          Title: "Outliers: Los Fuera de Serie",
-          coverImage: libroBigData,
-          category: "Ciencias Sociales",
-          author: "Malcolm Gladwell"
-        },
-        {
-          id: "9789584102881",
-          ISBN: "9789584102881",
-          Title: "Fundamentos de Programación",
-          coverImage: libroBigData,
-          category: "Computación",
-          author: "Luis Joyanes Aguilar"
-        },
-        {
-          id: "9788441532106",
-          ISBN: "9788441532106",
-          Title: "Clean Code: Manual de Desarrollo Ágil de Software",
-          coverImage: libroBigData,
-          category: "Computación",
-          author: "Robert C. Martin"
-        },
-        {
-          id: "9788434501621",
-          ISBN: "9788434501621",
-          Title: "Cosmos",
-          coverImage: libroBigData,
-          category: "Ciencias",
-          author: "Carl Sagan"
-        },
-        {
-          id: "9788499420047",
-          ISBN: "9788499420047",
-          Title: "Steve Jobs: La Biografía",
-          coverImage: libroBigData,
-          category: "Historia",
-          author: "Walter Isaacson"
-        },
-        {
-          id: "9786071128379",
-          ISBN: "9786071128379",
-          Title: "Outliers: Los Fuera de Serie",
-          coverImage: libroBigData,
-          category: "Ciencias Sociales",
-          author: "Malcolm Gladwell"
-        },
-        {
-          id: "9789584102881",
-          ISBN: "9789584102881",
-          Title: "Fundamentos de Programación",
-          coverImage: libroBigData,
-          category: "Computación",
-          author: "Luis Joyanes Aguilar"
-        },
-        {
-          id: "9788441532106",
-          ISBN: "9788441532106",
-          Title: "Clean Code: Manual de Desarrollo Ágil de Software",
-          coverImage: libroBigData,
-          category: "Computación",
-          author: "Robert C. Martin"
-        },
-        {
-          id: "9788434501621",
-          ISBN: "9788434501621",
-          Title: "Cosmos",
-          coverImage: libroBigData,
-          category: "Ciencias",
-          author: "Carl Sagan"
-        },
-        {
-          id: "9788499420047",
-          ISBN: "9788499420047",
-          Title: "Steve Jobs: La Biografía",
-          coverImage: libroBigData,
-          category: "Historia",
-          author: "Walter Isaacson"
-        },
-        {
-          id: "9786071128379",
-          ISBN: "9786071128379",
-          Title: "Outliers: Los Fuera de Serie",
-          coverImage: libroBigData,
-          category: "Ciencias Sociales",
-          author: "Malcolm Gladwell"
-        },
-        {
-          id: "9789584102881",
-          ISBN: "9789584102881",
-          Title: "Fundamentos de Programación",
-          coverImage: libroBigData,
-          category: "Computación",
-          author: "Luis Joyanes Aguilar"
-        }
-      ],
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       industrialBooks: [
         {
@@ -675,7 +227,7 @@ export default {
           format: "Libro Físico",
           synopsis: "Análisis histórico del comercio transatlántico y su impacto en la economía global durante el periodo de los Habsburgo."
         },
-  {
+        {
           id: "9687529660",
           ISBN: "9687529660",
           Title: "Economía Internacional",
@@ -693,7 +245,7 @@ export default {
         },
         { // ISBN incompleto en Excel
           id: "2295992",
-          ISBN: "22959/92",
+          ISBN: "2295992",
           Title: "Introducción a la contaduría",
           coverImage: introduccionContaduria,
           author: "Oscar E. Sánchez L., María Elena Sotelo S., Martha I. Mata Parra",
@@ -807,6 +359,51 @@ export default {
           synopsis: "Lisey descubre secretos oscuros de su difunto esposo mientras revisa sus pertenencias, enfrentando traumas del pasado."
         },
       ],
+      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      mechanicBooks: [
+
+      ], // Mecánica
+
+      renewableEnergyBooks: [
+
+      ], // Energías Renovables
+
+      businessManagementBooks: [
+
+      ], // Gestión Empresarial
+
+      logisticsBooks: [
+
+      ], // Logística
+
+      materialsBooks: [
+
+      ], // Materiales
+
+      mechatronicsBooks: [
+
+      ], // Mecatrónica
+
+      chemistryBooks: [
+
+      ], // Química
+
+      electricalBooks: [
+
+      ],// Eléctrica
+
+      electronicsBooks: [
+
+      ], // Electrónica
+
+      accountingBooks: [
+
+      ], // Contador Público
+
+      appDevelopmentBooks: [
+
+      ], // Desarrollo de Apps
+
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       bookDetails: {
         "9788415832102": {
@@ -1001,8 +598,8 @@ export default {
         "9701506626": {
           id: "9701506626",
           ISBN: "970-15-0662-6",
-          Title: controlEstadisticoCalidad,
-          coverImage: "control_estadistico_calidad.jpg",
+          Title: "Control estadístico de la calidad",
+          coverImage: controlEstadisticoCalidad,
           author: "Vicente Carot Alonso",
           authors: ["Vicente Carot Alonso"],
           publisher: "Alfaomega",
@@ -1183,7 +780,7 @@ export default {
 
         "2295992": { // ISBN incompleto en Excel
           id: "2295992",
-          ISBN: "22959/92",
+          ISBN: "2295992",
           Title: "Introducción a la contaduría",
           coverImage: introduccionContaduria,
           author: "Oscar E. Sánchez L., María Elena Sotelo S., Martha I. Mata Parra",
@@ -1644,12 +1241,21 @@ export default {
     getters: {
       getBookById: (state) => (id) => {
         return state.bookDetails[id] || 
-               state.popularBooks.find(book => book.id === id) || 
-               state.newBooks.find(book => book.id === id) ||
                state.industrialBooks.find(book => book.id === id) ||
                state.systemsBooks.find(book => book.id === id) ||
                state.administrativeBooks.find(book => book.id === id) ||
                state.bookLovers.find(book => book.id === id) ||
+               state.mechanicBooks.find(book => book.id === id) ||
+               state.renewableEnergyBooks.find(book => book.id === id) ||
+               state.businessManagementBooks.find(book => book.id === id) ||
+               state.logisticsBooks.find(book => book.id === id) ||
+               state.materialsBooks.find(book => book.id === id) ||
+               state.mechatronicsBooks.find(book => book.id === id) ||
+               state.chemistryBooks.find(book => book.id === id) ||
+               state.electricalBooks.find(book => book.id === id) ||
+               state.electronicsBooks.find(book => book.id === id) ||
+               state.accountingBooks.find(book => book.id === id) ||
+               state.appDevelopmentBooks.find(book => book.id === id) ||
                null;
       }
     },
@@ -1670,31 +1276,6 @@ export default {
     },
     
     actions: {
-      // Simulate API calls with setTimeout
-      fetchPopularBooks({ commit, state }) {
-        // We already have static data, so just simulate loading
-        commit('SET_LOADING', { type: 'popular', value: true });
-        
-        return new Promise(resolve => {
-          setTimeout(() => {
-            commit('SET_LOADING', { type: 'popular', value: false });
-            resolve(state.popularBooks);
-          }, 500); // Simulate network delay
-        });
-      },
-      
-      fetchNewBooks({ commit, state }) {
-        // We already have static data, so just simulate loading
-        commit('SET_LOADING', { type: 'new', value: true });
-        
-        return new Promise(resolve => {
-          setTimeout(() => {
-            commit('SET_LOADING', { type: 'new', value: false });
-            resolve(state.newBooks);
-          }, 500); // Simulate network delay
-        });
-      },
-      
       fetchBookDetails({ commit, state }, id) {
         // If we already have this book's data, just return it
         if (state.bookDetails[id]) { 
@@ -1707,9 +1288,7 @@ export default {
         return new Promise(resolve => {
           setTimeout(() => {
             // If we don't have detailed data, generate some from basic data
-            let bookData = state.popularBooks.find(b => b.id === id) || 
-                           state.newBooks.find(b => b.id === id) ||
-                           state.industrialBooks.find(b => b.id === id) ||
+            let bookData = state.industrialBooks.find(b => b.id === id) ||
                            state.systemsBooks.find(b => b.id === id) ||
                            state.administrativeBooks.find(b => b.id === id) ||
                            state.bookLovers.find(b => b.id === id);
