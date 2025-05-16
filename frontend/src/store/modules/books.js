@@ -345,7 +345,7 @@ import mecasistemascon6e from '@/assets/img/library/C-Coverimage/Mecatronica/Mec
         publisher: "McGraw-Hill",
         year: "2002",
         pages: "646",
-        binding: "Tapa Dura", // Inferido: común en textos técnicos de McGraw-Hill
+        binding: "Tapa Dura", 
         edition: "4ta",
         categories: ["Álgebra lineal", "Matemáticas aplicadas", "Ingeniería"],
         format: "Libro Físico",
@@ -1091,7 +1091,7 @@ import mecasistemascon6e from '@/assets/img/library/C-Coverimage/Mecatronica/Mec
     publisher: "McGraw-Hill",
     year: "1992",
     pages: "710",
-    binding: "Tapa Dura", // Inferido: común en textos técnicos de McGraw-Hill
+    binding: "Tapa Dura", 
     edition: "3ra",
     categories: ["Ingeniería eléctrica", "Electrónica básica"],
     format: "Libro Físico",
@@ -1125,7 +1125,7 @@ import mecasistemascon6e from '@/assets/img/library/C-Coverimage/Mecatronica/Mec
     publisher: "Prentice Hall",
     year: "1972",
     pages: "921",
-    binding: "Tapa Dura", // Inferido: común en ediciones académicas clásicas
+    binding: "Tapa Dura", 
     edition: "2da",
     categories: ["Sistemas de potencia", "Electromagnetismo", "Máquinas eléctricas"],
     format: "Libro Físico",
@@ -1142,7 +1142,7 @@ import mecasistemascon6e from '@/assets/img/library/C-Coverimage/Mecatronica/Mec
     publisher: "Limusa",
     year: "1979",
     pages: "675",
-    binding: "Tapa Blanda", // Inferido: común en editoriales técnicas latinoamericanas
+    binding: "Tapa Blanda", 
     edition: "1ra",
     categories: ["Máquinas de inducción", "Transformadores", "Dinámica de sistemas"],
     format: "Libro Físico",
@@ -1151,8 +1151,74 @@ import mecasistemascon6e from '@/assets/img/library/C-Coverimage/Mecatronica/Mec
       ],
 
       electronicsBooks: [
+        // Electrónica
+        {
+    id: "9780134804194",
+    ISBN: "9780134804194",
+    Title: "Introduction to Computers and Information Processing",
+    coverImage: computersInfoProcessing,
+    author: "Larry E. Long",
+    authors: ["Larry E. Long"],
+    publisher: "Prentice Hall",
+    year: "1984",
+    pages: "567",
+    binding: "Tapa Dura", 
+    format: "Libro Físico",
+    synopsis: "Introducción a principios de computación: arquitectura, sistemas operativos, redes y aplicaciones de software. Base esencial para estudiantes de electrónica e informática."
+  },
 
-      ], // Electrónica
+   {
+    id: "9788426714305",
+    ISBN: "9788426714305",
+    Title: "Sistemas electrónicos digitales",
+    coverImage: sistemasDigitales,
+    author: "Enrique Mandado Pérez, Yago Mandado Rodríguez",
+    authors: ["Enrique Mandado Pérez", "Yago Mandado Rodríguez"],
+    publisher: "Alfaomega / Marcombo",
+    year: "2008",
+    pages: "883",
+    binding: "Tapa Dura",
+    edition: "9na",
+    categories: ["Diseño digital", "Circuitos integrados", "Electrónica digital"],
+    format: "Libro Físico",
+    synopsis: "Enfoque práctico en diseño de sistemas digitales: desde fundamentos teóricos hasta metodologías para circuitos modernos con ejemplos aplicados."
+  },
+
+  {
+    id: "8448100824",
+    ISBN: "8448100824",
+    Title: "Circuitos electrónicos: Discretos e integrados",
+    coverImage: circuitosElectronicosdonald,
+    author: "Donald L. Schilling, Charles Belove",
+    authors: ["Donald L. Schilling", "Charles Belove"],
+    publisher: "Marcombo",
+    year: "1981",
+    pages: "629",
+    binding: "Tapa Blanda", // Inferido: común en ediciones técnicas europeas
+    edition: "3ra",
+    categories: ["Componentes discretos", "Diseño de circuitos", "Electrónica analógica"],
+    format: "Libro Físico",
+    synopsis: "Análisis teórico-práctico de circuitos electrónicos, combinando componentes discretos e integrados con ejemplos ilustrativos y ejercicios."
+  },
+
+   {
+    id: "9789705700296",
+    ISBN: "9789705700296",
+    Title: "Cálculo diferencial e integral",
+    coverImage: calculoDiferencialFrank,
+    author: "Frank Ayres, Elliot Mendelson",
+    authors: ["Frank Ayres", "Elliot Mendelson"],
+    publisher: "McGraw-Hill",
+    year: "1991",
+    pages: "850",
+    binding: "Tapa Dura",
+    edition: "3ra",
+    categories: ["Matemáticas aplicadas", "Análisis matemático", "Ingeniería"],
+    format: "Libro Físico",
+    synopsis: "Exposición didáctica de cálculo: límites, derivadas, integración y aplicaciones prácticas en ingeniería, con ejercicios resueltos."
+  }
+
+      ],
 
       accountingBooks: [// Contador Público
           {
@@ -2041,7 +2107,7 @@ import mecasistemascon6e from '@/assets/img/library/C-Coverimage/Mecatronica/Mec
           publisher: "McGraw-Hill",
           year: "1991",
           pages: "400",
-          binding: "Tapa Dura", // Inferido: común en libros técnicos de McGraw-Hill
+          binding: "Tapa Dura", 
           edition: "2",
           categories: ["Termodinámica", "Ingeniería", "Ciencias físicas"],
           format: "Libro Físico",
@@ -2050,7 +2116,7 @@ import mecasistemascon6e from '@/assets/img/library/C-Coverimage/Mecatronica/Mec
         
           "070511403": { // ISBN ajustado (original: 70511403)
             id: "070511403",
-            ISBN: "70511403",
+            ISBN: "070511403",
             Title: "C++ and the OOP Paradigm",
             coverImage: cppOop,
             author: "Bindu Rama Rao",
@@ -2853,6 +2919,7 @@ import mecasistemascon6e from '@/assets/img/library/C-Coverimage/Mecatronica/Mec
     format: "Libro Físico",
     synopsis: "Análisis teórico-práctico de máquinas eléctricas en régimen permanente y dinámico, con enfoque en aplicaciones industriales."
   },
+  //libros de electronica
    "9780134804194": {
     id: "9780134804194",
     ISBN: "9780134804194",
