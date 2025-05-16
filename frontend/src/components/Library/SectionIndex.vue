@@ -9,6 +9,7 @@ const props = defineProps({
 });
 
 const activeSection = ref(props.sections[0]?.id);
+const topPosition = ref(110);
 const isVisible = ref(false);
 
 const scrollToSection = (sectionId) => {
@@ -26,9 +27,45 @@ const scrollToSection = (sectionId) => {
 };
 
 const checkScroll = () => {
-  // Check visibility based on scroll position
-  const scrollThreshold = window.innerHeight * 0.4;
-  isVisible.value = window.scrollY > scrollThreshold;
+  const scrollThreshold = window.innerHeight * 0.4; 
+  const currentScroll = window.scrollY;
+  const footerElement = document.querySelector('footer');
+  
+  // Calculate position between 110% and 55% based on scroll
+  if (currentScroll <= scrollThreshold) {
+    const progress = Math.min(currentScroll / scrollThreshold, 1);
+    // Make the movement more dramatic at the start
+    const easeProgress = Math.pow(progress, 1); // Add easing function if wanted a bit more dramatic
+    topPosition.value = 110 - (easeProgress * (110 - 55));
+  } else {
+    topPosition.value = 55;
+  }
+
+  // Check if section index is close to footer
+  if (footerElement) {
+    const footerRect = footerElement.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const footerHeight = footerElement.offsetHeight;
+    const sectionIndexElement = document.querySelector('.section-index');
+    const sectionIndexHeight = sectionIndexElement ? sectionIndexElement.offsetHeight : 300;
+    
+    // Calculate the buffer based on section index height
+    const bufferZone = viewportHeight * 0.1;
+    // Calculate how much space we need from the bottom (in viewport percentage)
+    const neededSpace = (sectionIndexHeight / viewportHeight) * 100;
+    
+    if (footerRect.top <= viewportHeight + bufferZone) {
+      const totalDistance = footerHeight + bufferZone;
+      const distanceIntoZone = (viewportHeight + bufferZone) - footerRect.top;
+      const progress = Math.min(distanceIntoZone / totalDistance, 1);
+      
+      // Move section index up based on its height
+      // Start from 55% and move up by the needed space
+      topPosition.value = 55 - (progress * neededSpace);
+    }
+  }
+  
+  isVisible.value = currentScroll > scrollThreshold;
 
   // Existing active section check
   const sections = props.sections.map(section => ({
@@ -61,7 +98,11 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <nav class="section-index" :class="{ 'visible': isVisible }">
+  <nav 
+    class="section-index" 
+    :style="{ top: `${topPosition}%` }"
+    :class="{ 'scroll-position': isVisible }"
+  >
     <div class="index-header">
       <h3>Carreras</h3>
     </div>
@@ -82,7 +123,6 @@ onUnmounted(() => {
 .section-index {
   position: fixed;
   right: 20px;
-  top: 55%;
   transform: translateY(-50%);
   z-index: 100;
   background: white;
@@ -91,15 +131,14 @@ onUnmounted(() => {
   max-height: 80vh;
   display: flex;
   flex-direction: column;
-  width: 180px; /* Reduced from 250px */
-  opacity: 0;
-  visibility: hidden;
+  width: 180px;
+  opacity: 1;
+  visibility: visible;
   transition: all 0.3s ease;
 }
 
-.section-index.visible {
-  opacity: 1;
-  visibility: visible;
+.section-index.scroll-position {
+  /* Other styles remain unchanged */
 }
 
 .index-header {
@@ -159,32 +198,7 @@ button.active {
 
 @media (max-width: 768px) {
   .section-index {
-    position: fixed;
-    top: auto;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    transform: translateY(100%); /* Start from below */
-    width: 100%;
-    max-height: 40vh;
-    border-radius: 10px 10px 0 0;
-  }
-
-  .section-index.visible {
-    transform: translateY(0); /* Slide up when visible */
-  }
-
-  .sections-container {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.5rem;
-  }
-
-  button {
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
+    display: none; /* Hide on mobile */
   }
 }
 </style>

@@ -1,7 +1,6 @@
 <script setup>
 import CarruselBiblioteca from '@/components/Library/CarruselBiblioteca.vue';
 import HeroBiVideo from '@/components/Library/HeroBiVideo.vue';
-import SearchBar from '@/components/SearchBar.vue';
 import SectionIndex from '@/components/Library/SectionIndex.vue';
 
 const sections = [
