@@ -12,7 +12,7 @@ const mode = import.meta.env.MODE;
 
 // Seleccionar la URL base según el entorno
 const API_BASE_URL = isProduction 
-  ? 'https://www.auroramexicali.com:3000'  // URL de producción
+  ? 'https://auroramexicali.com:3000'  // URL de producción
   : 'http://localhost:3000';      // URL de desarrollo
 
 //   alert(`App running in ${isProduction ? 'production' : 'development'} mode`);
