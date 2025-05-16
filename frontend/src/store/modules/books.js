@@ -41,6 +41,15 @@ import cppOop from '@/assets/img/library/CoverImage/28- C++ and the OOP Paradigm
 import pooCpp from '@/assets/img/library/CoverImage/27- Programación orientada a objetos conceptos, modelado, diseño y codificación en C mas mas.png';
 import javaNow from '@/assets/img/library/CoverImage/30- Java Now.jpg';
 import contabilidadAvanzada from '@/assets/img/library/CoverImage/CONADV.webp';
+import pensarrapido from '@/assets/img/library/CoverImage/pensar rapido pensar despacio.webp';
+import codigolimpio from '@/assets/img/library/CoverImage/codigo limpio.jpg';
+import Cosmos from '@/assets/img/library/CoverImage/Cosmos.jpg';
+import stevejobs from '@/assets/img/library/CoverImage/Steve Jobs.webp';
+import fueradeserie from '@/assets/img/library/CoverImage/fuera de serie.webp';
+import joyanesfp from '@/assets/img/library/CoverImage/joyanesfp.jpg';
+import sapiens from '@/assets/img/library/CoverImage/Sapiens.jpg';
+import historiadelTiempo from '@/assets/img/library/CoverImage/breve historia del tiepo.jpg';
+import ganarAmigos from '@/assets/img/library/CoverImage/Como ganar amigos.webp';
 
 //importacion de portadas de libros de ingenieria industrial
 import ingenieriaIndustrialTiemposMovimientos from '@/assets/img/library/C-Coverimage/Industrial/Ingenieria industrial estudio de tiempos y movimientos.jpg';
@@ -83,20 +92,38 @@ import mecatronicaconyaut from '@/assets/img/library/C-Coverimage/Mecatronica/Me
 import mecasistemascon2e from '@/assets/img/library/C-Coverimage/Mecatronica/Mecatrónica sistemas de control electrónico en ingeniería mecánica y eléctrica.jpg'; 
 import mecasistemascon6e from '@/assets/img/library/C-Coverimage/Mecatronica/Mecatrónica sistemas de control electrónico en ingeniería mecánica y eléctrica.png';
 
-//importacion de libros de ingenieria quimica
+//importacion de portadas de libros de ingenieria quimica
   import chemistryChang from '@/assets/img/library/C-Coverimage/Quimica/Chemistry.jpg';
   import problemasQuimica from '@/assets/img/library/C-Coverimage/Quimica/Problemas de quimica.jpg';
   import quimicaBrown from '@/assets/img/library/C-Coverimage/Quimica/Química de Brown para cursos con enfoque por competencias.jpg';
   import estructuraAtomica from '@/assets/img/library/C-Coverimage/Quimica/Introducción a la estructura atómica y molecular.jpg';
 
-//importacion de libros de ingenieria en sistemas computacionales
+//importacion de portads de libros de ingenieria en sistemas computacionales
   import algebraLinealImg from '@/assets/img/library/C-Coverimage/Sistemas/Algebra Lineal con aplicaciones.jpg';
   import basesDatosImg from '@/assets/img/library/C-Coverimage/Sistemas/Fundamentos de bases de datos.jpg';
   import cppProgramarImg from '@/assets/img/library/C-Coverimage/Sistemas/C++ Cómo programar.jpg';
   import perlErroresImg from '@/assets/img/library/C-Coverimage/Sistemas/Perl sin errores.jpg';
 
+// importacin de portadas de libros de Desarrollo de aplicaciones
+  import algoritmosBasic from '@/assets/img/library/C-Coverimage/Desarrollo de aplicaciones/Desarrollo de algoritmos y sus aplicaciones en Basic, Pascal, Cobol y C con su respectivo pseudocódigo.jpg';
+  import javaApps from '@/assets/img/library/C-Coverimage/Desarrollo de aplicaciones/Desarrollo de aplicaciones con Java  JCreator JDeveloper  NetBeans.png';
+  import powerBuilder from '@/assets/img/library/C-Coverimage/Desarrollo de aplicaciones/PowerBuilder Desarrollo de aplicaciones cliente-servidor.png';
+  import androidDummies from '@/assets/img/library/C-Coverimage/Desarrollo de aplicaciones/Android Application Development For Dummies.jpg';
 
-export default {
+//importacion de portadas de libros de ingenieria electrica
+  import fundamentosElectricidadImg from '@/assets/img/library/C-Coverimage/Electrica/Fundamentos de electricidad-electrónica.png';
+  import circuitosElectricosImg from '@/assets/img/library/C-Coverimage/Electrica/Circuitos Eléctricos Teoría y Aplicaciones en Ingeniería.jpg';
+  import fundamentosIngElectricaImg from '@/assets/img/library/C-Coverimage/Electrica/Fundamentos de ingeniería eléctrica.png';
+  import maquinasElectricasImg from '@/assets/img/library/C-Coverimage/Electrica/Máquinas eléctricas estado dinámico y permanente.jpg';
+
+//importacion de portadas de libros de ingenieria electronica
+ import computersInfoProcessing from '@/assets/img/library/C-Coverimage/Electronica/Introduction to Computers and Information Processing.jpg';
+  import sistemasDigitales from '@/assets/img/library/C-Coverimage/Electronica/Sistemas electrónicos digitales.jpg';
+  import circuitosElectronicosdonald from '@/assets/img/library/C-Coverimage/Electronica/Circuitos electrónicos Discretos e integrados.jpg';
+  import calculoDiferencialFrank from '@/assets/img/library/C-Coverimage/Electronica/Cálculo diferencial e integral.jpg';
+
+
+  export default {
     namespaced: true,
     state: {
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1053,21 +1080,221 @@ export default {
   }
       ], 
 
-      electricalBooks: [
+      electricalBooks: [// Eléctrica
+            {
+    id: "9788448144184",
+    ISBN: "9788448144184",
+    Title: "Fundamentos de electricidad-electrónica",
+    coverImage: fundamentosElectricidadImg,
+    author: "Morris Slurzberg",
+    authors: ["Morris Slurzberg"],
+    publisher: "McGraw-Hill",
+    year: "1992",
+    pages: "710",
+    binding: "Tapa Dura", // Inferido: común en textos técnicos de McGraw-Hill
+    edition: "3ra",
+    categories: ["Ingeniería eléctrica", "Electrónica básica"],
+    format: "Libro Físico",
+    synopsis: "Introducción completa a circuitos eléctricos, componentes electrónicos y leyes fundamentales con aplicaciones prácticas en ingeniería."
+  },
 
-      ],// Eléctrica
+  {
+    id: "9683001022",
+    ISBN: "9683001022",
+    Title: "Circuitos Eléctricos: Teoría y Aplicaciones en Ingeniería",
+    coverImage: circuitosElectricosImg,
+    author: "Joseph A. Edmister",
+    authors: ["Joseph A. Edmister"],
+    publisher: "McGraw-Hill",
+    year: "1985",
+    pages: "517",
+    binding: "Tapa Dura",
+    edition: "1ra",
+    categories: ["Análisis de circuitos", "Corriente alterna", "Transformada de Laplace"],
+    format: "Libro Físico",
+    synopsis: "Abarca análisis de circuitos en CC/CA, régimen transitorio y aplicaciones prácticas con herramientas matemáticas avanzadas."
+  },
+
+   {
+    id: "9780132471312",
+    ISBN: "9780132471312",
+    Title: "Fundamentos de ingeniería eléctrica",
+    coverImage: fundamentosIngElectricaImg,
+    author: "Vincent Del Toro",
+    authors: ["Vincent Del Toro"],
+    publisher: "Prentice Hall",
+    year: "1972",
+    pages: "921",
+    binding: "Tapa Dura", // Inferido: común en ediciones académicas clásicas
+    edition: "2da",
+    categories: ["Sistemas de potencia", "Electromagnetismo", "Máquinas eléctricas"],
+    format: "Libro Físico",
+    synopsis: "Texto clásico que integra teoría de circuitos, sistemas de potencia y electromagnetismo para formación integral en ingeniería."
+  },
+
+  {
+    id: "9681805682",
+    ISBN: "9681805682",
+    Title: "Máquinas eléctricas: estado dinámico y permanente",
+    coverImage: maquinasElectricasImg,
+    author: "George J. Thaler, Milton L. Wilcox",
+    authors: ["George J. Thaler", "Milton L. Wilcox"],
+    publisher: "Limusa",
+    year: "1979",
+    pages: "675",
+    binding: "Tapa Blanda", // Inferido: común en editoriales técnicas latinoamericanas
+    edition: "1ra",
+    categories: ["Máquinas de inducción", "Transformadores", "Dinámica de sistemas"],
+    format: "Libro Físico",
+    synopsis: "Análisis teórico-práctico de máquinas eléctricas en régimen permanente y dinámico, con enfoque en aplicaciones industriales."
+  }
+      ],
 
       electronicsBooks: [
 
       ], // Electrónica
 
-      accountingBooks: [
+      accountingBooks: [// Contador Público
+          {
+          id: "9681601025",
+          ISBN: "9681601025",
+          Title: "Comercio y navegación entre España y las Indias",
+          coverImage: comercioIndias,
+          author: "Clarence H. Haring",
+          authors: ["Clarence H. Haring"],
+          publisher: "Fondo de Cultura Económica",
+          year: "1979",
+          pages: "460",
+          binding: "Tapa Dura",
+          edition: "1",
+          categories: ["Historia económica", "Comercio colonial"],
+          format: "Libro Físico",
+          synopsis: "Análisis histórico del comercio transatlántico y su impacto en la economía global durante el periodo de los Habsburgo."
+        },
 
-      ], // Contador Público
+         {
+          id: "9687529660",
+          ISBN: "9687529660",
+          Title: "Economía Internacional",
+          coverImage: economiaInternacional,
+          author: "Robert J. Carbaugh",
+          authors: ["Robert J. Carbaugh"],
+          publisher: "International Thomson",
+          year: "1999",
+          pages: "499",
+          binding: "Tapa Blanda",
+          edition: "6",
+          categories: ["Economía", "Comercio internacional"],
+          format: "Libro Físico",
+          synopsis: "Teorías actualizadas de comercio y finanzas globales con casos prácticos y enfoque en problemas económicos reales."
+        },
 
-      appDevelopmentBooks: [
+         { 
+          id: "9786073205627",
+          ISBN: "9786073205627",
+          Title: "Introducción a la contaduría",
+          coverImage: introduccionContaduria,
+          author: "Oscar E. Sánchez L., María Elena Sotelo S., Martha I. Mata Parra",
+          authors: ["Oscar E. Sánchez L.", "María Elena Sotelo S.", "Martha I. Mata Parra"],
+          publisher: "Cárdenas Editor",
+          year: "1996",
+          pages: "301",
+          binding: "Tapa Blanda",
+          edition: "1",
+          categories: ["Contabilidad básica", "Finanzas"],
+          format: "Libro Físico",
+          synopsis: "Fundamentos de contabilidad con ejercicios prácticos para el registro y análisis de operaciones financieras."
+        },
 
-      ], // Desarrollo de Apps
+        {
+          id: "9682602688",
+          ISBN: "9682602688",
+          Title: "Principios fundamentales de contabilidad",
+          coverImage: principiosContabilidad,
+          author: "William W. Pyle, John Arch White, Kermit D. Larson",
+          authors: ["William W. Pyle", "John Arch White", "Kermit D. Larson"],
+          publisher: "CECSA",
+          year: "1998",
+          pages: "1117",
+          binding: "Tapa Dura",
+          edition: "16",
+          categories: ["Contabilidad", "Estados financieros"],
+          format: "Libro Físico",
+          synopsis: "Obra de referencia completa sobre principios contables, incluyendo gestión de activos, pasivos y costos."
+        },
+
+      ], 
+
+      appDevelopmentBooks: [// Desarrollo de Apps
+        {
+    id: "9586001091",
+    ISBN: "9586001091",
+    Title: "Desarrollo de algoritmos y sus aplicaciones en Basic, Pascal, Cobol y C: con su respectivo pseudocódigo",
+    coverImage: algoritmosBasic,
+    author: "Guillermo Correa Uribe",
+    authors: ["Guillermo Correa Uribe"],
+    publisher: "McGraw-Hill / Interamericana de Colombia",
+    year: "1992",
+    pages: "251",
+    binding: "Tapa Blanda",
+    edition: "3ra",
+    categories: ["Algoritmos", "Lenguajes legacy", "Pseudocódigo"],
+    format: "Libro Físico",
+    synopsis: "Introducción práctica al diseño de algoritmos con ejemplos en Basic, Pascal, Cobol y C. Incluye pseudocódigos y diagramas para fundamentos de programación."
+  },
+
+  {
+    id: "9786076225479",
+    ISBN: "9786076225479",
+    Title: "Desarrollo de aplicaciones con Java: JCreator  JDeveloper  NetBeans",
+    coverImage: javaApps,
+    author: "Manuel A. Torres Remón",
+    authors: ["Manuel A. Torres Remón"],
+    publisher: "Alfaomega",
+    year: "2016",
+    pages: "448",
+    binding: "Tapa Blanda",
+    edition: "1ra",
+    categories: ["Java", "Entornos de desarrollo", "Swing"],
+    format: "Libro Físico",
+    synopsis: "Guía práctica desde fundamentos de Java hasta aplicaciones complejas. Cubre programación modular, POO, interfaces gráficas y herramientas como NetBeans."
+  },
+
+   {
+    id: "9789701507843",
+    ISBN: "9789701507843",
+    Title: "PowerBuilder: Desarrollo de aplicaciones cliente-servidor",
+    coverImage: powerBuilder,
+    author: "Paul Mahler",
+    authors: ["Paul Mahler"],
+    publisher: "Alfaomega",
+    year: "2001",
+    pages: "320",
+    binding: "Tapa Blanda",
+    edition: "1ra",
+    categories: ["PowerBuilder", "Arquitectura cliente-servidor", "Bases de datos"],
+    format: "Libro Físico",
+    synopsis: "Desarrollo de aplicaciones cliente-servidor con PowerBuilder: conexión a BD, diseño de interfaces y manejo de eventos para soluciones robustas."
+  },
+
+   {
+    id: "9781119017929",
+    ISBN: "9781119017929",
+    Title: "Android Application Development For Dummies",
+    coverImage: androidDummies,
+    author: "Michael Burton",
+    authors: ["Michael Burton"],
+    publisher: "John Wiley & Sons",
+    year: "2015",
+    pages: "432",
+    binding: "Tapa Blanda",
+    edition: "2da",
+    categories: ["Android", "Desarrollo móvil", "Aplicaciones nativas"],
+    format: "Libro Físico",
+    synopsis: "Guía para crear apps Android funcionales, desde conceptos básicos hasta técnicas avanzadas. Incluye ejemplos prácticos y ejercicios."
+  }
+
+      ], 
 
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       bookDetails: {
@@ -1092,7 +1319,7 @@ export default {
           id: "9788420674711",
           ISBN: "9788420674711",
           Title: "Breve Historia del Tiempo",
-          coverImage: libroFisicoquimica,
+          coverImage: historiadelTiempo,
           author: "Stephen Hawking",
           authors: ["Stephen Hawking"],
           publisher: "Crítica",
@@ -1109,7 +1336,7 @@ export default {
           id: "9788499924212",
           ISBN: "9788499924212",
           Title: "Sapiens: De Animales a Dioses",
-          coverImage: libroMarxismo,
+          coverImage: sapiens,
           author: "Yuval Noah Harari",
           authors: ["Yuval Noah Harari"],
           publisher: "Debate",
@@ -1126,7 +1353,7 @@ export default {
           id: "9788493464257",
           ISBN: "9788493464257",
           Title: "Cómo Ganar Amigos e Influir sobre las Personas",
-          coverImage: libroPsicologia,
+          coverImage: ganarAmigos,
           author: "Dale Carnegie",
           authors: ["Dale Carnegie"],
           publisher: "Elipse",
@@ -1143,7 +1370,7 @@ export default {
           id: "9788483068915",
           ISBN: "9788483068915",
           Title: "Pensar Rápido, Pensar Despacio",
-          coverImage: libroBigData,
+          coverImage: pensarrapido,
           author: "Daniel Kahneman",
           authors: ["Daniel Kahneman"],
           publisher: "Debate",
@@ -1160,7 +1387,7 @@ export default {
           id: "9788441532106",
           ISBN: "9788441532106",
           Title: "Clean Code: Manual de Desarrollo Ágil de Software",
-          coverImage: libroBigData,
+          coverImage: codigolimpio,
           author: "Robert C. Martin",
           authors: ["Robert C. Martin"],
           publisher: "Anaya Multimedia",
@@ -1177,7 +1404,7 @@ export default {
           id: "9788434501621",
           ISBN: "9788434501621",
           Title: "Cosmos",
-          coverImage: libroBigData,
+          coverImage: Cosmos,
           author: "Carl Sagan",
           authors: ["Carl Sagan"],
           publisher: "Planeta",
@@ -1194,7 +1421,7 @@ export default {
           id: "9788499420047",
           ISBN: "9788499420047",
           Title: "Steve Jobs: La Biografía",
-          coverImage: libroBigData,
+          coverImage: stevejobs,
           author: "Walter Isaacson",
           authors: ["Walter Isaacson"],
           publisher: "Debate",
@@ -1211,7 +1438,7 @@ export default {
           id: "9786071128379",
           ISBN: "9786071128379",
           Title: "Outliers: Los Fuera de Serie",
-          coverImage: libroBigData,
+          coverImage: fueradeserie,
           author: "Malcolm Gladwell",
           authors: ["Malcolm Gladwell"],
           publisher: "Taurus",
@@ -1228,7 +1455,7 @@ export default {
           id: "9789584102881",
           ISBN: "9789584102881",
           Title: "Fundamentos de Programación",
-          coverImage: libroBigData,
+          coverImage: joyanesfp,
           author: "Luis Joyanes Aguilar",
           authors: ["Luis Joyanes Aguilar"],
           publisher: "McGraw-Hill",
@@ -1408,7 +1635,7 @@ export default {
           format: "Libro Físico",
           synopsis: "Guía práctica para estructurar planes de negocios y materializar ideas empresariales con enfoque estratégico."
         },
-
+//contabilidad libros
         "9681601025": {
           id: "9681601025",
           ISBN: "9681601025",
@@ -2489,6 +2716,209 @@ export default {
     categories: ["Programación Perl", "Depuración", "Optimización de código"],
     format: "Libro Físico",
     synopsis: "Enseña técnicas para identificar y corregir errores en Perl, usando depuradores y herramientas de optimización."
+  },
+  //libros de desarrollo de aplicaciones
+  "9586001091": {
+    id: "9586001091",
+    ISBN: "9586001091",
+    Title: "Desarrollo de algoritmos y sus aplicaciones en Basic, Pascal, Cobol y C: con su respectivo pseudocódigo",
+    coverImage: algoritmosBasic,
+    author: "Guillermo Correa Uribe",
+    authors: ["Guillermo Correa Uribe"],
+    publisher: "McGraw-Hill / Interamericana de Colombia",
+    year: "1992",
+    pages: "251",
+    binding: "Tapa Blanda",
+    edition: "3ra",
+    categories: ["Algoritmos", "Lenguajes legacy", "Pseudocódigo"],
+    format: "Libro Físico",
+    synopsis: "Introducción práctica al diseño de algoritmos con ejemplos en Basic, Pascal, Cobol y C. Incluye pseudocódigos y diagramas para fundamentos de programación."
+  },
+
+  "9786076225479": {
+    id: "9786076225479",
+    ISBN: "9786076225479",
+    Title: "Desarrollo de aplicaciones con Java: JCreator – JDeveloper – NetBeans",
+    coverImage: javaApps,
+    author: "Manuel A. Torres Remón",
+    authors: ["Manuel A. Torres Remón"],
+    publisher: "Alfaomega",
+    year: "2016",
+    pages: "448",
+    binding: "Tapa Blanda",
+    edition: "1ra",
+    categories: ["Java", "Entornos de desarrollo", "Swing"],
+    format: "Libro Físico",
+    synopsis: "Guía práctica desde fundamentos de Java hasta aplicaciones complejas. Cubre programación modular, POO, interfaces gráficas y herramientas como NetBeans."
+  },
+
+  "9789701507843": {
+    id: "9789701507843",
+    ISBN: "9789701507843",
+    Title: "PowerBuilder: Desarrollo de aplicaciones cliente-servidor",
+    coverImage: powerBuilder,
+    author: "Paul Mahler",
+    authors: ["Paul Mahler"],
+    publisher: "Alfaomega",
+    year: "2001",
+    pages: "320",
+    binding: "Tapa Blanda",
+    edition: "1ra",
+    categories: ["PowerBuilder", "Arquitectura cliente-servidor", "Bases de datos"],
+    format: "Libro Físico",
+    synopsis: "Desarrollo de aplicaciones cliente-servidor con PowerBuilder: conexión a BD, diseño de interfaces y manejo de eventos para soluciones robustas."
+  },
+
+  "9781119017929": {
+    id: "9781119017929",
+    ISBN: "9781119017929",
+    Title: "Android Application Development For Dummies",
+    coverImage: androidDummies,
+    author: "Michael Burton",
+    authors: ["Michael Burton"],
+    publisher: "John Wiley & Sons",
+    year: "2015",
+    pages: "432",
+    binding: "Tapa Blanda",
+    edition: "2da",
+    categories: ["Android", "Desarrollo móvil", "Aplicaciones nativas"],
+    format: "Libro Físico",
+    synopsis: "Guía para crear apps Android funcionales, desde conceptos básicos hasta técnicas avanzadas. Incluye ejemplos prácticos y ejercicios."
+  },
+  //ingenieria electrica
+   "9788448144184": {
+    id: "9788448144184",
+    ISBN: "9788448144184",
+    Title: "Fundamentos de electricidad-electrónica",
+    coverImage: fundamentosElectricidadImg,
+    author: "Morris Slurzberg",
+    authors: ["Morris Slurzberg"],
+    publisher: "McGraw-Hill",
+    year: "1992",
+    pages: "710",
+    binding: "Tapa Dura", 
+    edition: "3ra",
+    categories: ["Ingeniería eléctrica", "Electrónica básica"],
+    format: "Libro Físico",
+    synopsis: "Introducción completa a circuitos eléctricos, componentes electrónicos y leyes fundamentales con aplicaciones prácticas en ingeniería."
+  },
+
+  "9683001022": {
+    id: "9683001022",
+    ISBN: "9683001022",
+    Title: "Circuitos Eléctricos: Teoría y Aplicaciones en Ingeniería",
+    coverImage: circuitosElectricosImg,
+    author: "Joseph A. Edmister",
+    authors: ["Joseph A. Edmister"],
+    publisher: "McGraw-Hill",
+    year: "1985",
+    pages: "517",
+    binding: "Tapa Dura",
+    edition: "1ra",
+    categories: ["Análisis de circuitos", "Corriente alterna", "Transformada de Laplace"],
+    format: "Libro Físico",
+    synopsis: "Abarca análisis de circuitos en CC/CA, régimen transitorio y aplicaciones prácticas con herramientas matemáticas avanzadas."
+  },
+
+  "9780132471312": {
+    id: "9780132471312",
+    ISBN: "9780132471312",
+    Title: "Fundamentos de ingeniería eléctrica",
+    coverImage: fundamentosIngElectricaImg,
+    author: "Vincent Del Toro",
+    authors: ["Vincent Del Toro"],
+    publisher: "Prentice Hall",
+    year: "1972",
+    pages: "921",
+    binding: "Tapa Dura", 
+    edition: "2da",
+    categories: ["Sistemas de potencia", "Electromagnetismo", "Máquinas eléctricas"],
+    format: "Libro Físico",
+    synopsis: "Texto clásico que integra teoría de circuitos, sistemas de potencia y electromagnetismo para formación integral en ingeniería."
+  },
+
+  "9681805682": {
+    id: "9681805682",
+    ISBN: "9681805682",
+    Title: "Máquinas eléctricas: estado dinámico y permanente",
+    coverImage: maquinasElectricasImg,
+    author: "George J. Thaler, Milton L. Wilcox",
+    authors: ["George J. Thaler", "Milton L. Wilcox"],
+    publisher: "Limusa",
+    year: "1979",
+    pages: "675",
+    binding: "Tapa Blanda", 
+    edition: "1ra",
+    categories: ["Máquinas de inducción", "Transformadores", "Dinámica de sistemas"],
+    format: "Libro Físico",
+    synopsis: "Análisis teórico-práctico de máquinas eléctricas en régimen permanente y dinámico, con enfoque en aplicaciones industriales."
+  },
+   "9780134804194": {
+    id: "9780134804194",
+    ISBN: "9780134804194",
+    Title: "Introduction to Computers and Information Processing",
+    coverImage: computersInfoProcessing,
+    author: "Larry E. Long",
+    authors: ["Larry E. Long"],
+    publisher: "Prentice Hall",
+    year: "1984",
+    pages: "567",
+    binding: "Tapa Dura", // Inferido: común en textos técnicos clásicos
+    edition: "1ra",
+    categories: ["Arquitectura de computadoras", "Sistemas operativos", "Redes"],
+    format: "Libro Físico",
+    synopsis: "Introducción a principios de computación: arquitectura, sistemas operativos, redes y aplicaciones de software. Base esencial para estudiantes de electrónica e informática."
+  },
+
+  "9788426714305": {
+    id: "9788426714305",
+    ISBN: "9788426714305",
+    Title: "Sistemas electrónicos digitales",
+    coverImage: sistemasDigitales,
+    author: "Enrique Mandado Pérez, Yago Mandado Rodríguez",
+    authors: ["Enrique Mandado Pérez", "Yago Mandado Rodríguez"],
+    publisher: "Alfaomega / Marcombo",
+    year: "2008",
+    pages: "883",
+    binding: "Tapa Dura",
+    edition: "9na",
+    categories: ["Diseño digital", "Circuitos integrados", "Electrónica digital"],
+    format: "Libro Físico",
+    synopsis: "Enfoque práctico en diseño de sistemas digitales: desde fundamentos teóricos hasta metodologías para circuitos modernos con ejemplos aplicados."
+  },
+
+  "8448100824": {
+    id: "8448100824",
+    ISBN: "8448100824",
+    Title: "Circuitos electrónicos: Discretos e integrados",
+    coverImage: circuitosElectronicosdonald,
+    author: "Donald L. Schilling, Charles Belove",
+    authors: ["Donald L. Schilling", "Charles Belove"],
+    publisher: "Marcombo",
+    year: "1981",
+    pages: "629",
+    binding: "Tapa Blanda", // Inferido: común en ediciones técnicas europeas
+    edition: "3ra",
+    categories: ["Componentes discretos", "Diseño de circuitos", "Electrónica analógica"],
+    format: "Libro Físico",
+    synopsis: "Análisis teórico-práctico de circuitos electrónicos, combinando componentes discretos e integrados con ejemplos ilustrativos y ejercicios."
+  },
+
+  "9789705700296": {
+    id: "9789705700296",
+    ISBN: "9789705700296",
+    Title: "Cálculo diferencial e integral",
+    coverImage: calculoDiferencialFrank,
+    author: "Frank Ayres, Elliot Mendelson",
+    authors: ["Frank Ayres", "Elliot Mendelson"],
+    publisher: "McGraw-Hill",
+    year: "1991",
+    pages: "850",
+    binding: "Tapa Dura",
+    edition: "3ra",
+    categories: ["Matemáticas aplicadas", "Análisis matemático", "Ingeniería"],
+    format: "Libro Físico",
+    synopsis: "Exposición didáctica de cálculo: límites, derivadas, integración y aplicaciones prácticas en ingeniería, con ejercicios resueltos."
   }
         
 
