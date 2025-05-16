@@ -24,7 +24,7 @@ router.get('/google',
 );
 
 // Actualizar la ruta de callback para incluir ensureUserExists
-router.get('/google/callback',
+router.get('/google-callback',
   passport.authenticate('google', { failureRedirect: '/auth/failure' }),
   ensureUserExists, // Añadir el middleware aquí
   (req, res) => {

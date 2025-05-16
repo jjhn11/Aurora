@@ -13,7 +13,6 @@
   // [Imagenes]
   import logo from '../assets/img/navbar/LogoAurora.png';
   import tec from '../assets/img/navbar/tec.png';
-  import B1N from '../assets/img/navbar/B1 NOVEDADES.png';
   import B2R from '../assets/img/navbar/B2 RESEÑAS.png';
   import B3C from '../assets/img/navbar/B3 CATALOGO.png';
   import E1C from '../assets/img/navbar/E1 CULTURALES.png';
@@ -23,10 +22,8 @@
   import C2D from '../assets/img/navbar/C2 DEPORTES.png'
   import C3C from '../assets/img/navbar/C3 CULTURAL.png'
   import C4V from '../assets/img/navbar/C4 VIDEOJUEGOS.png'
-  import DDMV from '../assets/img/navbar/DDM VACIO.png';
 
   import INV from '../assets/img/navbar/CUENTA INVITADO.png';
-  import ZEN from '../assets/img/navbar/ZENY PERFIL.png';
 
   // [JavaScript]
 
