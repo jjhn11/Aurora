@@ -16,10 +16,15 @@ const props = defineProps({
 // Add at the start of the component
 const loading = ref(true);
 
+// Add this helper function at the start of the script
+const sortBooksAlphabetically = (books) => {
+  return [...books].sort((a, b) => a.Title.localeCompare(b.Title));
+};
+
 onMounted(async () => {
   try {
     await store.dispatch('books/fetchBookDetails');
-    filteredBooks.value = Object.values(store.state.books.bookDetails);
+    filteredBooks.value = sortBooksAlphabetically(Object.values(store.state.books.bookDetails));
   } catch (error) {
     console.error('Error loading books:', error);
   } finally {
@@ -200,7 +205,8 @@ const handleSearch = (filters) => {
     );
   }
   
-  filteredBooks.value = result;
+  // Sort alphabetically before setting filtered books
+  filteredBooks.value = sortBooksAlphabetically(result);
   currentPage.value = 1;
 };
 
@@ -211,7 +217,7 @@ const handleCategoryFilter = (category) => {
   if (category) {
     result = result.filter(book => book.categories?.includes(category));
   }
-  filteredBooks.value = result;
+  filteredBooks.value = sortBooksAlphabetically(result);
   currentPage.value = 1;
 };
 
