@@ -1,88 +1,130 @@
 <template>
-  <div class="container">
-    <div class="card mb-3">
-      <div class="row g-0">
-        <div class="col-12 col-md-4">
-          <img src="@/assets/img/library/cubicleCardImage1.jpg" class="img-fluid" alt="Cubículos de estudio">
-        </div>
-        <div class="col-12 col-md-8">
-          <div class="card-body">
-            <p class="card-text">Los cubiculos son espacios reservados para los estudios o ciertas clases, a diferencia de los salones normales, los cubiculos puedes ser apartados por los alumnos. Se encuentran en la planta Alta de Biblioteca.</p>
-          </div>
-        </div>
-      </div>
+  <div class="cubicle-container">
+    <div class="image-wrapper">
+      <img src="@/assets/img/library/cubicleCardImage1.jpg" alt="Cubículos de estudio" />
+    </div>
+    <div class="text-box">
+      <p>
+        Los cubículos son espacios reservados para el estudio en conjunto o para ciertas clases.
+        A diferencia de los salones, los cubículos pueden ser apartados por los estudiantes.
+        Se encuentran ubicados en la planta alta de la biblioteca.
+      </p>
     </div>
   </div>
 </template>
 
 <style scoped>
-.col-md-4 img {
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px ;
-  height: 100%; 
-  object-fit: cover; 
-}
-.container {
-width: 100%;
-display: flex;
-justify-content: center;
-align-items: center; 
-padding: 20px;  
-}
 
-.card {
-background-color: #6a6a6a;
-border-radius: 10px;
-width: 70%;
-}
-
-.col-md-8 {
-display: flex;
-align-items: center;
-}
-
-.card-text {
-color: white;
-font-weight: 700;
-font-size: 1.2rem;
-line-height: 1.8;
-padding-right: 10%;
-font-family: "Nunito Sans", sans-serif;
-}
-
-/* movil */
-@media (max-width: 768px) {
-.card {
-  padding-top: 1%;
-  padding-left: 1%;
-  padding-bottom: 1%;
-  border-radius: 6%;
-  width: 100%; 
-  margin: 0 10px;
-}
-.card-text {
-  font-size: 12px;
-  line-height: 20px;
-}
-
-.row {
+.cubicle-container {
   display: flex;
-  flex-wrap: nowrap; 
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 30px;
+  flex-wrap: nowrap;
+  height: 400px;
 }
 
-.col-md-4 {
-  width: 30%; 
-}
-
-.col-md-8 {
-  width: 70%; 
-  padding: 0px;
-}
-
-.col-md-4 img {
+.image-wrapper img {
   border-radius: 20px;
-  height: 100%;
+  width: 280px;
+  height: auto;
   object-fit: cover;
 }
+.text-box {
+  background-color: #00113d;
+  color: white;
+  border-radius: 30px;
+  padding: 60px;
+  max-width: 700px;
+  height: 380px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 23px;
+  line-height: 1.8;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align:justify;
 }
+
+@media (max-width: 1058px) {
+  .text-box {
+    flex: 1;
+    font-size: 18px;
+    line-height: 1.5;
+    min-height: 100%;
+    height: auto;
+    padding: 15px;
+    border-radius: 15px;
+    box-sizing: border-box;
+  }
+}
+@media (max-width: 768px) {
+  .cubicle-container {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 10px;
+    gap: 10px;
+    width: 100%;
+    height: 210px;
+  }
+
+  .image-wrapper {
+    height: 100%;
+    flex: 0 0 40%;
+  }
+
+  .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    object-fit: cover;
+  }
+
+  .text-box {
+    flex: 1;
+    font-size: 12px;
+    line-height: 1.5;
+    min-height: 100%;
+    height: auto;
+    padding: 15px;
+    border-radius: 15px;
+    box-sizing: border-box;
+  }
+}
+@media (max-width: 320px) {
+  .cubicle-container {
+    min-height: 210px;
+    height: auto;
+  }
+
+  .image-wrapper {
+    height: 100%;
+    flex: 0 0 40%;
+  }
+
+  .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    object-fit: cover;
+  }
+
+  .text-box {
+    flex: 1;
+    font-size: 12px;
+    line-height: 1.5;
+    min-height: 100%;
+    height: auto;
+    padding: 15px;
+    border-radius: 15px;
+    box-sizing: border-box;
+  }
+}
+
 </style>
+
