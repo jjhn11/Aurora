@@ -271,7 +271,12 @@ onMounted(() => {
 
 .form-title {
     color: #000E32;
-    font-family: 'Crimson Text', serif;
+    font-family:
+        "Josefin Sans",
+        -apple-system,
+        Roboto,
+        Helvetica,
+        sans-serif;
     font-size: 2rem;
     margin: 0;
 }

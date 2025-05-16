@@ -51,7 +51,7 @@
                 @click="shareOn('twitter')"
                 class="social-icon twitter"
               >
-                <img src="@/assets/img/library/x.png" alt="Twitter" class=" social-icon-image" />
+                <img src="@/assets/img/library/x2.png" alt="Twitter" class=" social-icon-image" />
               </div>
               <span class="social-label">X</span>
             </div>
@@ -193,7 +193,7 @@ const copyLink = async () => {
 }
 
 .modal-title {
-  font-family: "Crimson Text", serif;
+  font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
   font-size: clamp(1.8rem, 4vw, 2.5rem);
   letter-spacing: 0.1rem;
   font-weight: bold;
@@ -261,12 +261,6 @@ const copyLink = async () => {
   cursor: pointer;
   transition: transform 0.3s;
   background-color: transparent;
-}
-
-.twitter {
-  width: 85px;
-  height: 85px;
-  margin-top: -5px;
 }
 
 .social-icon-image {

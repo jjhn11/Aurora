@@ -517,7 +517,7 @@ const clearProfanityError = (field) => {
         align-items: flex-start;
         gap: 12px;
         font-family:
-            "Crimson Text",
+            "Josefin Sans",
             -apple-system,
             Roboto,
             Helvetica,
@@ -535,7 +535,12 @@ const clearProfanityError = (field) => {
         align-self: end;
         margin-top: 10px;
         font-weight: 700;
-        font-family: 'Crimson text';
+        font-family:
+            "Josefin Sans",
+            -apple-system,
+            Roboto,
+            Helvetica,
+            sans-serif;
     }
 
     .close-button {
@@ -937,7 +942,12 @@ const clearProfanityError = (field) => {
     }
 
     .menu-title {
-        font-family: "Crimson Text", -apple-system, Roboto, Helvetica, sans-serif;
+        font-family:
+            "Josefin Sans",
+            -apple-system,
+            Roboto,
+            Helvetica,
+            sans-serif;
         font-size: 38px;
         color: rgba(0, 14, 50, 1);
         font-weight: 700;

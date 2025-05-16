@@ -43,10 +43,6 @@ onMounted(() => {
 });
 </script>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Josefin+Sans:wght@400;600&display=swap');
-</style>
-
 <template>
     <HeroVideo :img="bannerImage" title="CUBICULOS" />
     <br><br>
@@ -80,7 +76,7 @@ onMounted(() => {
     text-align: center;
     font-weight: 700;
     size: 64px;
-    font-family: "crimson text";
+    font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
 }
 
 .button-container {

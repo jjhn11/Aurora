@@ -38,7 +38,7 @@
     align-items: center;
     gap: 22px;
     font-family:
-      Josefin Sans,
+      "Josefin Sans",
       -apple-system,
       Roboto,
       Helvetica,
@@ -51,11 +51,12 @@
   
   .breadcrumb-label {
     font-family:
-      Nunito Sans,
+      "Josefin Sans",
       -apple-system,
       Roboto,
       Helvetica,
       sans-serif;
+    font-size: 20px;
     align-self: stretch;
   }
   

@@ -109,7 +109,6 @@ const isHomePage = computed(() => {
     align-items: center;
     flex: 1; /* Contact gets same base space as logo */
     display: flex;
-    max-width: 34%;
   }
 
   @media (max-width: 991px) {

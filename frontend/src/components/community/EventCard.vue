@@ -404,7 +404,12 @@ export default {
         margin-top: 10px;
         width: 100%;
 
-        font-family: "Crimson Text", -apple-system, Roboto, Helvetica, sans-serif;
+        font-family:
+            "Josefin Sans",
+            -apple-system,
+            Roboto,
+            Helvetica,
+            sans-serif;
         font-size: 50px;
         font-weight: 700;
         color: rgba(0, 14, 50, 1);
@@ -581,7 +586,12 @@ export default {
     }
 
     .modal-title {
-        font-family: "Crimson Text", -apple-system, Roboto, Helvetica, sans-serif;
+        font-family:
+            "Josefin Sans",
+            -apple-system,
+            Roboto,
+            Helvetica,
+            sans-serif;
         font-size: 38px;
         color: rgba(0, 14, 50, 1);
         font-weight: 700;
@@ -622,7 +632,12 @@ export default {
     }
 
     .event-full-title {
-        font-family: "Crimson Text", -apple-system, Roboto, Helvetica, sans-serif;
+        font-family:
+            "Josefin Sans",
+            -apple-system,
+            Roboto,
+            Helvetica,
+            sans-serif;
         font-weight: 700;
         font-size: 35px;
         color: rgba(0, 14, 50, 1);
