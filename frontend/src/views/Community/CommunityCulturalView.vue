@@ -243,7 +243,12 @@ const handleEventCreatedSuccess = async () => {
     }
 
     .hero-title {
-        font-family: 'Crimson text';
+        font-family:
+            "Josefin Sans",
+            -apple-system,
+            Roboto,
+            Helvetica,
+            sans-serif;
         font-weight: 700;
         font-size: 6rem;
         color: white;
@@ -322,7 +327,12 @@ const handleEventCreatedSuccess = async () => {
             }
 
             .avit-text-but {
-                font-family: 'Josefin Sans';
+                font-family:
+                    "Josefin Sans",
+                    -apple-system,
+                    Roboto,
+                    Helvetica,
+                    sans-serif;
                 font-weight: 700;
                 font-size: 22px;
                 color: rgb(217, 217, 217);
@@ -351,7 +361,12 @@ const handleEventCreatedSuccess = async () => {
             }
 
             .avit-text-down {
-                font-family: 'Crimson text';
+                font-family:
+                    "Josefin Sans",
+                    -apple-system,
+                    Roboto,
+                    Helvetica,
+                    sans-serif;
                 font-weight: 700;
                 font-size: 45px;
                 color: rgb(145, 145, 145);
@@ -364,45 +379,6 @@ const handleEventCreatedSuccess = async () => {
                 height: 300px;
                 margin: 20px 0;
             }
-
-            .avit-button {
-                display: flex;
-                align-items: center; /* Centra verticalmente */
-                justify-content: center; /* Centra horizontalmente */
-                text-align: center;
-
-                background-color: white;
-                border-radius: 50px;
-                border-color:#000E32;
-
-                width: 150px;
-                height: 50px;
-
-                transition: all 0.5s ease;
-
-                span {
-                    height: 22.5px;
-                    color:#000E32;
-                    font-family: 'Anek Odia';
-                    font-weight: 700;
-                    font-size: 18px;
-                }
-
-                i {
-                    color:#000E32;
-                }
-
-                &:hover {
-                    background-color:#000E32;
-
-                    span,i {
-                        color:white;
-                    }
-                }
-                
-                
-            }
-
         }
     }
 
@@ -437,6 +413,9 @@ const handleEventCreatedSuccess = async () => {
         .cre-cont {
             display: flex;
             justify-content: end;
+            align-items: end;
+            text-align: end;
+            margin: 30px 0px 0px 0px;
             padding: 0;
             
             .cre-button {
@@ -566,17 +545,6 @@ const handleEventCreatedSuccess = async () => {
                     width: auto;
                     height: 200px;
                     margin: 5px 0;
-                }
-
-                .avit-button {
-                    border-color: rgba(126, 131, 130, 1);
-                    background-color: rgba(242, 242, 242, 1);
-                    width: 180px;
-                    height: 45px;
-                    
-                    span {
-                        font-size: 16px;
-                    }
                 }
             }
         }

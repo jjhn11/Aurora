@@ -58,7 +58,7 @@
     color: rgba(0, 14, 50, 1);
     font-size: 29px;
     font-family:
-      Crimson Text,
+      "Josefin Sans",
       -apple-system,
       Roboto,
       Helvetica,

@@ -1,7 +1,7 @@
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 </style>
+
 <template>
   <div v-if="isOpen" class="modal-overlay" @click.self="close">
     <div class="modal-content">
@@ -53,7 +53,7 @@
     z-index: 999;
   }
   h2 {
-    font-family: "Crimson-text";
+    font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
     font-weight: 700;
     font-size: 25px;
     text-align: center;

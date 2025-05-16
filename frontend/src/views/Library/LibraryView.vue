@@ -124,7 +124,6 @@ const sections = [
 </template>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Josefin+Sans:wght@400;600&display=swap');
 
 .title {
     font-family: Josefin Sans;

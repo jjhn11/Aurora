@@ -61,7 +61,7 @@
     color: rgba(0, 14, 50, 1);
     font-size: 29px;
     font-family:
-      Crimson Text,
+      "Josefin Sans",
       -apple-system,
       Roboto,
       Helvetica,
@@ -232,8 +232,4 @@
     }
   }
 
-</style>
-
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 </style>
