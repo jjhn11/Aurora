@@ -12,7 +12,7 @@
         <h2 class="footer-logo__title">AURORA</h2>
       </div>
       <p class="footer-logo__description">
-        Se brida un servicio de apoyo al área de conocimiento, para facilitar el
+        Se brinda un servicio de apoyo al área de conocimiento, para facilitar el
         acceso a la información y el conocimiento, por medio de bibliograficas
         actualizadas y servicios de información.
       </p>

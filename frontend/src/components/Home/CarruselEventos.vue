@@ -134,7 +134,12 @@
     text-align: center;
     justify-content: center;
     font-size: 30px;
-    font-family: "Crimson text";
+      font-family:
+      "Josefin Sans",
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
   }
   .text-primary{
     font-size: 20px;

@@ -183,9 +183,9 @@
 
           <!-- Center Logo -->
 
-          <a class="navbar-brand mx-auto">
+          <RouterLink to="/" class="navbar-brand mx-auto">
             <img :src="logo" alt="Aurora" class="mobile-logo">
-          </a>
+          </RouterLink>
 
           <!-- User Menu Button -->
 

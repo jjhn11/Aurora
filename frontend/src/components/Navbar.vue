@@ -7,7 +7,7 @@
   
   const isAdmin = computed(() => {
     if (!isAuthenticated.value) return false;
-    return user.value.email === "a22490388@itmexicali.edu.mx";
+    return user.value.email === "a22490408@itmexicali.edu.mx";
   });
 
   // [Imagenes]
@@ -233,10 +233,10 @@
 
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
               
-              <a class="navbar-brand me-auto" id="aurlog" :style="{ transform: isNavbarShrunk ? 'translateY(25px)' : 'translateY(0)' }">
+              <RouterLink to="/" class="navbar-brand me-auto" id="aurlog" :style="{ transform: isNavbarShrunk ? 'translateY(25px)' : 'translateY(0)' }">
                   <img :src="logo" id="log">
                   <span id="aur">AURORA</span>
-              </a>
+              </RouterLink>
 
               <ul class="navbar-nav border-top border-black border-2 d-flex justify-content-center" id="nav" :class="{ 'no-border': isNavbarShrunk }">
 
@@ -399,571 +399,346 @@
                                                       currentView === 'AcProfile' ? 'acp-size' : 'nac-size'" 
     @click.stop>
 
-      <div>
+      <div class="container p-1 d-flex flex-column">
+        
+          <!-- ######################### Ventana Principal Sin Cuenta ######################### -->
 
-        <div class="container-fluid p-1 justify-content-center d-flex flex-column align-items-center">
+        <!-- <div v-if="!isAuthenticated"> -->
+        <div v-if="currentView === 'MainMenu'" class="window">
+
+          <!-- ------------------------------------------- -->
           
-           <!-- ######################### Ventana Principal Sin Cuenta ######################### -->
+          <div class="window-header gapg">
 
-          <!-- <div v-if="!isAuthenticated"> -->
-          <div v-if="currentView === 'MainMenu'">
+            <img class="ac-img" :src="INV">
 
-            <!-- ------------------------------------------- -->
-            
-            <div class="container mt-3">
-
-              <div class="row">
-
-                <div class="col-4 mb-3 pe-4 d-flex justify-content-center align-items-center">
-                  <img class="ac-img" :src="INV">
-                </div>
-
-                <div class="col-8 mb-3 ps-2 d-flex justify-content-center align-items-center">
-                  <label class="form-menu-label">
-                    INVITADO
-                  </label>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-            
-            <div class="container mt-1">
-
-              <div class="row">
-
-                <div class="col-12 mb-3 ps-3">
-                  <button @click="handleLogin" class="button-container btn" type="button">
-
-                    <i class="button-icon fa-solid fa-circle-user"></i>
-                    <span class="button-text">
-                      INICIAR SESION
-                    </span>
-
-                  </button>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-
-            <div class="container">
-
-              <div class="row">
-
-                <div class="col-12 mb-3 ps-3">
-                  <button @click="navigateTo('ConfigMenu')" class="button-container btn" type="button">
-
-                    <i class="button-icon fa-solid fa-gear"></i>
-                    <span class="button-text">
-                      CONFIGURACION
-                    </span>
-
-                  </button>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-          
-          </div>
-
-           <!-- ######################### Ventana Principal Con Cuenta ######################### -->
-
-          <!-- <div v-if="isAuthenticated"> -->
-          <div v-if="currentView === 'MainMenuAc'">
-
-            <!-- ------------------------------------------- -->
-            
-            <div class="container mt-1">
-
-              <div class="row">
-
-                <div class="col-4 mb-3 d-flex justify-content-end align-items-center">
-                  <img class="ac-img" :src="user.photo || INV">
-                </div>
-
-                <div class="col-8 mb-3 ps-1 d-flex justify-content-start align-items-center">
-                  <div>
-                    <label class="form-ac-label">
-                      {{ user.name }}
-                    </label>
-                    <label class="form-ac-sublabel" id="est">
-                      ESTATUS
-                    </label>
-                    <label class="form-ac-sublabel" id="act">
-                      ACTIVO
-                    </label>
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-            
-            <div class="container mt-1">
-
-              <div class="row">
-
-                <div class="col-9 mb-2 ps-5 ms-5">
-                  <button @click="navigateTo('AcProfile')" class="button-container btn" type="button">
-
-                    <i class="button-ac-icon fa-solid fa-user-gear"></i>
-                    <span class="button-ac-text">
-                      PERFIL
-                    </span>
-
-                  </button>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-
-            <div v-if="isAdmin" class="container">
-
-              <div class="row">
-
-                <div class="col-9 mb-2 ps-5 ms-5">
-                  <RouterLink to="/admin-eventos" class="button-container btn" type="button">
-
-                    <i class="button-ac-icon fa-solid fa-calendar-days"></i>
-                    <span class="button-ac-text">
-                      EVENTOS
-                    </span>
-
-                  </RouterLink>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-
-            <div class="container">
-
-              <div class="row">
-
-                <div class="col-9 mb-3 ps-5 ms-5">
-                  <button @click="navigateTo('ConfigMenu')" class="button-container btn" type="button">
-
-                    <i class="button-ac-icon fa-solid fa-gear"></i>
-                    <span class="button-ac-text">
-                      CONFIGURACION
-                    </span>
-
-                  </button>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-
-            <div class="container">
-
-              <div class="row">
-
-                <div class="col-12 ps-5 ms-3">
-                  <button @click="handleLogout" class="btn btn-white" type="button" id="csbot">
-                      CERRAR SESION
-                  </button>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-          
-          </div>
-
-           <!-- ######################### Ventana Perfil ######################### -->
-
-          <!-- <div v-if="isAuthenticated"> -->
-          <div v-if="currentView === 'AcProfile'">
-
-            <!-- ------------------------------------------- -->
-            
-            <div class="container mt-4" id="CIM">
-
-              <div class="row">
-
-                <div class="col-12 mb-3 d-flex justify-content-center align-items-center">
-                  <img class="pf-img" :src="user.photo || INV">
-                </div>
-
-                <div class="col-12 mb-1 d-flex justify-content-center align-items-center">
-                  <div>
-                    <label class="form-pf-label">
-                      {{ user.name }}
-                    </label>
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-            
-            <div class="container mt-1">
-
-              <div class="row">
-
-                <div class="col-12 mb-2 ms-4">
-
-                  <label class="form-pf-sublabel" id="act">
-                    ESTATUS:
-                  </label>
-                  <label class="form-pf-sublabel">
-                    Activo
-                  </label>
-
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-
-            <div class="container">
-
-              <div class="row">
-
-                <div class="col-12 mb-2 ms-4">
-                  
-                  <label class="form-pf-sublabel" id="act">
-                    OCUPACIÓN:
-                  </label>
-                  <label class="form-pf-sublabel">
-                    Alumno <!--{{ user.role }}-->
-                  </label>
-                  
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-
-            <div class="container">
-
-              <div class="row">
-
-                <div class="col-12 mb-2 ms-4">
-                  
-                  <label class="form-pf-sublabel" id="act">
-                    CORREO:
-                  </label>
-                  <label class="form-pf-sublabel">
-                    {{ user.email }}
-                  </label>
-                  
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-
-            <div class="container">
-
-              <div class="row">
-
-                <div class="col-12 mb-2 ms-4">
-                  
-                  <label class="form-pf-sublabel" id="act">
-                    NUMERO DE CONTROL:
-                  </label>
-                  <label class="form-pf-sublabel">
-                    22490xxx <!--{{ user.id }}-->
-                  </label>
-                  
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-
-            <div class="container">
-
-              <div class="row">
-
-                <div class="col-12 mb-2 ms-4">
-                  
-                  <label class="form-pf-sublabel" id="act">
-                    GENERO:
-                  </label>
-                  <label class="form-pf-sublabel">
-                    Masculino <!--{{ user.gender }}-->
-                  </label>
-                  
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-
-            <div class="container">
-
-              <div class="row">
-
-                <div class="col-12 mb-3 ps-5 ms-2">
-                  <button @click="handleLogout" class="btn btn-white" type="button" id="csbot">
-                      CERRAR SESION
-                  </button>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-          
-          </div>
-
-           <!-- ######################### Ventana de Configuración ######################### -->
-          
-          <div v-if="currentView === 'ConfigMenu'">
-
-            <!-- ------------------------------------------- -->
-
-            <div class="container">
-
-              <div class="row">
-
-                <div class="col-2 mb-3 ps-5 d-flex justify-content-center align-items-center">
-                  <i class="form-menu-icon fa-solid fa-gear" id="labi"></i>
-                </div>
-
-                <div class="col-10 mb-3 d-flex justify-content-center align-items-center">
-                  <label class="form-menu-label">
-                    CONFIGURACION
-                  </label>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-
-            <div class="container mt-1">
-
-              <div class="row">
-
-                <div class="col-12 mb-3">
-                  <button @click="navigateTo('PersonalizationMenu')" class="button-container btn" type="button">
-
-                    <i class="button-icon bi bi-brush"></i>
-                    <span class="button-text">
-                      PERSONALIZACION
-                    </span>
-
-                  </button>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-
-            <div class="container">
-
-              <div class="row">
-
-                <div class="col-12 pb-2 mb-3">
-                  <button @click="navigateTo('LanguageMenu')" class="button-container btn" type="button">
-
-                    <i class="button-icon fa-solid fa-language"></i>
-                    <span class="button-text">
-                      LENGUAJE
-                    </span>
-
-                  </button>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
+            <label class="form-menu-label">
+              INVITADO
+            </label>
 
           </div>
 
-           <!-- ######################### Ventana de Personalización ######################### -->
+          <!-- ------------------------------------------- -->
           
-          <div v-if="currentView === 'PersonalizationMenu'">
+          <div class="window-content gapmd">
 
-            <!-- ------------------------------------------- -->
+            <button @click="handleLogin" class="button-container default btn" type="button">
 
-            <div class="container">
+              <i class="button-icon fa-solid fa-circle-user"></i>
+              <span class="button-text">
+                INICIAR SESION
+              </span>
 
-              <div class="row">
+            </button>
 
-                <div class="col-2 mb-3 d-flex justify-content-center align-items-center">
-                  <i class="form-menu-icon bi bi-brush" id="labi"></i>
-                </div>
+            <button @click="navigateTo('ConfigMenu')" class="button-container default btn" type="button">
 
-                <div class="col-10 mb-3 d-flex justify-content-center align-items-center">
-                  <label class="form-menu-label">
-                    PERSONALIZACION
-                  </label>
-                </div>
+              <i class="button-icon fa-solid fa-gear"></i>
+              <span class="button-text">
+                CONFIGURACION
+              </span>
 
-              </div>
+            </button>
 
-            </div>
-
-            <!-- ------------------------------------------- -->
-
-            <div class="container mt-1">
-
-              <div class="row">
-
-                <div class="col-12 mb-3">
-                  <button @click="toggleTheme" class="button-container btn" type="button">
-
-                    <i class="button-icon" :class="darkTheme ? 'bi bi-moon' : 'bi bi-brightness-high'" id="theme"></i>
-                    <span class="button-text" :class="darkTheme ? 'dark' : 'bright'">
-                      {{ darkTheme ? 'TEMA OSCURO' : 'TEMA CLARO' }}
-                    </span>
-
-                  </button>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-
-            <div class="container">
-
-              <div class="row">
-
-                <div class="col-12 pb-2 mb-3">
-                  <button @click="changeFontSize" class="button-container btn" type="button">
-
-                    <i class="button-icon fa-solid fa-text-height"></i>
-                    <span class="button-text">
-                      TAMAÑO: {{ currentFontSize }}rem
-                    </span>
-
-                  </button>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-            
           </div>
 
-           <!-- ######################### Ventana de Idioma ######################### -->
+          <!-- ------------------------------------------- -->
+        
+        </div>
+
+          <!-- ######################### Ventana Principal Con Cuenta ######################### -->
+
+        <!-- <div v-if="isAuthenticated"> -->
+        <div v-if="currentView === 'MainMenuAc'" class="window account">
+
+          <!-- ------------------------------------------- -->
           
-          <div v-if="currentView === 'LanguageMenu'">
-            
-            <!-- ------------------------------------------- -->
+          <div class="window-header alleft gapsm">
 
-            <div class="container">
+            <img class="ac-img" :src="user.photo || INV">
 
-              <div class="row">
-
-                <div class="col-3 mb-3 ps-5 d-flex justify-content-center align-items-center">
-                  <i class="form-menu-icon fa-solid fa-language" id="labi"></i>
-                </div>
-
-                <div class="col-9 mb-3 d-flex justify-content-center align-items-center">
-                  <label class="form-menu-label">
-                    LENGUAJE
-                  </label>
-                </div>
-
-              </div>
-
+            <div class="ac-content">
+              <label class="form-ac-label">
+                {{ user.name }}
+              </label>
+              <label class="form-ac-sublabel" id="est">
+                ESTATUS
+              </label>
+              <label class="form-ac-sublabel" id="act">
+                ACTIVO
+              </label>
             </div>
-
-            <!-- ------------------------------------------- -->
-
-            <div class="container mt-1">
-
-              <div class="row">
-
-                <div class="col-12 mb-3">
-                  <button @click="changeLanguage('Español')"  class="button-container btn" type="button">
-
-                    <i class="button-icon fi fi-mx"></i>
-                    <span class="button-text">
-                      ESPAÑOL
-                    </span>
-
-                  </button>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
-
-            <div class="container">
-
-              <div class="row">
-
-                <div class="col-12 pb-2 mb-3">
-                  <button @click="changeLanguage('English')" class="button-container btn" type="button">
-
-                    <i class="button-icon fa-solid fi fi-us"></i>
-                    <span class="button-text">
-                      ENGLISH
-                    </span>
-
-                  </button>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- ------------------------------------------- -->
 
           </div>
+
+          <!-- ------------------------------------------- -->
+          
+          <div class="window-content account gaplg">
+
+            <button @click="navigateTo('AcProfile')" class="button-container account btn" type="button">
+
+              <i class="button-ac-icon fa-solid fa-user-gear"></i>
+              <span class="button-ac-text">
+                PERFIL
+              </span>
+
+            </button>
+
+            <RouterLink v-if="isAdmin" to="/admin-eventos" class="button-container account btn" type="button">
+
+              <i class="button-ac-icon fa-solid fa-calendar-days"></i>
+              <span class="button-ac-text">
+                EVENTOS
+              </span>
+
+            </RouterLink>
+
+            <button @click="navigateTo('ConfigMenu')" class="button-container account btn" type="button">
+
+              <i class="button-ac-icon fa-solid fa-gear"></i>
+              <span class="button-ac-text">
+                CONFIGURACION
+              </span>
+
+            </button>
+
+            <button @click="handleLogout" class="btn btn-white" type="button" id="csbot">
+                CERRAR SESION
+            </button>
+
+          </div>
+
+          <!-- ------------------------------------------- -->
+        
+        </div>
+
+          <!-- ######################### Ventana Perfil ######################### -->
+
+        <!-- <div v-if="isAuthenticated"> -->
+        <div v-if="currentView === 'AcProfile'" class="window prof">
+
+          <!-- ------------------------------------------- -->
+
+          <div class="window-header prof gapsm">
+
+            <img class="pf-img" :src="user.photo || INV">
+
+            <label class="form-pf-label">
+              {{ user.name }}
+            </label>
+
+          </div>
+
+          <!-- ------------------------------------------- -->
+
+          <div class="window-content alleft gapmd">
+
+            <div>
+              <label class="form-pf-sublabel" id="act">
+                ESTATUS:
+              </label>
+              
+              <label class="form-pf-sublabel">
+                Activo
+              </label>
+            </div>
+
+            <div>
+              <label class="form-pf-sublabel" id="act">
+                OCUPACIÓN:
+              </label>
+
+              <label class="form-pf-sublabel">
+                Alumno <!--{{ user.role }}-->
+              </label>
+            </div>
+
+            <div>
+              <label class="form-pf-sublabel" id="act">
+                CORREO:
+              </label>
+
+              <label class="form-pf-sublabel">
+                {{ user.email }}
+              </label>
+            </div>
+
+            <div>
+              <label class="form-pf-sublabel" id="act">
+                NUMERO DE CONTROL:
+              </label>
+
+              <label class="form-pf-sublabel">
+                22490xxx <!--{{ user.id }}-->
+              </label>
+            </div>
+
+            <div>
+              <label class="form-pf-sublabel" id="act">
+                GENERO:
+              </label>
+
+              <label class="form-pf-sublabel">
+                Masculino <!--{{ user.gender }}-->
+              </label>
+            </div>
+          
+          </div>
+
+          <div class="window-content mt-3">
+            
+            <button @click="handleLogout" class="btn btn-white prof" type="button" id="csbot">
+              CERRAR SESION
+            </button>
+
+          </div>
+
+          <!-- ------------------------------------------- -->
 
         </div>
 
-         <!-- ######################### Botón de regreso al menú principal ######################### -->
-         <!-- Este botón solo se muestra si no estamos en el menú principal -->
+          <!-- ######################### Ventana de Configuración ######################### -->
+        
+        <div v-if="currentView === 'ConfigMenu'" class="window">
 
-        <div class="container-fluid">
-          <button v-if="currentView !== 'MainMenu' && currentView !== 'MainMenuAc'" @click="goBack" class="btn btn-outline-danger" type="button" id="atbot">
-            <i class="fa-solid fa-chevron-left"></i>
-          </button>
+          <!-- ------------------------------------------- -->
+
+          <div class="window-header gapmd">
+
+              <i class="form-menu-icon fa-solid fa-gear" id="labi"></i>
+
+              <label class="form-menu-label">
+                CONFIGURACION
+              </label>
+
+          </div>
+
+          <!-- ------------------------------------------- -->
+            
+          <div class="window-content gapmd">
+
+            <button @click="navigateTo('PersonalizationMenu')" class="button-container default btn" type="button">
+
+              <i class="button-icon bi bi-brush"></i>
+
+              <span class="button-text">
+                PERSONALIZACION
+              </span>
+
+            </button>
+
+            <button @click="navigateTo('LanguageMenu')" class="button-container default btn" type="button">
+
+              <i class="button-icon fa-solid fa-language"></i>
+              <span class="button-text">
+                LENGUAJE
+              </span>
+
+            </button>
+
+          </div>
+
+          <!-- ------------------------------------------- -->
+
         </div>
+
+          <!-- ######################### Ventana de Personalización ######################### -->
+        
+        <div v-if="currentView === 'PersonalizationMenu'" class="window">
+
+          <!-- ------------------------------------------- -->
+
+          <div class="window-header gaplg">
+
+                <i class="form-menu-icon bi bi-brush" id="labi"></i>
+
+                <label class="form-menu-label">
+                  PERSONALIZACION
+                </label>
+
+          </div>
+
+          <!-- ------------------------------------------- -->
+
+          <div class="window-content gapmd">
+
+                <button @click="toggleTheme" class="button-container default btn" type="button">
+
+                  <i class="button-icon" :class="darkTheme ? 'bi bi-moon' : 'bi bi-brightness-high'" id="theme"></i>
+                  <span class="button-text" :class="darkTheme ? 'dark' : 'bright'">
+                    {{ darkTheme ? 'TEMA OSCURO' : 'TEMA CLARO' }}
+                  </span>
+
+                </button>
+
+                <button @click="changeFontSize" class="button-container default btn" type="button">
+
+                  <i class="button-icon fa-solid fa-text-height"></i>
+                  <span class="button-text">
+                    TAMAÑO: {{ currentFontSize }}rem
+                  </span>
+
+                </button>
+
+          </div>
+
+          <!-- ------------------------------------------- -->
+          
+        </div>
+
+          <!-- ######################### Ventana de Idioma ######################### -->
+        
+        <div v-if="currentView === 'LanguageMenu'" class="window">
+          
+          <!-- ------------------------------------------- -->
+
+          <div class="window-header gapsm">
+
+                <i class="form-menu-icon fa-solid fa-language" id="labi"></i>
+
+                <label class="form-menu-label">
+                  LENGUAJE
+                </label>
+
+          </div>
+
+          <!-- ------------------------------------------- -->
+
+          <div class="window-content gapmd">
+
+            <button @click="changeLanguage('Español')"  class="button-container default btn" type="button">
+
+              <i class="button-icon fi fi-mx"></i>
+              <span class="button-text">
+                ESPAÑOL
+              </span>
+
+            </button>
+
+            <button @click="changeLanguage('English')" class="button-container default btn" type="button">
+
+              <i class="button-icon fa-solid fi fi-us"></i>
+              <span class="button-text">
+                ENGLISH
+              </span>
+
+            </button>
+
+          </div>
+
+          <!-- ------------------------------------------- -->
+
+        </div>
+
+        <button v-if="currentView !== 'MainMenu' && currentView !== 'MainMenuAc'" @click="goBack" class="btn btn-outline-danger" type="button" id="atbot">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
 
       </div>
+
+        <!-- ######################### Botón de regreso al menú principal ######################### -->
+        <!-- Este botón solo se muestra si no estamos en el menú principal -->
+
     </form>
 
   </div>
@@ -1390,15 +1165,14 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
-    text-align:center;
+
+    text-align: center;
     
     background-color: white;
     border: 2px solid black;
     border-bottom-left-radius: 25px;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     
-    font-family: 'Inria Sans';
     font-weight: 700;
     
     opacity: 0;
@@ -1420,7 +1194,7 @@
     /* Profile Size */
 
     &.acp-size {
-      height: 560px;
+      height: 575px;
 
       display: flex;
       flex-direction: row;
@@ -1455,19 +1229,137 @@
       height: 80px;
     }
 
+    .window {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      align-self: center;
+      text-align: center;
+      flex-grow: 1;
+      flex-shrink: 0;
+      flex-basis: 0;
+      width: fit-content;
+
+      &.prof {
+        margin-top: 20px;
+      }
+
+      &.account {
+        width: 100% !important;
+      }
+    }
+
+    .window-header {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      width: fit-content;
+      margin-bottom: 15px;
+
+      &.alleft {
+        display: flex;
+        align-self: flex-start;
+        align-items: center;
+        justify-content: start;
+        text-align: start;
+        margin-left: 30px;
+      }
+
+      &.prof {
+        flex-direction: column !important;
+        margin-bottom: 17.5px;
+      }
+
+      &.gapg {
+        gap: 35px;
+      }
+
+      &.gapxxsm {
+        gap: 30px;
+      }
+
+      &.gapxsm {
+        gap: 25px;
+      }
+
+      &.gapsm {
+        gap: 20px;
+      }
+
+      &.gapmd {
+        gap: 15px;
+      }
+
+      &.gaplg {
+        gap: 10px;
+      }
+
+      &.gapxlg {
+        gap: 5px;
+      }
+    }
+
+    .window-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      width: fit-content;
+
+      &.alleft {
+        display: flex;
+        align-self: flex-start;
+        align-items: flex-start;
+        justify-content: left;
+        text-align: left;
+        margin-left: 10px;
+      }
+      
+      &.gapg {
+        gap: 35px;
+      }
+
+      &.gapxxsm {
+        gap: 30px;
+      }
+
+      &.gapxsm {
+        gap: 25px;
+      }
+
+      &.gapsm {
+        gap: 20px;
+      }
+
+      &.gapmd {
+        gap: 15px;
+      }
+
+      &.gaplg {
+        gap: 10px;
+      }
+
+      &.gapxlg {
+        gap: 5px;
+      }
+    }
+
     .form-menu-label{
+      height: 35px;
+      margin-top: 10px;
 
-      white-space: normal; /* Permite que el texto se divida en varias líneas */
-      word-wrap: break-word; /* Divide palabras largas si es necesario */
       text-align: center; /* Centra el texto dentro del label */
-
       display: flex;
       justify-content: center;
       align-items: center;
 
-      font-size: 35px;
+      font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
+      font-size: 32px;
       font-weight: 700;
-      font-family: 'Crimson text';
     }
 
     
@@ -1487,14 +1379,15 @@
     .form-ac-label{
       white-space: normal; /* Permite que el texto se divida en varias líneas */
       word-wrap: break-word; /* Divide palabras largas si es necesario */
-      text-align: left; /* Centra el texto dentro del label */
+      text-align: start; /* Centra el texto dentro del label */
       line-height: 1.0;
 
       display: flex;
       justify-content: center;
       align-items: center;
 
-      font-size: 22px;
+      font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
+      font-size: 18px;
       font-weight: 700;
     }
 
@@ -1508,14 +1401,17 @@
       justify-content: left;
       align-items: left;
 
+      font-family: "Nunito Sans", sans-serif;
       font-size: 16px;
       font-weight: 700;
 
       &#est {
+        font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
         color:grey;
       }
 
       &#act {
+        font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
         color:#0047FF;
       }
     }
@@ -1530,6 +1426,16 @@
       width: 130px;
       height: 130px;
     }
+    
+    .ac-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: center;
+      width: fit-content;
+      max-width: 225px;
+    }
 
     .form-pf-label {
       word-wrap: break-word; /* Divide palabras largas si es necesario */
@@ -1540,27 +1446,24 @@
       justify-content: center;
       align-items: center;
 
-      font-size: 20px;
+      font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
+      font-size: 16px;
       font-weight: 700;
     }
 
     .form-pf-sublabel {
-      word-wrap: break-word; /* Divide palabras largas si es necesario */
-      text-align: left; /* Centra el texto dentro del label */
-      line-height: 1.25;
-
+      height: 20px;
       display: flex;
       justify-content: left;
       align-items: left;
+      text-align: left; /* Centra el texto dentro del label */
 
+      font-family: "Nunito Sans", sans-serif;
       font-size: 16px;
       font-weight: 700;
 
-      &#est {
-        color:grey;
-      }
-
       &#act {
+        font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
         color:#0047FF;
       }
     }
@@ -1597,7 +1500,6 @@
       justify-content: center;
       align-content: center;
       align-items: center;
-      width: 100%;
       padding: 0;
       background: none;
       border: none;
@@ -1608,6 +1510,15 @@
       transition: all 0.3s ease;
       position: relative;
       cursor: pointer;
+
+      &.account {
+        gap: 15px;
+        margin-right: 65px;
+      }
+      
+      &.default{
+        gap: 15px;
+      }
     
       .button-icon {
         width: 35px; /* Ancho fijo para todos los íconos */
@@ -1618,7 +1529,6 @@
         font-size: 30px;
         color: #0047FF;
         transition: all 0.3s ease;
-        margin-right: 1rem;
         flex-shrink: 0;
       }
     
@@ -1639,28 +1549,29 @@
       }
 
       .button-ac-text {
+        font-family: "Nunito Sans", sans-serif;
         font-size: 16px;
-        font-weight: 500;
+        font-weight: 600;
         color: black;
         text-align: left;
-        width: 185px; /* Ancho fijo para todos los botones */
+        width: 120px; /* Ancho fijo para todos los botones */
         flex-grow: 0; /* Quitar flex-grow para mantener el ancho fijo */
-        padding: 0.25rem 1rem;
+        padding: 0.25rem 0;
         border: 1px;
         border-radius: 50px;
         transition: all 0.3s ease;
       }
 
       .button-ac-icon {
-        width: 10px; /* Ancho fijo para todos los íconos */
+        width: 45px; /* Ancho fijo para todos los íconos */
         display: flex;
         justify-content: center;
         align-items: center;
+        text-align: center;
 
         font-size: 25px;
         color: #0047FF;
         transition: all 0.3s ease;
-        margin-right: 2.1rem;
         flex-shrink: 0;
       }
     
@@ -1698,7 +1609,7 @@
     }
 
     #csbot.btn {
-      margin-left: 75px;
+      margin-left: 10px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -1710,8 +1621,12 @@
       font-size: 16px;
       font-weight: 700;
       color: #0047FF;
-
+      
       transition: all 0.3s ease;
+
+      &.prof {
+        margin-right: 0px;
+      }
 
       &:hover {
         border-color: white;

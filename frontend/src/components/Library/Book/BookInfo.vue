@@ -300,12 +300,11 @@ onMounted(() => {
     font-size: 40px;
     font-weight: 600;
     font-family:
-      Playfair Display,
-      Crimson Text,
-      -apple-system,
-      Roboto,
-      Helvetica,
-      sans-serif;
+        "Josefin Sans",
+        -apple-system,
+        Roboto,
+        Helvetica,
+        sans-serif;
     align-self: start;
     margin: 0;
   }

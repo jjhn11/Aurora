@@ -2,7 +2,7 @@
     <br><br>
     <div v-if="isAdmin" class="admin-events-container">
       <div class="header-section">
-        <h1>Administración de Eventos</h1>
+        <h1>ADMINISTRACIÓN DE EVENTOS</h1>
         <div class="actions">
           <button class="btn btn-primary" @click="showEventForm()">
             <i class="fas fa-plus-circle"></i> Nuevo Evento
@@ -39,7 +39,7 @@
           </div>
           <div class="col-md-3">
             <div class="input-group">
-              <span class="input-group-text">Fecha</span>
+              <span class="input-group-text date-but">Fecha</span>
               <input 
                 type="date" 
                 class="form-control" 
@@ -59,7 +59,7 @@
       </div>
   
       <!-- Loading indicator -->
-      <div v-if="loading" class="text-center p-5">
+      <div v-if="loading" class="load text-center p-5">
         <div class="spinner-border text-primary" role="status">
           <span class="visually-hidden">Cargando...</span>
         </div>
@@ -67,7 +67,7 @@
       </div>
   
       <!-- Error message -->
-      <div v-else-if="error" class="alert alert-danger mt-3">
+      <div v-else-if="error" class="error alert alert-danger mt-3">
         <i class="fas fa-exclamation-triangle"></i> {{ error }}
       </div>
   
@@ -75,7 +75,7 @@
       <div v-else-if="filteredEvents.length > 0" class="table-responsive mt-4">
         <table class="table table-striped table-hover">
           <thead class="table-primary">
-            <tr>
+            <tr class="sections">
               <th scope="col">#</th>
               <th scope="col">Título</th>
               <th scope="col">Categoría</th>
@@ -87,7 +87,7 @@
             <tr v-for="event in paginatedEvents" :key="event.Id_event">
               <td>{{ event.Id_event }}</td>
               <td>{{ event.Title }}</td>
-              <td><span class="badge bg-info">{{ event.category?.Category_event_name }}</span></td>
+              <td><span class="badge b-center">{{ event.category?.Category_event_name }}</span></td>
               <td>{{ formatDate(event.Event_date) }}</td>
               <td>
                 <div class="btn-group">
@@ -108,7 +108,7 @@
   
         <!-- Pagination -->
         <div class="d-flex justify-content-between align-items-center">
-          <div>
+          <div class="most">
             Mostrando {{ startIndex + 1 }} - {{ endIndex }} de {{ filteredEvents.length }} eventos
           </div>
           <nav aria-label="Paginación de eventos">
@@ -147,7 +147,7 @@
       </div>
   
       <!-- No results message -->
-      <div v-else class="text-center p-5">
+      <div v-else class="noresu text-center p-5">
         <i class="fas fa-calendar-times fa-4x text-muted mb-3"></i>
         <h3>No se encontraron eventos</h3>
         <p>Intente cambiar los filtros o cree un nuevo evento.</p>
@@ -290,7 +290,7 @@
                 <div class="card-body">
                   <h3 class="card-title">{{ selectedEvent.title }}</h3>
                   <div class="d-flex mb-3">
-                    <span class="badge bg-info me-2">{{ selectedEvent.category }}</span>
+                    <span class="badge b-center me-2">{{ selectedEvent.category }}</span>
                     <span class="text-muted">{{ formatDate(selectedEvent.date) }}</span>
                   </div>
                   <p class="card-text">{{ selectedEvent.description }}</p>
@@ -338,7 +338,7 @@
       </div>
   
     </div>
-    <div v-else class="text-center p-5">
+    <div v-else class="noacc text-center p-5">
       <i class="fas fa-user-lock fa-4x text-muted mb-3"></i>
       <h3>Acceso Denegado</h3>
       <p>No tiene permisos para acceder a esta sección.</p>
@@ -375,7 +375,7 @@ const user = computed(() => store.state.user);
 // Check if user is admin based on email
 const isAdmin = computed(() => {
     if (!isAuthenticated.value) return false;
-  return user.value.email === "a22490388@itmexicali.edu.mx";
+  return user.value.email === "a22490408@itmexicali.edu.mx";
 });
 
 // Pagination
@@ -701,6 +701,8 @@ const getImagePreviewUrl = (image, imageUrl) => {
   }
   
   .header-section {
+    font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
+    font-weight: 700;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -708,6 +710,7 @@ const getImagePreviewUrl = (image, imageUrl) => {
   }
   
   .filters-section {
+    
     background-color: #f8f9fa;
     padding: 1.5rem;
     border-radius: 0.5rem;
@@ -738,6 +741,7 @@ const getImagePreviewUrl = (image, imageUrl) => {
   }
   
   .form-label {
+    font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
     font-weight: 500;
     margin-bottom: 0.5rem;
   }
@@ -776,4 +780,22 @@ const getImagePreviewUrl = (image, imageUrl) => {
     max-width: 100%;
     height: auto;
   }
-  </style>
+
+  .b-center {
+    display: flex;
+    justify-content: center;
+    width: 70px;
+    color: white;
+    background-color: #0047FF;
+  }
+
+  .noresu, .noacc, .date-but, .btn, .sections, .card-title, .most, .form-check-label, .load, .error {
+    font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
+  }
+
+  .modal-title {
+    font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: 32px;
+  }
+</style>

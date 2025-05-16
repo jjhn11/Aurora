@@ -21,7 +21,12 @@
 
 <style scoped>
 .title {
-    font-family: Crimson Text;
+    font-family:
+      "Josefin Sans",
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
     font-weight: 600;
     font-size: 50px;
     line-height: 100%;

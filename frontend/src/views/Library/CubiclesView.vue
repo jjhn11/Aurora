@@ -43,10 +43,6 @@ onMounted(() => {
 });
 </script>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Josefin+Sans:wght@400;600&display=swap');
-</style>
-
 <template>
     <HeroVideo :img="bannerImage" title="CUBÍCULOS" />
     <br><br>

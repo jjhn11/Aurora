@@ -260,7 +260,7 @@
       Roboto,
       Helvetica,
       sans-serif;
-    color: rgba(0, 0, 0, 1);
+    color: rgba(0, 14, 50, 1);
   }
   
   .metadata-column-right {
@@ -292,7 +292,7 @@
       Roboto,
       Helvetica,
       sans-serif;
-    color: rgba(0, 0, 0, 1);
+    color: rgba(0, 14, 50, 1);
   }
   
   .categories-info {
