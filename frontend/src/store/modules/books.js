@@ -1858,23 +1858,6 @@ import mecasistemascon6e from '@/assets/img/library/C-Coverimage/Mecatronica/Mec
 
         //20 LIBROS DEL CATALOGO DE LIBROS
         
-          "8490359993": {
-            id: "8490359993",
-            ISBN: "8490359997",
-            Title: "Big Data: La revolución de los datos masivos",
-            coverImage: libroBigData,
-            author: "Viktor Mayer-Schönberger, Kenneth Cukier",
-            authors: ["Viktor Mayer-Schönberger", "Kenneth Cukier"],
-            publisher: "Ediciones Gestión 2000",
-            year: "2013",
-            pages: "256",
-            binding: "Tapa Blanda",
-            edition: "1",
-            categories: ["Tecnología", "Ciencia de datos"],
-            format: "Libro Físico",
-            synopsis: "Análisis del impacto de los macrodatos en la sociedad, economía y toma de decisiones empresariales contemporáneas."
-          },
-        
           "9789705700296": {
             id: "9789705700296",
             ISBN: "9789705700296",
@@ -3054,53 +3037,18 @@ import mecasistemascon6e from '@/assets/img/library/C-Coverimage/Mecatronica/Mec
         
         return new Promise(resolve => {
           setTimeout(() => {
-            // If we don't have detailed data, generate some from basic data
-            let bookData = state.industrialBooks.find(b => b.id === id) ||
-                           state.systemsBooks.find(b => b.id === id) ||
-                           state.administrativeBooks.find(b => b.id === id) ||
-                           state.bookLovers.find(b => b.id === id);
+            // Find the book in any of our arrays
+            const bookData = this.getters['books/getBookById'](id);
             
             if (bookData) {
-              const bookDetails = {
-                ...bookData,
-                authors: [bookData.author],
-                publisher: "Editorial Aurora", 
-                year: "2023",
-                pages: "350",
-                binding: "Tapa dura",
-                edition: "1", 
-                categories: [bookData.category, "General"],
-                format: "Libro Físico",
-                synopsis: `Una fascinante historia sobre ${bookData.Title.toLowerCase()}, escrita por el reconocido autor ${bookData.author}.`
-              };
-              
-              commit('SET_BOOK_DETAILS', { id, details: bookDetails });
+              commit('SET_BOOK_DETAILS', { id, details: bookData });
               commit('SET_LOADING', { type: 'detail', value: false });
-              resolve(bookDetails);
+              resolve(bookData);
             } else {
-              // If we don't have any data for this ID, create a placeholder
-              const placeholderDetails = {
-                id: id,
-                ISBN: id,
-                Title: `Libro ${id}`,
-                coverImage: "https://t4.ftcdn.net/jpg/01/15/20/75/360_F_115207580_US2etunH78I7iMYHOoNVvxQTCIdoPdRj.jpg",
-                author: "Autor Desconocido",
-                authors: ["Autor Desconocido"],
-                publisher: "Editorial Aurora",
-                year: "2023",
-                pages: "N/A",
-                binding: "Desconocido",
-                edition: "1",
-                categories: ["Desconocido"],
-                format: "Libro Físico",
-                synopsis: "No hay información disponible para este libro."
-              };
-              
-              commit('SET_BOOK_DETAILS', { id, details: placeholderDetails });
               commit('SET_LOADING', { type: 'detail', value: false });
-              resolve(placeholderDetails);
+              resolve(null);
             }
-          }, 800); // Slightly longer delay for detailed data
+          }, 800);
         });
       }
     }
