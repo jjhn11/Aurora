@@ -12,7 +12,7 @@
 
       <div class="not-found__animation">
         <img 
-          src="@/assets/img/library/bufalito2.png" 
+          src="@/assets/img/library/bufalita.png" 
           class="img-bufalito" 
           alt="Búfalo buscando"
         >
