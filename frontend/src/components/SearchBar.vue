@@ -38,6 +38,11 @@ const handleClickOutside = (event) => {
     showResults.value = false;
   }
 };
+
+const clearSearch = () => {
+  searchQuery.value = '';
+  showResults.value = false;
+};
 </script>
 
 <template>
@@ -56,6 +61,13 @@ const handleClickOutside = (event) => {
                     @input="handleSearch"
                     @focus="showResults = true"
                 />
+                <button 
+                  v-if="searchQuery"
+                  class="clear-button" 
+                  @click="clearSearch"
+                >
+                  <i class="bi bi-x"></i>
+                </button>
             </div>
         </div>
 
@@ -105,10 +117,11 @@ const handleClickOutside = (event) => {
 .search-input {
     width: 70%;
     padding: 0.75rem 1rem;
+    padding-left: 6%; /* Space for search icon */
+    padding-right: 2.5rem; /* Space for clear button */
     border: 1px solid #ccc;
     border-radius: 0.5rem;
     font-size: 1.1rem;
-    padding-left: 6%; /* Add space for the button */
 }
 
 .search-button {
@@ -127,9 +140,34 @@ const handleClickOutside = (event) => {
     width: 2.5rem;
 }
 
+.clear-button {
+  position: absolute;
+  right: 16%; /* Match input positioning */
+  background-color: transparent;
+  color: #666;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+  width: 2.5rem;
+  transition: color 0.2s ease;
+}
+
+.clear-button:hover {
+  color: #000;
+}
+
 .search-button i {
     font-size: 1.25rem;
     font-weight: 900;
+}
+
+.clear-button i {
+  font-size: 1.25rem;
 }
 
 .search-container {
@@ -231,6 +269,12 @@ const handleClickOutside = (event) => {
     width: 2rem;
   }
 
+  .clear-button {
+    right: 6%;
+    height: 2rem;
+    width: 2rem;
+  }
+
   .search-button i {
     font-size: 1rem;
   }
@@ -261,6 +305,10 @@ const handleClickOutside = (event) => {
 
   .search-button {
     left: 3%;
+  }
+
+  .clear-button {
+    right: 3%;
   }
 }
 </style>
