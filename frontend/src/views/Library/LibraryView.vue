@@ -104,7 +104,7 @@ const sections = [
   </div>
 
   <div class="container text-center">
-    <img src="@/assets/img/library/bufalito2.png" class="img-bufalito" alt="Bufalo chiquito">
+    <img src="@/assets/img/library/bufalita.png" class="img-bufalito" alt="Bufalo chiquito">
     <div class="text mt-3 mb-5">
       <p>
         ¿Sigues buscando algo que ver? 
