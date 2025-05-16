@@ -18,8 +18,8 @@ const loading = ref(true);
 
 onMounted(async () => {
   try {
-    // Fetch books if needed
     await store.dispatch('books/fetchBookDetails');
+    filteredBooks.value = Object.values(store.state.books.bookDetails);
   } catch (error) {
     console.error('Error loading books:', error);
   } finally {
@@ -41,64 +41,20 @@ const searchQuery = ref('');
 const selectedCategory = ref('');
 const sortOrder = ref('');
 
-// Modify filteredBooks computed property
-const filteredBooks = computed(() => {
-  let result = books.value;
-
-  // Filter by search query
-  if (searchQuery.value) {
-    const query = searchQuery.value.toLowerCase();
-    result = result.filter(book => 
-      book.Title?.toLowerCase().includes(query) ||
-      book.author?.toLowerCase().includes(query)
-    );
-  }
-
-  // Filter by category
-  if (selectedCategory.value) {
-    result = result.filter(book => 
-      book.categories?.includes(selectedCategory.value)
-    );
-  }
-
-  // Sort books
-  if (sortOrder.value) {
-    result = [...result].sort((a, b) => {
-      switch (sortOrder.value) {
-        case 'title-asc':
-          return a.Title.localeCompare(b.Title);
-        case 'title-desc':
-          return b.Title.localeCompare(a.Title);
-        case 'author-asc':
-          return a.author.localeCompare(b.author);
-        case 'author-desc':
-          return b.author.localeCompare(a.author);
-        case 'year-desc':
-          return Number(b.year) - Number(a.year);
-        case 'year-asc':
-          return Number(a.year) - Number(b.year);
-        default:
-          return 0;
-      }
-    });
-  }
-
-  return result;
-});
+// Replace the computed filteredBooks with a ref
+const filteredBooks = ref([]);
 
 // Pagination
 const currentPage = ref(1);
 const itemsPerPage = 20;
 
-const totalPages = computed(() => Math.ceil(filteredBooks.value.length / itemsPerPage));
-
 const paginatedBooks = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage;
-  // Create a new array, reverse it, then slice for pagination
   return [...filteredBooks.value]
-    .reverse()
     .slice(start, start + itemsPerPage);
 });
+
+const totalPages = computed(() => Math.ceil(filteredBooks.value.length / itemsPerPage));
 
 const scrollToTop = () => {
   window.scrollTo({
@@ -141,18 +97,148 @@ const closeModal = () => {
 };
 
 // Filter handlers
-const handleSearch = (query) => {
-  searchQuery.value = query;
-  currentPage.value = 1; // Reset to first page
+const handleSearch = (filters) => {
+  let result;
+  
+  // Get initial book set based on career
+  if (filters.career) {
+    switch (filters.career) {
+      case 'ISC':
+        result = [...store.state.books.systemsBooks];
+        break;
+      case 'IND':
+        result = [...store.state.books.industrialBooks];
+        break;
+      case 'IGE':
+        result = [...store.state.books.businessManagementBooks];
+        break;
+      case 'MEC':
+        result = [...store.state.books.mechanicBooks];
+        break;
+      case 'ENR':
+        result = [...store.state.books.renewableEnergyBooks];
+        break;
+      case 'LOG':
+        result = [...store.state.books.logisticsBooks];
+        break;
+      case 'MAT':
+        result = [...store.state.books.materialsBooks];
+        break;
+      case 'MCT':
+        result = [...store.state.books.mechatronicsBooks];
+        break;
+      case 'QUI':
+        result = [...store.state.books.chemistryBooks];
+        break;
+      case 'ELE':
+        result = [...store.state.books.electricalBooks];
+        break;
+      case 'ETR':
+        result = [...store.state.books.electronicsBooks];
+        break;
+      case 'CON':
+        result = [...store.state.books.accountingBooks];
+        break;
+      case 'DES':
+        result = [...store.state.books.appDevelopmentBooks];
+        break;
+      default:
+        result = [...books.value];
+    }
+  } else {
+    result = [...books.value];
+  }
+  
+  // Apply text-based filters according to search type
+  if (filters.title || filters.author || filters.isbn) {
+    switch (filters.searchType) {
+      case 'exact':
+        // Exact phrase matching
+        if (filters.title) {
+          result = result.filter(book => 
+            book.Title?.toLowerCase() === filters.title.toLowerCase()
+          );
+        }
+        if (filters.author) {
+          result = result.filter(book => 
+            book.author?.toLowerCase() === filters.author.toLowerCase()
+          );
+        }
+        if (filters.isbn) {
+          result = result.filter(book => 
+            book.ISBN?.toString() === filters.isbn
+          );
+        }
+        break;
+        
+      case 'keywords':
+      default:
+        // Partial matching
+        if (filters.title) {
+          result = result.filter(book => 
+            book.Title?.toLowerCase().includes(filters.title.toLowerCase())
+          );
+        }
+        if (filters.author) {
+          result = result.filter(book => 
+            book.author?.toLowerCase().includes(filters.author.toLowerCase())
+          );
+        }
+        if (filters.isbn) {
+          result = result.filter(book => 
+            book.ISBN?.toString().includes(filters.isbn)
+          );
+        }
+        break;
+    }
+  }
+
+  // Apply remaining filters
+  if (filters.category) {
+    result = result.filter(book => 
+      book.categories?.includes(filters.category)
+    );
+  }
+  
+  filteredBooks.value = result;
+  currentPage.value = 1;
 };
 
 const handleCategoryFilter = (category) => {
   selectedCategory.value = category;
+  // Apply category filter to all books
+  let result = [...books.value];
+  if (category) {
+    result = result.filter(book => book.categories?.includes(category));
+  }
+  filteredBooks.value = result;
   currentPage.value = 1;
 };
 
 const handleSort = (sortType) => {
   sortOrder.value = sortType;
+  let result = [...filteredBooks.value];
+  
+  result.sort((a, b) => {
+    switch (sortType) {
+      case 'title-asc':
+        return a.Title.localeCompare(b.Title);
+      case 'title-desc':
+        return b.Title.localeCompare(a.Title);
+      case 'author-asc':
+        return a.author.localeCompare(b.author);
+      case 'author-desc':
+        return b.author.localeCompare(a.author);
+      case 'year-desc':
+        return Number(b.year) - Number(a.year);
+      case 'year-asc':
+        return Number(a.year) - Number(b.year);
+      default:
+        return 0;
+    }
+  });
+  
+  filteredBooks.value = result;
   currentPage.value = 1;
 };
 </script>
@@ -222,12 +308,28 @@ const handleSort = (sortType) => {
   width: 20%; /* Se hizo para mostrar 5 libros por fila */
   margin: 0px 0px -20px 0px;
   padding: 0 10px;
+  display: flex;          /* Add these properties */
+  justify-content: center; /* to center the BookCard */
+  align-items: center;    /* in the column */
 }
+
 @media (max-width: 1002px) {
   .book-column {
     width: 50%; /* 2 en pantallas medianas */
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
+
+/* Add this to ensure the row is properly aligned */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin: 0 -10px; /* Compensate for column padding */
+}
+
 .pagination {
   display: flex;
   justify-content: center;
