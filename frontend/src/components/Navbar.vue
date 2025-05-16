@@ -6,8 +6,18 @@
   const store = useStore();
   
   const isAdmin = computed(() => {
-    if (!isAuthenticated.value) return false;
-    return user.value.email === "a22490408@itmexicali.edu.mx";
+      if (!isAuthenticated.value) return false;
+      
+      const adminEmails = [
+          "a22490408@itmexicali.edu.mx",
+          "a22490390@itmexicali.edu.mx",
+          "a22490388@itmexicali.edu.mx",
+          "a22490378@itmexicali.edu.mx",
+          "a22490352@itmexicali.edu.mx",
+          "a22490416@itmexicali.edu.mx"
+      ];
+      
+      return adminEmails.includes(user.value.email);
   });
 
   // [Imagenes]
