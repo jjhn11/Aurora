@@ -236,10 +236,10 @@
 
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
               
-              <a class="navbar-brand me-auto" id="aurlog" :style="{ transform: isNavbarShrunk ? 'translateY(25px)' : 'translateY(0)' }">
+              <RouterLink to="/" class="navbar-brand me-auto" id="aurlog" :style="{ transform: isNavbarShrunk ? 'translateY(25px)' : 'translateY(0)' }">
                   <img :src="logo" id="log">
                   <span id="aur">AURORA</span>
-              </a>
+              </RouterLink>
 
               <ul class="navbar-nav border-top border-black border-2 d-flex justify-content-center" id="nav" :class="{ 'no-border': isNavbarShrunk }">
 
