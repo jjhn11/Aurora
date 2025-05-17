@@ -31,7 +31,7 @@ services:
       - DB_NAME=AuroraV2
       - CHOKIDAR_USEPOLLING=true
     env_file:
-      - ./backend/src/.env
+      - ./backend/src/dev.env
 
     volumes:
       - ./backend:/app

@@ -30,7 +30,7 @@ services:
       - DB_PASSWORD=rootpassword
       - DB_NAME=AuroraV2
     env_file:
-      - ./backend/src/.env
+      - ./backend/src/prod.env
 
     volumes:
       - ./backend:/app
