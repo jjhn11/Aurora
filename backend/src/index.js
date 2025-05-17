@@ -19,8 +19,8 @@ import { loadSampleData } from './scripts/loadSampleData.js';
 import { cleanupData } from './scripts/cleanupData.js';
 
 const envFile = process.env.NODE_ENV === 'production'
-  ? path.join(__dirname, 'prod.env')
-  : path.join(__dirname, 'dev.env');
+  ? path.join('prod.env')
+  : path.join('dev.env');
 
 dotenv.config({ path: envFile });
 const open = (...args) => import('open').then(m => m.default(...args));

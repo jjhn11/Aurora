@@ -16,8 +16,8 @@ INSERT INTO Users_ (Id_user, Id_Occupation, Control_num, Name_user, Last_name, E
 ('USER002', 2, '15490002', 'María', 'López Sánchez', 'maria.lopez@itmexicali.edu.mx', 2, 1),
 ('USER005', 1, '21490005', 'Carlos', 'Ramírez Vega', 'a21490005@itmexicali.edu.mx', 1, 1),
 ('USER001', 3, '13490001', 'Ana', 'Martínez Cruz', 'ana.martinez@itmexicali.edu.mx', 2, 1),
-('USER004', 3, '19490004', 'Roberto', 'González Torres', 'roberto.gonzalez@itmexicali.edu.mx', 1, 1),
-('USER006', 1, '22490390', 'JHOSTIN', 'PACO VELAZQUEZ', 'a22490390@itmexicali.edu.mx', 1, 1);
+('USER004', 3, '19490004', 'Roberto', 'González Torres', 'roberto.gonzalez@itmexicali.edu.mx', 1, 1);
+
 
 -- Event categories before events
 INSERT INTO Event_categories_ (Category_event_name) VALUES 
