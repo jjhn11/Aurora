@@ -17,6 +17,8 @@ import { sequelize } from './config/db.js';
 import { runAssociations } from './models/associations.js';
 import { loadSampleData } from './scripts/loadSampleData.js';
 import { cleanupData } from './scripts/cleanupData.js';
+import { updateEventStatus } from './middlewares/checkEvents.js';
+
 
 const envFile = process.env.NODE_ENV === 'production'
   ? path.join('prod.env')
@@ -65,6 +67,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/events', updateEventStatus);
 
 // Routes
 app.use('/auth', authRoutes);
