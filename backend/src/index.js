@@ -18,7 +18,11 @@ import { runAssociations } from './models/associations.js';
 import { loadSampleData } from './scripts/loadSampleData.js';
 import { cleanupData } from './scripts/cleanupData.js';
 
-dotenv.config();
+const envFile = process.env.NODE_ENV === 'production'
+  ? path.join('prod.env')
+  : path.join('dev.env');
+
+dotenv.config({ path: envFile });
 const open = (...args) => import('open').then(m => m.default(...args));
 
 import { isProfane } from './middlewares/checkProfane.js';
