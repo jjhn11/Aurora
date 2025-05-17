@@ -16,7 +16,7 @@
       playsinline
       class="hero-video"
     >
-      <source src="@/assets/img/home/herovideo.MP4" type="video/mp4">
+      <source src="@/assets/img/home/CAMINO VERDE.mp4" type="video/mp4">
     </video>
 
     <!-- Overlay Content -->
