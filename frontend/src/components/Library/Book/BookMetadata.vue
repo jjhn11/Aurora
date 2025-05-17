@@ -26,7 +26,6 @@
           <div class="metadata-group">
             <div class="metadata-item binding">ENCUADERNACIÓN: {{ binding }}</div>
             <div class="metadata-item isbn">ISBN: {{ isbn }}</div>
-            <div class="metadata-item isbn13">ISBN: {{ isbn13 }}</div>
             <div class="metadata-item edition">NO. EDICIÓN: {{ edition }}</div>
             <div class="metadata-item categories-info">
               <span class="metadata-label">CATEGORÍAS:</span>
@@ -202,6 +201,7 @@
     align-self: stretch;
     margin-top: auto;
     margin-bottom: auto;
+    
   }
   @media (max-width: 991px) {
     .metadata-label {
@@ -296,9 +296,11 @@
   }
   
   .categories-info {
-    align-self: stretch;
     display: flex;
-    margin-top: 5px;
+    align-items: stretch;
+    gap: 26px;
+    flex-wrap: wrap;
+    margin-top: 15px;
     padding: 5px;
     align-items: center;
     gap: 10px;
@@ -315,6 +317,8 @@
   
   @media (max-width: 991px) {
     .categories-info {
+      flex-direction: column;
+      align-items: flex-start;
       max-width: 100%;
       white-space: initial;
     }
@@ -324,6 +328,7 @@
     align-self: stretch;
     margin-top: auto;
     margin-bottom: auto;
+    
   }
   @media (max-width: 991px) {
     .category-info {

@@ -31,7 +31,7 @@ const books = computed(() => {
 });
 
 
-const itemsPerSlide = ref(5);
+const itemsPerSlide = ref(4);
 
 onMounted(() => {
   const updateItemsPerSlide = () => {
@@ -77,7 +77,7 @@ const chunkedBooks = computed(() => {
     <div :id="carouselId" class="carousel slide" data-bs-touch="true" data-bs-interval="false">
       <div class="carousel-inner">
         <div v-for="(group, index) in chunkedBooks" :key="index" class="carousel-item" :class="index === 0 ? 'active' : ''">
-          <div class="row justify-content-start">
+          <div class="row" :class="{ 'single-book': group.length === 1 }">
             <div v-for="book in group" :key="book.ISBN" class="custom-col col-sm-6 col-md-4">
               <BookCard
                 :id="book.ISBN"
@@ -103,6 +103,7 @@ const chunkedBooks = computed(() => {
 
 
 <style scoped>
+
 .custom-btn-l,
 .custom-btn-r {
   position: absolute;
@@ -123,8 +124,23 @@ const chunkedBooks = computed(() => {
   right: -3%;
 }
 .custom-col {
+  flex: 0 0 auto;
   width: 25%;
   padding: 0 10px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1068px) {
+  .custom-col {
+    width: calc(33.333% - 20px); /* 3 elementos por fila */
+  }
+}
+
+@media (max-width: 768px) {
+  .custom-col {
+    width: calc(50% - 10px); /* 2 elementos por fila */
+    margin: 0 5px;
+  }
 }
 .custom-slider-bar {
   position: relative;
@@ -147,15 +163,22 @@ const chunkedBooks = computed(() => {
   transition: left 0.3s ease;
   transform: translateX(-50%);
 }
+.single-book .custom-col {
+  width: 100% !important;
+  max-width: 280px;
+  height: auto;
+  margin: 0 auto;
+}
 
 .contenedor-carrusel {
   position: relative;
   width: 85%;
   max-width: 1300px;
+  min-height: 600px;
   height: auto;
   margin: 0;
   /* margin-left: 0%; */
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   padding: 0 20px;
 }
 
@@ -163,11 +186,10 @@ const chunkedBooks = computed(() => {
   position: relative;
 }
 
-
 .carousel-item .row {
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   width: auto;
-  justify-content: center;
+  justify-content: center !important;
   margin: 15px auto;
 }
 
@@ -176,17 +198,22 @@ const chunkedBooks = computed(() => {
 .carousel-control-next {
   display: none;
 }
-@media (max-width: 1068px) {
-  .custom-col{
-    width: 33%;
-  }
-}
 @media (max-width: 768px) {
+    
+  .single-book .custom-col {
+    width: 90% !important;
+    max-width: 280px;
+    height: auto;  
+    padding-left: 25%;
+    margin: 0 auto;
+  }
   .contenedor-carrusel {
     width: 100% !important;
+    min-height: 450px;
     height: auto;
     padding: 0px;
     margin-bottom: 5px;
+    padding-left: 5%;
   }
 
   .custom-col {
@@ -197,7 +224,6 @@ const chunkedBooks = computed(() => {
   .carousel-item .row {
     flex-wrap: nowrap;
     width: 100%;
-    justify-content: center;
   }
 }
 

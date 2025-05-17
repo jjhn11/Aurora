@@ -44,7 +44,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <HeroVideo :img="bannerImage" title="CUBÍCULOS" />
+    <HeroVideo class="cubicle" :img="bannerImage" title="CUBÍCULOS" />
     <br><br>
     <h1 class="text">HORARIO DISPONIBLE: 7 a.m. - 9 p.m.</h1>
     <CubicleCard />
