@@ -46,7 +46,7 @@ import codigolimpio from '@/assets/img/library/CoverImage/codigo limpio.jpg';
 import Cosmos from '@/assets/img/library/CoverImage/Cosmos.jpg';
 import stevejobs from '@/assets/img/library/CoverImage/Steve Jobs.webp';
 import fueradeserie from '@/assets/img/library/CoverImage/fuera de serie.webp';
-import joyanesfp from '@/assets/img/library/CoverImage/joyanesfp.jpg';
+import joyanesfp from '@/assets/img/library/CoverImage/Joyanesfp.jpg';
 import sapiens from '@/assets/img/library/CoverImage/Sapiens.jpg';
 import historiadelTiempo from '@/assets/img/library/CoverImage/breve historia del tiepo.jpg';
 import ganarAmigos from '@/assets/img/library/CoverImage/Como ganar amigos.webp';
