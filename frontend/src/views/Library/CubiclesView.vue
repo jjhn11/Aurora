@@ -91,14 +91,12 @@ h2{
 }
 
 .outline-button {
-    width: 30%;
-    height: 20%;
     background-color: #0047FF;  
     border: none;
-    padding: 10px 10px;
+    padding: 10px 20px;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 40px;
+    font-size: 35px;
     font-weight: 700;
     color: #fff;
     font-family: "nunito sans";
