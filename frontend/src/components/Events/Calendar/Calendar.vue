@@ -356,6 +356,11 @@ onMounted(async () => {
   padding: 0 5px;
 }
 
+@media (max-width:1068px) {
+  .side-arrow{
+    display: none;
+  }
+}
 .side-arrow.left {
   left: -80px;
 }

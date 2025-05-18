@@ -5,9 +5,10 @@
     </div>
     <div class="text-box">
       <p>
-        Los cubículos son espacios reservados para el estudio en conjunto o para ciertas clases.
-        A diferencia de los salones, los cubículos pueden ser apartados por los estudiantes.
-        Se encuentran ubicados en la planta alta de la biblioteca.
+        Los cubículos son espacios diseñados para el estudio grupal, pueden ser
+        reservados por los alumnos según sus necesidades. Se encuentran distribuidos
+        tanto en la planta alta como en la planta baja de la biblioteca, ofrecioendo un ambiente
+        cómodo y adecuado para el aprendizaje y el trabajo colaborativo
       </p>
     </div>
   </div>
@@ -19,34 +20,36 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 60px;
   padding: 30px;
   flex-wrap: nowrap;
-  height: 400px;
+  height: 380px;
 }
 
 .image-wrapper img {
   border-radius: 20px;
   width: 280px;
-  height: auto;
+  height: 340px;
   object-fit: cover;
 }
 .text-box {
-  background-color: #00113d;
+  background-color: #313D59;
   color: white;
-  border-radius: 30px;
-  padding: 60px;
-  max-width: 700px;
-  height: 380px;
+  border-radius: 50px;
+  padding-left: 30px;
+  padding-right: 30px;
+  max-width: 550px;
+  height: 340px;
   font-family: "Nunito Sans", sans-serif;
-  font-size: 23px;
-  line-height: 1.8;
+  font-size: 27px;
+  font-weight: 300;
+  text-align: center;
+  line-height: 1.3;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align:justify;
 }
 
 @media (max-width: 1058px) {
@@ -61,7 +64,7 @@
     box-sizing: border-box;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 668px) {
   .cubicle-container {
     flex-direction: row;
     flex-wrap: nowrap;
@@ -70,7 +73,7 @@
     padding: 10px;
     gap: 10px;
     width: 100%;
-    height: 210px;
+    height: auto;
   }
 
   .image-wrapper {
@@ -88,8 +91,8 @@
   .text-box {
     flex: 1;
     font-size: 12px;
-    line-height: 1.5;
-    min-height: 100%;
+    line-height: 1.2;
+    min-height: 180px;
     height: auto;
     padding: 15px;
     border-radius: 15px;

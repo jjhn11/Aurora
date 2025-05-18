@@ -50,6 +50,7 @@ onMounted(() => {
     <CubicleCard />
     <br>
     <CubicleCard2 />
+    <h2>Para más información, acude a la planta baja de biblioteca.</h2>
     <br><br>
     <div class="button-container">
         <button 
@@ -77,7 +78,11 @@ onMounted(() => {
     size: 64px;
     font-family: "Josefin Sans";
 }
-
+h2{
+    text-align: center;
+    font-weight: 800;
+    font-size: 25px;
+}
 .button-container {
     display: flex;
     justify-content: center;
@@ -125,6 +130,9 @@ onMounted(() => {
         width: 70%;
         border-radius: 30px;
         font-size: 20px;
+    }
+    h2 {
+        font-size: 18px;
     }
 }
 </style>
