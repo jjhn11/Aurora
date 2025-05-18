@@ -257,7 +257,7 @@ export default {
             
             // Generar ruta de ícono
             const typeName = type.Type_name.replace(/\s+/g, '_').toUpperCase();
-            const iconPath = `/src/assets/img/community/icons/${categoryFolder}/ICONO ${typeName}.png`;
+            const iconPath = `@/src/assets/img/community/icons/${categoryFolder}/ICONO ${typeName}.png`;
             const locationName = state.locations.find(loc => loc.Id_Location === activity.Id_Location)?.Location_ || 'Ubicación no disponible';
 
             return {
@@ -590,7 +590,7 @@ export default {
       if (!category) {
         console.warn(`Categoría no encontrada para ID: ${categoryId}`);
         return {
-          path: "/src/assets/img/community/icons/recreational/ICONO LECTURA.png",
+          path: "@/assets/img/community/icons/recreational/ICONO LECTURA.png",
           bgColor: "#cccccc"
         };
       }
@@ -642,7 +642,7 @@ export default {
       }
 
       // Construir la ruta del icono
-      const iconPath = `/src/assets/img/community/icons/${categoryFolder}/ICONO ${normalizedTypeName}.png`;
+      const iconPath = `@/assets/img/community/icons/${categoryFolder}/ICONO ${normalizedTypeName}.png`;
       
       return {
         path: iconPath,
