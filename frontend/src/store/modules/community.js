@@ -1,5 +1,5 @@
 import axios from 'axios';
-// import { getIcon } from '@/assets/iconRegistry';
+import { getIcon } from '@/assets/iconRegistry';
 
 export default {
   namespaced: true,

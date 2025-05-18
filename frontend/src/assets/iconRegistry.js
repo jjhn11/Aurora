@@ -5,7 +5,7 @@ import iconDanza from '@/assets/img/community/icons/cultural/ICONO DANZA.png';
 import iconDebate from '@/assets/img/community/icons/cultural/ICONO DEBATE.png';
 import iconMusica from '@/assets/img/community/icons/cultural/ICONO MÚSICA.png';
 import iconPiano from '@/assets/img/community/icons/cultural/ICONO PIANO.png';
-import iconOtraActividadCultural from '@/assets/img/community/icons/cultural/ICONO ICONO OTRA_ACTIVIDAD_CULTURAL.png';
+import iconOtraActividadCultural from '@/assets/img/community/icons/cultural/ICONO OTRA_ACTIVIDAD_CULTURAL.png';
 
 // Importaciones para íconos deportivos
 import iconAtletismo from '@/assets/img/community/icons/sports/ICONO ATLETISMO.png';
@@ -16,8 +16,8 @@ import iconFutbol from '@/assets/img/community/icons/sports/ICONO FUTBOL.png';
 import iconOtroDeporte from '@/assets/img/community/icons/sports/ICONO OTRO_DEPORTE.png';
 import iconPorra from '@/assets/img/community/icons/sports/ICONO PORRA.png';
 import iconSoftbol from '@/assets/img/community/icons/sports/ICONO SOFTBOL.png';
-import iconVolleyballPlaya from '@/assets/img/community/icons/sports/ICONO ICONO VOLLEYBALL_PLAYA.png';
-import iconVolleyballSala from '@/assets/img/community/icons/sports/ICONO ICONO VOLLEYBALL_SALA.png';
+import iconVolleyballPlaya from '@/assets/img/community/icons/sports/ICONO VOLLEYBALL_PLAYA.png';
+import iconVolleyballSala from '@/assets/img/community/icons/sports/ICONO VOLLEYBALL_SALA.png';
 
 // Importaciones para íconos recreativos
 import iconAjedrez from '@/assets/img/community/icons/recreational/ICONO AJEDREZ.png';
