@@ -42,7 +42,7 @@ import iconMusical from '@/assets/img/community/icons/videogames/ICONO MUSICAL.p
 import iconOtroGenero from '@/assets/img/community/icons/videogames/ICONO OTRO_GENERO.png';
 import iconPuzzles from '@/assets/img/community/icons/videogames/ICONO PUZZLES.png';
 import iconRol from '@/assets/img/community/icons/videogames/ICONO ROL.png';
-import iconSimulacion from '@/assets/img/community/icons/videogames/ICONO SIMLUACION.png';
+import iconSimulacion from '@/assets/img/community/icons/videogames/ICONO SIMULACION.png';
 import iconTerror from '@/assets/img/community/icons/videogames/ICONO TERROR.png';
 
 // Objeto que mapea categorías y tipos a sus respectivos íconos
