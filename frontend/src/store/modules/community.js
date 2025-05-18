@@ -588,7 +588,7 @@ export default {
       }
       
       // const defaultIcon = getIcon('recreational', 'LECTURA');
-      const defaultIcon = (await import('@/assets/img/community/icons/recreational/ICONO LECTURA.png')).default;
+      const defaultIcon = (await import('@/assets/img/community/icons/recreational/ICONO LECTURAS.png')).default;
 
       // Buscar la categoría por ID
       const category = state.categories.find(cat => cat.Id_category === categoryId);
