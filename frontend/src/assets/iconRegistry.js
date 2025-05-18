@@ -79,7 +79,7 @@ export const iconRegistry = {
     LECTURAS: iconLecturas,
     OTRA_ACTIVIDAD_RECREATIVA: iconOtraActividadRecreativa,
     RALLYS: iconRallys,
-    TUTORÍAS: iconTutorias
+    TUTORIAS: iconTutorias
   },
   videogames: {
     ACCION: iconAccion,
