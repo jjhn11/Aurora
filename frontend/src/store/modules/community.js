@@ -258,8 +258,8 @@ export default {
             
             // Generar ruta de ícono
             const typeName = type.Type_name.replace(/\s+/g, '_').toUpperCase();
-            const iconPath = (await import(`@/assets/img/community/icons/${categoryFolder}/ICONO ${typeName}.png`)).default;
-            // const iconPath = getIcon(categoryFolder, typeName);
+            // const iconPath = (await import(`@/assets/img/community/icons/${categoryFolder}/ICONO ${typeName}.png`)).default;
+            const iconPath = getIcon(categoryFolder, typeName);
             const locationName = state.locations.find(loc => loc.Id_Location === activity.Id_Location)?.Location_ || 'Ubicación no disponible';
 
             return {
@@ -587,8 +587,8 @@ export default {
         };
       }
       
-      // const defaultIcon = getIcon('recreational', 'LECTURA');
-      const defaultIcon = (await import('@/assets/img/community/icons/recreational/ICONO LECTURAS.png')).default;
+      const defaultIcon = getIcon('recreational', 'LECTURAS');
+      // const defaultIcon = (await import('@/assets/img/community/icons/recreational/ICONO LECTURAS.png')).default;
 
       // Buscar la categoría por ID
       const category = state.categories.find(cat => cat.Id_category === categoryId);
@@ -647,8 +647,8 @@ export default {
       }
 
       // Construir la ruta del icono
-      const iconPath = (await import(`/assets/img/community/icons/${categoryFolder}/ICONO ${normalizedTypeName}.png`)).default;
-      // const iconPath = getIcon(categoryFolder, normalizedTypeName);
+      // const iconPath = (await import(`/assets/img/community/icons/${categoryFolder}/ICONO ${normalizedTypeName}.png`)).default;
+      const iconPath = getIcon(categoryFolder, normalizedTypeName);
       
       return {
         path: iconPath,
