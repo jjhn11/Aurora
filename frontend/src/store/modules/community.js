@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getIcon } from '@/assets/iconRegistry';
 
 export default {
   namespaced: true,
@@ -257,7 +258,8 @@ export default {
             
             // Generar ruta de ícono
             const typeName = type.Type_name.replace(/\s+/g, '_').toUpperCase();
-            const iconPath = `/src/assets/img/community/icons/${categoryFolder}/ICONO ${typeName}.png`;
+            // const iconPath = (await import(`@/assets/img/community/icons/${categoryFolder}/ICONO ${typeName}.png`)).default;
+            const iconPath = getIcon(categoryFolder, typeName);
             const locationName = state.locations.find(loc => loc.Id_Location === activity.Id_Location)?.Location_ || 'Ubicación no disponible';
 
             return {
@@ -585,12 +587,15 @@ export default {
         };
       }
       
+      const defaultIcon = getIcon('recreational', 'LECTURAS');
+      // const defaultIcon = (await import('@/assets/img/community/icons/recreational/ICONO LECTURAS.png')).default;
+
       // Buscar la categoría por ID
       const category = state.categories.find(cat => cat.Id_category === categoryId);
       if (!category) {
         console.warn(`Categoría no encontrada para ID: ${categoryId}`);
         return {
-          path: "/src/assets/img/community/icons/recreational/ICONO LECTURA.png",
+          path: defaultIcon,
           bgColor: "#cccccc"
         };
       }
@@ -613,7 +618,7 @@ export default {
         case 'deportes':
           bgColor = "#5C77BA"; // Azul
           break;
-        case 'recreativa':
+        case 'recreativas':
         case 'recreacional':
           bgColor = "#6DCEff"; // Celeste
           break;
@@ -632,7 +637,7 @@ export default {
         case 'deportes':
           categoryFolder = 'sports';
           break;
-        case 'recreativa':
+        case 'recreativas':
         case 'recreacional':
           categoryFolder = 'recreational';
           break;
@@ -642,7 +647,8 @@ export default {
       }
 
       // Construir la ruta del icono
-      const iconPath = `/src/assets/img/community/icons/${categoryFolder}/ICONO ${normalizedTypeName}.png`;
+      // const iconPath = (await import(`/assets/img/community/icons/${categoryFolder}/ICONO ${normalizedTypeName}.png`)).default;
+      const iconPath = getIcon(categoryFolder, normalizedTypeName);
       
       return {
         path: iconPath,

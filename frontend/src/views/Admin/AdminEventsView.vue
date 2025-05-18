@@ -380,6 +380,7 @@ const isAdmin = computed(() => {
         "a22490408@itmexicali.edu.mx",
         "a22490396@itmexicali.edu.mx",
         "a22490388@itmexicali.edu.mx",
+	"a22490353@itmexicali.edu.mx",
         "a22490378@itmexicali.edu.mx",
         "a22490352@itmexicali.edu.mx",
         "a22490416@itmexicali.edu.mx"
