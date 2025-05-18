@@ -618,7 +618,7 @@ export default {
         case 'deportes':
           bgColor = "#5C77BA"; // Azul
           break;
-        case 'recreativa':
+        case 'recreativas':
         case 'recreacional':
           bgColor = "#6DCEff"; // Celeste
           break;
@@ -637,7 +637,7 @@ export default {
         case 'deportes':
           categoryFolder = 'sports';
           break;
-        case 'recreativa':
+        case 'recreativas':
         case 'recreacional':
           categoryFolder = 'recreational';
           break;
