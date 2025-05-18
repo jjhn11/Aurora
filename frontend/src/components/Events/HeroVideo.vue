@@ -53,6 +53,16 @@ const props = defineProps({
   object-position: 100% 95%;
 }
 
+/* Background elements */
+.hero-background, .hero-video .cubicle{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit:fill;
+  object-position: 100% 0%;
+}
+
 .hero-background {
   z-index: 0;
 }

@@ -226,7 +226,7 @@ onMounted(() => {
     aspect-ratio: 0.75;
     /* object-fit: contain;
     object-position: center; */
-    /* max-width: 90%; */
+    max-width: 90%; 
     height: auto;
     border-radius: 10px;
     border: 1px solid rgba(0, 14, 50, 1);
@@ -313,7 +313,6 @@ onMounted(() => {
     .book-title {
       max-width: 100%;
       font-size: 20px;
-      height: 26px;
     }
   }
   

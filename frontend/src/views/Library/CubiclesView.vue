@@ -44,12 +44,13 @@ onMounted(() => {
 </script>
 
 <template>
-    <HeroVideo :img="bannerImage" title="CUBÍCULOS" />
+    <HeroVideo class="cubicle" :img="bannerImage" title="CUBÍCULOS" />
     <br><br>
     <h1 class="text">HORARIO DISPONIBLE: 7 a.m. - 9 p.m.</h1>
     <CubicleCard />
     <br>
     <CubicleCard2 />
+    <h2>Para más información, acude a la planta baja de biblioteca.</h2>
     <br><br>
     <div class="button-container">
         <button 
@@ -77,7 +78,11 @@ onMounted(() => {
     size: 64px;
     font-family: "Josefin Sans";
 }
-
+h2{
+    text-align: center;
+    font-weight: 800;
+    font-size: 25px;
+}
 .button-container {
     display: flex;
     justify-content: center;
@@ -86,14 +91,12 @@ onMounted(() => {
 }
 
 .outline-button {
-    width: 30%;
-    height: 20%;
     background-color: #0047FF;  
     border: none;
-    padding: 10px 10px;
+    padding: 10px 20px;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 40px;
+    font-size: 35px;
     font-weight: 700;
     color: #fff;
     font-family: "nunito sans";
@@ -125,6 +128,9 @@ onMounted(() => {
         width: 70%;
         border-radius: 30px;
         font-size: 20px;
+    }
+    h2 {
+        font-size: 18px;
     }
 }
 </style>
