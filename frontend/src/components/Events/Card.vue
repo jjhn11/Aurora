@@ -110,7 +110,7 @@ export default {
 }
 .card-title {
     margin-bottom: 5px;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 25px;
     width: 100%;
     height: auto;

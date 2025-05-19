@@ -4,8 +4,8 @@
 
 <template>
   <div v-if="isOpen" class="modal-overlay" @click.self="close">
+    <button class="close-button" @click="close">✖</button>
     <div class="modal-content">
-      <button class="close-button" @click="close">✖</button>
       <img :src="getImageUrl(event.Image_url)" alt="Event Image" class="modal-image" v-if="event.Image_url" />
       <div class="modal-body">
         <h2>{{ event.Title }}</h2>
@@ -60,7 +60,7 @@
   }
   p{
     color: #000E32;
-    font-family: "Nunito-sans";
+    font-family: "Nunito sans";
     font-weight: 400;
     font-size: 16px;
     text-align: justify;
@@ -90,12 +90,20 @@
   .close-button {
     color: white;
     position: absolute;
-    top: 16px;
-    right: 16px;
-    background: transparent;
+    top: 13%;
+    right: 30%;
+    background: none;
+    border-radius: 100%;
     border: none;
-    font-size: 1.5rem;
+    font-size: 2rem;
     cursor: pointer;
+    height: 35px;
+  }
+  @media (max-width: 1068px) {
+    .close-button {
+      top: 80%;
+      right: inherit;
+    }
   }
 </style>
   
