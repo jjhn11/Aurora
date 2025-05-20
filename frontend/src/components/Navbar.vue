@@ -24,15 +24,15 @@
   // [Imagenes]
   import logo from '../assets/img/navbar/LogoAurora.png';
   import tec from '../assets/img/navbar/tec.png';
-  import B2R from '../assets/img/navbar/B2 RESEÑAS.png';
-  import B3C from '../assets/img/navbar/B3 CATALOGO.png';
-  import E1C from '../assets/img/navbar/E1 CULTURALES.png';
-  import E2D from '../assets/img/navbar/E2 DEPORTIVOS.png';
-  import E3E from '../assets/img/navbar/E3 ESCOLARES.png';
-  import C1R from '../assets/img/navbar/C1 RECREATIVAS.png'
-  import C2D from '../assets/img/navbar/C2 DEPORTES.png'
-  import C3C from '../assets/img/navbar/C3 CULTURAL.png'
-  import C4V from '../assets/img/navbar/C4 VIDEOJUEGOS.png'
+  import B1CA from '../assets/img/navbar/newImages/B1 CATALOGO.png';
+  import B2CU from '../assets/img/navbar/newImages/B2 CUBICULOS.jpg';
+  import E1C from '../assets/img/navbar/newImages/E1 CULTURALES 2.png';
+  import E2D from '../assets/img/navbar/newImages/E2 DEPORTIVOS 2.png';
+  import E3E from '../assets/img/navbar/newImages/E3 ESCOLARES 2.png';
+  import C1R from '../assets/img/navbar/newImages/C1 RECREATIVAS 2.jpg'
+  import C2D from '../assets/img/navbar/newImages/C2 DEPORTES 2.jpg'
+  import C3C from '../assets/img/navbar/newImages/C3 CULTURAL 2.png'
+  import C4V from '../assets/img/navbar/newImages/C4 VIDEOJUEGOS 2.png'
 
   import INV from '../assets/img/navbar/CUENTA INVITADO.png';
 
@@ -269,7 +269,7 @@
                         <div class="col-12 col-md-5 py-2">
 
                           <li><RouterLink to="/biblioteca/catalogo" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/biblioteca/catalogo')}">
-                            <img :src="B3C" class="mt-3" id="dim2">
+                            <img :src="B1CA" class="mt-3" id="dim2">
                             <span class="my-3">CATÁLOGO</span>
                           </RouterLink></li>
 
@@ -278,7 +278,7 @@
                         <div class="col-12 col-md-5 py-2">
 
                           <li><RouterLink to="/biblioteca/cubiculos" class="dropdown-item" id="dbut" :class="{'active': isActiveLink('/biblioteca/cubiculos')}">
-                            <img :src="B2R" class="mt-3" id="dim2">
+                            <img :src="B2CU" class="mt-3" id="dim2">
                             <span class="my-3">CUBÍCULOS</span>
                           </RouterLink></li>
 

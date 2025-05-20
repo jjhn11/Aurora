@@ -70,32 +70,42 @@ const chunkedBooks = computed(() => {
 
 <template>
   <div class="contenedor-carrusel container-fluid d-flex justify-content-start">
-    <button class="custom-btn-l d-flex btn btn-link carousel-control-prev-bottom" type="button" :data-bs-target="`#${carouselId}`" data-bs-slide="prev">
+    <button
+      class="custom-btn-l d-flex btn btn-link carousel-control-prev-bottom"
+      type="button"
+      :data-bs-target="`#${carouselId}`"
+      data-bs-slide="prev"
+      v-if="chunkedBooks.length > 1"
+    >
       <i class="bi bi-chevron-left fs-4"></i>
     </button>
-    
     <div :id="carouselId" class="carousel slide" data-bs-touch="true" data-bs-interval="false">
       <div class="carousel-inner">
-        <div v-for="(group, index) in chunkedBooks" :key="index" class="carousel-item" :class="index === 0 ? 'active' : ''">
-          <div class="row" :class="{ 'single-book': group.length === 1 }">
-            <div v-for="book in group" :key="book.ISBN" class="custom-col col-sm-6 col-md-4">
+        <div v-for="(group, index) in chunkedBooks" :key="index" class="carousel-item" :class="{ 'active': index === 0, 'single-book-item': group.length === 1 }">
+          <div class="row justify-content-start">
+            <div v-for="book in group" :key="book.ISBN" class="custom-col">
               <BookCard
                 :id="book.ISBN"
                 :cover-image="book.coverImage"
                 :title="book.Title"
                 :description="book.category"
+                :fixed-size="true"
               />
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <button class="d-flex custom-btn-r btn btn-link carousel-control-next-bottom" type="button" :data-bs-target="`#${carouselId}`" data-bs-slide="next">
+    <button
+      class="d-flex custom-btn-r btn btn-link carousel-control-next-bottom"
+      type="button"
+      :data-bs-target="`#${carouselId}`"
+      data-bs-slide="next"
+      v-if="chunkedBooks.length > 1"
+    >
       <i class="bi bi-chevron-right fs-4"></i>
     </button>
   </div>
-
   <div class="custom-slider-bar" v-if="showSlider">
     <div class="custom-slider-thumb" :style="{ left: `${(activeSlide / (totalSlides - 1)) * 100}%` }"></div>
   </div>
@@ -130,6 +140,42 @@ const chunkedBooks = computed(() => {
   box-sizing: border-box;
 }
 
+.single-book-item .row {
+  justify-content: flex-start !important;
+  margin-left: 0;
+}
+
+.single-book-item .custom-col {
+  width: 25% !important;
+  min-width: 280px;
+  max-width: 300px;
+  padding-left: 0 !important;
+  margin-right: 20px;
+}
+
+.single-book-card {
+  transform: scale(1) !important;
+  width: 100% !important;
+}
+
+@media (max-width: 1068px) {
+  .single-book-item .custom-col {
+    width: 33.333% !important;
+  }
+}
+
+.single-book-col {
+  width: 85% !important;
+  max-width: 280px;
+  margin-left: 0 !important;
+  margin-right: 20px;
+}
+
+@media (max-width: 1068px) {
+  .single-book-col {
+    width: 33.333% !important;
+  }
+}
 @media (max-width: 1068px) {
   .custom-col {
     width: calc(33.333% - 20px); /* 3 elementos por fila */
@@ -177,7 +223,6 @@ const chunkedBooks = computed(() => {
   min-height: 600px;
   height: auto;
   margin: 0;
-  /* margin-left: 0%; */
   margin-bottom: 10px;
   padding: 0 20px;
 }
@@ -189,7 +234,6 @@ const chunkedBooks = computed(() => {
 .carousel-item .row {
   flex-wrap: wrap;
   width: auto;
-  justify-content: center !important;
   margin: 15px auto;
 }
 
@@ -199,7 +243,14 @@ const chunkedBooks = computed(() => {
   display: none;
 }
 @media (max-width: 768px) {
-    
+  .single-book-item .custom-col {
+    width: 50% !important;
+    min-width: 250px;
+    margin-right: 10px;
+  }
+  .contenedor-carrusel {
+    padding-left: 15px !important;
+  }
   .single-book .custom-col {
     width: 90% !important;
     max-width: 280px;
@@ -209,8 +260,8 @@ const chunkedBooks = computed(() => {
   }
   .contenedor-carrusel {
     width: 100% !important;
-    min-height: 450px;
-    height: auto;
+    height: 470px; 
+    min-height: unset; /* why */
     padding: 0px;
     margin-bottom: 5px;
     padding-left: 5%;
@@ -224,6 +275,12 @@ const chunkedBooks = computed(() => {
   .carousel-item .row {
     flex-wrap: nowrap;
     width: 100%;
+  }
+  .single-book-col {
+    width: 50% !important;
+    margin-right: 10px;
+    padding-left: 0 !important;
+    max-width: none;
   }
 }
 

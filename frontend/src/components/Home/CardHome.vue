@@ -46,7 +46,7 @@ defineProps({
 .card {
   background-color: #F3F4F5;
   width: 100%;
-  min-height: 450px;
+  min-height: 470px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -81,8 +81,8 @@ defineProps({
 }
 
 .card-title {
-  font-family: 'Freeman', sans-serif;
-  font-weight: 400;
+  font-family: "Josefin sans";
+  font-weight: 700;
   text-transform: uppercase;
   font-size: 23px;
   color: #1a1a1a;
@@ -92,7 +92,7 @@ defineProps({
 
 .card-description {
   text-align: justify;
-  font-family: 'Inria Sans', sans-serif;
+  font-family: "Nunito sans";
   font-weight: 400;
   font-size: 15px;
   color: #7e8382;

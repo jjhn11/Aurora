@@ -14,7 +14,7 @@
       <div class="footer-social__icons">
 
         <div class="button-space col-3">
-          <a href="https://www.instagram.com/aurora.mxli/" class="btn footer-social__button">
+          <a href="https://www.facebook.com/profile.php?id=100063534524546&locale=es_LA " class="btn footer-social__button">
             <img :src="face" class="img fb" alt="">
           </a>
         </div>
@@ -26,13 +26,13 @@
         </div>
 
         <div class="button-space col-3">
-          <a href="https://www.instagram.com/aurora.mxli/" class="btn footer-social__button">
+          <a href="https://www.youtube.com/@tecnmcampusmexicali7369" class="btn footer-social__button">
             <img :src="yutu" class="img yt" alt="">
           </a>    
         </div>
 
         <div class="button-space col-3">
-          <a href="https://www.instagram.com/aurora.mxli/" class="btn footer-social__button">
+          <a href="http://www.itmexicali.edu.mx" class="btn footer-social__button">
             <img :src="school" class="img sch" alt="">
           </a>
         </div>
