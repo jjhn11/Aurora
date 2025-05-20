@@ -119,8 +119,6 @@ INSERT INTO Events_ (Title, Description, Image_url, Id_category, Event_date, Id_
 ('Exposición de Pinturas', 'Muestra de artistas emergentes', '/upload/events/painting.jpg', 1, '2025-05-24', 1, 0),
 ('Festival Cultural', 'Celebración multicultural', '/upload/events/cultural-fest.jpg', 1, '2025-04-12', 1, 0),
 ('Concierto de Jazz', 'Noche de jazz y blues', '/upload/events/jazz.jpg', 1, '2025-04-30', 1, 0),
-('DIA DEL ESTUDIANTE', 'Festejo por el día del estudiante.', '/uploads/events/23 de Mayo  DIA DEL ESTUDIANTE.jpg', 1, '2025-05-23', 1, 1),
-('DIA DEL CONTADOR', 'Festejo por el día del contador.', '/uploads/events/26 de Mayo  DIA DEL CONTADOR.jpg', 1, '2025-05-26', 1, 1),
 ('Jornada Nacional de Tequios por La Paz y contra las adicciones', 'Súmate a esta jornada para cambiar nuestro entorno. Registra tu lugar en https://forms.gle/bhJW1saFhBQ5kzQq5', '/uploads/events/14 de Mayo  Jornada Nacional de Tequios por La Paz y contra las adicciones.jpg', 1, '2025-05-14', 1, 1),
 -- escolar
 ('Conferencia de Robótica', 'Avances en robótica e IA', '/upload/events/robotics.jpg', 2, '2025-04-20', 1, 0),
@@ -139,6 +137,8 @@ INSERT INTO Events_ (Title, Description, Image_url, Id_category, Event_date, Id_
 ('4to CONCURSO DE TERMODINAMICA', 'Concurso entre alumnos del tecnológico de la carrera de termodinámica.', '/uploads/events/21 de Mayo  4to CONCURSO DE TERMODINAMICA.jpg', 2, '2025-05-21', 1, 1),
 ('XXX FORO DE ERGONOMÍA Y EXPO INDUSTRIAL', 'Presentaciones y talleres enfocados en la ergonomía y seguridad industrial.', '/uploads/events/27 al 29 de Mayo  XXX FORO DE ERGONOMIA Y EXPO INDUSTRIAL.jpg', 2, '2025-05-27', 1, 1),
 ('CONCURSO DE ROBOTICA', 'Concurso de robótica entre alumnos del tecnológico.', '/upload/events/robotica.jpg', 2, '2025-05-28', 1, 0),
+('DIA DEL ESTUDIANTE', 'Festejo por el día del estudiante.', '/uploads/events/23 de Mayo  DIA DEL ESTUDIANTE.jpg', 2, '2025-05-23', 1, 1),
+('DIA DEL CONTADOR', 'Festejo por el día del contador.', '/uploads/events/26 de Mayo  DIA DEL CONTADOR.jpg', 2, '2025-05-26', 1, 1),
 ('DIA DEL INGENIERO', 'Festejo por el día del ingeniero.', '/upload/events/ingeniero.jpg', 2, '2025-07-01', 1, 0),
 ('DIA DEL MAESTRO', 'Festejo por el día del maestro.', '/upload/events/maestro.jpg', 2, '2025-05-15', 1, 0),
 -- Deportivo 

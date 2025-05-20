@@ -241,17 +241,17 @@
   
                 <!-- Image (only if isComing) -->
                 <div class="mb-3" v-if="eventForm.isComing">
-                  <label for="eventImage" class="form-label">Imagen del Evento *</label>
+                  <label for="eventImage" class="form-label">Imagen del Evento {{ isEditing && eventForm.imageUrl ? '' : '*' }}</label>
                   <input 
                     type="file" 
                     class="form-control" 
                     id="eventImage" 
                     @change="handleImageChange"
                     accept="image/*"
-                    :required="eventForm.isComing"
+                    :required="eventForm.isComing && !isEditing || (isEditing && !eventForm.imageUrl)"
                   >
                   <small class="text-muted">
-                    Seleccione una imagen para el evento (máximo 5MB)
+                    {{ isEditing && eventForm.imageUrl ? 'Seleccione una nueva imagen si desea cambiarla (máximo 5MB)' : 'Seleccione una imagen para el evento (máximo 5MB)' }}
                   </small>
                 </div>
 
@@ -380,7 +380,7 @@ const isAdmin = computed(() => {
         "a22490408@itmexicali.edu.mx",
         "a22490396@itmexicali.edu.mx",
         "a22490388@itmexicali.edu.mx",
-	"a22490353@itmexicali.edu.mx",
+	      "a22490353@itmexicali.edu.mx",
         "a22490378@itmexicali.edu.mx",
         "a22490352@itmexicali.edu.mx",
         "a22490416@itmexicali.edu.mx"
@@ -605,24 +605,34 @@ const saveEvent = async () => {
     titleError.value = 'El título debe tener al menos 3 caracteres';
     return;
   }
+
+  // Add validation for image
+  if (eventForm.value.isComing && !eventForm.value.image && !eventForm.value.imageUrl) {
+    alert('Debe seleccionar una imagen para el evento');
+    return;
+  }
   
   try {
     const formData = {
       Title: eventForm.value.title,
-      Id_category: Number(eventForm.value.category), // Convert to number
+      Id_category: Number(eventForm.value.category),
       Event_date: eventForm.value.date,
       Is_coming: eventForm.value.isComing ? '1' : '0',
       Description: eventForm.value.isComing ? eventForm.value.description : ''
     };
     
-    // Add image if event is upcoming and there's a file
-    if (eventForm.value.isComing && eventForm.value.image) {
-      formData.image = eventForm.value.image;
+    // Add image if:
+    // 1. A new image was selected OR
+    // 2. We're creating a new event (image is required)
+    if (eventForm.value.isComing) {
+      if (eventForm.value.image) {
+        formData.image = eventForm.value.image;
+      } else if (!isEditing.value) {
+        alert('Debe seleccionar una imagen para el evento');
+        return;
+      }
     }
     
-    // Debug log
-    console.log('Form data being sent:', formData);
-
     if (isEditing.value) {
       await store.dispatch('events/updateEvent', {
         eventId: eventForm.value.id,

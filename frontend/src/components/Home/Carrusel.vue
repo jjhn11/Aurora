@@ -50,102 +50,110 @@ const closeModal = () => {
 <template>
     <div class="contenedor-carrusel container-fluid  justify-content-center">
       <div id="carrusel1" class="carousel slide">
-            <div class="carousel-inner" v-if="filteredEvents && filteredEvents.length >= 3">
-                <div class="carousel-item active">
-                    <div class="row justify-content-center">
-                        <div class="col-md-4">
-                            <CardHome
-                              :id="filteredEvents[0].Id_event"
-                              :image="getImageUrl(filteredEvents[0].Image_url)"
-                              :title="filteredEvents[0].Title"
-                              :description="filteredEvents[0].Description"
-                              @openModal="openModal(filteredEvents[0])"
-                            />
-                        </div>
-                        <div class="col-md-4">
-                            <CardHome
-                              :id="filteredEvents[1].Id_event"
-                              :image="getImageUrl(filteredEvents[1].Image_url)"
-                              :title="filteredEvents[1].Title"
-                              :description="filteredEvents[1].Description"
-                              @openModal="openModal(filteredEvents[1])"
-                            />
-                        </div>
-                        <div class="col-md-4">
-                            <CardHome
-                              :id="filteredEvents[2].Id_event"
-                              :image="getImageUrl(filteredEvents[2].Image_url)"
-                              :title="filteredEvents[2].Title"
-                              :description="filteredEvents[2].Description"
-                              @openModal="openModal(filteredEvents[2])"
-                            />
-                        </div>
+        <div class="carousel-inner" v-if="filteredEvents && filteredEvents.length >= 1">
+            <div class="carousel-item active">
+                <div class="row justify-content-center">
+                    <div class="col-md-4" v-if="filteredEvents[0]">
+                        <CardHome
+                          :id="filteredEvents[0].Id_event"
+                          :image="getImageUrl(filteredEvents[0].Image_url)"
+                          :title="filteredEvents[0].Title" 
+                          :description="filteredEvents[0].Description"
+                          @openModal="openModal(filteredEvents[0])"
+                        />
+                    </div>
+                    <div class="col-md-4" v-if="filteredEvents[1]">
+                        <CardHome
+                          :id="filteredEvents[1].Id_event"
+                          :image="getImageUrl(filteredEvents[1].Image_url)"
+                          :title="filteredEvents[1].Title"
+                          :description="filteredEvents[1].Description"
+                          @openModal="openModal(filteredEvents[1])"
+                        />
+                    </div>
+                    <div class="col-md-4" v-if="filteredEvents[2]">
+                        <CardHome
+                          :id="filteredEvents[2].Id_event"
+                          :image="getImageUrl(filteredEvents[2].Image_url)"
+                          :title="filteredEvents[2].Title"
+                          :description="filteredEvents[2].Description"
+                          @openModal="openModal(filteredEvents[2])"
+                        />
                     </div>
                 </div>
-                <div class="carousel-item">
-                    <div class="row justify-content-center">
-                        <div class="col-md-4">
-                            <CardHome
-                              :id="filteredEvents[3].Id_event"
-                              :image="getImageUrl(filteredEvents[3].Image_url)"
-                              :title="filteredEvents[3].Title"
-                              :description="filteredEvents[3].Description"
-                              @openModal="openModal(filteredEvents[3])"
-                            />
-                        </div>
-                        <div class="col-md-4">
-                            <CardHome
-                              :id="filteredEvents[4].Id_event"
-                              :image="getImageUrl(filteredEvents[4].Image_url)"
-                              :title="filteredEvents[4].Title"
-                              :description="filteredEvents[4].Description"
-                              @openModal="openModal(filteredEvents[4])"
-                            />
-                        </div>
-                        <div class="col-md-4">
-                            <CardHome
-                              :id="filteredEvents[5].Id_event"
-                              :image="getImageUrl(filteredEvents[5].Image_url)"
-                              :title="filteredEvents[5].Title"
-                              :description="filteredEvents[5].Description"
-                              @openModal="openModal(filteredEvents[5])"
-                            />
-                        </div>
+            </div>
+            <div class="carousel-item">
+                <div class="row justify-content-center">
+                    <div class="col-md-4" v-if="filteredEvents[3]">
+                        <CardHome
+                          :id="filteredEvents[3].Id_event"
+                          :image="getImageUrl(filteredEvents[3].Image_url)"
+                          :title="filteredEvents[3].Title"
+                          :description="filteredEvents[3].Description"
+                          @openModal="openModal(filteredEvents[3])"
+                        />
+                    </div>
+                    <div class="col-md-4" v-if="filteredEvents[4]">
+                        <CardHome
+                          :id="filteredEvents[4].Id_event"
+                          :image="getImageUrl(filteredEvents[4].Image_url)"
+                          :title="filteredEvents[4].Title"
+                          :description="filteredEvents[4].Description"
+                          @openModal="openModal(filteredEvents[4])"
+                        />
+                    </div>
+                    <div class="col-md-4" v-if="filteredEvents[5]">
+                        <CardHome
+                          :id="filteredEvents[5].Id_event"
+                          :image="getImageUrl(filteredEvents[5].Image_url)"
+                          :title="filteredEvents[5].Title"
+                          :description="filteredEvents[5].Description"
+                          @openModal="openModal(filteredEvents[5])"
+                        />
                     </div>
                 </div>
-                <div class="carousel-item">
-                    <div class="row justify-content-center">
-                        <div class="col-md-4">
-                            <CardHome
-                              :id="filteredEvents[6].Id_event"
-                              :image="getImageUrl(filteredEvents[6].Image_url)"
-                              :title="filteredEvents[6].Title"
-                              :description="filteredEvents[6].Description"
-                              @openModal="openModal(filteredEvents[6])"
-                            />
-                        </div>
-                        <div class="col-md-4">
-                            <CardHome
-                              :id="filteredEvents[7].Id_event"
-                              :image="getImageUrl(filteredEvents[7].Image_url)"
-                              :title="filteredEvents[7].Title"
-                              :description="filteredEvents[7].Description"
-                              @openModal="openModal(filteredEvents[7])"
-                            />
-                        </div>
-                        <div class="col-md-4">
-                            <CardHome
-                              :id="filteredEvents[7].Id_event"
-                              :image="getImageUrl(filteredEvents[7].Image_url)"
-                              :title="filteredEvents[7].Title"
-                              :description="filteredEvents[7].Description"
-                              @openModal="openModal(filteredEvents[8])"
-                            />
-                        </div>
+            </div>
+            <div class="carousel-item">
+                <div class="row justify-content-center">
+                    <div class="col-md-4" v-if="filteredEvents[6]">
+                        <CardHome
+                          :id="filteredEvents[6].Id_event"
+                          :image="getImageUrl(filteredEvents[6].Image_url)"
+                          :title="filteredEvents[6].Title"
+                          :description="filteredEvents[6].Description"
+                          @openModal="openModal(filteredEvents[6])"
+                        />
+                    </div>
+                    <div class="col-md-4" v-if="filteredEvents[7]">
+                        <CardHome
+                          :id="filteredEvents[7].Id_event"
+                          :image="getImageUrl(filteredEvents[7].Image_url)"
+                          :title="filteredEvents[7].Title"
+                          :description="filteredEvents[7].Description"
+                          @openModal="openModal(filteredEvents[7])"
+                        />
+                    </div>
+                    <div class="col-md-4" v-if="filteredEvents[8]">
+                        <CardHome
+                          :id="filteredEvents[8].Id_event"
+                          :image="getImageUrl(filteredEvents[8].Image_url)"
+                          :title="filteredEvents[8].Title"
+                          :description="filteredEvents[8].Description"
+                          @openModal="openModal(filteredEvents[8])"
+                        />
                     </div>
                 </div>
+            </div>
         </div>
-  
+        
+        <div v-else>
+          <div class="row justify-content-center">
+            <div class="col-md-4">
+              <h2 class="text-center no-events">No hay eventos disponibles</h2>
+            </div>
+          </div>
+        </div>
+
         <!-- Controles del carrusel -->
         <div class="carousel-controls-bottom">
           <button class="btn btn-link carousel-control-prev-bottom" type="button" data-bs-target="#carrusel1" data-bs-slide="prev">
@@ -261,6 +269,12 @@ const closeModal = () => {
     display: none;
   }
 
+  .no-events {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
   @media (max-width: 768px) {
     .carousel-inner {
       height: 100%;
@@ -360,4 +374,3 @@ const closeModal = () => {
     }
   }
   </style>
-  

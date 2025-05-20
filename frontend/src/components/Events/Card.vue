@@ -46,7 +46,7 @@ export default {
             });
                 
             // Intentar cargar la imagen por defecto desde el backend
-            const defaultImageUrl = `${axios.defaults.baseURL}/uploads/events/default-event.jpg`; // Removed /public
+            const defaultImageUrl = `${axios.defaults.baseURL}/uploads/events/default-event.png`; // Removed /public
             console.log('Attempting to load default image:', defaultImageUrl);
             
             e.target.src = defaultImageUrl;
@@ -59,7 +59,7 @@ export default {
                     timestamp: new Date().toISOString()
                 });
                 // Si falla la imagen por defecto del backend, usar la local
-                e.target.src = new URL('@/assets/img/events/default-event.jpg', import.meta.url).href;
+                e.target.src = new URL('@/assets/img/events/default-event.png', import.meta.url).href;
                 e.target.onerror = null; // Prevenir loop infinito
             };
         }
