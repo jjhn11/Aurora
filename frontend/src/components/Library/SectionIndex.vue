@@ -104,7 +104,7 @@ onUnmounted(() => {
     :class="{ 'scroll-position': isVisible }"
   >
     <div class="index-header">
-      <h3>Carreras</h3>
+      <h3>Categorías</h3>
     </div>
     <div class="sections-container">
       <button 

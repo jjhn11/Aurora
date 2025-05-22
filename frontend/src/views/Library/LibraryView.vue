@@ -18,7 +18,7 @@ const sections = [
   { id: 'mecatronica', name: 'Mecatrónica' },
   { id: 'quimica', name: 'Química' },
   { id: 'sistemas', name: 'Sistemas' },
-  { id: 'libros', name: 'Amantes de los Libros' }
+  { id: 'libros', name: 'Otros intereses' }
 ];
 </script>
 
@@ -29,12 +29,12 @@ const sections = [
   <br><br><br><br>
 
   <div id="administracion" class="container">
-    <h1 class="title">ADMINISTRACION</h1>
+    <h1 class="title">ADMINISTRACIÓN</h1>
     <CarruselBiblioteca bookSource="administrativeBooks" carouselId="carousel-admin" :showSlider="false"/>
   </div>
 
   <div id="contador" class="container">
-    <h1 class="title">CONTADOR PUBLICO</h1>
+    <h1 class="title">CONTADOR PÚBLICO</h1>
     <CarruselBiblioteca bookSource="accountingBooks" carouselId="carousel-accounting" :showSlider="false"/>
   </div>
 
@@ -69,7 +69,7 @@ const sections = [
   </div>
 
   <div id="logistica" class="container">
-    <h1 class="title">LOGISTICA</h1>
+    <h1 class="title">LOGÍSTICA</h1>
     <CarruselBiblioteca bookSource="logisticsBooks" carouselId="carousel-logistics" :showSlider="false"/>
   </div>
 
@@ -99,7 +99,7 @@ const sections = [
   </div>
 
   <div id="libros" class="container">
-    <h1 class="title">AMANTES DE LOS LIBROS</h1>
+    <h1 class="title">OTROS INTERESES</h1>
     <CarruselBiblioteca bookSource="bookLovers" carouselId="carousel-books" :showSlider="false"/>
   </div>
 

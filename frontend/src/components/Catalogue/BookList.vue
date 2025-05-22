@@ -108,6 +108,9 @@ const handleSearch = (filters) => {
   // Get initial book set based on career
   if (filters.career) {
     switch (filters.career) {
+      case 'ADM':
+        result = [...store.state.books.systemsBooks];
+        break;
       case 'ISC':
         result = [...store.state.books.systemsBooks];
         break;

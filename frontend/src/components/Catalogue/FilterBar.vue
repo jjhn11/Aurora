@@ -49,19 +49,20 @@
               class="form-select"
             >
               <option value="">Todas las carreras</option>
-              <option value="ISC">Ing. Sistemas Computacionales</option>
-              <option value="IND">Ing. Industrial</option>
-              <option value="IGE">Ing. Gestión Empresarial</option>
-              <option value="MEC">Ing. Mecánica</option>
-              <option value="ENR">Ing. Energías Renovables</option>
-              <option value="LOG">Ing. Logística</option>
-              <option value="MAT">Ing. Materiales</option>
-              <option value="MCT">Ing. Mecatrónica</option>
-              <option value="QUI">Ing. Química</option>
-              <option value="ELE">Ing. Eléctrica</option>
-              <option value="ETR">Ing. Electrónica</option>
+              <option value="ADM">Administración</option>
               <option value="CON">Contaduría Pública</option>
-              <option value="DES">Ing. Desarrollo de Software</option>
+              <option value="DES">Desarrollo de Software</option>
+              <option value="ELE">Eléctrica</option>
+              <option value="ETR">Electrónica</option>
+              <option value="ENR">Energías Renovables</option>
+              <option value="IGE">Gestión Empresarial</option>
+              <option value="IND">Industrial</option>
+              <option value="LOG">Logística</option>
+              <option value="MAT">Materiales</option>
+              <option value="MEC">Mecánica</option>
+              <option value="MCT">Mecatrónica</option>
+              <option value="QUI">Química</option>
+              <option value="ISC">Sistemas Computacionales</option>
             </select>
           </div>
         </div>
