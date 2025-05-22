@@ -26,6 +26,9 @@ const filteredEvents = computed(() => {
   // Filtrar solo eventos con Is_coming = 1
   return events.filter(event => event.Is_coming === 1);
 });
+const totalSlides = computed(() => {
+  return Math.ceil(filteredEvents.value.length / 3); // 3 eventos por slide
+});
 
 
 const getImageUrl = (imagePath) => {
@@ -155,12 +158,12 @@ const closeModal = () => {
         </div>
 
         <!-- Controles del carrusel -->
-        <div class="carousel-controls-bottom">
+        <div class="carousel-controls-bottom" v-if="totalSlides > 1">
           <button class="btn btn-link carousel-control-prev-bottom" type="button" data-bs-target="#carrusel1" data-bs-slide="prev">
             <i class="bi bi-chevron-left fs-4"></i>
           </button>
   
-          <div class="carousel-indicators">
+          <div class="carousel-indicators" v-if="totalSlides > 1">
             <button type="button" data-bs-target="#carrusel1" data-bs-slide-to="0" class="active"></button>
             <button type="button" data-bs-target="#carrusel1" data-bs-slide-to="1"></button>
             <button type="button" data-bs-target="#carrusel1" data-bs-slide-to="2"></button>
