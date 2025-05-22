@@ -3,6 +3,7 @@ import { ref, onMounted, computed } from 'vue';
 import { useStore } from 'vuex';
 import CardHome from './CardHome.vue';
 import Modal from '../Modal.vue';
+import axios from 'axios';
 
 const store = useStore();
 
@@ -20,6 +21,13 @@ onMounted(async () => {
 const events = computed(() => 
   store.getters['events/getAllEvents'] || []
 );
+
+const filteredEvents = computed(() => {
+  let events = [];
+  events = store.getters['events/getAllEvents'];
+  // Filtrar solo eventos con Is_coming = 1
+  return events.filter(event => event.Is_coming === 1);
+});
 
 onMounted(() => {
   const carousel = document.querySelector('#carrusel1');
@@ -61,20 +69,25 @@ const openModal = (event) => {
 const closeModal = () => {
   isModalOpen.value = false;
 };
+
+const getImageUrl = (imagePath) => {
+    return `${axios.defaults.baseURL}${imagePath.startsWith('/uploads') ? '' : '/uploads'}${imagePath}`;
+};
+
 </script>
 
 <template>
   <div class="mobile-carousel container-fluid">
     <div id="carouselMobile" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
-        <div v-for="(event, index) in events.slice(0, 4)" 
+        <div v-for="(event, index) in filteredEvents.slice(0, 4)" 
           :key="event.id" 
           class="carousel-item"
           :class="{ active: index === 0 }"
         >
           <CardHome
             :id="event.Id_event"
-            :image="'/src/assets/img/events/sports-event-2.jpg'"
+            :image="getImageUrl(event.Image_url)"
             :title="event.Title"
             :description="event.Description"
             @openModal="openModal(event)"
