@@ -7,7 +7,7 @@
       <p>
         Los cubículos son espacios diseñados para el estudio grupal, pueden ser
         reservados por los alumnos según sus necesidades. Se encuentran distribuidos
-        tanto en la planta alta como en la planta baja de la biblioteca, ofrecioendo un ambiente
+        tanto en la planta alta como en la planta baja de la biblioteca, ofreciendo un ambiente
         cómodo y adecuado para el aprendizaje y el trabajo colaborativo
       </p>
     </div>
