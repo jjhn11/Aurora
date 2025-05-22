@@ -154,20 +154,20 @@ INSERT INTO Events_ (Title, Description, Image_url, Id_category, Event_date, Id_
 ('Torneo de E-Sports', 'Competencia de deportes electrónicos', '/upload/events/esports.jpg', 3, '2025-04-27', 1, 0);
 
 -- Community activities
-INSERT INTO Community_activities_ (Title, Description, Id_type, Id_Location, Start_time, End_time, Event_date, Organizer_id) VALUES 
-('Desarrollo de App Móvil', 'Proyecto colaborativo para estudiantes', 1, 1, '14:00:00', '17:00:00', '2025-01-25', 'USER001'),
-('Exposición de Fotografía', 'Muestra del trabajo fotográfico', 2, 2, '10:00:00', '18:00:00', '2025-02-01', 'USER002'),
-('Entrenamiento de Baloncesto', 'Sesión de práctica para el equipo', 3, 3, '16:00:00', '18:00:00', '2025-01-18', 'USER003'),
-('Grupo de Estudio de Matemáticas', 'Sesiones para reforzar conocimientos', 4, 4, '13:00:00', '15:00:00', '2025-01-17', 'USER004'),
-('Limpieza de Playa', 'Actividad de voluntariado local', 5, 5, '08:00:00', '12:00:00', '2025-02-12', 'USER005');
+-- INSERT INTO Community_activities_ (Title, Description, Id_type, Id_Location, Start_time, End_time, Event_date, Organizer_id) VALUES 
+-- ('Desarrollo de App Móvil', 'Proyecto colaborativo para estudiantes', 1, 1, '14:00:00', '17:00:00', '2025-01-25', 'USER001'),
+-- ('Exposición de Fotografía', 'Muestra del trabajo fotográfico', 2, 2, '10:00:00', '18:00:00', '2025-02-01', 'USER002'),
+-- ('Entrenamiento de Baloncesto', 'Sesión de práctica para el equipo', 3, 3, '16:00:00', '18:00:00', '2025-01-18', 'USER003'),
+-- ('Grupo de Estudio de Matemáticas', 'Sesiones para reforzar conocimientos', 4, 4, '13:00:00', '15:00:00', '2025-01-17', 'USER004'),
+-- ('Limpieza de Playa', 'Actividad de voluntariado local', 5, 5, '08:00:00', '12:00:00', '2025-02-12', 'USER005');
 
 -- Community activity attendance
-INSERT INTO Community_activity_attendance_ (Id_user, Id_activity, Confirmation) VALUES 
-('USER001', 1, 1),
-('USER002', 1, 1),
-('USER003', 2, 1),
-('USER004', 3, 1),
-('USER005', 4, 1),
-('USER001', 5, 1),
-('USER002', 3, 1),
-('USER003', 4, 1);
+-- INSERT INTO Community_activity_attendance_ (Id_user, Id_activity, Confirmation) VALUES 
+-- ('USER001', 1, 1),
+-- ('USER002', 1, 1),
+-- ('USER003', 2, 1),
+-- ('USER004', 3, 1),
+-- ('USER005', 4, 1),
+-- ('USER001', 5, 1),
+-- ('USER002', 3, 1),
+-- ('USER003', 4, 1);
