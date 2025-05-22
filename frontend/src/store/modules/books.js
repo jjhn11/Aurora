@@ -78,7 +78,7 @@ import abcEnergiasRenovables from '@/assets/img/library/C-Coverimage/Energias Re
 import mecanicaMaterialesHibbeler from '@/assets/img/library/C-Coverimage/Materiales/Mecánica de materiales.png';
 import mechanicsMaterialsHearn from '@/assets/img/library/C-Coverimage/Materiales/Mechanics of Materials.jpg';
 import tecnicasLaboratorio from '@/assets/img/library/C-Coverimage/Materiales/Técnicas de laboratorio para pruebas de materiales.jpg';
-import resistenciaMateriales from '@/assets/img/library/C-Coverimage/Materiales/Técnicas de laboratorio para pruebas de materiales.jpg';
+import resistenciaMateriales from '@/assets/img/library/C-Coverimage/Materiales/Resistencia de materiales.jpg';
 
 //importacion de imagenes de ingenieria mecanica
 import mecanicadefluidos from '@/assets/img/library/C-Coverimage/Mecanica/Mecánica de fluidos y máquinas hidráulicas.jpg';
