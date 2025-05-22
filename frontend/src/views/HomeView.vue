@@ -47,7 +47,7 @@ onUnmounted(() => {
 
 <style scoped>
 .spacer-1 {
-    height: 2rem; /* 32px by default */
+    height: 0rem; /* 32px by default */
 }
 
 .spacer-2 {
@@ -55,11 +55,11 @@ onUnmounted(() => {
 }
 
 .spacer-3 {
-    height: 3rem; /* 48px for the last spacer */
+    height: 5rem; /* 48px for the last spacer */
 }
 
 .spacer-4 {
-    height: 4rem; /* 48px for the last spacer */
+    height: 5rem; /* 48px for the last spacer */
 }
 
 @media screen and (max-width: 768px) {
