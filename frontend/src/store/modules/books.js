@@ -626,7 +626,7 @@ import mecasistemascon6e from '@/assets/img/library/C-Coverimage/Mecatronica/Mec
     id: "9780190264482",
     ISBN: "9780190264482",
     Title: "Theory of Machines and Mechanisms",
-    coverImage: + theoryMachinesMechanisms,
+    coverImage: theoryMachinesMechanisms,
     author: "John J. Uicker Jr., Gordon R. Pennock, Joseph E. Shigley",
     authors: ["John J. Uicker Jr.", "Gordon R. Pennock", "Joseph E. Shigley"],
     publisher: "Oxford University Press",
