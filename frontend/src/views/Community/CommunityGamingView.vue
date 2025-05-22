@@ -79,7 +79,7 @@ const handleEventCreatedSuccess = async () => {
             activityId: activity.Id_activity,
             title: activity.Title,
             description: activity.Description,
-            organizer: activity.Organizer_id, 
+            organizer: activity.Organizer_name, 
             startTime: activity.Start_time,
             endTime: activity.End_time,
             location: activity.location_name,
