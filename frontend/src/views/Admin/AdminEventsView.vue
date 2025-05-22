@@ -45,8 +45,6 @@
                 class="form-control" 
                 v-model="filters.date"
                 @change="applyFilters"
-                :min="minDate"
-                :max="maxDate"
               >
             </div>
           </div>
@@ -223,7 +221,7 @@
                     </label>
                   </div>
                   <small class="text-muted">
-                    Active esta opción si desea mostrar este evento en la sección de próximos eventos
+                    Active esta opción si desea mostrar este evento en los carruseles de la página principal.
                   </small>
                 </div>
   
@@ -508,19 +506,6 @@ const hasCalendarInfo = computed(() => {
     selectedEvent.value.notes);
 });
 
-// Add these computed properties
-const minDate = computed(() => {
-  const first = events.value[0]?.Event_date;
-  return first ? new Date(first).toISOString().split('T')[0] : '';
-});
-
-const maxDate = computed(() => {
-  if (!events.value.length) return '';
-  const dates = events.value.map(e => new Date(e.Event_date));
-  const last = new Date(Math.max(...dates));
-  return last.toISOString().split('T')[0];
-});
-
 // Load events on mount
 onMounted(async () => {
   try {
@@ -601,6 +586,8 @@ const confirmDelete = (event) => {
 
 // CRUD operations
 const saveEvent = async () => {
+  console.log('Date:', Date());
+
   if (eventForm.value.title.trim().length < 3) {
     titleError.value = 'El título debe tener al menos 3 caracteres';
     return;
