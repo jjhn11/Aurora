@@ -98,7 +98,8 @@ INSERT INTO Community_activity_location_ (Location_, Id_category) VALUES
 ('BIBLIOTECA PLANTA ALTA', 4),
 ('EDIFICIO M', 4),
 ('EDIFICIO X', 4),
-('EDIFICIO E', 4);
+('EDIFICIO E', 4),
+('ZONA LIBRE', 4);
 
 
 

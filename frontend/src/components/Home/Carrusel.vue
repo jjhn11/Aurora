@@ -85,7 +85,7 @@ const closeModal = () => {
                     </div>
                 </div>
             </div>
-            <div class="carousel-item">
+            <div v-if="totalSlides > 1" class="carousel-item">
                 <div class="row justify-content-center">
                     <div class="col-md-4" v-if="filteredEvents[3]">
                         <CardHome
@@ -116,7 +116,7 @@ const closeModal = () => {
                     </div>
                 </div>
             </div>
-            <div class="carousel-item">
+            <div v-if="totalSlides > 2" class="carousel-item">
                 <div class="row justify-content-center">
                     <div class="col-md-4" v-if="filteredEvents[6]">
                         <CardHome
@@ -165,8 +165,8 @@ const closeModal = () => {
   
           <div class="carousel-indicators" v-if="totalSlides > 1">
             <button type="button" data-bs-target="#carrusel1" data-bs-slide-to="0" class="active"></button>
-            <button type="button" data-bs-target="#carrusel1" data-bs-slide-to="1"></button>
-            <button type="button" data-bs-target="#carrusel1" data-bs-slide-to="2"></button>
+            <button v-if="totalSlides > 1" type="button" data-bs-target="#carrusel1" data-bs-slide-to="1"></button>
+            <button v-if="totalSlides > 2" type="button" data-bs-target="#carrusel1" data-bs-slide-to="2"></button>
           </div>
   
           <button class="btn btn-link carousel-control-next-bottom" type="button" data-bs-target="#carrusel1" data-bs-slide="next">

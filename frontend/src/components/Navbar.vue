@@ -32,7 +32,7 @@
   import C1R from '../assets/img/navbar/newImages/C1 RECREATIVAS 2.jpg'
   import C2D from '../assets/img/navbar/newImages/C2 DEPORTES 2.jpg'
   import C3C from '../assets/img/navbar/newImages/C3 CULTURAL 2.png'
-  import C4V from '../assets/img/navbar/newImages/C4 VIDEOJUEGOS 2.png'
+  import C4V from '../assets/img/navbar/newImages/C4 VIDEOJUEGOS 3.jpg'
 
   import INV from '../assets/img/navbar/CUENTA INVITADO.png';
 
