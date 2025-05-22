@@ -4,8 +4,9 @@ import Event from '../models/Events/Events.js';
 export const updateEventStatus = async (req, res, next) => {
     try {
         const now = new Date();
+        now.setDate(now.getDate() - 1);
         
-        // Actualizar todos los eventos pasados que tengan Is_coming = 1
+        
         await Event.update(
             { Is_coming: 0 }, 
             {
