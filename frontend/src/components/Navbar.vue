@@ -616,7 +616,7 @@
 
           <div class="window-header gapmd">
 
-              <i class="form-menu-icon fa-solid fa-gear" id="labi"></i>
+              <i class="form-menu-icon fa-solid fa-gear"></i>
 
               <label class="form-menu-label">
                 CONFIGURACION
@@ -661,7 +661,7 @@
 
           <div class="window-header gaplg">
 
-                <i class="form-menu-icon bi bi-brush" id="labi"></i>
+                <i class="form-menu-icon bi bi-brush"></i>
 
                 <label class="form-menu-label">
                   PERSONALIZACION
@@ -705,7 +705,7 @@
 
           <div class="window-header gapsm">
 
-                <i class="form-menu-icon fa-solid fa-language" id="labi"></i>
+                <i class="form-menu-icon fa-solid fa-language"></i>
 
                 <label class="form-menu-label">
                   LENGUAJE
@@ -741,14 +741,13 @@
 
         </div>
 
+        <!-- ######################### Botón de regreso al menú principal ######################### -->
+        <!-- Este botón solo se muestra si no estamos en el menú principal -->
         <button v-if="currentView !== 'MainMenu' && currentView !== 'MainMenuAc'" @click="goBack" class="btn btn-outline-danger" type="button" id="atbot">
           <i class="fa-solid fa-chevron-left"></i>
         </button>
 
       </div>
-
-        <!-- ######################### Botón de regreso al menú principal ######################### -->
-        <!-- Este botón solo se muestra si no estamos en el menú principal -->
 
     </form>
 
@@ -1375,16 +1374,17 @@
 
     
     .form-menu-icon{
-
       white-space: normal; /* Permite que el texto se divida en varias líneas */
       word-wrap: break-word; /* Divide palabras largas si es necesario */
-      text-align: center; /* Centra el texto dentro del label */
 
       display: flex;
-      justify-content: center;
+      justify-content: center; 
       align-items: center;
+      text-align: center; /* Centra el texto dentro del label */
 
-      font-size: 35px;
+      font-size: 45px;
+      font-weight: 700;
+      color: #0047FF;
     }
 
     .form-ac-label{
@@ -1480,17 +1480,6 @@
     }
     
     /* @@@@@@@@@@@@@@@@ Label Icon @@@@@@@@@@@@@@@@ */
-
-    i#labi {
-      display: flex;
-      justify-content: center; 
-      align-items: center;
-      text-align: center; /* Centra el texto dentro del label */
-
-      font-size: 45px;
-      font-weight: 700;
-      color: #0047FF;
-    }
 
     i#theme {
       &.bi-sun-fill {
