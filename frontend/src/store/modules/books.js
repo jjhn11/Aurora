@@ -1914,7 +1914,7 @@ import mecasistemascon6e from '@/assets/img/library/C-Coverimage/Mecatronica/Mec
           "9687270578": {
             id: "9687270578",
             ISBN: "9687270578",
-            Title: "Cuatro herramientas de software-plus: con MS DOS, WordPerfect 5.0/5.1, Lotus 1-2-3 y dBase III Plus",
+            Title: "FOUR SOFTEWARE TOOLS WHIT WORDPERFECT 5.0/5.1,LOTUS 1-2-3- AND dBASE IV ",
             coverImage: cuatroHerramientasSoftware,
             author: "Tim Duffy",
             authors: ["Tim Duffy"],
@@ -1948,7 +1948,7 @@ import mecasistemascon6e from '@/assets/img/library/C-Coverimage/Mecatronica/Mec
           "9681852184": {
             id: "9681852184",
             ISBN: "9681852184",
-            Title: "Matemáticas Discretas",
+            Title: "Discrete Mathematics",
             coverImage: matematicasDiscretas,
             author: "Kenneth P. Bogart",
             authors: ["Kenneth P. Bogart"],
