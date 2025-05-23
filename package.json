@@ -1,4 +1,11 @@
 {
+  "scripts": {
+    "dev:build": "docker-compose -f docker-compose.dev.yml down -v && docker-compose -f docker-compose.dev.yml build --no-cache && docker-compose -f docker-compose.dev.yml up",
+    "dev": "docker-compose -f docker-compose.dev.yml up",
+    "prod:build": "docker-compose -f docker-compose.prod.yml down -v && docker-compose -f docker-compose.prod.yml build --no-cache && docker-compose -f docker-compose.prod.yml up -d",
+    "prod": "docker-compose -f docker-compose.prod.yml up -d"
+  },
+
   "dependencies": {
     "mysql2": "^3.14.0",
     "sequelize": "^6.37.7"

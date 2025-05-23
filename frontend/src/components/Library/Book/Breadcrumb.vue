@@ -1,4 +1,5 @@
 <template>
+  <br><br>
     <nav class="breadcrumb-navigation" aria-label="Breadcrumb">
       <span class="breadcrumb-label">ESTAS EN:</span>
       <template v-for="(path, index) in paths" :key="index">
@@ -37,7 +38,7 @@
     align-items: center;
     gap: 22px;
     font-family:
-      Josefin Sans,
+      "Josefin Sans",
       -apple-system,
       Roboto,
       Helvetica,
@@ -50,11 +51,12 @@
   
   .breadcrumb-label {
     font-family:
-      Nunito Sans,
+      "Josefin Sans",
       -apple-system,
       Roboto,
       Helvetica,
       sans-serif;
+    font-size: 20px;
     align-self: stretch;
   }
   

@@ -48,9 +48,19 @@ const props = defineProps({
   position: absolute;
   top: 0;
   width: 100%;
-  height: 200%;
+  height: 250%;
   object-fit:cover;
   object-position: 100% 95%;
+}
+
+/* Background elements */
+.hero-background, .hero-video .cubicle{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit:fill;
+  object-position: 100% 0%;
 }
 
 .hero-background {
@@ -74,7 +84,7 @@ const props = defineProps({
 }
 
 .hero-title {
-  font-family: 'Playfair Display';
+  font-family: "Josefin Sans";
   font-weight: 700;
   font-size: 6rem;
   color: white;
@@ -88,7 +98,6 @@ const props = defineProps({
 }  
 @media (max-width: 1076px) {
   .hero-title {
-  font-family: 'Playfair Display';
   font-weight: 700;
   font-size: 50px;
   color: white;

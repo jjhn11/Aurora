@@ -1,100 +1,195 @@
-<template>
-    <img src="@/assets/img/footer/tec-map.png" alt="Mapa del TecNM" class="img-fluid">
-    <footer class="footer">
-        <div class="row">
-            <div class="col-4 d-flex justify-content-center">
-                <div class="d-flex flex-column ms-5">
-                    <h1 class="footer-title">
-                        ENLACES UTILES
-                    </h1>
-                    <RouterLink to="/" class="footer-text text-link">INICIO</RouterLink>
-                    <RouterLink to="/biblioteca" class="footer-text text-link">BIBLIOTECA</RouterLink>
-                    <RouterLink to="/eventos" class="footer-text text-link">EVENTOS</RouterLink>
-                    <RouterLink to="/comunidad" class="footer-text text-link">COMUNIDAD</RouterLink>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="d-flex flex-column">
-                    <h1 class="footer-title">
-                        SOBRE AURORA
-                    </h1>
-                    <p class="footer-text text-justify">
-                        Se brida un servicio de apoyo al área de conocimiento, para facilitar el acceso a la información
-                        y el conocimiento, por medio de bibliograficas actualizadas y servicios de información.
-                    </p>
-                </div>
-            </div>
-            <div class="col-5">
-                <div class="d-flex flex-column align-items-center">
-                    <h1 class="footer-title">
-                        CONTACTOS
-                    </h1>
-                    <div class="d-flex justify-content-center ">
-                        <i class="bi bi-envelope-fill"></i>
-                        <p class="footer-text ms-2">
-                            cinformacion@itmexicali.edu.mx
-                        </p>
-                    </div>
-                    <div class="d-flex justify-content-center ">
-                        <i class="bi bi-telephone-fill"></i>
-                        <p class="footer-text ms-2">
-                            686 - 580 -4920 Ext. 4920
-                        </p>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <div class="col-3">
-                            <img src="@/assets/img/footer/fb.png" class="img fb" alt="">
-                        </div>
-                        <div class="col-3">
-                            <img src="@/assets/img/footer/insta.png" class="img ig" alt="">
-                        </div>
-                        <div class="col-3">
-                            <img src="@/assets/img/footer/youtube.png" class="img yt" alt="">
-                        </div>
-                        <div class="col-3">
-                            <img src="@/assets/img/footer/school-sharp.png" class="img schoolar" alt="">
-                        </div>
-                    
-                    </div>
+<script setup>
+import { computed} from "vue";
+import { useRoute } from "vue-router";
+import FooterMap from "./Footer/FooterMap.vue";
+import FooterLogo from "./Footer/FooterLogo.vue";
+import FooterNavigation from "./Footer/FooterNavigation.vue";
+import FooterContact from "./Footer/FooterContact.vue";
+import FooterSocial from "./Footer/FooterSocial.vue";
+import FooterCopyright from "./Footer/FooterCopyright.vue";
 
-                </div>
-            </div>
+// Get current route
+const route = useRoute();
+
+// Check if current page is home
+const isHomePage = computed(() => {
+  return route.path === '/' || route.path === '/home';
+});
+</script>
+
+   
+
+<template>
+  <footer class="footer">
+    <div v-if="isHomePage" class="footer__map">
+      <!-- <img v-if="isHomePage" src="@/assets/img/footer/tec-map.png" alt="Mapa del TecNM" class="img-fluid"> -->
+      <FooterMap/>
+    </div>
+    <div class="footer__main">
+      <div class="footer__container">
+        <div class="footer__row">
+          <FooterLogo class="footer__logo" />
+          <FooterNavigation class="footer__navigation" />
+          <FooterContact class="footer__contact" />
         </div>
-    </footer>
+        <FooterSocial />
+      </div>
+      <FooterCopyright />
+    </div>
+  </footer>
 </template>
 
+   
+
 <style scoped>
-.text-justify {
-    text-align: justify;
-}
+  .footer {
+    width: 100%;
+    padding: 0;
+  }
 
-.text-link {
-    width: min-content;
-    text-decoration: none;
-}
+  .footer__map {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto; /* Adjust height to auto for better responsiveness */
+  }
 
-.text-link:hover {
-    color: #FBE326;
-}
+  .footer__main {
+    border-top:  1px solid rgba(180, 180, 180, 1);
+    background-color: rgba(248, 247, 247, 1);
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-.img {
-    margin: 0 8px 0 8px;
-}
-.fb {
-    width: 27px;
-    height: 27px;
-}
-.ig {
-    width: 26.25px;
-    height: 26.25px;
-}
-.yt {
-    width: 30px;
-    height: 22.5px;
-}
-.schoolar {
-    width: 34.5px;
-    height: 27px;
-}
+  .footer__container {
+    margin-top: 70px;
+    align-self: center;
+    display: flex;
+    width: 100%;
+    max-width: 1481px;
+    flex-direction: column;
+    align-items: start;
+    padding: 0 30px; /* Added padding to keep content from touching edges */
+  }
+
+  .footer__row {
+    gap: 100px; /* Increased from 20px to 40px for more spacing */
+    display: flex;
+    align-self: stretch;
+    width: 100%;
+    justify-content: space-between; /* Distribute space evenly */
+    flex-direction: row;
+  }
+
+  /* New classes to control component widths */
+  .footer__logo {
+    margin-top: -20px; /* Adjusted margin to align with the map */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1; /* Contact gets same base space as logo */
+    display: flex;
+    max-width: 34%;
+  }
+
+  .footer__navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1.2; /* Navigation gets slightly more space than logo */
+    max-width: 26%;
+  }
+
+  .footer__contact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1; /* Contact gets same base space as logo */
+    display: flex;
+  }
+
+  @media (max-width: 991px) {
+    .footer__navigation{
+      display: none;
+    }
+    .footer__main {
+      background-color: rgba(248, 247, 247, 1);
+      display: flex;
+      width: 100%;
+      padding-top: 0px;
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .footer__main {
+      max-width: 100%;
+    }
+
+    .footer__container {
+      width: 100%;
+    }
+
+    .footer__row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px; /* Maintain vertical spacing */
+      width: 100%;
+    }
+    
+    /* Reset flex properties for mobile view */
+    .footer__logo, 
+    .footer__navigation, 
+    .footer__contact {
+      flex: none;
+      width: 100%;
+      max-width: 100%;
+      padding: 0;
+      justify-content: flex-start;
+    }
+    .footer__contact {
+      flex: 1; /* Contact gets same base space as logo */
+      display: flex;
+      padding: 0 3%; /* Add padding on both sides of contact */
+      min-width: 100%;
+    }
+  }
+
+  /* Additional adjustment for smaller mobile screens */
+  @media (max-width: 576px) {
+    .footer__navigation {
+      display: none;
+    }
+
+    .footer__contact {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer__row {
+      gap: 30px;
+    }
+    
+    .footer__container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 10px;
+    }
+
+    .footer__social {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 30px;
+
+    }
+  }
 
 </style>

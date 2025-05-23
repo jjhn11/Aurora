@@ -7,7 +7,7 @@ import BookCard from './BookCard.vue';
 const props = defineProps({
   bookSource: {
     type: String,
-    default: 'popularBooks' // puede ser: 'popularBooks', 'newBooks', 'popularBooksMonth', etc.
+    default: 'popularBooks' // puede ser: 'popularBooks', 'newBooks', 'popularBooksMonth', etc.+
   },
   carouselId: {
     type: String,
@@ -19,42 +19,36 @@ const props = defineProps({
   }
 });
 
-
 const activeSlide = ref(0);
 const totalSlides = ref(3);
-
 const store = useStore();
-
-// Selección dinámica de libros desde Vuex
-const books = computed(() => {
-  return store.state.books[props.bookSource] || [];
-});
-
-
-const itemsPerSlide = ref(5);
+const books = computed(() => store.state.books[props.bookSource] || []); //wonito
+const itemsPerSlide = ref(4);
+const windowWidth = ref(window.innerWidth);
 
 onMounted(() => {
-  const updateItemsPerSlide = () => {
+  const updateItems = () => {
+    windowWidth.value = window.innerWidth;
     if (window.innerWidth <= 768) {
       itemsPerSlide.value = 2;
     } else if(window.innerWidth >= 768 && window.innerWidth <= 1068){
       itemsPerSlide.value = 3;
     }else{
-      itemsPerSlide.value = 5;
+      itemsPerSlide.value = 4;
     }
   };
 
-  updateItemsPerSlide();
-  window.addEventListener('resize', updateItemsPerSlide);
-
+  updateItems();
+  window.addEventListener('resize', updateItems);
+  
   const carousel = document.querySelector(`#${props.carouselId}`);
   if (carousel) {
     carousel.addEventListener('slid.bs.carousel', (e) => {
       activeSlide.value = e.to;
     });
   }
-
 });
+
 const chunkedBooks = computed(() => {
   const size = itemsPerSlide.value;
   const chunks = [];
@@ -65,48 +59,72 @@ const chunkedBooks = computed(() => {
   return chunks;
 });
 
+// Computed para determinar si es desktop
+const isDesktop = computed(() => windowWidth.value >= 768);
 </script>
 
-
 <template>
-  <div class="contenedor-carrusel container-fluid d-flex justify-content-center">
-    <button class="custom-btn-l d-flex btn btn-link carousel-control-prev-bottom" type="button" :data-bs-target="`#${carouselId}`" data-bs-slide="prev">
+  <div class="contenedor-carrusel container-fluid d-flex justify-content-start">
+    <button
+      class="custom-btn-l d-flex btn btn-link carousel-control-prev-bottom"
+      type="button"
+      :data-bs-target="`#${props.carouselId}`"
+      data-bs-slide="prev"
+      v-if="chunkedBooks.length > 1"
+    >
       <i class="bi bi-chevron-left fs-4"></i>
     </button>
-    
-    <div :id="carouselId" class="carousel slide" data-bs-touch="true" data-bs-interval="false">
+    <div :id="props.carouselId" class="carousel slide" data-bs-touch="true" data-bs-interval="false">
       <div class="carousel-inner">
-        <div v-for="(group, index) in chunkedBooks" :key="index" class="carousel-item" :class="index === 0 ? 'active' : ''">
-          <div class="row justify-content-center">
-            <div v-for="book in group" :key="book.ISBN" class="custom-col col-sm-6 col-md-4">
+        <div
+          v-for="(group, index) in chunkedBooks"
+          :key="index"
+          class="carousel-item"
+          :class="{ active: index === 0 }"
+        >
+          <div class="row justify-content-start">
+            <div
+              v-for="book in group"
+              :key="book.ISBN"
+              :class="isDesktop ? 'custom-col carousel-item-col' : 'custom-col'"
+            >
               <BookCard
                 :id="book.ISBN"
                 :cover-image="book.coverImage"
                 :title="book.Title"
                 :description="book.category"
+                :fixed-size="true"
               />
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <button class="d-flex custom-btn-r btn btn-link carousel-control-next-bottom" type="button" :data-bs-target="`#${carouselId}`" data-bs-slide="next">
+    <button
+      class="d-flex custom-btn-r btn btn-link carousel-control-next-bottom"
+      type="button"
+      :data-bs-target="`#${props.carouselId}`"
+      data-bs-slide="next"
+      v-if="chunkedBooks.length > 1"
+    >
       <i class="bi bi-chevron-right fs-4"></i>
     </button>
   </div>
-
-  <div class="custom-slider-bar" v-if="showSlider">
+  <div class="custom-slider-bar" v-if="props.showSlider">
     <div class="custom-slider-thumb" :style="{ left: `${(activeSlide / (totalSlides - 1)) * 100}%` }"></div>
   </div>
 </template>
 
 
 <style scoped>
+.carousel-item-col{
+  min-height: 530px;
+  min-width: 263px;
+}
 .custom-btn-l,
 .custom-btn-r {
   position: absolute;
-  top: 40%;
+  top: 30%;
   transform: translateY(-50%);
   background-color: rgba(255, 255, 255, 0.8);
   border: none;
@@ -123,8 +141,43 @@ const chunkedBooks = computed(() => {
   right: -3%;
 }
 .custom-col {
-  width: 20%;
+  flex: 0 0 auto;
+  width: 25%;
   padding: 0 10px;
+  box-sizing: border-box;
+}
+@media (max-width: 1468px) {
+  .carousel-item-col{
+    min-height: 430px;
+    min-width: 153px;
+  }
+}
+/*@media (max-width: 1368px) {
+  .carousel-item-col{
+    min-height: 430px;
+    min-width: 183px;
+  }
+}*/
+@media (max-width: 1068px) {
+  .custom-btn-r {
+  right: 2%;
+}
+  .custom-col {
+    width: calc(33.333% - 20px); /* 3 elementos por fila */
+  }
+  .carousel-item-col{
+    min-height: 430px;
+    min-width: 183px;
+  }
+}
+
+@media (max-width: 768px) {
+  .custom-col {
+    width: calc(50% - 10px); /* 2 elementos por fila */
+    min-width: 170px;
+    min-height: 380px;
+    margin: 0 5px;
+  }
 }
 .custom-slider-bar {
   position: relative;
@@ -150,10 +203,12 @@ const chunkedBooks = computed(() => {
 
 .contenedor-carrusel {
   position: relative;
-  width: 100%;
+  width: 85%;
   max-width: 1300px;
+  min-height: 600px;
   height: auto;
-  margin-bottom: 30px;
+  margin: 0;
+  margin-bottom: 10px;
   padding: 0 20px;
 }
 
@@ -161,11 +216,9 @@ const chunkedBooks = computed(() => {
   position: relative;
 }
 
-
 .carousel-item .row {
-  flex-wrap: nowrap;
-  width: 100%;
-  justify-content: center;
+  flex-wrap: wrap;
+  width: auto;
   margin: 15px auto;
 }
 
@@ -174,17 +227,20 @@ const chunkedBooks = computed(() => {
 .carousel-control-next {
   display: none;
 }
-@media (max-width: 1068px) {
-  .custom-col{
-    width: 33%;
-  }
-}
 @media (max-width: 768px) {
+  .custom-btn-r {
+    right: -3%;
+  }
+  .contenedor-carrusel {
+    padding-left: 15px !important;
+  }
   .contenedor-carrusel {
     width: 100% !important;
-    height: auto;
+    height: 470px; 
+    min-height: unset; /* why */
     padding: 0px;
     margin-bottom: 5px;
+    padding-left: 5%;
   }
 
   .custom-col {
@@ -195,7 +251,6 @@ const chunkedBooks = computed(() => {
   .carousel-item .row {
     flex-wrap: nowrap;
     width: 100%;
-    justify-content: center;
   }
 }
 

@@ -6,7 +6,13 @@
             <div class="metadata-item format">FORMATO: {{ format }}</div>
             <div class="metadata-item author-info">
               <span class="metadata-label">AUTOR:</span>
-              <span class="metadata-value">{{ authors }}</span>
+              <span
+                v-for="(author, index) in authors"
+                :key="index"
+                class="metadata-value author"
+              >
+                {{ author }}{{ index < authors.length - 1 ? ', ' : '' }}
+              </span>
             </div>
             <div class="metadata-item publisher-info">
               <span class="metadata-label">EDITORIAL:</span>
@@ -20,7 +26,6 @@
           <div class="metadata-group">
             <div class="metadata-item binding">ENCUADERNACIÓN: {{ binding }}</div>
             <div class="metadata-item isbn">ISBN: {{ isbn }}</div>
-            <div class="metadata-item isbn13">ISBN: {{ isbn13 }}</div>
             <div class="metadata-item edition">NO. EDICIÓN: {{ edition }}</div>
             <div class="metadata-item categories-info">
               <span class="metadata-label">CATEGORÍAS:</span>
@@ -47,7 +52,7 @@
         required: true,
       },
       authors: {
-        type: String,
+        type: Array, // Changed from String to Array
         required: true,
       },
       publisher: {
@@ -98,6 +103,8 @@
     .book-metadata-section {
       max-width: 100%;
       margin-top: 40px;
+      margin-left: 0px;
+      justify-content: center;
     }
   }
   
@@ -108,7 +115,6 @@
   
   @media (max-width: 991px) {
     .metadata-container {
-      flex-direction: column;
       align-items: stretch;
       gap: 0px;
     }
@@ -125,7 +131,7 @@
   
   @media (max-width: 991px) {
     .metadata-column-left {
-      width: 100%;
+      width: 50%;
     }
   }
   
@@ -163,7 +169,14 @@
     color: rgba(0, 14, 50, 1);
     margin-top: 5px;
   }
-  
+    
+  @media (max-width: 991px) {
+    .metadata-item {
+      max-width: 100%;
+      font-size: 12px;
+    }
+  }
+
   .author-info,
   .publisher-info {
     text-align: left;
@@ -188,8 +201,14 @@
     align-self: stretch;
     margin-top: auto;
     margin-bottom: auto;
+    
   }
-  
+  @media (max-width: 991px) {
+    .metadata-label {
+      max-width: 100%;
+      font-size: 12px;
+    }
+  }
   .metadata-value {
     color: rgba(0, 71, 255, 1);
     font-family:
@@ -206,6 +225,7 @@
   @media (max-width: 991px) {
     .metadata-value {
       max-width: 100%;
+      font-size: 12px;
     }
   }
   
@@ -240,7 +260,7 @@
       Roboto,
       Helvetica,
       sans-serif;
-    color: rgba(0, 0, 0, 1);
+    color: rgba(0, 14, 50, 1);
   }
   
   .metadata-column-right {
@@ -254,7 +274,7 @@
   
   @media (max-width: 991px) {
     .metadata-column-right {
-      width: 100%;
+      width: 50%;
     }
   }
   
@@ -265,20 +285,22 @@
     align-self: stretch;
     margin-top: 5px;
     padding: 5px;
-    gap: 10px;
+    gap: 20px;
     font-family:
       Nunito Sans,
       -apple-system,
       Roboto,
       Helvetica,
       sans-serif;
-    color: rgba(0, 0, 0, 1);
+    color: rgba(0, 14, 50, 1);
   }
   
   .categories-info {
-    align-self: stretch;
     display: flex;
-    margin-top: 5px;
+    align-items: stretch;
+    gap: 26px;
+    flex-wrap: wrap;
+    margin-top: 15px;
     padding: 5px;
     align-items: center;
     gap: 10px;
@@ -295,6 +317,8 @@
   
   @media (max-width: 991px) {
     .categories-info {
+      flex-direction: column;
+      align-items: flex-start;
       max-width: 100%;
       white-space: initial;
     }
@@ -304,6 +328,23 @@
     align-self: stretch;
     margin-top: auto;
     margin-bottom: auto;
+    
+  }
+  @media (max-width: 991px) {
+    .category-info {
+      white-space: initial;
+    }
+  }
+
+  .author {
+    display: inline;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  @media (max-width: 991px) {
+    .author {
+      font-size: 12px;
+    }
   }
   </style>
-  

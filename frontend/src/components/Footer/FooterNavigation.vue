@@ -9,20 +9,35 @@
             >
           </li>
           <li>
-            <RouterLink to="/library" class="footer-nav__link footer-nav__link--biblioteca"
+            <RouterLink to="/biblioteca" class="footer-nav__link footer-nav__link--biblioteca"
               >BIBLIOTECA</RouterLink
             >
           </li>
           <li>
-            <RouterLink to="/events" class="footer-nav__link footer-nav__link--eventos"
+            <RouterLink to="/eventos" class="footer-nav__link footer-nav__link--eventos"
               >EVENTOS</RouterLink
             >
           </li>
           <li>
-            <RouterLink to="" class="footer-nav__link footer-nav__link--comunidad"
-              >COMUNIDAD</RouterLink
+            <RouterLink to="/comunidad/recreativas" class="footer-nav__link footer-nav__link--comunidad"
+              >RECREATIVAS</RouterLink
             >
           </li>
+          <li>
+            <RouterLink to="/comunidad/deportes" class="footer-nav__link footer-nav__link--comunidad"
+              >DEPORTES</RouterLink
+            >
+          </li>
+          <li>
+            <RouterLink to="/comunidad/cultural" class="footer-nav__link footer-nav__link--comunidad"
+              >CULTURALES</RouterLink
+            >
+          </li>
+          <li>
+            <RouterLink to="/comunidad/videojuegos" class="footer-nav__link footer-nav__link--comunidad"
+              >VIDEOJUEGOS</RouterLink
+            >
+            </li>
         </ul>
       </div>
     </nav>
@@ -36,23 +51,21 @@
   .footer-nav {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
     line-height: normal;
     width: 17%;
-    margin-left: 20px;
   }
   
   .footer-nav__content {
-    margin-top: auto;
     margin-bottom: auto;
-    align-self: stretch;
+    align-self: center;
   }
   
   .footer-nav__title {
     color: rgba(0, 14, 50, 1);
     font-size: 29px;
     font-family:
-      Crimson Text,
+      "Josefin Sans",
       -apple-system,
       Roboto,
       Helvetica,
@@ -64,7 +77,7 @@
   .footer-nav__links {
     display: flex;
     min-height: 158px;
-    width: 120px;
+    width: 130px;
     max-width: 100%;
     padding: 0;
     flex-direction: column;
@@ -76,8 +89,9 @@
       Helvetica,
       sans-serif;
     font-size: 18px;
+
     color: rgba(0, 71, 255, 1);
-    font-weight: 700;
+    font-weight: 800;
     white-space: nowrap;
     justify-content: space-between;
     list-style-type: none;
@@ -117,11 +131,21 @@
   @media (max-width: 991px) {
     .footer-nav {
       width: 100%;
-      margin-top: 40px;
+      margin-top: 20px;
+    }
+
+    .footer-nav__content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      align-self: stretch;
+      text-align: center;
+      flex-direction: column;
+      margin-bottom: auto;
     }
   
     .footer-nav__title {
-      margin-left: 8px;
+      align-self: center;
     }
   
     .footer-nav__links {

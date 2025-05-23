@@ -16,6 +16,7 @@ import FavoritesView from '@/views/User/FavoritesView.vue'
 import CatalogueView from '@/views/Library/CatalogueView.vue'
 import AdminEventsView from '@/views/Admin/AdminEventsView.vue'
 import ProfanityTestView from '@/views/Test/ProfanityView.vue'
+import NotFoundView from '@/views/NotFoundView.vue'
 
 const routes = [
   {
@@ -31,79 +32,66 @@ const routes = [
   },
 
   {
-    path: '/library',
+    path: '/biblioteca',
     name: 'library',
     component: LibraryView,
   },
   {
-    path: '/library/catalogue',
+    path: '/biblioteca/catalogo',
     name: 'catalogue',
     component: CatalogueView,
   },
   {
-    path: '/library/cubicles',
+    path: '/biblioteca/libro/:id',
+    name: 'library-book',
+    component: BookView,
+    props: true,
+  },
+  {
+    path: '/biblioteca/cubiculos',
     name: 'cubicles',
     component: CubiclesView,
   },
   {
-    path: '/events',
+    path: '/eventos',
     name: 'events',
     component: EventsView,
   },
   {
-    path: '/events/cultural',
+    path: '/eventos/culturales',
     name: 'cultural-events',
     component: CulturalEventsView,
   },
   {
-    path: '/events/sports',
+    path: '/eventos/deportivos',
     name: 'sports-events',
     component: SportsEventsView,
   },
   {
-    path: '/events/school',
+    path: '/eventos/escolares',
     name: 'school-events',
     component: SchoolEventsView,
   },
 
   {
-    path: '/community/cultural',
+    path: '/comunidad/cultural',
     name: 'community-cultural',
     component: CommunityCulturalView,
   },
   {
-    path: '/community/sports',
+    path: '/comunidad/deportes',
     name: 'community-sports',
     component: CommunitySportsView,
   },
   {
-    path: '/community/gaming',
+    path: '/comunidad/videojuegos',
     name: 'community-gaming',
     component: CommunityGamingView,
   },
   {
-    path: '/community/recreational',
+    path: '/comunidad/recreativas',
     name: 'community-recreational',
     component: CommunityRecreationalView,
-  },
-
-  {
-    path: '/user/profile',
-    name: 'profile',
-    component: ProfileView,
-  },
-
-  {
-    path: '/user/favorites',
-    name: 'favorites',
-    component: FavoritesView,
-  },
-
-  {
-    path: '/library/book/:id',
-    name: 'library-book',
-    component: BookView,
-    props: true,
   },
 
   {
@@ -113,6 +101,12 @@ const routes = [
     meta: {
       title: 'Test de Profanidad'
     }
+  },
+
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: NotFoundView,
   }
 ]
 

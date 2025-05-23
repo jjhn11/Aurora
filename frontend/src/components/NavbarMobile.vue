@@ -3,6 +3,10 @@
   import { RouterLink, useRoute } from 'vue-router';
   import { ref, onMounted, onUnmounted, computed, watch } from 'vue';
   import { useStore } from 'vuex';
+  import { useRouter } from 'vue-router';
+  import { Offcanvas } from 'bootstrap';
+
+  const router = useRouter();
   const store = useStore();
 
   // Images
@@ -17,19 +21,8 @@
   const isAuthenticated = computed(() => store.state.isAuthenticated);
   const user = computed(() => store.state.user);
 
-  // Método para verificar si un dropdown está expandido
-  const isExpanded = (menuId) => {
-    const menu = document.getElementById(menuId);
-    return menu ? menu.classList.contains('show') : false;
-  };
-
   const toggleMenu = () => {
     showMenu.value = !showMenu.value;
-  };
-
-  const isActiveLink = (routePath) => {
-    const route = useRoute();
-    return route.path === routePath;
   };
 
   // Handle outside clicks for user menu
@@ -40,13 +33,42 @@
     }
   };
 
+  const handleOffcanvasClickOutside = (event) => {
+    const offcanvasElement = document.getElementById('offcanvasWithBothOptions');
+    const hamburgerButton = document.querySelector('.offnav');
+    
+    if (offcanvasElement && 
+        !offcanvasElement.contains(event.target) && 
+        !hamburgerButton.contains(event.target)) {
+      const bsOffcanvas = Offcanvas.getInstance(offcanvasElement);
+      if (bsOffcanvas) {
+        bsOffcanvas.hide();
+      }
+    }
+  };
+
+  const handleEscapeKey = (event) => {
+    if (event.key === 'Escape') {
+      const offcanvasElement = document.getElementById('offcanvasWithBothOptions');
+      const bsOffcanvas = Offcanvas.getInstance(offcanvasElement);
+      if (bsOffcanvas) {
+        bsOffcanvas.hide();
+      }
+    }
+  };
+
   onMounted(async () => {
     await store.dispatch('checkAuth');
     document.addEventListener('click', handleClickOutside);
+    document.addEventListener('click', handleOffcanvasClickOutside);
+    document.addEventListener('keydown', handleEscapeKey); // Agregar esta línea
   });
 
+  // Modificar el onUnmounted
   onUnmounted(() => {
     document.removeEventListener('click', handleClickOutside);
+    document.removeEventListener('click', handleOffcanvasClickOutside);
+    document.removeEventListener('keydown', handleEscapeKey); // Agregar esta línea
   });
 
   // Add these new reactive refs for configuration
@@ -155,6 +177,22 @@
     }
   });
 
+  const handleNavigation = (path) => {
+    router.push(path);
+  };
+
+  // Agregar esto en la sección de script setup, junto con los otros refs
+  const dropdownStates = ref({
+    bibliotecaMenu: false,
+    eventosMenu: false,
+    comunidadMenu: false
+  });
+
+  // Agregar este método
+  const toggleDropdown = (menuId) => {
+    dropdownStates.value[menuId] = !dropdownStates.value[menuId];
+  };
+
 </script>
 
 <template>
@@ -180,9 +218,9 @@
 
           <!-- Center Logo -->
 
-          <a class="navbar-brand mx-auto">
+          <RouterLink to="/" class="navbar-brand mx-auto">
             <img :src="logo" alt="Aurora" class="mobile-logo">
-          </a>
+          </RouterLink>
 
           <!-- User Menu Button -->
 
@@ -227,7 +265,7 @@
         <ul class="navbar-nav d-flex p-0">
 
           <li class="nav-item">
-            <RouterLink to="/" class="btn btn-main flex-grow-1 d-flex align-items-center ps-3">
+            <RouterLink to="/" class="btn btn-main flex-grow-1 d-flex align-items-center ps-3" @click="handleNavigation('/')" data-bs-dismiss="offcanvas">
               INICIO
             </RouterLink>
           </li>
@@ -240,20 +278,18 @@
 
               <!-- Botón principal -->
 
-              <RouterLink to="/library" class="btn btn-main flex-grow-1 d-flex align-items-center ps-3">
+              <RouterLink to="/biblioteca" class="btn btn-main flex-grow-1 d-flex align-items-center ps-3" 
+              @click="handleNavigation('/biblioteca')" data-bs-dismiss="offcanvas">
                 <span>BIBLIOTECA</span>
               </RouterLink>
 
               <!-- Botón toggle dropdown -->
               <button class="btn-toggle px-3" 
-                      data-bs-toggle="collapse" 
-                      data-bs-target="#bibliotecaMenu"
-                      :class="{ 
-                        'collapsed': !isExpanded('bibliotecaMenu'),
-                        'show': isExpanded('bibliotecaMenu')
-                      }"
-                      aria-expanded="false">
-
+              @click.prevent="toggleDropdown('bibliotecaMenu')"
+              :class="{ 
+                'collapsed': !dropdownStates.bibliotecaMenu,
+                'show': dropdownStates.bibliotecaMenu
+              }">
                 <span class="arrow-icon">
                   <i class="bi bi-caret-up-fill"></i>
                 </span>
@@ -262,9 +298,16 @@
 
             </div>
 
-            <div class="collapse" id="bibliotecaMenu">
-              <RouterLink to="/library/catalogue" class="nav-link sub-link">CATÁLOGO</RouterLink>
-              <RouterLink to="/library/cubicles" class="nav-link sub-link">CUBÍCULOS</RouterLink>
+            <div class="collapse" 
+                :class="{ 'show': dropdownStates.bibliotecaMenu }">
+              <RouterLink to="/biblioteca/catalogo" class="nav-link sub-link" 
+                @click="handleNavigation('/biblioteca/catalogo')" data-bs-dismiss="offcanvas">
+                CATÁLOGO
+              </RouterLink>
+              <RouterLink to="/biblioteca/cubiculos" class="nav-link sub-link" 
+                @click="handleNavigation('/biblioteca/cubiculos')" data-bs-dismiss="offcanvas">
+                CUBÍCULOS
+              </RouterLink>
             </div>
 
           </li>
@@ -277,20 +320,19 @@
 
               <!-- Botón principal -->
 
-              <RouterLink to="/events" class="btn btn-main flex-grow-1 d-flex align-items-center ps-3">
+              <RouterLink to="/eventos" class="btn btn-main flex-grow-1 d-flex align-items-center ps-3" 
+              @click="handleNavigation('/eventos')" data-bs-dismiss="offcanvas">
                 <span>EVENTOS</span>
               </RouterLink>
 
               <!-- Botón toggle dropdown -->
 
               <button class="btn-toggle px-3"
-                    data-bs-toggle="collapse" 
-                    data-bs-target="#eventosMenu"
-                    :class="{ 
-                      'collapsed': !isExpanded('eventosMenu'),
-                      'show': isExpanded('eventosMenu')
-                    }"
-                    aria-expanded="false">
+              @click.prevent="toggleDropdown('eventosMenu')"
+              :class="{ 
+                'collapsed': !dropdownStates.eventosMenu,
+                'show': dropdownStates.eventosMenu
+              }">
 
                 <span class="arrow-icon">
                   <i class="bi bi-caret-up-fill"></i>
@@ -300,10 +342,22 @@
 
             </div>
 
-            <div class="collapse" id="eventosMenu">
-              <RouterLink to="/events/cultural" class="nav-link sub-link">CULTURALES</RouterLink>
-              <RouterLink to="/events/sports" class="nav-link sub-link">DEPORTIVOS</RouterLink>
-              <RouterLink to="/events/school" class="nav-link sub-link">ESCOLARES</RouterLink>
+            <div class="collapse" 
+                :class="{ 'show': dropdownStates.eventosMenu }">
+              <RouterLink to="/eventos/culturales" class="nav-link sub-link" 
+              @click="handleNavigation('/eventos/culturales')" data-bs-dismiss="offcanvas">
+                CULTURALES
+              </RouterLink>
+
+              <RouterLink to="/eventos/deportivos" class="nav-link sub-link" 
+              @click="handleNavigation('/eventos/deportivos')" data-bs-dismiss="offcanvas">
+                DEPORTIVOS
+              </RouterLink>
+
+              <RouterLink to="/eventos/escolares" class="nav-link sub-link" 
+              @click="handleNavigation('/eventos/escolares')" data-bs-dismiss="offcanvas">
+                ESCOLARES
+              </RouterLink>
             </div>
 
           </li>
@@ -323,13 +377,11 @@
               <!-- Botón toggle dropdown -->
 
               <button class="btn-toggle px-3"
-                    data-bs-toggle="collapse" 
-                    data-bs-target="#comunidadMenu" 
-                    :class="{ 
-                      'collapsed': !isExpanded('comunidadMenu'),
-                      'show': isExpanded('comunidadMenu')
-                    }"
-                    aria-expanded="false">
+              @click.prevent="toggleDropdown('comunidadMenu')"
+              :class="{ 
+                'collapsed': !dropdownStates.comunidadMenu,
+                'show': dropdownStates.comunidadMenu
+              }">
 
                 <span class="arrow-icon">
                   <i class="bi bi-caret-up-fill"></i>
@@ -339,11 +391,27 @@
 
             </div>
 
-            <div class="collapse" id="comunidadMenu">
-              <RouterLink to="/community/recreational" class="nav-link sub-link">RECREATIVAS</RouterLink>
-              <RouterLink to="/community/sports" class="nav-link sub-link">DEPORTES</RouterLink>
-              <RouterLink to="/community/cultural" class="nav-link sub-link">CULTURAL</RouterLink>
-              <RouterLink to="/community/gaming" class="nav-link sub-link">VIDEOJUEGOS</RouterLink>
+            <div class="collapse" 
+                :class="{ 'show': dropdownStates.comunidadMenu }">
+              <RouterLink to="/comunidad/recreativas" class="nav-link sub-link" 
+              @click="handleNavigation('/comunidad/recreativas')" data-bs-dismiss="offcanvas">
+                RECREATIVAS
+              </RouterLink>
+
+              <RouterLink to="/comunidad/deportes" class="nav-link sub-link" 
+              @click="handleNavigation('/comunidad/deportes')" data-bs-dismiss="offcanvas">
+                DEPORTES
+              </RouterLink>
+
+              <RouterLink to="/comunidad/cultural" class="nav-link sub-link" 
+              @click="handleNavigation('/comunidad/cultural')" data-bs-dismiss="offcanvas">
+                CULTURAL
+              </RouterLink>
+
+              <RouterLink to="/comunidad/videojuegos" class="nav-link sub-link" 
+              @click="handleNavigation('/comunidad/videojuegos')" data-bs-dismiss="offcanvas">
+                VIDEOJUEGOS
+              </RouterLink>
             </div>
 
           </li>
@@ -363,7 +431,7 @@
   <div class="container-fluid">
     
     <!-- Contenedor del menú -->
-    <form class="bg-white border" id="uform"  :class="{                                                        'show': showMenu, 
+    <form class="bg-white border" id="uform"  :class="{ 'show': showMenu, 
                                                         'hide': !showMenu,
                                                         'bg-none': !isNavbarWhite, 
                                                         'bg-appear': isNavbarWhite
@@ -1376,9 +1444,9 @@
       border-radius: 0px 0px 0px 25px;
     }
   
-    &.form-shrunk {
+    /* &.form-shrunk {
       transform: translateY(-100px);
-    }
+    } */
 
     .ac-img{
 

@@ -4,9 +4,33 @@
         <div class="book-cover-column">
           <div class="book-cover-wrapper">
             <img :src="coverImage" class="book-cover" alt="Book cover" />
-            <div class="share-container" @click="showShareModal = true">
-              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/1a6aa4f2fbb51c866a58a3dfe493a0c3472a88e6?placeholderIfAbsent=true&apiKey=e4bc752606e34419a710b790ae8468cc" class="share-icon" alt="Share" />
-              <span class="share-text">Compartir</span>
+            
+            <div class="advanced-share-container" @click="showShareModal = true">
+              <div class="share-button">
+                <span class="share-text">Compartir</span>
+                <svg
+                  class="share-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <!-- First icon state - Arrow share -->
+                  <path class="path-1" d="M4 12v1a8 8 0 008 8h4" />
+                  <polyline class="path-1" points="16 16 20 12 16 8" />
+                  <line class="path-1" x1="20" y1="12" x2="9" y2="12" />
+                  
+                  <!-- Second icon state - Facebook-style share -->
+                  <circle class="path-2" cx="18" cy="5" r="3" opacity="0" />
+                  <circle class="path-2" cx="6" cy="12" r="3" opacity="0" />
+                  <circle class="path-2" cx="18" cy="19" r="3" opacity="0" />
+                  <line class="path-2" x1="8.59" y1="13.51" x2="15.42" y2="17.49" opacity="0" />
+                  <line class="path-2" x1="15.41" y1="6.51" x2="8.59" y2="10.49" opacity="0" />
+                </svg>
+              </div>
             </div>
           </div>
         </div>
@@ -43,9 +67,9 @@
     </section>
 
     <Share 
-      v-if="showShareModal" 
-      @close="showShareModal = false"
+      v-model="showShareModal"
     />
+
     <BookForm 
       v-model="showForm" 
       @form-sent-success="handleFormSuccess" 
@@ -89,15 +113,7 @@ defineProps({
 });
 
 // SHARE
-// computed property connected to store
-const showShareModal = computed({
-  get() {
-    return store.state.showingShareModal;
-  },
-  set(value) {
-    store.commit('setShowingShareModal', value);
-  }
-});
+const showShareModal = ref(false);
 
 
 // BOOK FORM
@@ -145,10 +161,11 @@ onMounted(() => {
   .book-info-section {
     margin-top: 30px;
   }
-  
+
   @media (max-width: 991px) {
     .book-info-section {
       max-width: 100%;
+      margin-top: 10px;
     }
   }
   
@@ -169,21 +186,20 @@ onMounted(() => {
   .book-cover-column {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
     line-height: normal;
-    width: 28%;
+    width: 25%;
     margin-left: 0px;
   }
-  
   @media (max-width: 991px) {
     .book-cover-column {
       width: 100%;
+      padding-left: 15px;
     }
   }
   
   .book-cover-wrapper {
     display: flex;
-    width: 100%;
+    width: 95%;
     flex-direction: column;
     align-items: stretch;
     font-family:
@@ -201,6 +217,8 @@ onMounted(() => {
   @media (max-width: 991px) {
     .book-cover-wrapper {
       margin-top: 21px;
+      justify-content: center;
+      align-items: center;
     }
   }
   
@@ -208,9 +226,11 @@ onMounted(() => {
     aspect-ratio: 0.75;
     /* object-fit: contain;
     object-position: center; */
-    max-width: 90%;
+    max-width: 90%; 
+    height: auto;
     border-radius: 10px;
     border: 1px solid rgba(0, 14, 50, 1);
+    object-fit:fill;
   }
   
   .favorite-button {
@@ -276,15 +296,15 @@ onMounted(() => {
   
   .book-title {
     color: rgba(0, 14, 50, 1);
+    height: auto;
     font-size: 40px;
     font-weight: 600;
     font-family:
-      Playfair Display,
-      Crimson Text,
-      -apple-system,
-      Roboto,
-      Helvetica,
-      sans-serif;
+        "Josefin Sans",
+        -apple-system,
+        Roboto,
+        Helvetica,
+        sans-serif;
     align-self: start;
     margin: 0;
   }
@@ -292,7 +312,7 @@ onMounted(() => {
   @media (max-width: 991px) {
     .book-title {
       max-width: 100%;
-      font-size: 40px;
+      font-size: 20px;
     }
   }
   
@@ -327,7 +347,13 @@ onMounted(() => {
     flex-wrap: wrap;
     margin-top: 15px;
   }
-  
+  @media (max-width: 991px) {
+    .authors-list {
+      width: 100%;
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
   .author-item {
     display: flex;
     align-items: center;
@@ -336,7 +362,11 @@ onMounted(() => {
     flex-shrink: 1;
     flex-basis: auto;
   }
-  
+  @media (max-width: 991px) {
+    .author-item {
+      max-width: 100%;
+    }
+  }
   .author-icon {
     aspect-ratio: 1;
     object-fit: contain;
@@ -351,6 +381,12 @@ onMounted(() => {
     flex-basis: auto;
     font-size: 16px;
   }
+
+  @media (max-width: 991px) {
+    .author-name {
+      font-size: 10px;
+    }
+  }
   
   .rating-stars {
     aspect-ratio: 5.88;
@@ -360,13 +396,23 @@ onMounted(() => {
     margin-top: 22px;
     max-width: 100%;
   }
+
+  @media (max-width: 991px) {
+    .rating-stars {
+      display: none;
+    }
+  }
   
   .synopsis-heading {
     font-size: 30px;
     margin-top: 34px;
     font-weight: 600;
   }
-  
+  @media (max-width: 991px) {
+    .synopsis-heading {
+      display: none;
+    }
+  }
   .synopsis-text {
     color: rgba(0, 14, 50, 1);
     font-size: 20px;
@@ -379,11 +425,13 @@ onMounted(() => {
     align-self: stretch;
     text-align: justify;
     margin-top: 9px;
+    margin-bottom: 10%;
   }
   
   @media (max-width: 991px) {
     .synopsis-text {
       max-width: 100%;
+      font-size: 14px;
     }
   }
 
@@ -408,23 +456,140 @@ onMounted(() => {
   @media (max-width: 991px) {
     .share-container {
       white-space: initial;
+      font-size: 19px;
+      gap: 5px;
+      justify-content: center;
+      align-content: center;
     }
   }
   
   .share-icon {
-    aspect-ratio: 1;
-    object-fit: contain;
-    object-position: center;
-    width: 50px;
-    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    transition: all 0.5s ease-in-out;
   }
-  
+
+  /* Path animations */
+  .share-icon .path-1 {
+    transition: all 0.5s ease-in-out;
+  }
+
+  .share-icon .path-2 {
+    transition: all 0.5s ease-in-out;
+  }
+
+  /* Hover animations */
+  .share-button:hover .share-icon {
+    transform: rotate(180deg);
+  }
+
+  .share-button:hover .path-1 {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .share-button:hover .path-2 {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  /* Initial states */
+  .share-icon .path-2 {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .share-icon .path-1 {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  @media (max-width: 991px) {
+    .share-icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
   .share-text {
     margin-top: auto;
     margin-bottom: auto;
     flex-basis: auto;
   }
 
+  .advanced-share-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* max-width: 90%; */
+    margin-top: 19px;
+    cursor: pointer;
+  }
+
+  .share-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border: 2px solid rgba(0, 71, 255, 1);
+    border-radius: 30px;
+    background-color: rgba(0, 71, 255, 0.1);
+    color: rgba(0, 71, 255, 1);
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+  }
+
+  .share-button:hover {
+    background-color: rgba(0, 71, 255, 1);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 71, 255, 0.3);
+  }
+
+  /* Add animation keyframes */
+  @keyframes moveRightLeft {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(6px); }
+  }
+
+  /* Update icon styles */
+  .share-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  /* Add hover animation to icon */
+  .share-button:hover .share-icon {
+    animation: moveRightLeft 1s ease-in-out infinite;
+  }
+
+  .share-text {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .share-button:hover .share-text {
+    transform: translateX(-2px);
+  }
+
+  @media (max-width: 991px) {
+    .advanced-share-container {
+      margin: 15px 0;
+    }
+
+    .share-button {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+
+    .share-icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
 
   .action-buttons {
     display: flex;
@@ -439,12 +604,6 @@ onMounted(() => {
     font-size: 25px;
     color: rgba(255, 255, 255, 1);
     flex-wrap: wrap;
-  }
-  
-  @media (max-width: 991px) {
-    .action-buttons {
-      max-width: 100%;
-    }
   }
   
   .action-button {

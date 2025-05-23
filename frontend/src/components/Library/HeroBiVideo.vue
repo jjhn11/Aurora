@@ -1,6 +1,3 @@
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
-</style>
 <template>
     <div>
       <section class="hero-container">
@@ -11,7 +8,6 @@
           class="hero-background"
         >
         
-        <!-- Simple video implementation 
         <video 
           autoplay 
           muted 
@@ -19,8 +15,8 @@
           playsinline
           class="hero-video"
         >
-          <source src="../assets/img/herovideo.mp4" type="video/mp4">
-        </video>-->
+          <source src="@/assets/img/library/BIBLIOTECA PASILLO.mp4" type="video/mp4">
+        </video>
   
         <!-- Overlay Content -->
         <div class="hero-overlay">
@@ -51,7 +47,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.66) 70%);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.66) 50%);
   z-index: 2;
   pointer-events: none; /* Asegura que la superposición no bloquee las interacciones */
 }
@@ -59,11 +55,11 @@
 /* Background elements */
 .hero-background, .hero-video {
   position: absolute;
-  top: 0;
-  left: -10%;
+  top: 10%;
+  left: -15%;
   width: 130%;
-  height: 113%;
-  object-fit: cover;
+  height: 200%;
+  object-fit:cover;
   object-position: 100% 95%;
 }
 
@@ -88,14 +84,19 @@
 }
 
 .hero-title {
-  font-family: 'Crimson text';
+  font-family:
+    "Josefin Sans",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
   font-weight: 700;
-  font-size: 5rem;
+  font-size: 110px;
   color: white;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
   letter-spacing: 0.05em;
   margin: 0;
-  transform: translateY(30%);
+  transform: translate(3%, 20%);
   width: 870px;
   height: 198px;
   max-width: 80%; 

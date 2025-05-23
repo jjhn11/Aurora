@@ -3,29 +3,47 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import session from 'express-session';
-import { sequelize } from './config/db.js';
+import fs from 'fs';
+import path from 'path';
+import https from 'https';
 import passport from './config/passport.js';
 import checkAuth from './middlewares/checkAuth.js';
 import authRoutes from './routes/auth.js';
 import communityRoutes from './routes/community.js';
 import eventsRoutes from './routes/events.js';
-import userRoutes from './routes/user.js';
-import { runAssociations } from './models/associations.js'
-import { loadSampleData } from './scripts/loadSampleData.js'
-import { cleanupData } from './scripts/cleanupData.js';
-
-dotenv.config();
-const open = (...args) => import('open').then(m => m.default(...args));
 import mailRoutes from './routes/mail.js';
+import userRoutes from './routes/user.js';
+import { sequelize } from './config/db.js';
+import { runAssociations } from './models/associations.js';
+import { loadSampleData } from './scripts/loadSampleData.js';
+import { cleanupData } from './scripts/cleanupData.js';
+import { updateEventStatus } from './middlewares/checkEvents.js';
+
+
+const envFile = process.env.NODE_ENV === 'production'
+  ? path.join('prod.env')
+  : path.join('dev.env');
+
+dotenv.config({ path: envFile });
+const open = (...args) => import('open').then(m => m.default(...args));
 
 import { isProfane } from './middlewares/checkProfane.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Create uploads directory if it doesn't exist
+const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'events');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+// Serve static files
+app.use('/uploads', express.static(path.join(process.cwd(), 'public/uploads')));
+
 // Middleware
-// CUANDO ESTE EN PRODUCCION, BORREN EL DE localhost:5173
-app.use(cors({ origin: ["http://168.231.73.137", "http://localhost:5173"], credentials: true }));
+// Funciona para modo PRODUCCION y para modo DESARROLLO
+app.use(cors({ origin: ["https://auroramexicali.com", "http://localhost:5173"], credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -42,12 +60,14 @@ app.use(session({
     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
     httpOnly: true,
     // javaScriptEnabled: false
-  }
+  },
+  proxy: true
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/events', updateEventStatus);
 
 // Routes
 app.use('/auth', authRoutes);
@@ -114,6 +134,42 @@ async function connectWithRetry(maxAttempts = 10, delay = 5000) {
 }
 
 
+async function listenHttp() {
+  const server = app.listen(PORT, '0.0.0.0', async () => {
+    console.log(`Server running on port ${PORT}`);
+    if (process.env.NODE_ENV !== 'production') {
+      await open(`http://localhost:${PORT}`);
+    }
+  });
+}
+
+async function listenHttps() {
+  try {
+    const privateKey = fs.readFileSync('/cert/privkey.pem', 'utf8');
+    const certificate = fs.readFileSync('/cert/fullchain.pem', 'utf8');
+
+    const credentials = { key: privateKey, cert: certificate };
+
+    const httpsServer = https.createServer(credentials, app);
+
+    httpsServer.listen(PORT, '0.0.0.0', async () => {
+      console.log(`HTTPS Server running on port ${PORT}`);
+      if (process.env.NODE_ENV !== 'production') {
+        try {
+          await open(`https://localhost:${PORT}`);
+        } catch (e) {
+          console.log('Could not open browser automatically');
+        }
+      }
+    });
+  } catch (err) {
+    console.error('Error with SSL certificates, falling back to HTTP:', err);
+
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`HTTP Server running on port ${PORT} (SSL failed)`);
+      });
+  }
+}
 
 // Start server
 async function startServer() {
@@ -124,12 +180,14 @@ async function startServer() {
     process.exit(1);
   }
   
-  const server = app.listen(PORT, '0.0.0.0', async () => {
-    console.log(`Server running on port ${PORT}`);
-    if (process.env.NODE_ENV !== 'production') {
-      await open(`http://localhost:${PORT}`);
-    }
-  });
+  if (process.env.NODE_ENV == 'production')
+  {
+    await listenHttps();
+  }
+  else
+  {
+    await listenHttp();
+  }
 }
 
 startServer().catch(err => {
@@ -137,6 +195,6 @@ startServer().catch(err => {
   process.exit(1);
 });
 
-//await loadSampleData();
+// await loadSampleData();
 
 console.log('Modelo registrado: ', Object.keys(sequelize.models));

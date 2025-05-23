@@ -6,7 +6,9 @@
     </div>
     
     <main v-else class="book-content">
-      <Breadcrumb :paths="breadcrumbPaths" />
+      <div class="bread">
+        <Breadcrumb :paths="breadcrumbPaths" />
+      </div>
 
       <BookInfo
         :bookId="bookId"
@@ -18,7 +20,7 @@
 
       <BookMetadata
         :format="book.format || 'N/A'"
-        :authors="book.authorText || ''"
+        :authors="book.authors || ''"
         :publisher="book.publisher || 'N/A'"
         :year="book.year || 'N/A'"
         :pages="book.pages || 'N/A'"
@@ -28,13 +30,7 @@
         :edition="book.edition || 'N/A'"
         :categories="book.categories || []"
       />
-      
-      <!-- <BookReviews :reviews="book.reviews" /> -->
-      <!-- <RelatedBooks :books="relatedBooks" /> -->
-      
-      <!-- <div class="progress-bar">
-        <div class="progress-bar-blue"></div>
-      </div> -->
+      <br><br>
     </main>
 
     
@@ -47,9 +43,7 @@ import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import Breadcrumb from "@/components/Library/Book/Breadcrumb.vue";
 import BookInfo from "@/components/Library/Book/BookInfo.vue";
-import BookActions from "@/components/Library/Book/BookActions.vue";
 import BookMetadata from "@/components/Library/Book/BookMetadata.vue";
-import CarruselBiblioteca from '@/components/Library/CarruselBiblioteca.vue';
 
 // State management
 const route = useRoute();
@@ -58,14 +52,15 @@ const loading = ref(true);
 const error = ref(null);
 const book = ref({});
 
+const wid = ref(screen.width);
 // Get the book ID from the route parameter
 const bookId = computed(() => route.params.id);
 
 // Create breadcrumb paths
 const breadcrumbPaths = computed(() => [
   { name: 'INICIO', path: '/' },
-  { name: 'BIBLIOTECA', path: '/library' },
-  { name: book.value.Title || 'Cargando...', path: `/library/book/${bookId.value}`, active: true }
+  { name: 'BIBLIOTECA', path: '/biblioteca' },
+  { name: book.value.Title || 'Cargando...', path: `/biblioteca/libro/${bookId.value}`, active: true }
 ]);
 
 // Fetch the book data
@@ -115,7 +110,7 @@ watch(bookId, () => {
   flex-direction: column;
   overflow: hidden;
   align-items: stretch;
-  margin-top: 20px;
+  /* margin-top: 10px; */
   min-height: 100vh; /* Ensure full height even when loading */
 }
 
@@ -123,7 +118,7 @@ watch(bookId, () => {
   align-self: center;
   display: flex;
   margin-top: 31px;
-  width: 92%;
+  width: 90%;
   max-width: 95vw;
   flex-direction: column;
   align-items: stretch;
@@ -221,6 +216,9 @@ watch(bookId, () => {
 }
 
 @media (max-width: 991px) {
+  .bread {
+    display: none;
+  }
   .progress-bar {
     padding: 0 20px;
     margin-top: 40px;

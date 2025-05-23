@@ -247,7 +247,6 @@ const prevMonth = () => {
 onMounted(async () => {
   await store.dispatch('events/loadInitialData');
   await initializeCalendarBounds();
-  console.log("Eventos cargados:", store.state.events.events);
 });
 </script>
 <template>
@@ -338,6 +337,7 @@ onMounted(async () => {
 .custom-row >*{
   flex: 1 1 14%;
   max-width: 14%;
+  font-family: "Josefin Sans";
 }
 .calendar-grid-wrapper {
   position: relative;
@@ -356,6 +356,11 @@ onMounted(async () => {
   padding: 0 5px;
 }
 
+@media (max-width:1068px) {
+  .side-arrow{
+    display: none;
+  }
+}
 .side-arrow.left {
   left: -80px;
 }
@@ -370,6 +375,7 @@ onMounted(async () => {
 }
 
 .calendar-month {
+  font-family: "Anek Odia";
   font-weight: bold;
   font-size: 1.5rem;
   text-transform: uppercase;
@@ -389,7 +395,8 @@ onMounted(async () => {
 }
 
 .day-headers .col {
-  font-size: 20px;
+  font-family: "Anek Odia";
+  font-size: 25px;
   text-align: center;
 }
 

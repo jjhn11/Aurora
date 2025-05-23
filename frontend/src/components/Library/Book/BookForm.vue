@@ -139,6 +139,7 @@ onMounted(() => {
 });
 </script>
 
+
 <template>
     <Transition name="fade">
         <div v-if="modelValue" class="form-overlay" @click.self="closeForm">
@@ -159,9 +160,11 @@ onMounted(() => {
                 </div>
 
                 <div v-else-if="success" class="success-message">
-                    <i class="fas fa-check-circle"></i>
+                    <i class="fas fa-check-circle success-icon"></i>
                     <p>¡Reservación solicitada con éxito! Te contactaremos pronto.</p>
-                    <button @click="closeForm" class="btn-primary">Cerrar</button>
+                    <button @click="closeForm" class="success-close-button">
+                        CERRAR
+                    </button>
                 </div>
 
                 <div v-else class="form-content">
@@ -268,7 +271,12 @@ onMounted(() => {
 
 .form-title {
     color: #000E32;
-    font-family: 'Crimson Text', serif;
+    font-family:
+        "Josefin Sans",
+        -apple-system,
+        Roboto,
+        Helvetica,
+        sans-serif;
     font-size: 2rem;
     margin: 0;
 }
@@ -368,7 +376,42 @@ onMounted(() => {
 .success-message {
     text-align: center;
     padding: 2rem;
-    color: green;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.success-icon {
+    font-size: 48px;
+    color: #28a745;
+    margin-bottom: 0.5rem;
+}
+
+.success-message p {
+    color: #000E32;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.success-close-button {
+    background-color: rgba(0, 71, 255, 1);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 0.75rem 2rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.success-close-button:hover {
+    background-color: #FBE326;
+    color: #000E32;
+    transform: translateY(-2px);
 }
 
 .fade-enter-active,
@@ -411,6 +454,90 @@ onMounted(() => {
     
     .info-group p {
         white-space: normal;
+    }
+}
+
+/* Add new responsive styles */
+@media (max-width: 768px) {
+    .reservation-form {
+        width: 95%;
+        min-width: auto;
+        padding: 1rem;
+        margin: 1rem;
+        max-height: 90vh;
+    }
+
+    .form-title {
+        font-size: 1.5rem;
+    }
+
+    .info-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .info-section {
+        width: 100%;
+    }
+
+    .reservation-inputs {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .form-group {
+        width: 100%;
+    }
+
+    .form-input {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .submit-button {
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+
+    .info-group p {
+        white-space: normal;
+        font-size: 0.9rem;
+    }
+
+    .section-title {
+        font-size: 0.9rem;
+    }
+
+    .close-button {
+        font-size: 24px;
+    }
+
+    .success-icon {
+        font-size: 36px;
+    }
+
+    .success-message p {
+        font-size: 1rem;
+    }
+
+    .success-close-button {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Further adjustments for very small screens */
+@media (max-width: 380px) {
+    .reservation-form {
+        padding: 0.75rem;
+    }
+
+    .form-title {
+        font-size: 1.25rem;
+    }
+
+    .info-group p {
+        font-size: 0.85rem;
     }
 }
 </style>

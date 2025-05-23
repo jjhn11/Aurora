@@ -1,7 +1,7 @@
 <script setup>
 import Navbar from './components/Navbar.vue';
 import NavbarMobile from './components/NavbarMobile.vue';
-import Foot from './components/Footer/Footer.vue';
+import Foot from './components/Footer.vue';
 import { RouterView } from 'vue-router';
 import { ref, onMounted, onUnmounted, watch } from 'vue';
 
@@ -69,11 +69,28 @@ onUnmounted(() => {
 /* Small mobile styles */
 @media (max-width: 576px) {
   .main-content {
-    padding-top: 30px; /* Smaller full mobile navbar height */
+    padding-top: 0px; /* Smaller full mobile navbar height */
   }
   
   .main-content.navbar-shrunk {
-    padding-top: 30px; /* Smaller shrunk mobile navbar height */
+    padding-top: 0px; /* Smaller shrunk mobile navbar height */
   }
 }
 </style>
+
+<script type="text/javascript">
+  (function(d, t) {
+      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+      v.onload = function() {
+        window.voiceflow.chat.load({
+          verify: { projectID: '67c2cfe5b20e19cdb7e91eed' },
+          url: 'https://general-runtime.voiceflow.com',
+          versionID: 'production',
+          voice: {
+            url: "https://runtime-api.voiceflow.com"
+          }
+        });
+      }
+      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+  })(document, 'script');
+</script>

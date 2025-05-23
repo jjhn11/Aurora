@@ -2,7 +2,7 @@
     <br><br>
     <div v-if="isAdmin" class="admin-events-container">
       <div class="header-section">
-        <h1>Administración de Eventos</h1>
+        <h1>ADMINISTRACIÓN DE EVENTOS</h1>
         <div class="actions">
           <button class="btn btn-primary" @click="showEventForm()">
             <i class="fas fa-plus-circle"></i> Nuevo Evento
@@ -39,14 +39,12 @@
           </div>
           <div class="col-md-3">
             <div class="input-group">
-              <span class="input-group-text">Fecha</span>
+              <span class="input-group-text date-but">Fecha</span>
               <input 
                 type="date" 
                 class="form-control" 
                 v-model="filters.date"
                 @change="applyFilters"
-                :min="minDate"
-                :max="maxDate"
               >
             </div>
           </div>
@@ -59,7 +57,7 @@
       </div>
   
       <!-- Loading indicator -->
-      <div v-if="loading" class="text-center p-5">
+      <div v-if="loading" class="load text-center p-5">
         <div class="spinner-border text-primary" role="status">
           <span class="visually-hidden">Cargando...</span>
         </div>
@@ -67,7 +65,7 @@
       </div>
   
       <!-- Error message -->
-      <div v-else-if="error" class="alert alert-danger mt-3">
+      <div v-else-if="error" class="error alert alert-danger mt-3">
         <i class="fas fa-exclamation-triangle"></i> {{ error }}
       </div>
   
@@ -75,7 +73,7 @@
       <div v-else-if="filteredEvents.length > 0" class="table-responsive mt-4">
         <table class="table table-striped table-hover">
           <thead class="table-primary">
-            <tr>
+            <tr class="sections">
               <th scope="col">#</th>
               <th scope="col">Título</th>
               <th scope="col">Categoría</th>
@@ -87,7 +85,7 @@
             <tr v-for="event in paginatedEvents" :key="event.Id_event">
               <td>{{ event.Id_event }}</td>
               <td>{{ event.Title }}</td>
-              <td><span class="badge bg-info">{{ event.category?.Category_event_name }}</span></td>
+              <td><span class="badge b-center">{{ event.category?.Category_event_name }}</span></td>
               <td>{{ formatDate(event.Event_date) }}</td>
               <td>
                 <div class="btn-group">
@@ -108,7 +106,7 @@
   
         <!-- Pagination -->
         <div class="d-flex justify-content-between align-items-center">
-          <div>
+          <div class="most">
             Mostrando {{ startIndex + 1 }} - {{ endIndex }} de {{ filteredEvents.length }} eventos
           </div>
           <nav aria-label="Paginación de eventos">
@@ -147,7 +145,7 @@
       </div>
   
       <!-- No results message -->
-      <div v-else class="text-center p-5">
+      <div v-else class="noresu text-center p-5">
         <i class="fas fa-calendar-times fa-4x text-muted mb-3"></i>
         <h3>No se encontraron eventos</h3>
         <p>Intente cambiar los filtros o cree un nuevo evento.</p>
@@ -223,7 +221,7 @@
                     </label>
                   </div>
                   <small class="text-muted">
-                    Active esta opción si desea mostrar este evento en la sección de próximos eventos
+                    Active esta opción si desea mostrar este evento en los carruseles de la página principal.
                   </small>
                 </div>
   
@@ -239,16 +237,29 @@
                   ></textarea>
                 </div>
   
-                <!-- Image URL (only if isComing) -->
+                <!-- Image (only if isComing) -->
                 <div class="mb-3" v-if="eventForm.isComing">
-                  <label for="eventImage" class="form-label">URL de Imagen *</label>
+                  <label for="eventImage" class="form-label">Imagen del Evento {{ isEditing && eventForm.imageUrl ? '' : '*' }}</label>
                   <input 
-                    type="url" 
+                    type="file" 
                     class="form-control" 
                     id="eventImage" 
-                    v-model="eventForm.imageUrl"
-                    placeholder="https://ejemplo.com/imagen.jpg"
-                    required
+                    @change="handleImageChange"
+                    accept="image/*"
+                    :required="eventForm.isComing && !isEditing || (isEditing && !eventForm.imageUrl)"
+                  >
+                  <small class="text-muted">
+                    {{ isEditing && eventForm.imageUrl ? 'Seleccione una nueva imagen si desea cambiarla (máximo 5MB)' : 'Seleccione una imagen para el evento (máximo 5MB)' }}
+                  </small>
+                </div>
+
+                <!-- Image preview -->
+                <div v-if="eventForm.isComing && eventForm.imageUrl" class="mb-3">
+                  <img 
+                    :src="getImageUrl(eventForm.imageUrl)" 
+                    class="img-thumbnail" 
+                    alt="Imagen del evento"
+                    style="max-height: 200px;"
                   >
                 </div>
   
@@ -277,46 +288,23 @@
                 <div class="card-body">
                   <h3 class="card-title">{{ selectedEvent.title }}</h3>
                   <div class="d-flex mb-3">
-                    <span class="badge bg-info me-2">{{ selectedEvent.category }}</span>
+                    <span class="badge b-center me-2">{{ selectedEvent.category }}</span>
                     <span class="text-muted">{{ formatDate(selectedEvent.date) }}</span>
                   </div>
                   <p class="card-text">{{ selectedEvent.description }}</p>
                 </div>
-              </div>
-              
-              <!-- Calendar info if available -->
-              <div class="card" v-if="hasCalendarInfo">
-                <div class="card-header">
-                  Información de Calendario
-                </div>
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <p><strong>Fecha Calendario:</strong> {{ formatDate(selectedEvent.calendarDate) }}</p>
-                    </div>
-                    <div class="col-md-6">
-                      <p><strong>Fecha Inicio:</strong> {{ formatDate(selectedEvent.startDate) }}</p>
-                    </div>
-                    <div class="col-md-6">
-                      <p><strong>Fecha Fin:</strong> {{ formatDate(selectedEvent.endDate) }}</p>
-                    </div>
-                    <div class="col-md-12" v-if="selectedEvent.notes">
-                      <p><strong>Notas:</strong> {{ selectedEvent.notes }}</p>
-                    </div>
-                  </div>
+                <div v-if="selectedEvent.imageUrl" class="card-img-top-wrapper">
+                  <img 
+                    :src="getImageUrl(selectedEvent.imageUrl)" 
+                    class="card-img-top" 
+                    alt="Imagen del evento"
+                    style="max-height: 300px; object-fit: contain;"
+                  >
                 </div>
               </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-              <button 
-                type="button" 
-                class="btn btn-warning" 
-                @click="showEventForm(selectedEvent)"
-                data-bs-dismiss="modal"
-              >
-                <i class="fas fa-edit"></i> Editar
-              </button>
             </div>
           </div>
         </div>
@@ -348,7 +336,7 @@
       </div>
   
     </div>
-    <div v-else class="text-center p-5">
+    <div v-else class="noacc text-center p-5">
       <i class="fas fa-user-lock fa-4x text-muted mb-3"></i>
       <h3>Acceso Denegado</h3>
       <p>No tiene permisos para acceder a esta sección.</p>
@@ -362,8 +350,14 @@
 import { ref, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { Modal } from 'bootstrap';
+import axios from 'axios';
 
 const store = useStore();
+const getImageUrl = (imagePath) => {
+  if (!imagePath) return '';
+  if (imagePath.startsWith('http')) return imagePath;
+  return `${axios.defaults.baseURL}${imagePath}`; // Remove /public/ since it's already in the path
+}
 
 // Refs for DOM elements
 const eventModal = ref(null);
@@ -379,7 +373,18 @@ const user = computed(() => store.state.user);
 // Check if user is admin based on email
 const isAdmin = computed(() => {
     if (!isAuthenticated.value) return false;
-  return user.value.email === "a22490388@itmexicali.edu.mx";
+    
+    const adminEmails = [
+        "a22490408@itmexicali.edu.mx",
+        "a22490396@itmexicali.edu.mx",
+        "a22490388@itmexicali.edu.mx",
+	      "a22490353@itmexicali.edu.mx",
+        "a22490378@itmexicali.edu.mx",
+        "a22490352@itmexicali.edu.mx",
+        "a22490416@itmexicali.edu.mx"
+    ];
+    
+    return adminEmails.includes(user.value.email);
 });
 
 // Pagination
@@ -401,6 +406,7 @@ const eventForm = ref({
   category: '',
   date: '',
   isComing: true,
+  image: null, // Changed from imageUrl to image
   imageUrl: ''
 });
 
@@ -500,19 +506,6 @@ const hasCalendarInfo = computed(() => {
     selectedEvent.value.notes);
 });
 
-// Add these computed properties
-const minDate = computed(() => {
-  const first = events.value[0]?.Event_date;
-  return first ? new Date(first).toISOString().split('T')[0] : '';
-});
-
-const maxDate = computed(() => {
-  if (!events.value.length) return '';
-  const dates = events.value.map(e => new Date(e.Event_date));
-  const last = new Date(Math.max(...dates));
-  return last.toISOString().split('T')[0];
-});
-
 // Load events on mount
 onMounted(async () => {
   try {
@@ -553,7 +546,8 @@ const showEventForm = (event = null) => {
       category: event.Id_category,
       date: new Date(event.Event_date).toISOString().split('T')[0],
       isComing: event.Is_coming === 1,
-      imageUrl: event.Image_url || ''
+      image: null, // Reset image file
+      imageUrl: event.Image_url || '' // Keep existing image URL for preview
     };
   } else {
     eventForm.value = {
@@ -563,6 +557,7 @@ const showEventForm = (event = null) => {
       category: '',
       date: new Date().toISOString().split('T')[0],
       isComing: true,
+      image: null,
       imageUrl: ''
     };
   }
@@ -577,10 +572,7 @@ const viewEventDetails = (event) => {
     category: event.category?.Category_event_name,
     date: event.Event_date,
     description: event.Description,
-    calendarDate: event.Event_date,
-    startDate: event.Start_date,
-    endDate: event.End_date,
-    notes: event.Notes
+    imageUrl: event.Image_url // Add this line
   };
   const modal = new Modal(eventDetailsModal.value);
   modal.show();
@@ -594,29 +586,48 @@ const confirmDelete = (event) => {
 
 // CRUD operations
 const saveEvent = async () => {
+  console.log('Date:', Date());
+
   if (eventForm.value.title.trim().length < 3) {
     titleError.value = 'El título debe tener al menos 3 caracteres';
     return;
   }
+
+  // Add validation for image
+  if (eventForm.value.isComing && !eventForm.value.image && !eventForm.value.imageUrl) {
+    alert('Debe seleccionar una imagen para el evento');
+    return;
+  }
   
   try {
-    const eventData = {
+    const formData = {
       Title: eventForm.value.title,
-      Id_category: parseInt(eventForm.value.category),
+      Id_category: Number(eventForm.value.category),
       Event_date: eventForm.value.date,
-      Is_coming: eventForm.value.isComing ? 1 : 0,
-      Description: eventForm.value.isComing ? eventForm.value.description : null,
-      Image_url: eventForm.value.isComing ? eventForm.value.imageUrl : null
+      Is_coming: eventForm.value.isComing ? '1' : '0',
+      Description: eventForm.value.isComing ? eventForm.value.description : ''
     };
+    
+    // Add image if:
+    // 1. A new image was selected OR
+    // 2. We're creating a new event (image is required)
+    if (eventForm.value.isComing) {
+      if (eventForm.value.image) {
+        formData.image = eventForm.value.image;
+      } else if (!isEditing.value) {
+        alert('Debe seleccionar una imagen para el evento');
+        return;
+      }
+    }
     
     if (isEditing.value) {
       await store.dispatch('events/updateEvent', {
         eventId: eventForm.value.id,
-        eventData
+        eventData: formData
       });
       alert('Evento actualizado correctamente');
     } else {
-      await store.dispatch('events/createEvent', eventData);
+      await store.dispatch('events/createEvent', formData);
       alert('Evento creado correctamente');
     }
     
@@ -626,7 +637,8 @@ const saveEvent = async () => {
     await store.dispatch('events/fetchEvents');
   } catch (err) {
     console.error('Error saving event:', err);
-    alert('Error al guardar el evento: ' + err.message);
+    const errorMessage = err.response?.data?.error || err.message;
+    alert(`Error al guardar el evento: ${errorMessage}`);
   }
 };
 
@@ -645,6 +657,22 @@ const deleteEvent = async () => {
   }
 };
 
+// Handle image change
+const handleImageChange = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    if (file.size > 5 * 1024 * 1024) { // 5MB limit
+      alert('La imagen es demasiado grande. El tamaño máximo es 5MB.');
+      event.target.value = ''; // Clear the input
+      eventForm.value.image = null;
+      return;
+    }
+    eventForm.value.image = file;
+  } else {
+    eventForm.value.image = null;
+  }
+};
+
 // Filter methods
 const applyFilters = () => {
   currentPage.value = 1; // Reset to first page when filters change
@@ -658,14 +686,31 @@ const resetFilters = () => {
   };
   currentPage.value = 1;
 };
+
+// Get image preview URL
+const getImagePreviewUrl = (image, imageUrl) => {
+  if (image) {
+    return URL.createObjectURL(image);
+  }
+  if (imageUrl) {
+    return imageUrl;
+  }
+  return ''; // Return empty string if no image available
+};
 </script>
   
   <style scoped>
   .admin-events-container {
     padding: 2rem;
   }
+
+  .modal-content {
+    border-radius: 0.5rem;
+  }
   
   .header-section {
+    font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
+    font-weight: 700;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -673,6 +718,7 @@ const resetFilters = () => {
   }
   
   .filters-section {
+    
     background-color: #f8f9fa;
     padding: 1.5rem;
     border-radius: 0.5rem;
@@ -703,6 +749,7 @@ const resetFilters = () => {
   }
   
   .form-label {
+    font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
     font-weight: 500;
     margin-bottom: 0.5rem;
   }
@@ -727,4 +774,36 @@ const resetFilters = () => {
       width: 100%;
     }
   }
-  </style>
+
+  /* Add these styles to your existing scoped styles */
+  .card-img-top-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.125);
+    padding: 1rem;
+  }
+
+  .card-img-top {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .b-center {
+    display: flex;
+    justify-content: center;
+    width: 70px;
+    color: white;
+    background-color: #0047FF;
+  }
+
+  .noresu, .noacc, .date-but, .btn, .sections, .card-title, .most, .form-check-label, .load, .error {
+    font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
+  }
+
+  .modal-title {
+    font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: 32px;
+  }
+</style>

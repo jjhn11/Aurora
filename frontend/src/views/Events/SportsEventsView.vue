@@ -7,7 +7,9 @@ const bannerImage = new URL('@/assets/img/events/Banner.png', import.meta.url).h
 </script>
 <template>
     <HeroVideo :img="bannerImage" title="DEPORTIVOS" />
-    <EventsList category="Deportivo" />
-    <br><br>
+    <EventsList 
+        category="Deportivo"
+        :imageField="'Image_url'"
+    />
     <Calendar nombre="eventsSports" category="Deportivo"/>
 </template>

@@ -1,12 +1,12 @@
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 </style>
+
 <template>
   <div v-if="isOpen" class="modal-overlay" @click.self="close">
+    <button class="close-button" @click="close">✖</button>
     <div class="modal-content">
-      <button class="close-button" @click="close">✖</button>
-      <img :src="event.image" alt="Event Image" class="modal-image" v-if="event.image" />
+      <img :src="getImageUrl(event.Image_url)" alt="Event Image" class="modal-image" v-if="event.Image_url" />
       <div class="modal-body">
         <h2>{{ event.Title }}</h2>
         <p>{{ event.Description }}</p>
@@ -18,6 +18,7 @@
   
 <script setup>
   import { defineProps, defineEmits } from 'vue';
+  import axios from 'axios';
   
   const props = defineProps({
     isOpen: Boolean,
@@ -32,6 +33,10 @@
   const close = () => {
     emit('close');
   };
+
+  const getImageUrl = (imagePath) => {
+    return `${axios.defaults.baseURL}${imagePath.startsWith('/uploads') ? '' : '/uploads'}${imagePath}`;
+};
 </script>
   
 <style scoped>
@@ -48,14 +53,14 @@
     z-index: 999;
   }
   h2 {
-    font-family: "Crimson-text";
+    font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
     font-weight: 700;
     font-size: 25px;
     text-align: center;
   }
   p{
     color: #000E32;
-    font-family: "Nunito-sans";
+    font-family: "Nunito sans";
     font-weight: 400;
     font-size: 16px;
     text-align: justify;
@@ -85,12 +90,20 @@
   .close-button {
     color: white;
     position: absolute;
-    top: 16px;
-    right: 16px;
-    background: transparent;
+    top: 13%;
+    right: 30%;
+    background: none;
+    border-radius: 100%;
     border: none;
-    font-size: 1.5rem;
+    font-size: 2rem;
     cursor: pointer;
+    height: 35px;
+  }
+  @media (max-width: 1068px) {
+    .close-button {
+      top: 80%;
+      right: inherit;
+    }
   }
 </style>
   

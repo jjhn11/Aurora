@@ -1,6 +1,3 @@
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
-</style>
 <template>
     <div>
       <section class="hero-container">
@@ -35,9 +32,10 @@
 .hero-container {
   position: relative;
   width: 100%;
-  height: 220px;
+  height: 250px;
   overflow: hidden;
   display: flex;
+  justify-content: center;
   background-color: white;
 }
 
@@ -58,10 +56,10 @@
 .hero-background, .hero-video {
   position: absolute;
   top: 10%;
-  width: 130%;
-  height: 113%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  object-position: 100% 95%;
+  object-position: 100% 70%;
 }
 
 .hero-background {
@@ -77,26 +75,31 @@
   position: relative;
   z-index: 3; /* Asegura que el contenido esté encima de la superposición */
   color: white;
-  text-align: left;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
 }
 
 .hero-title {
-  font-family: 'Crimson text';
+  display: flex;
+  justify-content: center;
+  font-family:
+    "Josefin Sans",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
   font-weight: 700;
   font-size: 90px;
   color: white;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-  letter-spacing: 0.05em;
-  margin: 0 30px;
   transform: translateY(30%);
   width: 870px;
   height: 198px;
   max-width: 80%; 
-  text-align: left;
+  text-align: center
 }  
 @media (max-width:776px) {
   .hero-container {
@@ -108,7 +111,7 @@
 }
   .hero-title {
   font-size: 3rem;
-  transform: translateY(30%);
+  transform: translateY(25%);
   width: 100%;
   height: 198px;
   max-width: 80%; 

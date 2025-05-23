@@ -8,13 +8,23 @@ export default {
         const store = useStore();
         const isHovering = ref(false);
         const showInfoModal = ref(false);
+        const attendanceCount = ref({ confirmed: 0 });
         
         // Cargar datos de asistencia al montar el componente
         onMounted(async () => {
             try {
-                // Solo cargar si hay un usuario autenticado y un ID de actividad
-                if (store.state.isAuthenticated && store.state.user?.id && props.activityId) {
-                    await store.dispatch('community/fetchAttendance');
+                // Solo cargar si hay un ID de actividad
+                if (props.activityId) {
+                    // Cargar asistencias individuales para el botón - considerar usuario autenticado
+                    await store.dispatch('community/fetchAttendance', {
+                        activityId: props.activityId,
+                        considerUser: true,
+                        replace: false  // No reemplazar asistencias existentes
+                    });
+                    
+                    // Cargar contador de asistentes - no filtrar por usuario
+                    const count = await store.dispatch('community/getAttendanceCount', props.activityId);
+                    attendanceCount.value = count;
                 }
             } catch (error) {
                 console.error("Error al cargar datos de asistencia:", error);
@@ -49,13 +59,20 @@ export default {
             
             try {
                 await store.dispatch('community/toggleAttendance', props.activityId);
-                // Recargar datos de asistencia después de alternar para actualizar la UI
-                await store.dispatch('community/fetchAttendance');
+                
+                // Cargar solo la asistencia de esta actividad, sin reemplazar todo
+                await store.dispatch('community/fetchAttendance', {
+                    activityId: props.activityId,
+                    considerUser: true,
+                    replace: false  // No reemplazar asistencias existentes
+                });
+                
+                // Actualizar el contador de asistentes
+                const count = await store.dispatch('community/getAttendanceCount', props.activityId);
+                attendanceCount.value = count;
             } catch (error) {
                 console.error("Error al registrar asistencia:", error);
-                // Podrías mostrar una notificación al usuario
             }
-            
         };
         
         return {
@@ -63,6 +80,7 @@ export default {
             isHovering,
             toggleAttendance,
             showInfoModal,
+            attendanceCount,
             toggleInfoModal: () => {
                 showInfoModal.value = !showInfoModal.value;
             }
@@ -245,6 +263,11 @@ export default {
                             :alt="`Icono de ${category}`" 
                             @error="handleImageError" 
                         />
+                        
+                        <!-- Contador de asistentes -->
+                        <div class="attendance-counter" v-if="attendanceCount.confirmed > 0">
+                            {{ attendanceCount.confirmed }}
+                        </div>
                     </div>
 
                     <div class="buttons-container">
@@ -310,6 +333,11 @@ export default {
                             
                             <div class="modal-icon-container" :style="{ backgroundColor }">
                                 <img :src="imageSrc" class="modal-icon" alt="Event icon" />
+                                
+                                <!-- Contador de asistentes en el modal -->
+                                <div class="modal-attendance-counter" v-if="attendanceCount.confirmed > 0">
+                                    {{ attendanceCount.confirmed }}
+                                </div>
                             </div>
 
                             <div class="modal-buttons-container">
@@ -376,7 +404,12 @@ export default {
         margin-top: 10px;
         width: 100%;
 
-        font-family: "Crimson Text", -apple-system, Roboto, Helvetica, sans-serif;
+        font-family:
+            "Josefin Sans",
+            -apple-system,
+            Roboto,
+            Helvetica,
+            sans-serif;
         font-size: 50px;
         font-weight: 700;
         color: rgba(0, 14, 50, 1);
@@ -455,6 +488,7 @@ export default {
         align-items: center;
         justify-content: center;
         aspect-ratio: 1;
+        position: relative; /* Para posicionar el contador absolutamente respecto a este elemento */
     }
   
     .attendance-image {
@@ -552,7 +586,12 @@ export default {
     }
 
     .modal-title {
-        font-family: "Crimson Text", -apple-system, Roboto, Helvetica, sans-serif;
+        font-family:
+            "Josefin Sans",
+            -apple-system,
+            Roboto,
+            Helvetica,
+            sans-serif;
         font-size: 38px;
         color: rgba(0, 14, 50, 1);
         font-weight: 700;
@@ -593,7 +632,12 @@ export default {
     }
 
     .event-full-title {
-        font-family: "Crimson Text", -apple-system, Roboto, Helvetica, sans-serif;
+        font-family:
+            "Josefin Sans",
+            -apple-system,
+            Roboto,
+            Helvetica,
+            sans-serif;
         font-weight: 700;
         font-size: 35px;
         color: rgba(0, 14, 50, 1);
@@ -653,6 +697,7 @@ export default {
         justify-content: center;
         align-items: center;
         padding: 40px;
+        position: relative; /* Para posicionar el contador absolutamente */
     }
 
     .modal-icon {
@@ -682,6 +727,42 @@ export default {
         cursor: pointer;
         width: 100%;
         transition: all 0.3s ease;
+    }
+
+    .attendance-counter {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        background-color: #0047FF;
+        color: white;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
+        font-weight: 700;
+        font-size: 16px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-attendance-counter {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        background-color: #0047FF;
+        color: white;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Josefin Sans", -apple-system, Roboto, Helvetica, sans-serif;
+        font-weight: 700;
+        font-size: 18px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
     .fade-enter-active,
@@ -818,6 +899,20 @@ export default {
             font-size: 14px;
             padding: 0 0 0 8px;
         }
+
+        .attendance-counter {
+            width: 25px;
+            height: 25px;
+            font-size: 14px;
+            right: 5px;
+            top: 5px;
+        }
+        
+        .modal-attendance-counter {
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+        }
     }
 
     /* Ajustes adicionales para pantallas muy pequeñas */
@@ -901,6 +996,20 @@ export default {
 
         .modal-close-button {
             font-size: 20px;
+        }
+
+        .attendance-counter {
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            right: 3px;
+            top: 3px;
+        }
+        
+        .modal-attendance-counter {
+            width: 25px;
+            height: 25px;
+            font-size: 14px;
         }
     }
 </style>

@@ -4,6 +4,7 @@ import CommunityActivityAttendance from '../models/Community/CommunityActivityAt
 import CommunityActivityLocation from '../models/Community/CommunityActivityLocation.js';
 import CommunityActivityType from '../models/Community/CommunityActivityTypes.js';
 import CommunityCategories from '../models/Community/CommunityCategories.js';
+import User from '../models/User/Users.js';
 
 const router = express.Router(); 
 
@@ -32,10 +33,28 @@ router.route('/activity')
 
     const activities = await CommunityActivities.findAll({ 
       where,
-      order: [['Event_date', 'DESC']] // Order by date, newest to oldest
+      order: [['Event_date', 'DESC']],
+      include: [
+        {
+          model: User,
+          as: 'organizer',
+          attributes: ['Name_user', 'Last_name']
+        }
+      ]
+    });
+
+    // Map para enviar el nombre completo del organizador como Organizer_name
+    const activitiesWithOrganizer = activities.map(activity => {
+      const plain = activity.get({ plain: true });
+      return {
+        ...plain,
+        Organizer_name: plain.organizer
+          ? `${plain.organizer.Name_user} ${plain.organizer.Last_name}`
+          : ''
+      };
     });
     
-    res.status(200).json(activities);
+    res.status(200).json(activitiesWithOrganizer);
   } catch (error) {
     res.status(500).json({
       error: 'Error al obtener las actividades de comunidades',
@@ -56,7 +75,8 @@ router.route('/activity')
       Event_date,
       Organizer_id
     } = req.body;
-    
+  
+
     const savedActivity = await CommunityActivities.create({
       Title,
       Description,
@@ -65,7 +85,8 @@ router.route('/activity')
       Start_time,
       End_time,
       Event_date,
-      Organizer_id
+      Organizer_id,
+      
     });
 
     res.status(201).json(savedActivity);
@@ -187,17 +208,33 @@ router.route('/activity/attendance')
   try {
     const { Id_user, Id_activity, Confirmation } = req.body;
     
-    const attendance = await CommunityActivityAttendance.update(
-      { Confirmation },
-      { where: { Id_user, Id_activity } }
-    );
+    // Log para depuración
+    console.log("Actualizando asistencia:", { Id_user, Id_activity, Confirmation });
     
-    if (attendance[0] === 0) {
-      return res.status(404).json({ error: 'Registro de asistencia no encontrado' });
+    // Primero verificar si existe el registro
+    const existingAttendance = await CommunityActivityAttendance.findOne({
+      where: { 
+        Id_user: Id_user, 
+        Id_activity: Id_activity 
+      }
+    });
+    
+    if (!existingAttendance) {
+      return res.status(404).json({ 
+        error: 'Registro de asistencia no encontrado',
+        where: { Id_user, Id_activity }
+      });
     }
     
-    res.status(200).json({ message: 'Asistencia actualizada correctamente' });
+    // Si existe, actualizarlo
+    await existingAttendance.update({ Confirmation });
+    
+    res.status(200).json({ 
+      message: 'Asistencia actualizada correctamente',
+      attendance: existingAttendance
+    });
   } catch (error) {
+    console.error("Error al actualizar asistencia:", error);
     res.status(500).json({ error: error.message });
   }
 });

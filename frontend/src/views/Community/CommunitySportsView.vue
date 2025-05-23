@@ -1,18 +1,12 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useStore } from 'vuex';
 import CreateEventForm from '@/components/community/CreateEventForm.vue';
 import EventCard from '@/components/community/EventCard.vue';
+import { onMounted, ref } from 'vue';
+import { useStore } from 'vuex';
+
+import FLECHA from '@/assets/img/community/FLECHA EVENTO.png';
 
 import NOEVE from '@/assets/img/community/IMAGEN SIN EVENTOS.png';
-import VOLLEY from '@/assets/img/community/icons/sports/ICONO VOLLEYBALL.png'
-import BEIS from '@/assets/img/community/icons/sports/ICONO BEISBOL.png'
-import ATLET from '@/assets/img/community/icons/sports/ICONO ATLETISMO.png'
-import FUTB from '@/assets/img/community/icons/sports/ICONO FUTBOL.png'
-import BASKET from '@/assets/img/community/icons/sports/ICONO BASQUETBOL.png'
-import SOFT from '@/assets/img/community/icons/sports/ICONO SOFTBOL.png'
-import PORRA from '@/assets/img/community/icons/sports/ICONO PORRA.png'
-import BOX from '@/assets/img/community/icons/sports/ICONO BOX.png'
 
 const store = useStore();
 const showForm = ref(false);
@@ -20,13 +14,13 @@ const events = ref([]);
 const isLoading = ref(false);
 const error = ref(null);
 
+// Define the category ID as a constant
+const sportsCategoryId = 2; // ID for Sports category
+
 // Cargar eventos desde el backend al montar el componente
 onMounted(async () => {
     isLoading.value = true;
     try {
-        // Obtener ID de la categoría "Deportiva" (en un sistema real deberías buscar este ID)
-        const sportsCategoryId = 2; // ID simulado
-        
         // Cargar eventos por categoría
         const activities = await store.dispatch('community/fetchActivities', sportsCategoryId);
         
@@ -35,7 +29,7 @@ onMounted(async () => {
             activityId: activity.Id_activity,
             title: activity.Title,
             description: activity.Description,
-            organizer: activity.Organizer_id, 
+            organizer: activity.Organizer_name, 
             startTime: activity.Start_time,
             endTime: activity.End_time,
             location: activity.location_name,
@@ -60,8 +54,6 @@ const handleEventCreated = async (eventData) => {
         // Crear actividad usando la store
         await store.dispatch('community/createEventFromForm', eventData);
         
-        // Actualizar la lista de eventos
-        const sportsCategoryId = 2; // ID simulado
         await store.dispatch('community/fetchActivities', sportsCategoryId);
         
         // Cerrar el formulario
@@ -72,78 +64,42 @@ const handleEventCreated = async (eventData) => {
     }
 };
 
-    const recreationalActivities = [
-        'Volleyball Sala',
-        'Volleyball Playa',
-        'Softball',
-        'Baseball',
-        'Basketball',
-        'Atletismo',
-        'Porra',
-        'Box',
-        'Football'
-    ];
+// Updated function that uses the categoryId constant
+const handleEventCreatedSuccess = async () => {
+    showForm.value = false;
+    isLoading.value = true;
+    
+    try {
+        const activities = await store.dispatch('community/fetchActivities', sportsCategoryId);
+        // Transform activities to events as before...
+        events.value = activities.map(activity => ({
+            activityId: activity.Id_activity,
+            title: activity.Title,
+            description: activity.Description,
+            organizer: activity.Organizer_name, 
+            startTime: activity.Start_time,
+            endTime: activity.End_time,
+            location: activity.location_name,
+            category: "Deportivo", // Texto mostrado
+            imageSrc: activity._metadata?.iconPath || "/src/assets/img/community/icons/sports/ICONO VOLLEYBALL.png", 
+            backgroundColor: activity._metadata?.backgroundColor || "#5C77BA",
+            date: activity.Event_date
+        }));
+    } catch (err) {
+        error.value = err.message || "Error al actualizar eventos";
+        console.error("Error al actualizar eventos:", err);
+    } finally {
+        isLoading.value = false;
+    }
+};
 
-    const recreationalLocations = [
-        'Cancha Volleyball Sala Trasera 1',
-        'Cancha Volleyball Sala Trasera 2',
-        'Cancha Volleyball Playa',
-        'Campo Softball',
-        'Campo Baseball 1',
-        'Campo Baseball 2',
-        'Cancha Basketball Central',
-        'Cancha Basketball Trasera',
-        'Cancha Soccer / Football 1',
-        'Cancha Soccer / Football 2',
-        'Cancha Soccer / Football 3'
-    ];
-
-    const recreationalIcons = [
-        {
-            title: 'VOLLEYBALL',
-            image: VOLLEY,
-            bgColor: 'rgba(255, 226, 0, 1)'
-        },
-        {
-            title: 'BASEBALL',
-            image: BEIS,
-            bgColor: 'rgba(168, 56, 59, 1)'
-        },
-        {
-            title: 'ATLETISMO',
-            image: ATLET,
-            bgColor: 'rgba(107, 183, 83, 1)'
-        },
-        {
-            title: 'FUTBALL',
-            image: FUTB,
-            bgColor: 'rgba(92, 119, 186, 1)'
-        },
-        {
-            title: 'BASKETBALL',
-            image: BASKET,
-            bgColor: 'rgba(240, 138, 57, 1)'
-        },
-        {
-            title: 'SOFTBALL',
-            image: SOFT,
-            bgColor: 'rgba(193, 15, 2, 1)'
-        },
-        {
-            title: 'PORRA',
-            image: PORRA,
-            bgColor: 'rgba(255, 177, 229, 1)'
-        },
-        {
-            title: 'BOX',
-            image: BOX,
-            bgColor: 'rgba(135, 213, 204, 1)'
-        },
-    ];
+    
 </script>
 
 <template>
+    
     <!-- ### Hero ### -->
+
     <div>
         <section class="hero-container">
             <div class="hero-overlay">
@@ -152,66 +108,74 @@ const handleEventCreated = async (eventData) => {
         </section>
     </div>
 
-    <!-- ### Botón Crear Evento ### -->
-    <div class="container-fluid justify-content-center">
-        <div class="cre-cont col-12 d-flex justify-content-end text-center pe-4">
+    <div class="container-fluid">
+
+        <!-- ### Botón Crear Evento ### -->
+        
+        <div class="cre-cont">
             <button class="cre-button btn btn-primary" type="button" @click="showForm = true">
                 <i class="cre-icon fa-solid fa-circle-plus"></i>
                 <span> CREAR EVENTO</span>
             </button>
         </div>
-    </div>
 
-    <CreateEventForm 
-        v-model="showForm"
-        :activities="recreationalActivities"
-        :locations="recreationalLocations"
-        :icons="recreationalIcons"
-        :useBackendSubmit="true"
-        @event-created="handleEventCreated"
-    />
-    
-    <!-- Estado de carga -->
-    <div v-if="isLoading" class="loading-container">
-        <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Cargando...</span>
-        </div>
-    </div>
-    
-    <!-- Mostrar mensaje de error -->
-    <div v-else-if="error" class="error-container alert alert-danger">
-        {{ error }}
-    </div>
 
-    <!-- Lista de Eventos -->
-    <div v-else-if="events.length > 0" class="events-container">
-        <EventCard 
-            v-for="(event, index) in events" 
-            :key="index"
-            :activityId="event.activityId"
-            :title="event.title"
-            :description="event.description"
-            :organizer="event.organizer"
-            :startTime="event.startTime"
-            :endTime="event.endTime"
-            :location="event.location"
-            :category="event.category"
-            :imageSrc="event.imageSrc"
-            :backgroundColor="event.backgroundColor"
-            :date="event.date"
+        <CreateEventForm 
+            v-model="showForm"
+            :icons="recreationalIcons"
+            :useBackendSubmit="true"
+            :categoryId="sportsCategoryId" 
+            @event-created="handleEventCreated"
+            @event-created-success="handleEventCreatedSuccess"
         />
-    </div>
 
-    <!-- ### Aviso de "Ningún Evento" ### -->
-    <div v-else class="container-fluid justify-content-center">
-        <div class="avit-cont col-12 text-center">
-            <p class="avit-text-up">¡CREA TU EVENTO!</p>
-            <img class="avit-img" :src="NOEVE">
-            <p class="avit-text-down">No hay ningún evento de la comunidad, por favor regrese en un momento.</p>
-            <RouterLink to="/" class="avit-button btn btn-primary mt-2">
-                <span>Regresar a Inicio</span>
-            </RouterLink>
+        <!-- Estado de carga -->
+        <div v-if="isLoading" class="loading-container">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Cargando...</span>
+            </div>
         </div>
+        
+        <!-- Mostrar mensaje de error -->
+        <div v-else-if="error" class="error-container alert alert-danger">
+            {{ error }}
+        </div>
+
+        <!-- Lista de Eventos -->
+        
+        <div v-else-if="events.length > 0" class="events-container">
+            <EventCard 
+                v-for="(event, index) in events" 
+                :key="index"
+                :activityId="event.activityId"
+                :title="event.title"
+                :description="event.description"
+                :organizer="event.organizer"
+                :startTime="event.startTime"
+                :endTime="event.endTime"
+                :location="event.location"
+                :category="event.category"
+                :imageSrc="event.imageSrc"
+                :backgroundColor="event.backgroundColor"
+                :date="event.date"
+            />
+        </div>
+
+        <!-- ### Aviso de "Ningún Evento" ### -->
+        
+        <div v-else class="avit row">
+            <div class="avit-cont-1">
+                <img class="avit-img" :src="FLECHA">
+                <p class="avit-text-but">¡Crea el tuyo!</p>
+            </div>
+
+            <div class="avit-cont-2">
+                <p class="avit-text-up">¡CREA TU EVENTO!</p>
+                <img class="avit-img" :src="NOEVE">
+                <p class="avit-text-down">NO HAY NINGÚN EVENTO DE LA COMUNIDAD, POR FAVOR REGRESE MÁS TARDE.</p>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -273,7 +237,12 @@ const handleEventCreated = async (eventData) => {
     }
 
     .hero-title {
-        font-family: 'Playfair Display';
+        font-family:
+            "Josefin Sans",
+            -apple-system,
+            Roboto,
+            Helvetica,
+            sans-serif;
         font-weight: 700;
         font-size: 6rem;
         color: white;
@@ -287,7 +256,11 @@ const handleEventCreated = async (eventData) => {
     }
 
     .cre-cont {
-        margin-top: 30px;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        text-align: end;
+        margin: 30px 22.5px 0px 0px;
 
         .cre-button {
             display: flex;
@@ -295,9 +268,10 @@ const handleEventCreated = async (eventData) => {
             justify-content: center; /* Centra horizontalmente */
             text-align: center;
 
+
+
             background-color: rgba(0, 0, 0, 0);
             border-color: rgba(0, 0, 0, 0); /* Updated border color */
-
 
             width: 225px;
             height: 50px;
@@ -330,77 +304,81 @@ const handleEventCreated = async (eventData) => {
         }
     }
 
-    .avit-cont {
-        margin-top: 30px;
-        margin-bottom: 35px;
+    .avit {
+        margin: 0;
 
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        
-        .avit-text-up {
-            font-family: 'Playfair Display';
-            font-weight: 700;
-            font-size: 35px;
-            color: rgb(145, 145, 145);
-            letter-spacing: 0.05em;
-            width: 900px;
-        }
-
-        .avit-text-down {
-            font-family: 'Playfair Display';
-            font-weight: 700;
-            font-size: 45px;
-            color: rgb(145, 145, 145);
-            letter-spacing: 0.05em;
-            width: 900px;
-        }
-
-        .avit-img {
-            width: auto;
-            height: 300px;
-            margin: 20px 0;
-        }
-
-        .avit-button {
+        .avit-cont-1 {
             display: flex;
-            align-items: center; /* Centra verticalmente */
-            justify-content: center; /* Centra horizontalmente */
+            justify-content: end;
+            align-items: end;
+            text-align: end;
+            
+
+            .avit-img {
+                width: auto;
+                height: 40px;
+                margin: 0px 6px 15.5px 0;
+            }
+
+            .avit-text-but {
+                font-family:
+                    "Josefin Sans",
+                    -apple-system,
+                    Roboto,
+                    Helvetica,
+                    sans-serif;
+                font-weight: 700;
+                font-size: 22px;
+                color: rgb(217, 217, 217);
+                letter-spacing: 0.025em;
+                margin: 0px 0px;
+            }
+        }
+
+        .avit-cont-2 {
+            margin: 30px 0px 35px 0px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
 
-            background-color: white;
-            border-radius: 50px;
-            border-color:#000E32;
-
-            width: 150px;
-            height: 50px;
-
-            transition: all 0.5s ease;
-
-            span {
-                height: 22.5px;
-                color:#000E32;
-                font-family: 'Anek Odia';
+            .avit-text-up {
+                display: none;
+                font-family:
+                    "Josefin Sans",
+                    -apple-system,
+                    Roboto,
+                    Helvetica,
+                    sans-serif;
                 font-weight: 700;
-                font-size: 18px;
+                font-size: 35px;
+                color: rgb(145, 145, 145);
+                letter-spacing: 0.05em;
+                width: 900px;
             }
 
-            i {
-                color:#000E32;
+            .avit-text-down {
+                font-family:
+                    "Josefin Sans",
+                    -apple-system,
+                    Roboto,
+                    Helvetica,
+                    sans-serif;
+                font-weight: 700;
+                font-size: 45px;
+                color: rgb(145, 145, 145);
+                letter-spacing: 0.05em;
+                width: 900px;
             }
 
-            &:hover {
-                background-color:#000E32;
-
-                span,i {
-                    color:white;
-                }
+            .avit-img {
+                width: auto;
+                height: 300px;
+                margin: 20px 0;
             }
-            
-            
         }
-
     }
 
         /* Agregar estilos para el contenedor de eventos */
@@ -433,8 +411,11 @@ const handleEventCreated = async (eventData) => {
         /* Botón Crear Evento */
         .cre-cont {
             display: flex;
-            justify-content: center !important;
-            padding-right: 0 !important;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin: 30px 0px 0px 0px;
+            padding: 0;
             
             .cre-button {
                 border-color: rgba(126, 131, 130, 1);
@@ -458,35 +439,52 @@ const handleEventCreated = async (eventData) => {
         }
 
         /* Mensaje sin eventos */
-        .avit-cont {
-            padding: 0 15px;
 
-            .avit-text-up {
-                width: 100%;
-                font-size: 22px;
-                text-align: center;
-                padding: 0 10px;
-            }
-            
-            .avit-text-down {
-                width: 100%;
-                font-size: 28px;
-                text-align: center;
-                padding: 0 10px;
+        .avit {
+
+            .avit-cont-1 {
+                display: none;
             }
 
-            .avit-img {
-                width: auto;
-                height: 250px;
-                margin: 10px 0;
-            }
+            .avit-cont-2 {
+                padding: 0 15px;
 
-            .avit-button {
-                border-color: rgba(126, 131, 130, 1);
-                background-color: rgba(242, 242, 242, 1);
-                width: 200px;
-                margin-top: 20px;
+                .avit-text-up {
+                    display: block;
+                    width: 100%;
+                    font-size: 22px;
+                    text-align: center;
+                    padding: 0 10px;
+                }
+                
+                .avit-text-down {
+                    width: 100%;
+                    font-size: 28px;
+                    text-align: center;
+                    padding: 0 10px;
+                }
+
+                .avit-img {
+                    width: auto;
+                    height: 250px;
+                    margin: 10px 0;
+                }
+
+                .avit-button {
+                    border-color: rgba(126, 131, 130, 1);
+                    background-color: rgba(242, 242, 242, 1);
+                    width: 200px;
+                    margin-top: 20px;
+                }
             }
+        }
+    }
+
+    /* Contenedor de eventos responsive */
+    @media screen and (max-width: 768px) {
+        .events-container {
+            padding: 30px 10px;
+            width: 100%;
         }
     }
 
@@ -530,40 +528,35 @@ const handleEventCreated = async (eventData) => {
         }
 
         /* Mensaje sin eventos ajustes */
-        .avit-cont {
+        .avit {
 
-            .avit-text-up {
-                font-size: 20px;
-            }
+            .avit-cont-2 {
 
-            .avit-text-down {
-                font-size: 24px;
-            }
+                .avit-text-up {
+                    font-size: 20px;
+                }
 
-            .avit-img {
-                width: auto;
-                height: 200px;
-                margin: 5px 0;
-            }
+                .avit-text-down {
+                    font-size: 24px;
+                }
 
-            .avit-button {
-                border-color: rgba(126, 131, 130, 1);
-                background-color: rgba(242, 242, 242, 1);
-                width: 180px;
-                height: 45px;
-                
-                span {
-                    font-size: 16px;
+                .avit-img {
+                    width: auto;
+                    height: 200px;
+                    margin: 5px 0;
+                }
+
+                .avit-button {
+                    border-color: rgba(126, 131, 130, 1);
+                    background-color: rgba(242, 242, 242, 1);
+                    width: 180px;
+                    height: 45px;
+                    
+                    span {
+                        font-size: 16px;
+                    }
                 }
             }
-        }
-    }
-
-    /* Contenedor de eventos responsive */
-    @media screen and (max-width: 768px) {
-        .events-container {
-            padding: 30px 10px;
-            width: 100%;
         }
     }
 

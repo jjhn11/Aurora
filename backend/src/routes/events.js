@@ -1,10 +1,15 @@
 import express from 'express';
 import { Op } from 'sequelize';
+import upload from '../middlewares/upload.js';
 import CalendarEvent from '../models/Events/CalendarEvents.js';
 import EventCategory from '../models/Events/EventCategories.js';
 import Event from '../models/Events/Events.js';
 
 const router = express.Router(); 
+
+const getUploadPath = () => {
+  return '/uploads/events/';
+};
 
 router.route('/')
 // GET: Obtener todos los eventos
@@ -82,23 +87,43 @@ router.route('/')
 // })
 
 //CREAR EVENTO
-.post(async (req, res) => {
+.post(upload.single('image'), async (req, res) => {
     try {
       const { 
         Title, 
         Id_category, 
         Event_date, 
         Is_coming, 
-        Description, 
-        Image_url 
+        Description 
       } = req.body;
 
-      // Validar campos obligatorios
+      console.log('Received event data:', req.body); // Debug log
+
+      // Validate required fields
       if (!Title || !Id_category || !Event_date) {
         return res.status(400).json({ 
           error: 'Campos obligatorios faltantes',
           details: 'Title, Id_category y Event_date son obligatorios',
-          parameters: req.body
+          received: {
+            Title,
+            Id_category,
+            Event_date
+          }
+        });
+      }
+
+      // Parse Is_coming to integer
+      const isComingValue = parseInt(Is_coming) || 0;
+
+      const Image_url = req.file ? 
+        (getUploadPath() + req.file?.filename).replaceAll("/app", "")
+        : null;
+
+      // Validate Is_coming requirements
+      if (isComingValue === 1 && !Description) {
+        return res.status(400).json({
+          error: 'Campos faltantes para evento próximo',
+          details: 'Description es obligatorio para eventos próximos'
         });
       }
 
@@ -117,24 +142,14 @@ router.route('/')
         });
       }
   
-      // Validar campos adicionales si Is_coming es true (1)
-      if (Is_coming === 1) {
-        if (!Description || !Image_url) {
-          return res.status(400).json({
-            error: 'Campos faltantes para evento próximo',
-            details: 'Description e Image_url son obligatorios para eventos próximos'
-          });
-        }
-      }
-  
       // Crear el evento
       const newEvent = await Event.create({
         Title,
         Id_category,
         Event_date,
-        Is_coming: Is_coming || 0,
-        Description: Is_coming === 1 ? Description : null,
-        Image_url: Is_coming === 1 ? Image_url : null,
+        Is_coming: isComingValue,
+        Description: isComingValue === 1 ? Description : null,
+        Image_url: isComingValue === 1 ? Image_url : null,
         Id_calendar: currentCalendar.Id_calendar
       });
 
@@ -151,7 +166,7 @@ router.route('/')
   });
   
   router.route('/:id')
-.put(async (req, res) => {
+.put(upload.single('image'), async (req, res) => {
     try {
         const { id } = req.params;
         const { 
@@ -159,9 +174,12 @@ router.route('/')
             Id_category, 
             Event_date, 
             Is_coming, 
-            Description, 
-            Image_url 
+            Description
         } = req.body;
+
+        const Image_url = req.file ? 
+            (getUploadPath() + req.file?.filename).replaceAll("/app", "")
+            : undefined; // Use undefined to not override existing image if no new one is uploaded
 
         // Verificar si el evento existe
         const event = await Event.findByPk(id);
