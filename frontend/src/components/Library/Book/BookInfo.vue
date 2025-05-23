@@ -48,7 +48,7 @@
                   <span class="author-name">{{ author }}</span>
                 </div>
               </div>
-              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/202705fb95d22fa47c46c81c45d26e26b1fa2ba4?placeholderIfAbsent=true&apiKey=e4bc752606e34419a710b790ae8468cc" class="rating-stars" alt="Rating" />
+              <div class="content-divider"></div>
               <h2 class="synopsis-heading">Sinopsis del libro</h2>
               <p class="synopsis-text">{{ synopsis }}</p>
             </div>
@@ -642,5 +642,19 @@ onMounted(() => {
   color: #666666;
   cursor: not-allowed;
   opacity: 0.7;
+}
+
+.content-divider {
+  width: 100%;
+  height: 2px;
+  background-color: rgba(0, 71, 255, 0.2);
+  margin: 25px 0px 0px 0px;
+  border-radius: 2px;
+}
+
+@media (max-width: 991px) {
+  .content-divider {
+    margin: 15px 0;
+  }
 }
   </style>
